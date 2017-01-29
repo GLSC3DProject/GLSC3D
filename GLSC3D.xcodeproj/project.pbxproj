@@ -6,8 +6,132 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3F9884D61E3E1BE80031E4BE /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884D51E3E1BE80031E4BE /* main.c */; };
+		3F98850E1E3E1E340031E4BE /* g_area.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E51E3E1E340031E4BE /* g_area.c */; };
+		3F98850F1E3E1E340031E4BE /* g_arrow.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E61E3E1E340031E4BE /* g_arrow.c */; };
+		3F9885101E3E1E340031E4BE /* g_bird_view_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */; };
+		3F9885111E3E1E340031E4BE /* g_box.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E81E3E1E340031E4BE /* g_box.c */; };
+		3F9885121E3E1E340031E4BE /* g_camera.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E91E3E1E340031E4BE /* g_camera.c */; };
+		3F9885131E3E1E340031E4BE /* g_capture.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EA1E3E1E340031E4BE /* g_capture.c */; };
+		3F9885141E3E1E340031E4BE /* g_circle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EB1E3E1E340031E4BE /* g_circle.c */; };
+		3F9885151E3E1E340031E4BE /* g_cls.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EC1E3E1E340031E4BE /* g_cls.c */; };
+		3F9885161E3E1E340031E4BE /* g_cone.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884ED1E3E1E340031E4BE /* g_cone.c */; };
+		3F9885171E3E1E340031E4BE /* g_contln_2D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EE1E3E1E340031E4BE /* g_contln_2D.c */; };
+		3F9885181E3E1E340031E4BE /* g_cylinder_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EF1E3E1E340031E4BE /* g_cylinder_3D.c */; };
+		3F9885191E3E1E340031E4BE /* g_data_plot.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F01E3E1E340031E4BE /* g_data_plot.c */; };
+		3F98851A1E3E1E340031E4BE /* g_direction_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F11E3E1E340031E4BE /* g_direction_private.c */; };
+		3F98851B1E3E1E340031E4BE /* g_ellipse_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F21E3E1E340031E4BE /* g_ellipse_3D.c */; };
+		3F98851C1E3E1E340031E4BE /* g_fan.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F31E3E1E340031E4BE /* g_fan.c */; };
+		3F98851D1E3E1E340031E4BE /* g_finish.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F41E3E1E340031E4BE /* g_finish.c */; };
+		3F98851F1E3E1E340031E4BE /* g_glwrapper_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F61E3E1E340031E4BE /* g_glwrapper_private.c */; };
+		3F9885201E3E1E340031E4BE /* g_init.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F71E3E1E340031E4BE /* g_init.c */; };
+		3F9885211E3E1E340031E4BE /* g_input.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F81E3E1E340031E4BE /* g_input.c */; };
+		3F9885221E3E1E340031E4BE /* g_isosurface.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F91E3E1E340031E4BE /* g_isosurface.c */; };
+		3F9885231E3E1E340031E4BE /* g_light.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FA1E3E1E340031E4BE /* g_light.c */; };
+		3F9885241E3E1E340031E4BE /* g_line.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FB1E3E1E340031E4BE /* g_line.c */; };
+		3F9885251E3E1E340031E4BE /* g_marker.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FC1E3E1E340031E4BE /* g_marker.c */; };
+		3F9885261E3E1E340031E4BE /* g_matrix_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FD1E3E1E340031E4BE /* g_matrix_private.c */; };
+		3F9885271E3E1E340031E4BE /* g_maxmin_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FE1E3E1E340031E4BE /* g_maxmin_private.c */; };
+		3F9885281E3E1E340031E4BE /* g_move.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FF1E3E1E340031E4BE /* g_move.c */; };
+		3F9885291E3E1E340031E4BE /* g_off_screen.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885001E3E1E340031E4BE /* g_off_screen.c */; };
+		3F98852A1E3E1E340031E4BE /* g_plot.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885011E3E1E340031E4BE /* g_plot.c */; };
+		3F98852B1E3E1E340031E4BE /* g_polygon_2D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885021E3E1E340031E4BE /* g_polygon_2D.c */; };
+		3F98852C1E3E1E340031E4BE /* g_polyline.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885031E3E1E340031E4BE /* g_polyline.c */; };
+		3F98852D1E3E1E340031E4BE /* g_prism_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885041E3E1E340031E4BE /* g_prism_3D.c */; };
+		3F98852E1E3E1E340031E4BE /* g_pyramid_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885051E3E1E340031E4BE /* g_pyramid_3D.c */; };
+		3F98852F1E3E1E340031E4BE /* g_rectangle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885061E3E1E340031E4BE /* g_rectangle.c */; };
+		3F9885301E3E1E340031E4BE /* g_scale.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885071E3E1E340031E4BE /* g_scale.c */; };
+		3F9885311E3E1E340031E4BE /* g_scr_color.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885081E3E1E340031E4BE /* g_scr_color.c */; };
+		3F9885321E3E1E340031E4BE /* g_sleep.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885091E3E1E340031E4BE /* g_sleep.c */; };
+		3F9885331E3E1E340031E4BE /* g_sphere_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */; };
+		3F9885361E3E1E340031E4BE /* g_triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850D1E3E1E340031E4BE /* g_triangle.c */; };
+		3F98853B1E3E1E7B0031E4BE /* glsc3d_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */; };
+		3F98853C1E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9885391E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h */; };
+		3F98853D1E3E1E7B0031E4BE /* glsc3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F98853A1E3E1E7B0031E4BE /* glsc3d.h */; };
+		3FBFFB301E3E23110074CD0A /* libpng16.16.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */; };
+		3FBFFB321E3E23460074CD0A /* libglut.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB311E3E23460074CD0A /* libglut.3.dylib */; };
+		3FBFFB331E3E23C30074CD0A /* g_text.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850B1E3E1E340031E4BE /* g_text.c */; };
+		3FBFFB371E3E2CB70074CD0A /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */; };
+		3FBFFB3A1E3E2F7E0074CD0A /* g_font_obj.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */; };
+		3FBFFB3B1E3E30250074CD0A /* g_triangle_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */; };
+		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3F9884DD1E3E1C900031E4BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F9884C01E3E1BCC0031E4BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F9884C71E3E1BCC0031E4BE;
+			remoteInfo = GLSC3D;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3F9884D11E3E1BE80031E4BE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGLSC3D.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F9884D31E3E1BE80031E4BE /* Marker */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Marker; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F9884D51E3E1BE80031E4BE /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		3F9884E51E3E1E340031E4BE /* g_area.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_area.c; path = Source/g_area.c; sourceTree = "<group>"; };
+		3F9884E61E3E1E340031E4BE /* g_arrow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_arrow.c; path = Source/g_arrow.c; sourceTree = "<group>"; };
+		3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_bird_view_3D.c; path = Source/g_bird_view_3D.c; sourceTree = "<group>"; };
+		3F9884E81E3E1E340031E4BE /* g_box.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_box.c; path = Source/g_box.c; sourceTree = "<group>"; };
+		3F9884E91E3E1E340031E4BE /* g_camera.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_camera.c; path = Source/g_camera.c; sourceTree = "<group>"; };
+		3F9884EA1E3E1E340031E4BE /* g_capture.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_capture.c; path = Source/g_capture.c; sourceTree = "<group>"; };
+		3F9884EB1E3E1E340031E4BE /* g_circle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_circle.c; path = Source/g_circle.c; sourceTree = "<group>"; };
+		3F9884EC1E3E1E340031E4BE /* g_cls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_cls.c; path = Source/g_cls.c; sourceTree = "<group>"; };
+		3F9884ED1E3E1E340031E4BE /* g_cone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_cone.c; path = Source/g_cone.c; sourceTree = "<group>"; };
+		3F9884EE1E3E1E340031E4BE /* g_contln_2D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_contln_2D.c; path = Source/g_contln_2D.c; sourceTree = "<group>"; };
+		3F9884EF1E3E1E340031E4BE /* g_cylinder_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_cylinder_3D.c; path = Source/g_cylinder_3D.c; sourceTree = "<group>"; };
+		3F9884F01E3E1E340031E4BE /* g_data_plot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_data_plot.c; path = Source/g_data_plot.c; sourceTree = "<group>"; };
+		3F9884F11E3E1E340031E4BE /* g_direction_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_direction_private.c; path = Source/g_direction_private.c; sourceTree = "<group>"; };
+		3F9884F21E3E1E340031E4BE /* g_ellipse_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_ellipse_3D.c; path = Source/g_ellipse_3D.c; sourceTree = "<group>"; };
+		3F9884F31E3E1E340031E4BE /* g_fan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_fan.c; path = Source/g_fan.c; sourceTree = "<group>"; };
+		3F9884F41E3E1E340031E4BE /* g_finish.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_finish.c; path = Source/g_finish.c; sourceTree = "<group>"; };
+		3F9884F51E3E1E340031E4BE /* g_font_obj_creater.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_font_obj_creater.c; path = Source/g_font_obj_creater.c; sourceTree = "<group>"; };
+		3F9884F61E3E1E340031E4BE /* g_glwrapper_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_glwrapper_private.c; path = Source/g_glwrapper_private.c; sourceTree = "<group>"; };
+		3F9884F71E3E1E340031E4BE /* g_init.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_init.c; path = Source/g_init.c; sourceTree = "<group>"; };
+		3F9884F81E3E1E340031E4BE /* g_input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_input.c; path = Source/g_input.c; sourceTree = "<group>"; };
+		3F9884F91E3E1E340031E4BE /* g_isosurface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_isosurface.c; path = Source/g_isosurface.c; sourceTree = "<group>"; };
+		3F9884FA1E3E1E340031E4BE /* g_light.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_light.c; path = Source/g_light.c; sourceTree = "<group>"; };
+		3F9884FB1E3E1E340031E4BE /* g_line.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_line.c; path = Source/g_line.c; sourceTree = "<group>"; };
+		3F9884FC1E3E1E340031E4BE /* g_marker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_marker.c; path = Source/g_marker.c; sourceTree = "<group>"; };
+		3F9884FD1E3E1E340031E4BE /* g_matrix_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_matrix_private.c; path = Source/g_matrix_private.c; sourceTree = "<group>"; };
+		3F9884FE1E3E1E340031E4BE /* g_maxmin_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_maxmin_private.c; path = Source/g_maxmin_private.c; sourceTree = "<group>"; };
+		3F9884FF1E3E1E340031E4BE /* g_move.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_move.c; path = Source/g_move.c; sourceTree = "<group>"; };
+		3F9885001E3E1E340031E4BE /* g_off_screen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_off_screen.c; path = Source/g_off_screen.c; sourceTree = "<group>"; };
+		3F9885011E3E1E340031E4BE /* g_plot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_plot.c; path = Source/g_plot.c; sourceTree = "<group>"; };
+		3F9885021E3E1E340031E4BE /* g_polygon_2D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_polygon_2D.c; path = Source/g_polygon_2D.c; sourceTree = "<group>"; };
+		3F9885031E3E1E340031E4BE /* g_polyline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_polyline.c; path = Source/g_polyline.c; sourceTree = "<group>"; };
+		3F9885041E3E1E340031E4BE /* g_prism_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_prism_3D.c; path = Source/g_prism_3D.c; sourceTree = "<group>"; };
+		3F9885051E3E1E340031E4BE /* g_pyramid_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_pyramid_3D.c; path = Source/g_pyramid_3D.c; sourceTree = "<group>"; };
+		3F9885061E3E1E340031E4BE /* g_rectangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_rectangle.c; path = Source/g_rectangle.c; sourceTree = "<group>"; };
+		3F9885071E3E1E340031E4BE /* g_scale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_scale.c; path = Source/g_scale.c; sourceTree = "<group>"; };
+		3F9885081E3E1E340031E4BE /* g_scr_color.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_scr_color.c; path = Source/g_scr_color.c; sourceTree = "<group>"; };
+		3F9885091E3E1E340031E4BE /* g_sleep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sleep.c; path = Source/g_sleep.c; sourceTree = "<group>"; };
+		3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sphere_3D.c; path = Source/g_sphere_3D.c; sourceTree = "<group>"; };
+		3F98850B1E3E1E340031E4BE /* g_text.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_text.c; path = Source/g_text.c; sourceTree = "<group>"; };
+		3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_triangle_buffer.c; path = Source/g_triangle_buffer.c; sourceTree = "<group>"; };
+		3F98850D1E3E1E340031E4BE /* g_triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_triangle.c; path = Source/g_triangle.c; sourceTree = "<group>"; };
+		3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d_private.h; path = Include/glsc3d_private.h; sourceTree = "<group>"; };
+		3F9885391E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLSC3D_VectorStruct_private.h; path = Include/GLSC3D_VectorStruct_private.h; sourceTree = "<group>"; };
+		3F98853A1E3E1E7B0031E4BE /* glsc3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d.h; path = Include/glsc3d.h; sourceTree = "<group>"; };
+		3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = ../../../opt/X11/lib/libpng16.16.dylib; sourceTree = "<group>"; };
+		3FBFFB311E3E23460074CD0A /* libglut.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglut.3.dylib; path = ../../../opt/X11/lib/libglut.3.dylib; sourceTree = "<group>"; };
+		3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../opt/X11/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
+		3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = g_font_obj.o; path = Object/g_font_obj.o; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -15,6 +139,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FBFFB3A1E3E2F7E0074CD0A /* g_font_obj.o in Frameworks */,
+				3FBFFB371E3E2CB70074CD0A /* libfreetype.6.dylib in Frameworks */,
+				3FBFFB321E3E23460074CD0A /* libglut.3.dylib in Frameworks */,
+				3FBFFB301E3E23110074CD0A /* libpng16.16.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F9884D01E3E1BE80031E4BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -24,7 +160,12 @@
 		3F9884BF1E3E1BCC0031E4BE = {
 			isa = PBXGroup;
 			children = (
+				3F9885371E3E1E6D0031E4BE /* Include */,
+				3F9884E41E3E1DFC0031E4BE /* Source */,
+				3FBFFB381E3E2F2B0074CD0A /* Object */,
+				3F9884D41E3E1BE80031E4BE /* Marker */,
 				3F9884C91E3E1BCC0031E4BE /* Products */,
+				3FBFFB2E1E3E23110074CD0A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -32,8 +173,93 @@
 			isa = PBXGroup;
 			children = (
 				3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */,
+				3F9884D31E3E1BE80031E4BE /* Marker */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3F9884D41E3E1BE80031E4BE /* Marker */ = {
+			isa = PBXGroup;
+			children = (
+				3F9884D51E3E1BE80031E4BE /* main.c */,
+			);
+			path = Marker;
+			sourceTree = "<group>";
+		};
+		3F9884E41E3E1DFC0031E4BE /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				3F9884E51E3E1E340031E4BE /* g_area.c */,
+				3F9884E61E3E1E340031E4BE /* g_arrow.c */,
+				3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */,
+				3F9884E81E3E1E340031E4BE /* g_box.c */,
+				3F9884E91E3E1E340031E4BE /* g_camera.c */,
+				3F9884EA1E3E1E340031E4BE /* g_capture.c */,
+				3F9884EB1E3E1E340031E4BE /* g_circle.c */,
+				3F9884EC1E3E1E340031E4BE /* g_cls.c */,
+				3F9884ED1E3E1E340031E4BE /* g_cone.c */,
+				3F9884EE1E3E1E340031E4BE /* g_contln_2D.c */,
+				3F9884EF1E3E1E340031E4BE /* g_cylinder_3D.c */,
+				3F9884F01E3E1E340031E4BE /* g_data_plot.c */,
+				3F9884F11E3E1E340031E4BE /* g_direction_private.c */,
+				3F9884F21E3E1E340031E4BE /* g_ellipse_3D.c */,
+				3F9884F31E3E1E340031E4BE /* g_fan.c */,
+				3F9884F41E3E1E340031E4BE /* g_finish.c */,
+				3F9884F51E3E1E340031E4BE /* g_font_obj_creater.c */,
+				3F9884F61E3E1E340031E4BE /* g_glwrapper_private.c */,
+				3F9884F71E3E1E340031E4BE /* g_init.c */,
+				3F9884F81E3E1E340031E4BE /* g_input.c */,
+				3F9884F91E3E1E340031E4BE /* g_isosurface.c */,
+				3F9884FA1E3E1E340031E4BE /* g_light.c */,
+				3F9884FB1E3E1E340031E4BE /* g_line.c */,
+				3F9884FC1E3E1E340031E4BE /* g_marker.c */,
+				3F9884FD1E3E1E340031E4BE /* g_matrix_private.c */,
+				3F9884FE1E3E1E340031E4BE /* g_maxmin_private.c */,
+				3F9884FF1E3E1E340031E4BE /* g_move.c */,
+				3F9885001E3E1E340031E4BE /* g_off_screen.c */,
+				3F9885011E3E1E340031E4BE /* g_plot.c */,
+				3F9885021E3E1E340031E4BE /* g_polygon_2D.c */,
+				3F9885031E3E1E340031E4BE /* g_polyline.c */,
+				3F9885041E3E1E340031E4BE /* g_prism_3D.c */,
+				3F9885051E3E1E340031E4BE /* g_pyramid_3D.c */,
+				3F9885061E3E1E340031E4BE /* g_rectangle.c */,
+				3F9885071E3E1E340031E4BE /* g_scale.c */,
+				3F9885081E3E1E340031E4BE /* g_scr_color.c */,
+				3F9885091E3E1E340031E4BE /* g_sleep.c */,
+				3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */,
+				3F98850B1E3E1E340031E4BE /* g_text.c */,
+				3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */,
+				3F98850D1E3E1E340031E4BE /* g_triangle.c */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		3F9885371E3E1E6D0031E4BE /* Include */ = {
+			isa = PBXGroup;
+			children = (
+				3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */,
+				3F9885391E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h */,
+				3F98853A1E3E1E7B0031E4BE /* glsc3d.h */,
+			);
+			name = Include;
+			sourceTree = "<group>";
+		};
+		3FBFFB2E1E3E23110074CD0A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */,
+				3FBFFB311E3E23460074CD0A /* libglut.3.dylib */,
+				3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3FBFFB381E3E2F2B0074CD0A /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */,
+			);
+			name = Object;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -43,6 +269,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F98853C1E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h in Headers */,
+				3F98853B1E3E1E7B0031E4BE /* glsc3d_private.h in Headers */,
+				3F98853D1E3E1E7B0031E4BE /* glsc3d.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +295,24 @@
 			productReference = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
+		3F9884D21E3E1BE80031E4BE /* Marker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F9884D71E3E1BE80031E4BE /* Build configuration list for PBXNativeTarget "Marker" */;
+			buildPhases = (
+				3F9884CF1E3E1BE80031E4BE /* Sources */,
+				3F9884D01E3E1BE80031E4BE /* Frameworks */,
+				3F9884D11E3E1BE80031E4BE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F9884DE1E3E1C900031E4BE /* PBXTargetDependency */,
+			);
+			name = Marker;
+			productName = Marker;
+			productReference = 3F9884D31E3E1BE80031E4BE /* Marker */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -76,6 +323,10 @@
 				ORGANIZATIONNAME = student;
 				TargetAttributes = {
 					3F9884C71E3E1BCC0031E4BE = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					3F9884D21E3E1BE80031E4BE = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 					};
@@ -94,6 +345,7 @@
 			projectRoot = "";
 			targets = (
 				3F9884C71E3E1BCC0031E4BE /* GLSC3D */,
+				3F9884D21E3E1BE80031E4BE /* Marker */,
 			);
 		};
 /* End PBXProject section */
@@ -103,10 +355,66 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F9885121E3E1E340031E4BE /* g_camera.c in Sources */,
+				3F9885221E3E1E340031E4BE /* g_isosurface.c in Sources */,
+				3F9885271E3E1E340031E4BE /* g_maxmin_private.c in Sources */,
+				3F9885261E3E1E340031E4BE /* g_matrix_private.c in Sources */,
+				3F98851A1E3E1E340031E4BE /* g_direction_private.c in Sources */,
+				3F9885101E3E1E340031E4BE /* g_bird_view_3D.c in Sources */,
+				3F9885231E3E1E340031E4BE /* g_light.c in Sources */,
+				3F9885201E3E1E340031E4BE /* g_init.c in Sources */,
+				3F9885311E3E1E340031E4BE /* g_scr_color.c in Sources */,
+				3F98852F1E3E1E340031E4BE /* g_rectangle.c in Sources */,
+				3F98852D1E3E1E340031E4BE /* g_prism_3D.c in Sources */,
+				3F98851C1E3E1E340031E4BE /* g_fan.c in Sources */,
+				3F9885181E3E1E340031E4BE /* g_cylinder_3D.c in Sources */,
+				3F98851F1E3E1E340031E4BE /* g_glwrapper_private.c in Sources */,
+				3F9885111E3E1E340031E4BE /* g_box.c in Sources */,
+				3F98852E1E3E1E340031E4BE /* g_pyramid_3D.c in Sources */,
+				3F9885141E3E1E340031E4BE /* g_circle.c in Sources */,
+				3F9885321E3E1E340031E4BE /* g_sleep.c in Sources */,
+				3F9885211E3E1E340031E4BE /* g_input.c in Sources */,
+				3F98852C1E3E1E340031E4BE /* g_polyline.c in Sources */,
+				3F9885131E3E1E340031E4BE /* g_capture.c in Sources */,
+				3F9885291E3E1E340031E4BE /* g_off_screen.c in Sources */,
+				3F9885361E3E1E340031E4BE /* g_triangle.c in Sources */,
+				3F9885171E3E1E340031E4BE /* g_contln_2D.c in Sources */,
+				3F9885251E3E1E340031E4BE /* g_marker.c in Sources */,
+				3F98850E1E3E1E340031E4BE /* g_area.c in Sources */,
+				3F9885151E3E1E340031E4BE /* g_cls.c in Sources */,
+				3F98850F1E3E1E340031E4BE /* g_arrow.c in Sources */,
+				3F98852B1E3E1E340031E4BE /* g_polygon_2D.c in Sources */,
+				3F98851D1E3E1E340031E4BE /* g_finish.c in Sources */,
+				3F9885301E3E1E340031E4BE /* g_scale.c in Sources */,
+				3F9885191E3E1E340031E4BE /* g_data_plot.c in Sources */,
+				3F98852A1E3E1E340031E4BE /* g_plot.c in Sources */,
+				3F98851B1E3E1E340031E4BE /* g_ellipse_3D.c in Sources */,
+				3F9885161E3E1E340031E4BE /* g_cone.c in Sources */,
+				3F9885281E3E1E340031E4BE /* g_move.c in Sources */,
+				3F9885331E3E1E340031E4BE /* g_sphere_3D.c in Sources */,
+				3F9885241E3E1E340031E4BE /* g_line.c in Sources */,
+				3FBFFB331E3E23C30074CD0A /* g_text.c in Sources */,
+				3FBFFB3B1E3E30250074CD0A /* g_triangle_buffer.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F9884CF1E3E1BE80031E4BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F9884D61E3E1BE80031E4BE /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3F9884DE1E3E1C900031E4BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F9884C71E3E1BCC0031E4BE /* GLSC3D */;
+			targetProxy = 3F9884DD1E3E1C900031E4BE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3F9884CA1E3E1BCC0031E4BE /* Debug */ = {
@@ -202,6 +510,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					/opt/X11/include,
+					/opt/X11/include/freetype2,
+				);
+				LIBRARY_SEARCH_PATHS = /opt/X11/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -212,6 +525,27 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					/opt/X11/include,
+					/opt/X11/include/freetype2,
+				);
+				LIBRARY_SEARCH_PATHS = /opt/X11/lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3F9884D81E3E1BE80031E4BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = /opt/X11/include;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3F9884D91E3E1BE80031E4BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = /opt/X11/include;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -235,6 +569,16 @@
 				3F9884CE1E3E1BCC0031E4BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F9884D71E3E1BE80031E4BE /* Build configuration list for PBXNativeTarget "Marker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F9884D81E3E1BE80031E4BE /* Debug */,
+				3F9884D91E3E1BE80031E4BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

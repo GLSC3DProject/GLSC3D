@@ -1,0 +1,201 @@
+#include "glsc3d_private.h"
+#include <stdarg.h>
+#include "g_font_obj.symb"
+#include <stdio.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+static FT_Library library;
+static FT_Face face = 0;
+
+struct
+{
+	double r,g,b,a;
+	const char *font_type;
+	unsigned int font_size;
+}           glsc3D_g_def_text[TotalDisplayNumber], current_font;
+
+const struct
+{
+	G_FONT_ID id;
+	const unsigned long long *memory;
+	const unsigned size;
+}glsc3D_g_embedded_text[] = {
+	{G_IPA_GOTHIC, g_font_ipag_data, g_font_ipag_size},
+	{G_IPA_GOTHIC_PROPORTIONAL, g_font_ipagp_data, g_font_ipagp_size},
+	{G_IPA_MINCHO, g_font_ipam_data, g_font_ipam_size},
+	{G_IPA_MINCHO_PROPORTIONAL, g_font_ipamp_data, g_font_ipamp_size}
+};
+
+void g_text_redering(char *pbuf)
+{
+	glPixelZoom(1, -1);
+	unsigned int prev = 0;
+	while(*pbuf){
+		unsigned index = FT_Get_Char_Index(face, *pbuf++);
+		if(!index)
+			continue;
+		if(FT_Load_Glyph(face, index, FT_LOAD_DEFAULT))
+			fprintf(stderr, "error occured while loading glyph.\n"), exit(1);
+		if(face->glyph->format != FT_GLYPH_FORMAT_BITMAP)
+			if(FT_Render_Glyph(face->glyph, FT_RENDER_MODE_MONO))
+				fprintf(stderr, "error occured while rendering bitmap.\n"), exit(1);
+		unsigned row = face->glyph->bitmap.rows;
+		unsigned pitch = face->glyph->bitmap.pitch;
+		unsigned char buf[row*pitch];
+		for(unsigned r = 0; r < row; ++r)
+			for(unsigned c = 0; c < pitch; ++c){
+				buf[(row - 1 - r)*pitch + c] = face->glyph->bitmap.buffer[r*pitch + c];
+			}
+		FT_Vector delta = {0, 0};
+		if(prev != 0){
+			FT_Get_Kerning(face, prev, index, FT_KERNING_DEFAULT, &delta);
+			delta.x >>= 6;
+		}
+
+		glBitmap(pitch*8, row, 
+				 -face->glyph->bitmap_left, 
+				 ((face->glyph->metrics.height - face->glyph->metrics.horiBearingY) >> 6), 
+				 (face->glyph->advance.x/64.) + delta.x,
+				 0,
+				 buf);
+		
+		prev = index;
+	}
+	glPixelZoom(1, 1);
+}
+
+void g_text_standard(double x,double y, const char *str, ...)
+{
+	glEnd();
+	glDisable(GL_LIGHTING);
+	glColor4d(current_text_color.r, current_text_color.g, current_text_color.b, current_text_color.a);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0, glsc3D_width, glsc3D_height, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glViewport(0, 0, glsc3D_width, glsc3D_height);
+
+	char buf[256], *pbuf = buf;
+	va_list ap;
+	va_start(ap, str);
+
+	vsnprintf(buf, 255, str, ap);
+
+	glRasterPos2d(x, y);
+
+	g_text_redering(pbuf);
+
+	if(g_scale_dim_flag == G_3D) g_sel_scale_3D(get_scale_id_number);
+	if(g_scale_dim_flag == G_2D) g_sel_scale_2D(get_scale_id_number);
+
+	va_end(ap);
+	glEnd();
+}
+void g_text_3D_virtual(double x,double y,double z, const char *str, ...)
+{
+	char buf[256], *pbuf = buf;
+	va_list ap;
+	va_start(ap, str);
+
+	vsnprintf(buf, 255, str, ap);
+
+	glEnd();
+	glDisable(GL_LIGHTING);
+	glColor4d(current_text_color.r, current_text_color.g, current_text_color.b, current_text_color.a);
+	glRasterPos3d(x,y,z);
+	g_text_redering(pbuf);
+
+	va_end(ap);
+	glEnd();
+}
+void g_text_2D_virtual(double x,double y, const char *str, ...)
+{
+	char buf[256], *pbuf = buf;
+	va_list ap;
+	va_start(ap, str);
+
+	vsnprintf(buf, 255, str, ap);
+
+	glEnd();
+	glDisable(GL_LIGHTING);
+	glColor4d(current_text_color.r, current_text_color.g, current_text_color.b, current_text_color.a);
+	glRasterPos2d(x, y);
+	g_text_redering(pbuf);
+
+	va_end(ap);
+	glEnd();
+}
+
+void g_text_font(G_FONT_ID id, unsigned int font_size)
+{
+	g_text_font_core((const char *)id, font_size);
+}
+
+void g_text_font_core(const char *font_type, unsigned int font_size)
+{
+	current_font.r = current_text_color.r;
+	current_font.g = current_text_color.g;
+	current_font.b = current_text_color.b;
+	current_font.a = current_text_color.a;
+
+	current_font.font_type = font_type;
+	current_font.font_size = font_size;
+	
+	if(face && FT_Done_Face(face)){
+		fprintf(stderr, "error occurring while destroying face object.\n");
+		exit(1);
+	}
+	if((unsigned int)font_type < 4){
+		if(FT_New_Memory_Face(library, (const FT_Byte *)glsc3D_g_embedded_text[(int)font_type].memory, glsc3D_g_embedded_text[(int)font_type].size, 0, &face)){
+			fprintf(stderr, "error occurring while reading font from memory.\n");
+			exit(1);
+		}
+	}else{
+		if(FT_New_Face(library, font_type, 0, &face)){
+			fprintf(stderr, "error occurring while reading font file.\n");
+			exit(1);
+		}
+	}
+	if(FT_Set_Pixel_Sizes(face, 0, font_size)){
+		fprintf(stderr, "error occurring while setting font size.\n");
+		exit(1);
+	}
+}
+
+void g_text_color(double r,double g,double b,double a)
+{
+	current_text_color = g_color_core(r,g,b,a);
+}
+
+void g_def_text_core(int id, double r, double g, double b, double a, char * font_type, unsigned font_size)
+{
+	glsc3D_g_def_text[id].r = r;
+	glsc3D_g_def_text[id].g = g;
+	glsc3D_g_def_text[id].b = b;
+	glsc3D_g_def_text[id].a = a;
+	glsc3D_g_def_text[id].font_type = font_type;
+	glsc3D_g_def_text[id].font_size = font_size;
+}
+
+void g_def_text(int id, double r, double g, double b, double a, int font, unsigned int font_size)
+{
+	g_def_text_core(id, r, g, b, a, (char*)(long long)font, font_size);
+}
+
+void g_sel_text(int id)
+{
+	g_text_color(glsc3D_g_def_text[id].r, glsc3D_g_def_text[id].g,glsc3D_g_def_text[id].b, glsc3D_g_def_text[id].a);
+	g_text_font_core(glsc3D_g_def_text[id].font_type, glsc3D_g_def_text[id].font_size);
+}
+
+void g_text_init()
+{
+	if(FT_Init_FreeType(&library)){
+		fprintf(stderr, "error occured while initializing freetype2.\n");
+		exit(1);
+	}
+	g_text_color(0, 0, 0, 1);
+	g_text_font(G_IPA_GOTHIC, 12);
+}
