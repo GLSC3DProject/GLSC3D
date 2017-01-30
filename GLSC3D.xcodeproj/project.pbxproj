@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F9884D61E3E1BE80031E4BE /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884D51E3E1BE80031E4BE /* main.c */; };
+		3F198F641E3F332A0062613D /* Marker.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F631E3F332A0062613D /* Marker.c */; };
+		3F198F7C1E3F377C0062613D /* Box.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F7B1E3F377C0062613D /* Box.c */; };
+		3F198F801E3F37E10062613D /* g_box_vert.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F7F1E3F37E10062613D /* g_box_vert.c */; };
+		3F198F831E3F3BBC0062613D /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
+		3F198F901E3F4C180062613D /* Cone.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F8F1E3F4C180062613D /* Cone.c */; };
+		3F198F911E3F4C530062613D /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
+		3F198FA01E3F4EC50062613D /* 3DFigures.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F9F1E3F4EC50062613D /* 3DFigures.c */; };
+		3F198FA11E3F4EFA0062613D /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3F98850E1E3E1E340031E4BE /* g_area.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E51E3E1E340031E4BE /* g_area.c */; };
 		3F98850F1E3E1E340031E4BE /* g_arrow.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E61E3E1E340031E4BE /* g_arrow.c */; };
 		3F9885101E3E1E340031E4BE /* g_bird_view_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */; };
@@ -59,6 +66,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3F198F811E3F3BB80062613D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F9884C01E3E1BCC0031E4BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F9884C71E3E1BCC0031E4BE;
+			remoteInfo = GLSC3D;
+		};
+		3F198F921E3F4C790062613D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F9884C01E3E1BCC0031E4BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F9884C71E3E1BCC0031E4BE;
+			remoteInfo = GLSC3D;
+		};
+		3F198FA21E3F4EFF0062613D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F9884C01E3E1BCC0031E4BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F9884C71E3E1BCC0031E4BE;
+			remoteInfo = GLSC3D;
+		};
 		3F9884DD1E3E1C900031E4BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3F9884C01E3E1BCC0031E4BE /* Project object */;
@@ -69,6 +97,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3F198F721E3F375C0062613D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		3F198F861E3F4BC10062613D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		3F198F961E3F4D210062613D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		3F9884D11E3E1BE80031E4BE /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -81,9 +136,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F198F631E3F332A0062613D /* Marker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Marker.c; path = Test/Marker.c; sourceTree = SOURCE_ROOT; };
+		3F198F741E3F375C0062613D /* Box */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Box; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F198F7B1E3F377C0062613D /* Box.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Box.c; path = Test/Box.c; sourceTree = SOURCE_ROOT; };
+		3F198F7F1E3F37E10062613D /* g_box_vert.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_box_vert.c; path = Source/g_box_vert.c; sourceTree = "<group>"; };
+		3F198F881E3F4BC10062613D /* Cone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Cone; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F198F8F1E3F4C180062613D /* Cone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Cone.c; path = Test/Cone.c; sourceTree = SOURCE_ROOT; };
+		3F198F981E3F4D210062613D /* 3DFigures */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 3DFigures; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F198F9F1E3F4EC50062613D /* 3DFigures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = 3DFigures.c; path = Test/3DFigures.c; sourceTree = SOURCE_ROOT; };
 		3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGLSC3D.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F9884D31E3E1BE80031E4BE /* Marker */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Marker; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F9884D51E3E1BE80031E4BE /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		3F9884E51E3E1E340031E4BE /* g_area.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_area.c; path = Source/g_area.c; sourceTree = "<group>"; };
 		3F9884E61E3E1E340031E4BE /* g_arrow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_arrow.c; path = Source/g_arrow.c; sourceTree = "<group>"; };
 		3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_bird_view_3D.c; path = Source/g_bird_view_3D.c; sourceTree = "<group>"; };
@@ -134,6 +196,30 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3F198F711E3F375C0062613D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F198F831E3F3BBC0062613D /* libGLSC3D.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F198F851E3F4BC10062613D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F198F911E3F4C530062613D /* libGLSC3D.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F198F951E3F4D210062613D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F198FA11E3F4EFA0062613D /* libGLSC3D.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F9884C51E3E1BCC0031E4BE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -162,7 +248,7 @@
 				3F9885371E3E1E6D0031E4BE /* Include */,
 				3F9884E41E3E1DFC0031E4BE /* Source */,
 				3FBFFB381E3E2F2B0074CD0A /* Object */,
-				3F9884D41E3E1BE80031E4BE /* Marker */,
+				3F9884D41E3E1BE80031E4BE /* Test */,
 				3F9884C91E3E1BCC0031E4BE /* Products */,
 				3FBFFB2E1E3E23110074CD0A /* Frameworks */,
 			);
@@ -173,15 +259,22 @@
 			children = (
 				3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */,
 				3F9884D31E3E1BE80031E4BE /* Marker */,
+				3F198F741E3F375C0062613D /* Box */,
+				3F198F881E3F4BC10062613D /* Cone */,
+				3F198F981E3F4D210062613D /* 3DFigures */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3F9884D41E3E1BE80031E4BE /* Marker */ = {
+		3F9884D41E3E1BE80031E4BE /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				3F9884D51E3E1BE80031E4BE /* main.c */,
+				3F198F9F1E3F4EC50062613D /* 3DFigures.c */,
+				3F198F7B1E3F377C0062613D /* Box.c */,
+				3F198F8F1E3F4C180062613D /* Cone.c */,
+				3F198F631E3F332A0062613D /* Marker.c */,
 			);
+			name = Test;
 			path = Marker;
 			sourceTree = "<group>";
 		};
@@ -191,6 +284,7 @@
 				3F9884E51E3E1E340031E4BE /* g_area.c */,
 				3F9884E61E3E1E340031E4BE /* g_arrow.c */,
 				3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */,
+				3F198F7F1E3F37E10062613D /* g_box_vert.c */,
 				3F9884E81E3E1E340031E4BE /* g_box.c */,
 				3F9884E91E3E1E340031E4BE /* g_camera.c */,
 				3F9884EA1E3E1E340031E4BE /* g_capture.c */,
@@ -276,6 +370,60 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		3F198F731E3F375C0062613D /* Box */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F198F781E3F375C0062613D /* Build configuration list for PBXNativeTarget "Box" */;
+			buildPhases = (
+				3F198F701E3F375C0062613D /* Sources */,
+				3F198F711E3F375C0062613D /* Frameworks */,
+				3F198F721E3F375C0062613D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F198F821E3F3BB80062613D /* PBXTargetDependency */,
+			);
+			name = Box;
+			productName = box_legacy;
+			productReference = 3F198F741E3F375C0062613D /* Box */;
+			productType = "com.apple.product-type.tool";
+		};
+		3F198F871E3F4BC10062613D /* Cone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F198F8C1E3F4BC10062613D /* Build configuration list for PBXNativeTarget "Cone" */;
+			buildPhases = (
+				3F198F841E3F4BC10062613D /* Sources */,
+				3F198F851E3F4BC10062613D /* Frameworks */,
+				3F198F861E3F4BC10062613D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F198F931E3F4C790062613D /* PBXTargetDependency */,
+			);
+			name = Cone;
+			productName = cone;
+			productReference = 3F198F881E3F4BC10062613D /* Cone */;
+			productType = "com.apple.product-type.tool";
+		};
+		3F198F971E3F4D210062613D /* 3DFigures */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F198F9C1E3F4D210062613D /* Build configuration list for PBXNativeTarget "3DFigures" */;
+			buildPhases = (
+				3F198F941E3F4D210062613D /* Sources */,
+				3F198F951E3F4D210062613D /* Frameworks */,
+				3F198F961E3F4D210062613D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F198FA31E3F4EFF0062613D /* PBXTargetDependency */,
+			);
+			name = 3DFigures;
+			productName = 3DFigures;
+			productReference = 3F198F981E3F4D210062613D /* 3DFigures */;
+			productType = "com.apple.product-type.tool";
+		};
 		3F9884C71E3E1BCC0031E4BE /* GLSC3D */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F9884CC1E3E1BCC0031E4BE /* Build configuration list for PBXNativeTarget "GLSC3D" */;
@@ -320,6 +468,18 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = student;
 				TargetAttributes = {
+					3F198F731E3F375C0062613D = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					3F198F871E3F4BC10062613D = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					3F198F971E3F4D210062613D = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					3F9884C71E3E1BCC0031E4BE = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -343,12 +503,39 @@
 			projectRoot = "";
 			targets = (
 				3F9884C71E3E1BCC0031E4BE /* GLSC3D */,
+				3F198F971E3F4D210062613D /* 3DFigures */,
+				3F198F731E3F375C0062613D /* Box */,
+				3F198F871E3F4BC10062613D /* Cone */,
 				3F9884D21E3E1BE80031E4BE /* Marker */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3F198F701E3F375C0062613D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F198F7C1E3F377C0062613D /* Box.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F198F841E3F4BC10062613D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F198F901E3F4C180062613D /* Cone.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F198F941E3F4D210062613D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F198FA01E3F4EC50062613D /* 3DFigures.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F9884C41E3E1BCC0031E4BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -379,6 +566,7 @@
 				3F9885171E3E1E340031E4BE /* g_contln_2D.c in Sources */,
 				3F9885251E3E1E340031E4BE /* g_marker.c in Sources */,
 				3F98850E1E3E1E340031E4BE /* g_area.c in Sources */,
+				3F198F801E3F37E10062613D /* g_box_vert.c in Sources */,
 				3F9885151E3E1E340031E4BE /* g_cls.c in Sources */,
 				3F98850F1E3E1E340031E4BE /* g_arrow.c in Sources */,
 				3F98852B1E3E1E340031E4BE /* g_polygon_2D.c in Sources */,
@@ -400,13 +588,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F9884D61E3E1BE80031E4BE /* main.c in Sources */,
+				3F198F641E3F332A0062613D /* Marker.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3F198F821E3F3BB80062613D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F9884C71E3E1BCC0031E4BE /* GLSC3D */;
+			targetProxy = 3F198F811E3F3BB80062613D /* PBXContainerItemProxy */;
+		};
+		3F198F931E3F4C790062613D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F9884C71E3E1BCC0031E4BE /* GLSC3D */;
+			targetProxy = 3F198F921E3F4C790062613D /* PBXContainerItemProxy */;
+		};
+		3F198FA31E3F4EFF0062613D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F9884C71E3E1BCC0031E4BE /* GLSC3D */;
+			targetProxy = 3F198FA21E3F4EFF0062613D /* PBXContainerItemProxy */;
+		};
 		3F9884DE1E3E1C900031E4BE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3F9884C71E3E1BCC0031E4BE /* GLSC3D */;
@@ -415,6 +618,48 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		3F198F791E3F375C0062613D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3F198F7A1E3F375C0062613D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3F198F8D1E3F4BC10062613D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3F198F8E1E3F4BC10062613D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3F198F9D1E3F4D210062613D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3F198F9E1E3F4D210062613D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		3F9884CA1E3E1BCC0031E4BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -535,7 +780,6 @@
 		3F9884D81E3E1BE80031E4BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = /opt/X11/include;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -543,7 +787,6 @@
 		3F9884D91E3E1BE80031E4BE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = /opt/X11/include;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -551,6 +794,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3F198F781E3F375C0062613D /* Build configuration list for PBXNativeTarget "Box" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F198F791E3F375C0062613D /* Debug */,
+				3F198F7A1E3F375C0062613D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F198F8C1E3F4BC10062613D /* Build configuration list for PBXNativeTarget "Cone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F198F8D1E3F4BC10062613D /* Debug */,
+				3F198F8E1E3F4BC10062613D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F198F9C1E3F4D210062613D /* Build configuration list for PBXNativeTarget "3DFigures" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F198F9D1E3F4D210062613D /* Debug */,
+				3F198F9E1E3F4D210062613D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3F9884C31E3E1BCC0031E4BE /* Build configuration list for PBXProject "GLSC3D" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

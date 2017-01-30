@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3F9884D21E3E1BE80031E4BE"
-               BuildableName = "Marker"
-               BlueprintName = "Marker"
+               BlueprintIdentifier = "3F198F971E3F4D210062613D"
+               BuildableName = "3DFigures"
+               BlueprintName = "3DFigures"
                ReferencedContainer = "container:GLSC3D.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3F9884D21E3E1BE80031E4BE"
-            BuildableName = "Marker"
-            BlueprintName = "Marker"
+            BlueprintIdentifier = "3F198F971E3F4D210062613D"
+            BuildableName = "3DFigures"
+            BlueprintName = "3DFigures"
             ReferencedContainer = "container:GLSC3D.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3F9884D21E3E1BE80031E4BE"
-            BuildableName = "Marker"
-            BlueprintName = "Marker"
+            BlueprintIdentifier = "3F198F971E3F4D210062613D"
+            BuildableName = "3DFigures"
+            BlueprintName = "3DFigures"
             ReferencedContainer = "container:GLSC3D.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3F9884D21E3E1BE80031E4BE"
-            BuildableName = "Marker"
-            BlueprintName = "Marker"
+            BlueprintIdentifier = "3F198F971E3F4D210062613D"
+            BuildableName = "3DFigures"
+            BlueprintName = "3DFigures"
             ReferencedContainer = "container:GLSC3D.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

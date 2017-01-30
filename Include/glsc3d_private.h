@@ -2,6 +2,7 @@
 #define GLSC3D_STRUCT_H
 
 #include "glsc3d.h"
+#include <GL/freeglut.h>
 
 #include <math.h>
 #include <float.h>
@@ -31,7 +32,7 @@ extern "C"
 
 	typedef struct
 	{
-		G_REAL r, g, b, a;
+		float r, g, b, a;
 	} G_COLOR;
 
 	typedef struct

@@ -12,7 +12,7 @@ void g_box_2D(double x, double y,
 	r[3] = g_vector2(-width/2, height/2);
 	if(WireFill == 1)
 	{
-				glEnd();
+		glEnd();
 		glDisable(GL_LIGHTING);
 		g_polygon();
 		for(i=0;i<4;i++)
@@ -24,7 +24,7 @@ void g_box_2D(double x, double y,
 	}
 	if(WireFill == 0)
 	{
-				glEnd();
+		glEnd();
 		glDisable(GL_LIGHTING);
 		g_line_loop();
 		for(i=0;i<4;i++)

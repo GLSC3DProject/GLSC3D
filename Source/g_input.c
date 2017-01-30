@@ -1,4 +1,4 @@
-#include "glsc3d.h"
+#include "glsc3d_private.h"
 #include <stdio.h>
 
 #define INPUT_KEY_MAX (128) // This is enough size to store ASCII character.

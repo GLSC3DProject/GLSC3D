@@ -1,21 +1,24 @@
 #ifndef GLSC3D_H
 #define GLSC3D_H
-/* Mac OS X */
+
+/*
+// Mac OS X
 #ifdef __APPLE__
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 #endif
 
-/* Linux */
+// Linux 
 #ifdef __linux
 #include <GL/freeglut.h>
 #endif
 
-/* Windows */
+// Windows 
 #ifdef WIN32
 #include <windows.h>
 #include <GL/glut.h>
 #endif
+*/
 
 #include <math.h>
 #ifndef M_PI
@@ -34,11 +37,11 @@ extern "C"
 {
 #endif
     
-/*    typedef enum
-    {
-        G_TRUE  = 1,
-        G_FALSE = 0
-    }G_BOOL;
+/*typedef enum
+{
+	G_TRUE  = 1,
+	G_FALSE = 0
+} G_BOOL;
 */
 typedef int G_BOOL;
 #define G_TRUE  1
@@ -153,53 +156,40 @@ void g_def_scale_3D(int id,
 void g_sel_scale_3D(int id);
 
 void g_move_3D(double x,double y,double z);
-
 void g_move_2D(double x,double y);
 
 void g_plot_3D(double x,double y,double z);
-
 void g_plot_2D(double x,double y);
 
 void g_marker_color(double r,double g,double b,double a);
-
 void g_marker_type(int type);
-
 void g_marker_size(double size);
 
 void g_marker_3D(double x,double y,double z);
-
 void g_marker_2D(double x,double y);
 
 void g_def_marker(int id, double r, double g, double b, double a, int type, double size);
-
 void g_sel_marker(int id);
 
 void g_line_color(double r,double g,double b,double a);
-
 void g_line_width(double size);
-
 void g_line_type(int type);
 
 void g_def_line(int id, double r, double g, double b, double a, double width, int type);
-
 void g_sel_line(int id);
 
 void g_area_color_3D(double r, double g, double b, double a);
-    
 void g_area_color_2D(double r, double g, double b, double a);
     
 void g_def_area_3D(int id, double r, double g, double b, double a);
-
 void g_def_area_2D(int id, double r, double g, double b, double a);
 
 void g_sel_area_3D(int id);
-    
 void g_sel_area_2D(int id);
     
 void g_text_standard(double x,double y, const char *str, ...);
 
 void g_text_3D_virtual(double x, double y, double z, const char *str, ...);
-
 void g_text_2D_virtual(double x, double y, const char *str, ...);
 
 void g_text_font(G_FONT_ID id, unsigned int font_size);
@@ -208,7 +198,6 @@ void g_text_font_core(const char *font_type, unsigned int font_size);
 void g_text_color(double r,double g,double b,double a);
 
 void g_def_text(int id, double r, double g, double b, double a, int font, unsigned int font_size);
-
 void g_sel_text(int id);
 
 DELETE_ON_CXX(void g_bird_view_3D(double x0, double x1,
@@ -261,6 +250,21 @@ void g_data_plot_f_3D(double x0, double x1,
 
 void g_data_plot_2D(double x_left, double x_right,
                     double *yy, int n);
+
+// ------ g_box_vert.c ------
+
+void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREFILL WireFill);
+
+void g_box_3D_vert_core(double x_min, double x_max,
+						double y_min, double y_max,
+						double z_min, double z_max,
+						int DivideLevel, G_WIREFILL WireFill);
+
+void g_box_3D_vert(double x_min, double x_max,
+				   double y_min, double y_max,
+				   double z_min, double z_max);
+
+// ------ g_box.c -----
 
 void g_box_2D(double x, double y,
               double width, double height,
