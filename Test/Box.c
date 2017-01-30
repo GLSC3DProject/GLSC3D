@@ -17,8 +17,6 @@ int main()
 	g_def_scale_3D(3, -1, 1, -1, 1, -1, 1, s, s, s, s, 0, 1, 2, 8);
 
 	for (double t = 0;; t += 1./128) {
-//		double x = cos(t), y = sin(t);
-		
 		g_cls();
 		
 		g_sel_scale_2D(0);
