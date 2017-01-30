@@ -11,7 +11,7 @@ static const double h = -0.5;
 
 int main()
 {
-	g_init("Cone", WIDTH, HEIGHT*2);
+	g_init("GLSC3D", WIDTH, HEIGHT*2);
 	
 	g_init_light(0, 1, 0, 1);
 	g_init_light(1,-1, 0, 1);

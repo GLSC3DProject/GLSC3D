@@ -7,7 +7,7 @@ int main()
 	const int Size = 320;
 	const int CountX = 4, CountY = 2;
 
-	g_init("Grid", Size * CountX, Size * CountY);
+	g_init("GLSC3D", Size * CountX, Size * CountY);
 
 	g_init_light(0, 0, 0, 1);
 

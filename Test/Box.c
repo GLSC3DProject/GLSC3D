@@ -6,7 +6,7 @@ int main()
 {
 	const int s = 320;
 	
-	g_init("Marker", s*2, s*2);
+	g_init("GLSC3D", s*2, s*2);
 	
 	g_area_color_3D(0.5, 0.75, 0.5, 1);
 	

@@ -6,7 +6,7 @@ int main()
 {
 	const int Size = 320;
 
-	g_init("Marker", Size, Size);
+	g_init("GLSC3D", Size, Size);
 
 	g_init_light(0, 0, 0, -1);
 
