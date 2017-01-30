@@ -82,7 +82,6 @@ void g_set_camera(G_CAMERA c, G_SCREEN s)
 	glLoadIdentity();
 	gluLookAt(c.eyeX, c.eyeY, c.eyeZ, c.centerX, c.centerY, c.centerZ, c.upX, c.upY, c.upZ);
 	glViewport(s.x, glsc3D_height - s.height - s.y, s.width, s.height);
-	glEnable(GL_DEPTH_TEST);
 }
 
 void g_camera_rotate(G_CAMERA *cam, G_ROTATE_DIRECTION dire, G_ROTATE_ANCHOR anc, double theta)

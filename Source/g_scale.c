@@ -29,6 +29,7 @@ void g_def_scale_2D(int id,                                                     
 
 void g_sel_scale_2D(int id)
 {
+	glDisable(GL_DEPTH_TEST);
 	g_scale_dim_flag = 0;
 	get_scale_id_number = id;
 
