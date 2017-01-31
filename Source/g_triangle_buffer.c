@@ -234,8 +234,8 @@ void g_triangle_buffer_draw()
 {
     if(g_enable_transparent)
     {
-	glEnd();
-	glEnable(GL_LIGHTING);
+        glEnd();
+        glEnable(GL_LIGHTING);
         g_triangle_buffer_flush();
         g_triangle_buffer_merge();
 
@@ -333,9 +333,4 @@ void g_triangle_buffer_merge()
     }
     final_index_index = i_length;
     DBG_WRITE("final_index length : %d", final_index_index);
-}
-
-unsigned int g_get_current_tr_index()
-{
-    return 0;//triangle_index;
 }
