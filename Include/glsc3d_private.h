@@ -30,15 +30,11 @@ extern "C"
 	//#define G_REAL float
 	//#endif
 
-	typedef struct
-	{
-		float r, g, b, a;
-	} G_COLOR;
+	typedef struct { float r, g, b, a; } G_COLOR;
 
-	typedef struct
-	{
-		G_REAL x, y, z, w;
-	}G_VECTOR;//3D homogeneous coordinate
+	//3D homogeneous coordinate
+	typedef struct { float x, y, z, w; } G_VECTOR_F;
+	typedef struct { G_REAL x, y, z, w; } G_VECTOR;
 
 	typedef G_VECTOR G_POSITION;
 	typedef G_VECTOR G_DIRECTION;
@@ -274,35 +270,22 @@ extern "C"
 	extern G_DIMENSION     g_scale_dim_flag;
 
 	void g_triangle_buffer_init();
-
 	void g_set_triangle(G_TRIANGLE t);
-
 	void g_triangle_buffer_draw();
-
 	void g_triangle_buffer_flush();
 
 	void g_line_loop(void);
-
 	void g_line_strip(void);
-
 	void g_lines(void);
-
 	void g_polygon(void);
-
 	void g_triangles(void);
-
 	void g_triangle_strip(void);
-
 	void g_triangle_fan(void);
-
 	void g_quads(void);
-
 	void g_quad_strip(void);
-
 	void g_points(void);
 
 	void glNormals(G_VECTOR u);
-
 	void glVertexs(G_VECTOR u);
 
 

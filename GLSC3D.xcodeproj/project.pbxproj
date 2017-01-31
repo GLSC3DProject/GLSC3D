@@ -63,6 +63,7 @@
 		3FBFFB3A1E3E2F7E0074CD0A /* g_font_obj.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */; };
 		3FBFFB3B1E3E30250074CD0A /* g_triangle_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */; };
 		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
+		3FFE934B1E40C28B00BB053B /* g_vertex_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FFE934A1E40C28B00BB053B /* g_vertex_buffer.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +195,7 @@
 		3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../opt/X11/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
 		3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = g_font_obj.o; path = Object/g_font_obj.o; sourceTree = "<group>"; };
 		3FD5C5C31E4021B000A029B7 /* Mission.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mission.txt; sourceTree = "<group>"; };
+		3FFE934A1E40C28B00BB053B /* g_vertex_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_vertex_buffer.c; path = Source/g_vertex_buffer.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +326,7 @@
 				3F98850B1E3E1E340031E4BE /* g_text.c */,
 				3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */,
 				3F98850D1E3E1E340031E4BE /* g_triangle.c */,
+				3FFE934A1E40C28B00BB053B /* g_vertex_buffer.c */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				3F98851D1E3E1E340031E4BE /* g_finish.c in Sources */,
 				3F9885301E3E1E340031E4BE /* g_scale.c in Sources */,
 				3F9885191E3E1E340031E4BE /* g_data_plot.c in Sources */,
+				3FFE934B1E40C28B00BB053B /* g_vertex_buffer.c in Sources */,
 				3F98852A1E3E1E340031E4BE /* g_plot.c in Sources */,
 				3F98851B1E3E1E340031E4BE /* g_ellipse_3D.c in Sources */,
 				3F9885161E3E1E340031E4BE /* g_cone.c in Sources */,

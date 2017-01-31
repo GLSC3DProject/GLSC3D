@@ -457,8 +457,7 @@ G_INPUT_STATE g_input_state(G_KEY_CODE key, int *x, int *y);
 
 typedef struct
 {
-	int x, y;
-	size_t width, height;
+	int x, y, width, height;
 }G_SCREEN;
 
 typedef struct
