@@ -193,6 +193,7 @@
 		3FBFFB311E3E23460074CD0A /* libglut.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglut.3.dylib; path = ../../../opt/X11/lib/libglut.3.dylib; sourceTree = "<group>"; };
 		3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../opt/X11/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
 		3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = g_font_obj.o; path = Object/g_font_obj.o; sourceTree = "<group>"; };
+		3FD5C5C31E4021B000A029B7 /* Mission.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mission.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +246,7 @@
 		3F9884BF1E3E1BCC0031E4BE = {
 			isa = PBXGroup;
 			children = (
+				3FD5C5C31E4021B000A029B7 /* Mission.txt */,
 				3F9885371E3E1E6D0031E4BE /* Include */,
 				3F9884E41E3E1DFC0031E4BE /* Source */,
 				3FBFFB381E3E2F2B0074CD0A /* Object */,

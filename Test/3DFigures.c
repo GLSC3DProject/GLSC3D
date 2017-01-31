@@ -9,9 +9,9 @@ int main()
 
 	g_init("GLSC3D", Size * CountX, Size * CountY);
 
-	g_init_light(0, 0, 0, 1);
+//	g_init_light(0, 0, 0, 1);
 
-	// g_scr_color(1, 1, 1);
+	 g_scr_color(1, 1, 1);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	g_area_color_3D(0.5, 0.75, 0.5, 1);
