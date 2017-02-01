@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-G_SCREEN g_make_screen(int x, int y, size_t width, size_t height)
+G_SCREEN g_make_screen(int x, int y, int width, int height)
 {
 	G_SCREEN screen = {x, y, width, height};
 	return screen;

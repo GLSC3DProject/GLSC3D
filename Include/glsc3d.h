@@ -480,7 +480,7 @@ typedef enum
 	G_YAW,
 }G_ROTATE_DIRECTION;
 
-G_SCREEN g_make_screen(int x, int y, size_t width, size_t height);
+G_SCREEN g_make_screen(int x, int y, int width, int height);
 G_CAMERA g_make_camera_core(double fovy, double near, double far, double eyeX, double  eyeY, double  eyeZ, double  centerX, double  centerY, double  centerZ, double  upX, double  upY, double  upZ);
 G_CAMERA g_make_camera(double eyeX, double  eyeY, double  eyeZ, double  centerX, double  centerY, double  centerZ);
 G_CAMERA g_make_camera_2D(double X, double  Y);

@@ -1,35 +1,38 @@
 #include "glsc3d_private.h"
-void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREFILL WireFill)
+void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREFILL Fill)
 {
-	int i;
-	G_VECTOR vertices[4];
-	vertices[0] = g_vector2(left, bottom);
-	vertices[1] = g_vector2(right, bottom);
-	vertices[2] = g_vector2(right, top);
-	vertices[3] = g_vector2(left, top);
-	if(WireFill == 1)
+	G_VECTOR_F r0 = {left, bottom, 0, 1};
+	G_VECTOR_F r1 = {right, bottom, 0, 1};
+	G_VECTOR_F r2 = {right, top, 0, 1};
+	G_VECTOR_F r3 = {left, top, 0, 1};
+	
+	if (Fill)
 	{
-		glEnd();
-		glDisable(GL_LIGHTING);
-		g_polygon();
-		for(i=0;i<4;i++)
-		{
-			glColor4d(current_area_color_2D.r, current_area_color_2D.g, current_area_color_2D.b, current_area_color_2D.a);
-			glVertexs(vertices[i]);
-		}
-		glEnd();
+		g_set_primitive_mode(GL_TRIANGLES);
+		
+		g_vertex_buffer_append(r0);
+		g_vertex_buffer_append(r1);
+		g_vertex_buffer_append(r2);
+		
+		g_vertex_buffer_append(r0);
+		g_vertex_buffer_append(r2);
+		g_vertex_buffer_append(r3);
 	}
-	if(WireFill == 0)
+	else
 	{
-		glEnd();
-		glDisable(GL_LIGHTING);
-		g_line_loop();
-		for(i=0;i<4;i++)
-		{
-			glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
-			glVertexs(vertices[i]);
-		}
-		glEnd();
+		g_set_primitive_mode(GL_LINES);
+		
+		g_vertex_buffer_append(r0);
+		g_vertex_buffer_append(r1);
+		
+		g_vertex_buffer_append(r1);
+		g_vertex_buffer_append(r2);
+		
+		g_vertex_buffer_append(r2);
+		g_vertex_buffer_append(r3);
+		
+		g_vertex_buffer_append(r3);
+		g_vertex_buffer_append(r0);
 	}
 }
 

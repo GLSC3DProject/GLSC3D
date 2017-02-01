@@ -29,8 +29,13 @@ void g_def_scale_2D(int id,                                                     
 
 void g_sel_scale_2D(int id)
 {
+	g_vertex_buffer_draw();
+	g_triangle_buffer_flush();
+
 	glDisable(GL_DEPTH_TEST);
-	g_scale_dim_flag = 0;
+	glDisable(GL_LIGHTING);
+	
+	g_scale_dim_flag = G_2D;
 	get_scale_id_number = id;
 
 	g_set_camera(glsc3D_inner_camera[id], glsc3D_inner_screen[id]);
@@ -64,10 +69,15 @@ void g_def_scale_3D_core(int id,
 
 void g_sel_scale_3D(int id)
 {
-	glEnable(GL_DEPTH_TEST);
-	g_scale_dim_flag = 1;
-	get_scale_id_number = id;
+	g_vertex_buffer_draw();
 	g_triangle_buffer_flush();
+	
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	
+	g_scale_dim_flag = G_3D;
+	get_scale_id_number = id;
+	
 	g_set_camera(glsc3D_inner_camera[id], glsc3D_inner_screen[id]);
 }
 

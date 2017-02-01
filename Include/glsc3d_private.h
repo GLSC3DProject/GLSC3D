@@ -308,11 +308,9 @@ extern "C"
 	void g_remove_light(G_LIGHT light);
 
 	void g_moves(G_VECTOR u);
-
 	void g_plots(G_VECTOR u);
 
 	void g_input_init(void);
-
 	void g_get_input(void);
 
 	DELETE_ON_CXX(double g_max(int N_x, int N_z, double data[N_x][N_z]);)
@@ -322,8 +320,15 @@ extern "C"
 #define g_min(i,j,k)     (g_min((i),(j),(double(*)[(j)])(k)))
 
 	void g_set_material(GLenum face, G_MATERIAL mat);
-
 	void g_triangle_terminal(G_TRIANGLE t);
+	
+	// ------ g_vertex_buffer.c ------
+	
+	void g_vertex_buffer_init();
+	void g_vertex_buffer_append(G_VECTOR_F vertex);
+
+	void g_vertex_buffer_draw();
+	void g_set_primitive_mode(GLenum mode);
 
 #ifdef __cplusplus
 }

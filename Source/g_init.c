@@ -58,14 +58,14 @@ void g_init_light(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_
 	g_init_light_core(lightnum,lit_pos_x,lit_pos_y,lit_pos_z, 1.0);
 }
 
-void g_init_core (
-					 const char *WindowName,int width,int height,
-					 int pos_x,int pos_y,
-					 double r,double g,double b,
-					 int g_enable_transparent_out,
-					 int TEMPORARY_TRIANGLE_BUFFER_SIZE_out,
-					 int TRIANGLE_BUFFER_SIZE_out
-					 )
+void g_init_core(
+					const char *WindowName,int width,int height,
+					int pos_x,int pos_y,
+					double r,double g,double b,
+					int g_enable_transparent_out,
+					int TEMPORARY_TRIANGLE_BUFFER_SIZE_out,
+					int TRIANGLE_BUFFER_SIZE_out
+				)
 {
 	glsc3D_width = width;
 	glsc3D_height = height;
@@ -116,10 +116,11 @@ void g_init_core (
 		{
 			TRIANGLE_BUFFER_SIZE = TRIANGLE_BUFFER_SIZE_out;
 		}
+		
+		g_triangle_buffer_init();
 	}
-
-	g_triangle_buffer_init();
-
+	
+	g_vertex_buffer_init();
 
 	g_def_scale_3D_core(0, -1,1,-1,1,-1,1,0,0,width,height,1,1,1,0,0,1,0);
 	/*glEnd();

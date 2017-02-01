@@ -138,7 +138,7 @@ void g_triangle_2D(double x0, double y0,
     r0 = g_vector2(x0,y0);
     r1 = g_vector2(x1,y1);
     r2 = g_vector2(x2,y2);
-       if(WireFill ==1)
+	if(WireFill ==1)
     {
         glEnd();
         glDisable(GL_LIGHTING);
