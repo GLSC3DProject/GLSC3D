@@ -1,14 +1,14 @@
 #include "glsc3d_private.h"
-void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREFILL Fill)
+void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREFILL WireFill)
 {
-	G_VECTOR_F r0 = {left, bottom, 0, 1};
-	G_VECTOR_F r1 = {right, bottom, 0, 1};
-	G_VECTOR_F r2 = {right, top, 0, 1};
-	G_VECTOR_F r3 = {left, top, 0, 1};
+	G_VECTOR_F r0 = g_vector2f(left, bottom);
+	G_VECTOR_F r1 = g_vector2f(right, bottom);
+	G_VECTOR_F r2 = g_vector2f(right, top);
+	G_VECTOR_F r3 = g_vector2f(left, top);
 	
-	if (Fill)
+	if (WireFill == G_FILL)
 	{
-		g_set_primitive_mode(GL_TRIANGLES);
+		g_begin_triangles();
 		
 		g_vertex_buffer_append(r0);
 		g_vertex_buffer_append(r1);
@@ -20,7 +20,7 @@ void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREF
 	}
 	else
 	{
-		g_set_primitive_mode(GL_LINES);
+		g_begin_lines();
 		
 		g_vertex_buffer_append(r0);
 		g_vertex_buffer_append(r1);

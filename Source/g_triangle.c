@@ -2,16 +2,9 @@
 #include <stdio.h>
 
 //This will be use g_triangle_core.
-void g_triangle_3D_core_worker(double x0, double y0, double z0,
-		double x1, double y1, double z1,
-		double x2, double y2, double z2,
-		int DivideLevel)
+void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int DivideLevel)
 {
-	G_POSITION r0, r1, r2, r3, r4, r5;
-
-	r0 = g_vector3(x0,y0,z0);
-	r1 = g_vector3(x1,y1,z1);
-	r2 = g_vector3(x2,y2,z2);
+	G_POSITION r3, r4, r5;
 
 	if(DivideLevel >= 1)
 	{
@@ -19,22 +12,10 @@ void g_triangle_3D_core_worker(double x0, double y0, double z0,
 		r4 = g_multi(0.5,g_plus(r1,r2));
 		r5 = g_multi(0.5,g_plus(r2,r0));
 
-		g_triangle_3D_core_worker(r0.x,r0.y,r0.z,
-				r3.x,r3.y,r3.z,
-				r5.x,r5.y,r5.z,
-				DivideLevel-1);
-		g_triangle_3D_core_worker(r1.x,r1.y,r1.z,
-				r4.x,r4.y,r4.z,
-				r3.x,r3.y,r3.z,
-				DivideLevel-1);
-		g_triangle_3D_core_worker(r2.x,r2.y,r2.z,
-				r5.x,r5.y,r5.z,
-				r4.x,r4.y,r4.z,
-				DivideLevel-1);
-		g_triangle_3D_core_worker(r3.x,r3.y,r3.z,
-				r5.x,r5.y,r5.z,
-				r4.x,r4.y,r4.z,
-				DivideLevel-1);
+		g_triangle_3D_core_worker(r0, r3, r5, DivideLevel-1);
+		g_triangle_3D_core_worker(r1, r4, r3, DivideLevel-1);
+		g_triangle_3D_core_worker(r2, r5, r4, DivideLevel-1);
+		g_triangle_3D_core_worker(r3, r5, r4, DivideLevel-1);
 	}else{
 		G_TRIANGLE t0;
 		G_MATERIAL m = g_make_material(current_area_color_3D);
@@ -69,9 +50,10 @@ void g_triangle_3D_core(double x0, double y0, double z0,
 	{
 		glEnd();
 		glEnable(GL_LIGHTING);
-		g_triangle_3D_core_worker(x0, y0, z0,
-				x1, y1, z1,
-				x2, y2, z2,
+		g_triangle_3D_core_worker(
+				g_vector(x0, y0, z0),
+				g_vector(x1, y1, z1),
+				g_vector(x2, y2, z2),
 				DivideLevel);
 		glEnd();
 	}
@@ -114,6 +96,18 @@ void g_set_material(GLenum face, G_MATERIAL mat)
 	glMaterialf(face, GL_SHININESS, mat.shininess);
 }
 
+void g_set_triangle(G_TRIANGLE t)
+{
+	if(g_enable_transparent)
+	{
+		g_triangle_buffer_append(t);
+	}
+	else
+	{
+		g_triangle_terminal(t);
+	}
+}
+
 void g_triangle_terminal(G_TRIANGLE t)
 {
 	glEnd();
@@ -129,37 +123,28 @@ void g_triangle_terminal(G_TRIANGLE t)
 }
 
 void g_triangle_2D(double x0, double y0,
-                   double x1, double y1,
-                   double x2, double y2,
-                   G_WIREFILL WireFill)
+				   double x1, double y1,
+				   double x2, double y2,
+				   G_WIREFILL WireFill)
 {
-    G_VECTOR r0,r1,r2;
-    
-    r0 = g_vector2(x0,y0);
-    r1 = g_vector2(x1,y1);
-    r2 = g_vector2(x2,y2);
-	if(WireFill ==1)
-    {
-        glEnd();
-        glDisable(GL_LIGHTING);
-        g_triangles();
-        glColor4d(current_area_color_2D.r, current_area_color_2D.g, current_area_color_2D.b, current_area_color_2D.a);
-        glVertexs(r0);
-        glVertexs(r1);
-        glVertexs(r2);
-        glEnd();
-    }
-    if(WireFill ==0)
-    {
-        glEnd();
-        glDisable(GL_LIGHTING);
-        glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
-        g_line_loop();
-        glVertexs(r0);
-        glVertexs(r1);
-        glVertexs(r2);
-        glEnd();
-    }
+	G_VECTOR_F r0,r1,r2;
+	
+	r0 = g_vector2f(x0,y0);
+	r1 = g_vector2f(x1,y1);
+	r2 = g_vector2f(x2,y2);
+	
+	if(WireFill == G_FILL)
+	{
+		g_begin_triangles();
+		g_vertex_buffer_append_triangle(r0, r1, r2);
+	}
+	else
+	{
+		g_begin_lines();
+		g_vertex_buffer_append_line(r0, r1);
+		g_vertex_buffer_append_line(r1, r2);
+		g_vertex_buffer_append_line(r2, r0);
+	}
 }
 
 

@@ -4,20 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>3DFigures.xcscheme</key>
+		<key>2DFigures.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>Box.xcscheme</key>
+		<key>3DFigures.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>Cone.xcscheme</key>
+		<key>Box.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
+		</dict>
+		<key>Cone.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>GLSC3D.xcscheme</key>
 		<dict>
@@ -27,7 +32,42 @@
 		<key>Marker.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
+		</dict>
+		<key>Sample_g_move_g_plot.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>Sample_g_polygon.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>Sample_g_polyline.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>Sample_g_rectangle.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>Sample_g_sphere.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>Sample_g_triangle.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>Sample_off_screen_rendering.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -48,6 +88,46 @@
 			<true/>
 		</dict>
 		<key>3F198F971E3F4D210062613D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F7573891E420B42009E14BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F7573981E420C8B009E14BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F7573A91E420D60009E14BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F7573B61E420D8A009E14BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F7573C41E420E15009E14BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F7573D01E420E25009E14BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F7573DE1E421164009E14BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F7574151E4233E7009E14BF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

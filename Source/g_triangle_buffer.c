@@ -120,40 +120,33 @@ void g_triangle_buffer_reset()
     aligned_index[aligned_index_index++] = -1;
 }
 
-void g_set_triangle(G_TRIANGLE t)
+void g_triangle_buffer_append(G_TRIANGLE t)
 {
-    if(g_enable_transparent)
-    {
-        if(buffer_index == TRIANGLE_BUFFER_SIZE)
-        {
-            fprintf(stderr, "too many triangles for triangle buffer\n"
-                    "triangle buffer can recieve less than %d\n", TRIANGLE_BUFFER_SIZE);
-            exit(0);
-        }
-        
-        if(!(temp_index < TEMPORARY_TRIANGLE_BUFFER_SIZE))
-            g_triangle_buffer_flush();
-        
-        G_CAMERA c = glsc3D_inner_camera[get_scale_id_number];
-        G_POSITION eye = g_position(c.eyeX, c.eyeY, c.eyeZ);
-        G_POSITION g   = g_multi(1/3., g_plus(g_plus(t.vertex[0].position, t.vertex[1].position), t.vertex[2].position));
-        
-        double r = g_norm(g_minus(eye, g));
-        
-        triangle_buffer[buffer_index] = t;
-        
-        triangle_r[buffer_index] = r;
-        
-        camera_id[buffer_index] = get_scale_id_number;
-        
-        current_index[get_scale_id_number] = buffer_index++;
-        
-        temp_index++;
-    }
-    else
-    {
-        g_triangle_terminal(t);
-    }
+	if(buffer_index == TRIANGLE_BUFFER_SIZE)
+	{
+		fprintf(stderr, "too many triangles for triangle buffer\n"
+				"triangle buffer can recieve less than %d\n", TRIANGLE_BUFFER_SIZE);
+		exit(0);
+	}
+	
+	if(!(temp_index < TEMPORARY_TRIANGLE_BUFFER_SIZE))
+		g_triangle_buffer_flush();
+	
+	G_CAMERA c = glsc3D_inner_camera[get_scale_id_number];
+	G_POSITION eye = g_position(c.eyeX, c.eyeY, c.eyeZ);
+	G_POSITION g   = g_multi(1/3., g_plus(g_plus(t.vertex[0].position, t.vertex[1].position), t.vertex[2].position));
+	
+	double r = g_norm(g_minus(eye, g));
+	
+	triangle_buffer[buffer_index] = t;
+	
+	triangle_r[buffer_index] = r;
+	
+	camera_id[buffer_index] = get_scale_id_number;
+	
+	current_index[get_scale_id_number] = buffer_index++;
+	
+	temp_index++;
 }
 
 void g_triangle_buffer_flush()

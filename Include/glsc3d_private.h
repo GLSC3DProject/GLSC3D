@@ -105,6 +105,22 @@ extern "C"
 	{
 		return g_direction(x, y, 0);
 	}
+	
+	static inline G_VECTOR_F g_vector4f(float x, float y, float z, float w)
+	{
+		G_VECTOR_F v = {x, y, z, w};
+		return v;
+	}
+	
+	static inline G_VECTOR_F g_vector3f(float x, float y, float z)
+	{
+		return g_vector4f(x, y, z, 1);
+	}
+	
+	static inline G_VECTOR_F g_vector2f(float x, float y)
+	{
+		return g_vector4f(x, y, 0, 1);
+	}
 
 #define EPS_helper(g_real) (sizeof(g_real) == sizeof(float) ? 1e-6 : 1e-14)
 #define EPS EPS_helper(G_REAL)
@@ -158,25 +174,19 @@ extern "C"
 	static const G_VECTOR    G_ZERO = {0.0, 0.0, 0.0, 1};
 
 	G_REAL g_direction_phi(G_VECTOR v);
-
 	G_REAL g_direction_theta(G_VECTOR v);
 
 	void g_polar(G_VECTOR v, G_REAL *phi, G_REAL *theta);
 
 	G_VECTOR Rn(G_VECTOR u,G_VECTOR n,G_REAL theta);
-
 	G_VECTOR Rx(G_VECTOR u,G_REAL theta);
-
 	G_VECTOR Ry(G_VECTOR u,G_REAL theta);
-
 	G_VECTOR Rz(G_VECTOR u,G_REAL theta);
 
 	G_VECTOR Heiko3D(G_VECTOR u,G_REAL x,G_REAL y,G_REAL z);
-
 	G_VECTOR Heiko3Ds(G_VECTOR u,G_VECTOR r);
 
 	G_VECTOR Scaling3D(G_VECTOR u,G_REAL x,G_REAL y,G_REAL z);
-
 	G_VECTOR Scaling3Ds(G_VECTOR u,G_VECTOR s);
 
 	G_VECTOR Rx2D(G_VECTOR u,G_REAL theta);
@@ -270,7 +280,7 @@ extern "C"
 	extern G_DIMENSION     g_scale_dim_flag;
 
 	void g_triangle_buffer_init();
-	void g_set_triangle(G_TRIANGLE t);
+	void g_triangle_buffer_append(G_TRIANGLE t);
 	void g_triangle_buffer_draw();
 	void g_triangle_buffer_flush();
 
@@ -307,8 +317,8 @@ extern "C"
 	void g_set_light(G_LIGHT light);
 	void g_remove_light(G_LIGHT light);
 
-	void g_moves(G_VECTOR u);
-	void g_plots(G_VECTOR u);
+	void g_move_s(G_VECTOR u);
+	void g_plot_s(G_VECTOR u);
 
 	void g_input_init(void);
 	void g_get_input(void);
@@ -320,15 +330,21 @@ extern "C"
 #define g_min(i,j,k)     (g_min((i),(j),(double(*)[(j)])(k)))
 
 	void g_set_material(GLenum face, G_MATERIAL mat);
+	void g_set_triangle(G_TRIANGLE t);
 	void g_triangle_terminal(G_TRIANGLE t);
 	
 	// ------ g_vertex_buffer.c ------
 	
 	void g_vertex_buffer_init();
 	void g_vertex_buffer_append(G_VECTOR_F vertex);
+	void g_vertex_buffer_append_line(G_VECTOR_F a, G_VECTOR_F b);
+	void g_vertex_buffer_append_triangle(G_VECTOR_F a, G_VECTOR_F b, G_VECTOR_F c);
 
 	void g_vertex_buffer_draw();
-	void g_set_primitive_mode(GLenum mode);
+//	void g_set_primitive_mode(GLenum mode);
+	
+	void g_begin_lines();
+	void g_begin_triangles();
 
 #ifdef __cplusplus
 }

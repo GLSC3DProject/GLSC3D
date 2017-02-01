@@ -13,8 +13,8 @@ void g_arrow_2D(double base_x, double base_y,                 //根元の座標
     g_cone_2D(center.x, center.y,
               n.x, n.y,
               head_size/sqrt(3), head_size, type);
-    g_moves(base);
-    g_plots(g_plus(base,g_multi(arrow_size,n)));
+    g_move_s(base);
+    g_plot_s(g_plus(base,g_multi(arrow_size,n)));
     
 }
 
@@ -34,8 +34,8 @@ void g_arrow_3D_core(double base_x, double base_y, double base_z,               
                    n.x, n.y, n.z,
                    head_size/sqrt(3), head_size,
                    FaceNumberLevel_X, FaceNumberLevel_Y, DivideLevel, WireFill);
-    g_moves(base);
-    g_plots(center);
+    g_move_s(base);
+    g_plot_s(center);
 }
 
 void g_arrow_3D(double base_x, double base_y, double base_z,                //根元の座標

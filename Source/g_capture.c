@@ -5,22 +5,25 @@
 #include <errno.h>
 #include <assert.h>
 #include <png.h>
-/* Mac OS X */
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#include <OpenGL/gl.h>
-#endif
 
-/* Linux */
-#ifdef __linux
-#include <GL/glut.h>
-#endif
+#include "glsc3d_private.h"
 
-/* Windows */
-#ifdef WIN32
-#include <windows.h>
-#include <GL/glut.h>
-#endif
+///* Mac OS X */
+//#ifdef __APPLE__
+//#include <GLUT/glut.h>
+//#include <OpenGL/gl.h>
+//#endif
+//
+///* Linux */
+//#ifdef __linux
+//#include <GL/glut.h>
+//#endif
+//
+///* Windows */
+//#ifdef WIN32
+//#include <windows.h>
+//#include <GL/glut.h>
+//#endif
 
 //g_normaly, bit_depth = 8, color_type = PNG_COLOR_TYPE_RGB_ALPHA.
 //if you don't reserve buffer for alpha, color_type = PNG_COLOR_TYPE_RGB.
@@ -147,10 +150,8 @@ g_capture_set(name)
 	if(system(Command))
 		STRERROR;
 
-	//width = 640;
-	//height = 480;
-	width = glutGet(GLUT_WINDOW_WIDTH);
-	height = glutGet(GLUT_WINDOW_HEIGHT);
+	width = glsc3D_width;
+	height = glsc3D_height;
 
 	buf = malloc(sizeof(char)*width*height*3);
 	if(buf == 0)
