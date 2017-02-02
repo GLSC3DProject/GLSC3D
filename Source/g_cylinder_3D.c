@@ -66,7 +66,6 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 			glEnable(GL_LIGHTING);
 			G_TRIANGLE t0,t1;
 			G_VECTOR n0,n1,n2,n3;
-			G_MATERIAL m = g_make_material(current_area_color_3D);
 			G_VERTEX   v0, v1, v2, v3;
 
 			n0 = g_plus(Ry(Rz(Rx(Rx(r,psi),(i-0.5)*dth+PI/N),phi),theta),Ry(Rz(Rx(Rx(r,psi),(i+0.5)*dth+PI/N),phi),theta));
@@ -78,10 +77,10 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 			n2 = g_multi(1/g_norm(n2),n2);
 			n3 = g_multi(1/g_norm(n3),n3);
 
-			v0 = g_material_vertex(r0,n0,m);
-			v1 = g_material_vertex(r1,n1,m);
-			v2 = g_material_vertex(r2,n2,m);
-			v3 = g_material_vertex(r3,n3,m);
+			v0 = g_make_vertex(r0,n0,g_current_area_color_3D);
+			v1 = g_make_vertex(r1,n1,g_current_area_color_3D);
+			v2 = g_make_vertex(r2,n2,g_current_area_color_3D);
+			v3 = g_make_vertex(r3,n3,g_current_area_color_3D);
 
 			t0 = g_make_triangle_core(v0, v1, v2);
 			t1 = g_make_triangle_core(v1, v3, v2);

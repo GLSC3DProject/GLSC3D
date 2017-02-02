@@ -21,32 +21,24 @@ void g_rectangle_3D_core(double x, double y, double z,
 	r2 = g_plus(center,Ry(Rz(Rx(r[2],psi),phi),theta));
 	r3 = g_plus(center,Ry(Rz(Rx(r[3],psi),phi),theta));
 
-	if(WireFill == 1)
+	if(WireFill == G_FILL)
 	{
-		g_triangle_3D_core(r0.x,r0.y,r0.z,
-				r1.x,r1.y,r1.z,
-				r3.x,r3.y,r3.z,
-				DivideLevel, WireFill);
-		g_triangle_3D_core(r1.x,r1.y,r1.z,
-				r2.x,r2.y,r2.z,
-				r3.x,r3.y,r3.z,
-				DivideLevel, WireFill);
+		g_triangle_3D_core_worker(r0, r1, r2, DivideLevel);
+		g_triangle_3D_core_worker(r0, r2, r3, DivideLevel);
 	}
-
-	if(WireFill ==0)
+	else
 	{
 		glEnd();
 		glDisable(GL_LIGHTING);
 		g_line_loop();
 		for(int i=0;i<4;i++)
 		{
-			glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+			glColor4fv(&g_current_line_color.r);
 			glVertexs(g_plus(center,Ry(Rz(Rx(r[i],psi),phi),theta)));
 		}
 		glEnd();
 	}
 }
-
 
 void g_rectangle_3D(double x, double y, double z,
 		double direction_x, double direction_y, double direction_z,
@@ -56,12 +48,3 @@ void g_rectangle_3D(double x, double y, double z,
 {
 	g_rectangle_3D_core(x, y, z, direction_x, direction_y, direction_z, width, depth, psi, 0, WireFill);
 }
-
-
-
-
-
-
-
-
-

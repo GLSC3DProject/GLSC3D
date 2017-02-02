@@ -49,7 +49,6 @@
 		3F7573FE1E421729009E14BF /* g_init.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F71E3E1E340031E4BE /* g_init.c */; };
 		3F7573FF1E421729009E14BF /* g_input.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F81E3E1E340031E4BE /* g_input.c */; };
 		3F7574001E421729009E14BF /* g_isosurface.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F91E3E1E340031E4BE /* g_isosurface.c */; };
-		3F7574011E421729009E14BF /* g_light.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FA1E3E1E340031E4BE /* g_light.c */; };
 		3F7574021E421729009E14BF /* g_line.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FB1E3E1E340031E4BE /* g_line.c */; };
 		3F7574031E421729009E14BF /* g_marker.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FC1E3E1E340031E4BE /* g_marker.c */; };
 		3F7574041E421729009E14BF /* g_matrix_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884FD1E3E1E340031E4BE /* g_matrix_private.c */; };
@@ -72,7 +71,6 @@
 		3F75741B1E4233E7009E14BF /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3F7574221E423429009E14BF /* 2DFigures.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F7574211E423429009E14BF /* 2DFigures.c */; };
 		3F98853B1E3E1E7B0031E4BE /* glsc3d_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */; };
-		3F98853C1E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9885391E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h */; };
 		3F98853D1E3E1E7B0031E4BE /* glsc3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F98853A1E3E1E7B0031E4BE /* glsc3d.h */; };
 		3FBFFB301E3E23110074CD0A /* libpng16.16.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */; };
 		3FBFFB321E3E23460074CD0A /* libglut.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB311E3E23460074CD0A /* libglut.3.dylib */; };
@@ -326,7 +324,6 @@
 		3F9884F71E3E1E340031E4BE /* g_init.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_init.c; path = Source/g_init.c; sourceTree = "<group>"; };
 		3F9884F81E3E1E340031E4BE /* g_input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_input.c; path = Source/g_input.c; sourceTree = "<group>"; };
 		3F9884F91E3E1E340031E4BE /* g_isosurface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_isosurface.c; path = Source/g_isosurface.c; sourceTree = "<group>"; };
-		3F9884FA1E3E1E340031E4BE /* g_light.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_light.c; path = Source/g_light.c; sourceTree = "<group>"; };
 		3F9884FB1E3E1E340031E4BE /* g_line.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_line.c; path = Source/g_line.c; sourceTree = "<group>"; };
 		3F9884FC1E3E1E340031E4BE /* g_marker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_marker.c; path = Source/g_marker.c; sourceTree = "<group>"; };
 		3F9884FD1E3E1E340031E4BE /* g_matrix_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_matrix_private.c; path = Source/g_matrix_private.c; sourceTree = "<group>"; };
@@ -346,7 +343,6 @@
 		3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_triangle_buffer.c; path = Source/g_triangle_buffer.c; sourceTree = "<group>"; };
 		3F98850D1E3E1E340031E4BE /* g_triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_triangle.c; path = Source/g_triangle.c; sourceTree = "<group>"; };
 		3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d_private.h; path = Include/glsc3d_private.h; sourceTree = "<group>"; };
-		3F9885391E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLSC3D_VectorStruct_private.h; path = Include/GLSC3D_VectorStruct_private.h; sourceTree = "<group>"; };
 		3F98853A1E3E1E7B0031E4BE /* glsc3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d.h; path = Include/glsc3d.h; sourceTree = "<group>"; };
 		3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = ../../../opt/X11/lib/libpng16.16.dylib; sourceTree = "<group>"; };
 		3FBFFB311E3E23460074CD0A /* libglut.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglut.3.dylib; path = ../../../opt/X11/lib/libglut.3.dylib; sourceTree = "<group>"; };
@@ -542,7 +538,6 @@
 				3F9884F71E3E1E340031E4BE /* g_init.c */,
 				3F9884F81E3E1E340031E4BE /* g_input.c */,
 				3F9884F91E3E1E340031E4BE /* g_isosurface.c */,
-				3F9884FA1E3E1E340031E4BE /* g_light.c */,
 				3F9884FB1E3E1E340031E4BE /* g_line.c */,
 				3F9884FC1E3E1E340031E4BE /* g_marker.c */,
 				3F9884FD1E3E1E340031E4BE /* g_matrix_private.c */,
@@ -570,7 +565,6 @@
 			isa = PBXGroup;
 			children = (
 				3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */,
-				3F9885391E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h */,
 				3F98853A1E3E1E7B0031E4BE /* glsc3d.h */,
 			);
 			name = Include;
@@ -601,7 +595,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F98853C1E3E1E7B0031E4BE /* GLSC3D_VectorStruct_private.h in Headers */,
 				3F98853B1E3E1E7B0031E4BE /* glsc3d_private.h in Headers */,
 				3F98853D1E3E1E7B0031E4BE /* glsc3d.h in Headers */,
 			);
@@ -1017,7 +1010,6 @@
 				3F7573FE1E421729009E14BF /* g_init.c in Sources */,
 				3F7573FF1E421729009E14BF /* g_input.c in Sources */,
 				3F7574001E421729009E14BF /* g_isosurface.c in Sources */,
-				3F7574011E421729009E14BF /* g_light.c in Sources */,
 				3F7574021E421729009E14BF /* g_line.c in Sources */,
 				3F7574031E421729009E14BF /* g_marker.c in Sources */,
 				3F7574041E421729009E14BF /* g_matrix_private.c in Sources */,

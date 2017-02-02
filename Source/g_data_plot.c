@@ -13,7 +13,7 @@ void g_data_plot_f_3D(double x0, double x1,
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POINTS);
 
-	glColor4d(current_marker_color.r, current_marker_color.g, current_marker_color.b, current_marker_color.a);
+	glColor4fv(&g_current_marker_color.r);
 
 	for (j = 0; j < N_y; ++j)
 		for (i = 0; i < N_x; ++i)
@@ -30,12 +30,12 @@ void g_data_plot_2D(double x_left, double x_right,
 	glDisable(GL_LIGHTING);
 	g_line_strip();
 
-	glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+	glColor4fv(&g_current_line_color.r);
 
 	for(i=0;i<n;i++)
 		glVertex2d(x_left+i*dx, yy[i]);
 
-	glColor4d(current_marker_color.r, current_marker_color.g, current_marker_color.b, current_marker_color.a);
+	glColor4fv(&g_current_marker_color.r);
 
 	for(i=0;i<n;i++)
 		g_marker_2D(x_left+i*dx, yy[i]);

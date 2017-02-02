@@ -8,17 +8,17 @@ int             glsc3D_argc = 1;
 char            **glsc3D_argv;
 void            *font;
 
-G_COLOR current_area_color_2D = {1, 1, 1, 1};
-G_COLOR current_area_color_3D = {1, 1, 1, 1};
-G_COLOR current_line_color = {1, 1, 1, 1};
-G_COLOR current_text_color = {1, 1, 1, 1};
-G_COLOR current_marker_color = {1, 1, 1, 1};
+G_COLOR g_current_area_color_2D = {1, 1, 1, 1};
+G_COLOR g_current_area_color_3D = {1, 1, 1, 1};
+G_COLOR g_current_line_color = {1, 1, 1, 1};
+G_COLOR g_current_text_color = {1, 1, 1, 1};
+G_COLOR g_current_marker_color = {1, 1, 1, 1};
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
 void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z, double lit_pow)
 {
-	static GLfloat lit_amb[4]={0.3, 0.3, 0.3, 0.0};	// 環境光の強さ
+//	static GLfloat lit_amb[4]={0.3, 0.3, 0.3, 0.0};	// 環境光の強さ
 	GLfloat lit_dif[4]={lit_pow, lit_pow, lit_pow, 0.0};	// 拡散光の強さ
 	static GLfloat lit_spc[4]={1.0, 1.0, 1.0, 0.0};	// 鏡面反射光の強さ
 	static GLfloat lit_pos[4]={0.0, 0.0, 0.0, 0.0}; // 光源の位置
@@ -42,7 +42,7 @@ void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit
 		lightname = GL_LIGHT7;
 	}
 
-	glLightfv(lightname, GL_AMBIENT, lit_amb);
+//	glLightfv(lightname, GL_AMBIENT, lit_amb);
 	glLightfv(lightname, GL_DIFFUSE, lit_dif);
 	glLightfv(lightname, GL_SPECULAR, lit_spc);
 	lit_pos[0] = lit_pos_x;
@@ -51,7 +51,7 @@ void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit
 	glLightfv(lightname, GL_POSITION, lit_pos);
 
 	glEnable(lightname);
-	glEnable(GL_LIGHTING);
+//	glEnable(GL_LIGHTING);
 }
 void g_init_light(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z)
 {
@@ -67,6 +67,8 @@ void g_init_core(
 					int TRIANGLE_BUFFER_SIZE_out
 				)
 {
+	GLfloat specular[4] = {1, 1, 1, 1};
+	
 	glsc3D_width = width;
 	glsc3D_height = height;
 	
@@ -80,15 +82,14 @@ void g_init_core(
 
 	g_input_init();
 	g_text_init();
-	//glShadeModel(GL_FLAT);
 	glShadeModel(GL_SMOOTH);
 	
 	glMatrixMode(GL_PROJECTION);
-	//glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-//    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
+	
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 128);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT ,1);
 
@@ -122,7 +123,7 @@ void g_init_core(
 	
 	g_vertex_buffer_init();
 
-	g_def_scale_3D_core(0, -1,1,-1,1,-1,1,0,0,width,height,1,1,1,0,0,1,0);
+//	g_def_scale_3D_core(0, -1,1,-1,1,-1,1,0,0,width,height,1,1,1,0,0,1,0);
 	/*glEnd();
 	  glMatrixMode(GL_PROJECTION);
 	  glLoadIdentity();

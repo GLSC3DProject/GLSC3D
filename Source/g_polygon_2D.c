@@ -9,7 +9,7 @@ void g_polygon_2D(double *xx, double *yy, int n, G_WIREFILL WireFill)
 		int i;
 		for(i=0;i<n;i++)
 		{
-			glColor4d(current_area_color_2D.r, current_area_color_2D.g, current_area_color_2D.b, current_area_color_2D.a);
+			glColor4fv(&g_current_area_color_2D.r);
 			glVertex2d(xx[i], yy[i]);
 		}
 	}
@@ -19,7 +19,7 @@ void g_polygon_2D(double *xx, double *yy, int n, G_WIREFILL WireFill)
 		int i;
 		for(i=0;i<n;i++)
 		{
-			glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+			glColor4fv(&g_current_line_color.r);
 			glVertex2d(xx[i], yy[i]);
 		}
 	}

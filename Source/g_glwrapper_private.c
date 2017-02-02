@@ -60,5 +60,5 @@ void glNormals(G_VECTOR u)
 /******************************glVertex******************************************/
 void glVertexs(G_VECTOR u)
 {
-    glVertex4f(u.x, u.y, u.z, u.w);
+    glVertex3f(u.x, u.y, u.z);
 }

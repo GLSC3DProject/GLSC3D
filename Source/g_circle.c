@@ -12,7 +12,7 @@ void g_circle_2D(double center_x, double center_y,
 		g_triangle_fan();
 		for(i=0; i<=STEP; i++)
 		{
-			glColor4d(current_area_color_2D.r, current_area_color_2D.g, current_area_color_2D.b, current_area_color_2D.a);
+			glColor4fv(&g_current_area_color_2D.r);
 			glVertex2d(center_x + radius*cos(i*dtheta),center_y + radius*sin(i*dtheta));
 		}
 		glEnd();
@@ -24,12 +24,13 @@ void g_circle_2D(double center_x, double center_y,
 		g_line_strip();
 		for(i=0; i<=STEP; i++)
 		{
-			glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+			glColor4fv(&g_current_line_color.r);
 			glVertex2d(center_x + radius*cos(i*dtheta),center_y + radius*sin(i*dtheta));
 		}
 		glEnd();
 	}
 }
+
 void g_circle_3D_core(double center_x, double center_y, double center_z,
 		double radius,
 		double theta, double phi,
@@ -62,12 +63,11 @@ void g_circle_3D_core(double center_x, double center_y, double center_z,
 		g_line_strip();
 		for(i=0; i<=STEP; i++)
 		{
-			glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+			glColor4fv(&g_current_line_color.r);
 			glVertexs(g_plus(center,Rz(Rx(Ry(r,i*dtheta),theta),phi)));
 		}
 		glEnd();
 	}
-
 }
 
 void g_circle_3D(double center_x, double center_y, double center_z,
@@ -77,5 +77,4 @@ void g_circle_3D(double center_x, double center_y, double center_z,
 {
 	g_circle_3D_core(center_x, center_y, center_z, radius, theta, phi, 100, 0, WireFill);
 }
-
 

@@ -5,12 +5,12 @@ G_COLOR glsc3D_g_def_area3D[TotalDisplayNumber];
 
 void g_area_color_2D_s(G_COLOR color)
 {
-	current_area_color_2D = color;
+	g_current_area_color_2D = color;
 }
 
 void g_area_color_3D_s(G_COLOR color)
 {
-	current_area_color_3D = color;
+	g_current_area_color_3D = color;
 }
 
 void g_area_color_2D(double r,double g,double b,double a)

@@ -7,7 +7,7 @@ void g_polyline_2D(double *xx, double *yy, int n)
 	int i;
 	for(i=0;i<n;i++)
 	{
-		glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+		glColor4fv(&g_current_line_color.r);
 		glVertex2d(xx[i], yy[i]);
 	}
 	glEnd();
@@ -21,7 +21,7 @@ void g_polyline_3D(double *xx, double *yy, double *zz, int n)
 	int i;
 	for(i=0;i<n;i++)
 	{
-		glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+		glColor4fv(&g_current_line_color.r);
 		glVertex3d(xx[i], yy[i], zz[i]);
 	}
 	glEnd();

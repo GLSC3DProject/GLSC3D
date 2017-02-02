@@ -74,7 +74,7 @@ void g_contln_f_2D(double x_left, double x_right,
 				{
 					glEnd();
 					glDisable(GL_LIGHTING);
-					glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+					glColor4fv(&g_current_line_color.r);
 					g_line_loop();
 					//等高線描写
 					if(flag[0]*flag[1] < 0)

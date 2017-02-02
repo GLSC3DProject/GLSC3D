@@ -10,14 +10,14 @@
 #include "glsc3d_private.h"
 
 //#define VERTEX_BUFFER_SIZE (3 << 10)
-static const size_t VERTEX_BUFFER_SIZE = 3 << 5;
+static const size_t VERTEX_BUFFER_SIZE = 3 << 12;
 
 GLenum g_primitive_mode;
-G_COLOR current_color;
+G_BOOL g_lighting_enabled;
 
 int g_vertex_data_count;
-G_VECTOR_F *g_vertex_data_position;
-G_COLOR *g_vertex_data_color;
+
+G_VERTEX *g_vertex_data;
 
 void* g_malloc(size_t size)
 {
@@ -34,45 +34,56 @@ void* g_malloc(size_t size)
 
 void g_vertex_buffer_init()
 {
-	g_vertex_data_position = (G_VECTOR_F *)g_malloc(VERTEX_BUFFER_SIZE * sizeof(G_VECTOR_F));
-	g_vertex_data_color = (G_COLOR *)g_malloc(VERTEX_BUFFER_SIZE * sizeof(G_COLOR));
-	
+	g_vertex_data = (G_VERTEX *)g_malloc(VERTEX_BUFFER_SIZE * sizeof(G_VERTEX));
+
 	g_vertex_data_count = 0;
 }
 
-void g_vertex_buffer_append(G_VECTOR_F vertex)
+void g_vertex_buffer_append(G_VERTEX vertex)
 {
-	g_vertex_data_position[g_vertex_data_count] = vertex;
-	g_vertex_data_color[g_vertex_data_count] = current_color;
+	g_vertex_data[g_vertex_data_count] = vertex;
 	
 	g_vertex_data_count++;
 	
 	if (g_vertex_data_count == VERTEX_BUFFER_SIZE)
-		g_vertex_buffer_draw();
+		g_vertex_buffer_flush();
 }
 
-void g_vertex_buffer_append_line(G_VECTOR_F a, G_VECTOR_F b)
+void g_vertex_buffer_append_line(G_VECTOR a, G_VECTOR b)
 {
-	g_vertex_buffer_append(a);
-	g_vertex_buffer_append(b);
+	g_vertex_buffer_append(g_make_vertex(a, g_vector_zero, g_current_line_color));
+	g_vertex_buffer_append(g_make_vertex(b, g_vector_zero, g_current_line_color));
 }
 
-void g_vertex_buffer_append_triangle(G_VECTOR_F a, G_VECTOR_F b, G_VECTOR_F c)
+void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c)
 {
-	g_vertex_buffer_append(a);
-	g_vertex_buffer_append(b);
-	g_vertex_buffer_append(c);
+	g_vertex_buffer_append(g_make_vertex(a, g_vector_zero, g_current_area_color_2D));
+	g_vertex_buffer_append(g_make_vertex(b, g_vector_zero, g_current_area_color_2D));
+	g_vertex_buffer_append(g_make_vertex(c, g_vector_zero, g_current_area_color_2D));
 }
 
-void g_vertex_buffer_draw()
+void g_vertex_buffer_flush()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 	
-	glVertexPointer(4, GL_FLOAT, 0, g_vertex_data_position);
-	glColorPointer(4, GL_FLOAT, 0, g_vertex_data_color);
+	glVertexPointer(3, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data[0].position);
+	glColorPointer(4, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data[0].color);
+	
+	if (g_lighting_enabled) {
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+		glEnable(GL_COLOR_MATERIAL);
+		
+		glNormalPointer(GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data[0].normal);
+	}
 	
 	glDrawArrays(g_primitive_mode, 0, g_vertex_data_count);
+	
+	if (g_lighting_enabled) {
+		glDisable(GL_COLOR_MATERIAL);
+		glDisableClientState(GL_NORMAL_ARRAY);
+	}
 	
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
@@ -83,43 +94,46 @@ void g_vertex_buffer_draw()
 void g_set_primitive_mode(GLenum mode)
 {
 	if (g_primitive_mode != mode && g_vertex_data_count != 0)
-		g_vertex_buffer_draw();
+		g_vertex_buffer_flush();
 	
 	g_primitive_mode = mode;
 }
 
+void g_enable_lighting()
+{
+	glEnd();
+	glEnable(GL_LIGHTING);
+	g_lighting_enabled = G_TRUE;
+}
+
+void g_disable_lighting()
+{
+	glEnd();
+	glDisable(GL_LIGHTING);
+	g_lighting_enabled = G_FALSE;
+}
+
 void g_begin_points()
 {
-	if (g_scale_dim_flag == G_3D) {
-		glEnd();
-		glDisable(GL_LIGHTING);
-	}
-	current_color = current_marker_color;
-	
 	g_set_primitive_mode(GL_POINTS);
+	
+	g_disable_lighting();
 }
 
 void g_begin_lines()
 {
-	if (g_scale_dim_flag == G_3D) {
-		glEnd();
-		glDisable(GL_LIGHTING);
-	}
-	current_color = current_line_color;
-	
 	g_set_primitive_mode(GL_LINES);
+	
+	g_disable_lighting();
 }
 
 void g_begin_triangles()
 {
-	if (g_scale_dim_flag == G_3D) {
-		glEnd();
-		glEnable(GL_LIGHTING);
-		
-		current_color = current_area_color_3D;
-	} else {
-		current_color = current_area_color_2D;
-	}
-	
 	g_set_primitive_mode(GL_TRIANGLES);
+	
+	if (g_scale_dim_flag == G_3D) {
+		g_enable_lighting();
+	} else {
+		g_disable_lighting();
+	}
 }

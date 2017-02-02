@@ -29,11 +29,10 @@ void g_def_scale_2D(int id,                                                     
 
 void g_sel_scale_2D(int id)
 {
-	g_vertex_buffer_draw();
+	g_vertex_buffer_flush();
 	g_triangle_buffer_flush();
 
 	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_LIGHTING);
 	
 	g_scale_dim_flag = G_2D;
 	get_scale_id_number = id;
@@ -69,11 +68,10 @@ void g_def_scale_3D_core(int id,
 
 void g_sel_scale_3D(int id)
 {
-	g_vertex_buffer_draw();
+	g_vertex_buffer_flush();
 	g_triangle_buffer_flush();
 	
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
 	
 	g_scale_dim_flag = G_3D;
 	get_scale_id_number = id;

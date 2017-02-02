@@ -20,7 +20,7 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 		for(i=0; i<=STEP; i++)
 		{
 			dtheta = 0.5*angle/STEP;
-			glColor4d(current_area_color_2D.r, current_area_color_2D.g, current_area_color_2D.b, current_area_color_2D.a);
+			glColor4fv(&g_current_area_color_2D.r);
 			glVertexs(g_plus(center, Rx2D(g_multi(radius, direction),i*dtheta)));
 		}
 	
@@ -30,7 +30,7 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 		for(i=0; i<=STEP; i++)
 		{
 			dtheta = -0.5*angle/STEP;
-			glColor4d(current_area_color_2D.r, current_area_color_2D.g, current_area_color_2D.b, current_area_color_2D.a);
+			glColor4fv(&g_current_area_color_2D.r);
 			glVertexs(g_plus(center, Rx2D(g_multi(radius, direction),i*dtheta)));
 		}
 		glEnd();
@@ -43,7 +43,7 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 		for(i=0; i<=STEP; i++)
 		{
 			dtheta = 0.5*angle/STEP;
-			glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+			glColor4fv(&g_current_line_color.r);
 			glVertexs(g_plus(center, Rx2D(g_multi(radius,direction),i*dtheta)));
 		}
 		glVertexs(center);
@@ -51,7 +51,7 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 		for(i=0; i<=STEP; i++)
 		{
 			dtheta = -0.5*angle/STEP;
-			glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+			glColor4fv(&g_current_line_color.r);
 			glVertexs(g_plus(center, Rx2D(g_multi(radius, direction),i*dtheta)));
 		}
 		glVertexs(center);
@@ -104,7 +104,7 @@ void g_fan_3D_core(double center_x, double center_y, double center_z,          /
 		for(i=0; i<=STEP; i++)
 		{
 			dtheta = 0.5*angle/STEP;
-			glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+			glColor4fv(&g_current_line_color.r);
 			glVertexs(g_plus(r0, Ry(Rz(Rx(Ry(g_multi(radius, nx),i*dtheta),psi),phi),theta)));
 		}
 		glVertexs(r0);
@@ -112,7 +112,7 @@ void g_fan_3D_core(double center_x, double center_y, double center_z,          /
 		for(i=0; i<=STEP; i++)
 		{
 			dtheta = -0.5*angle/STEP;
-			glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+			glColor4fv(&g_current_line_color.r);
 			glVertexs(g_plus(r0, Ry(Rz(Rx(Ry(g_multi(radius, nx),i*dtheta),psi),phi),theta)));
 		}
 		glVertexs(r0);

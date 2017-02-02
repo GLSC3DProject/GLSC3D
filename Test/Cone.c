@@ -18,10 +18,8 @@ int main()
 	g_scr_color(1, 1, 1);
 	
 	g_line_color(0, 0, 0, 1);
-//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-//	glEnable(GL_LINE_SMOOTH);
 	
-	g_def_scale_3D(0, -1, +1, -1, +1, -1, +1, 0, 0, WIDTH, HEIGHT, 0, 1, 1, 8);
+	g_def_scale_3D(0, -2, +2, -2, +2, -1, +1, 0, 0, WIDTH, HEIGHT, 0, 1, 1, 8);
 	g_def_scale_2D(1, -2, +2, -1, +1, 0, HEIGHT, WIDTH, HEIGHT);
 	
 	for (double t = 0;; t += 1./128) {
@@ -41,9 +39,11 @@ int main()
 		
 		g_sel_scale_3D(0);
 		
-		g_area_color_3D(0.5, 0.5, 0.5, 1);
+		g_area_color_3D(0.5, 0.5, 0.75, 1);
 		g_rectangle_3D(0, h, 0, 1, 0, 0, 5, 4, 0, WIRE_OR_FILL);
-		
+//		g_triangle_3D(-2, h, -1, 2, h, -1, 2, h, 1, WIRE_OR_FILL);
+//		g_triangle_3D( 2, h,  1,-2, h,  1,-2, h,-1, WIRE_OR_FILL);
+
 		g_area_color_3D(0.5, 0.75, 0.5, 1);
 		g_cone_3D_core(-2*c, -2*s, 0, c, s, 0, 2, 2, 64, 8, 0, WIRE_OR_FILL);
 		g_cone_3D_core(2*c, 2*s, 0, -c, -s, 0, 2, 2, 64, 8, 0, WIRE_OR_FILL);

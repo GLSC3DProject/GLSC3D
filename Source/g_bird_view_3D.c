@@ -82,15 +82,14 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
 			{
 				glEnd();
 				glEnable(GL_LIGHTING);
-				G_MATERIAL m = g_make_material(current_area_color_3D);
 				G_VERTEX v0,v1,v2;
 				G_TRIANGLE t[4];
 				
 				for(k = 0; k < 4; ++k)
 				{
-					v0 = g_material_vertex(rc,n[k],m);
-					v1 = g_material_vertex(r_corner[k],n[k],m);
-					v2 = g_material_vertex(r_corner[(k + 1) & 3],n[k],m);
+					v0 = g_make_vertex(rc,n[k],g_current_area_color_3D);
+					v1 = g_make_vertex(r_corner[k],n[k],g_current_area_color_3D);
+					v2 = g_make_vertex(r_corner[(k + 1) & 3],n[k],g_current_area_color_3D);
 					t[k] = g_make_triangle_core(v0, v1, v2);
 					g_set_triangle(t[k]);
 				}
@@ -103,7 +102,7 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
 				g_line_loop();
 				for(k=0; k<4; k++)
 				{
-					glColor4d(current_line_color.r, current_line_color.g, current_line_color.b, current_line_color.a);
+					glColor4fv(&g_current_line_color.r);
 					glVertexs(r_corner[k]);
 				}
 				//glEnd();

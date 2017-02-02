@@ -10,7 +10,7 @@ static FT_Face face = 0;
 
 struct
 {
-	double r,g,b,a;
+	G_COLOR color;
 	const char *font_type;
 	unsigned int font_size;
 }           glsc3D_g_def_text[TotalDisplayNumber], current_font;
@@ -69,7 +69,7 @@ void g_text_standard(double x,double y, const char *str, ...)
 {
 	glEnd();
 	glDisable(GL_LIGHTING);
-	glColor4d(current_text_color.r, current_text_color.g, current_text_color.b, current_text_color.a);
+	glColor4fv(&g_current_text_color.r);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0, glsc3D_width, glsc3D_height, 0);
@@ -103,7 +103,7 @@ void g_text_3D_virtual(double x,double y,double z, const char *str, ...)
 
 	glEnd();
 	glDisable(GL_LIGHTING);
-	glColor4d(current_text_color.r, current_text_color.g, current_text_color.b, current_text_color.a);
+	glColor4fv(&g_current_text_color.r);
 	glRasterPos3d(x,y,z);
 	g_text_redering(pbuf);
 
@@ -120,7 +120,7 @@ void g_text_2D_virtual(double x,double y, const char *str, ...)
 
 	glEnd();
 	glDisable(GL_LIGHTING);
-	glColor4d(current_text_color.r, current_text_color.g, current_text_color.b, current_text_color.a);
+	glColor4fv(&g_current_text_color.r);
 	glRasterPos2d(x, y);
 	g_text_redering(pbuf);
 
@@ -135,10 +135,7 @@ void g_text_font(G_FONT_ID id, unsigned int font_size)
 
 void g_text_font_core(const char *font_type, unsigned int font_size)
 {
-	current_font.r = current_text_color.r;
-	current_font.g = current_text_color.g;
-	current_font.b = current_text_color.b;
-	current_font.a = current_text_color.a;
+	current_font.color = g_current_text_color;
 
 	current_font.font_type = font_type;
 	current_font.font_size = font_size;
@@ -164,17 +161,19 @@ void g_text_font_core(const char *font_type, unsigned int font_size)
 	}
 }
 
+void g_text_color_s(G_COLOR color)
+{
+	g_current_text_color = color;
+}
+
 void g_text_color(double r,double g,double b,double a)
 {
-	current_text_color = g_color_core(r,g,b,a);
+	g_text_color_s(g_color_core(r,g,b,a));
 }
 
 void g_def_text_core(int id, double r, double g, double b, double a, char * font_type, unsigned font_size)
 {
-	glsc3D_g_def_text[id].r = r;
-	glsc3D_g_def_text[id].g = g;
-	glsc3D_g_def_text[id].b = b;
-	glsc3D_g_def_text[id].a = a;
+	glsc3D_g_def_text[id].color = g_color_core(r, g, b, a);
 	glsc3D_g_def_text[id].font_type = font_type;
 	glsc3D_g_def_text[id].font_size = font_size;
 }
@@ -186,7 +185,7 @@ void g_def_text(int id, double r, double g, double b, double a, int font, unsign
 
 void g_sel_text(int id)
 {
-	g_text_color(glsc3D_g_def_text[id].r, glsc3D_g_def_text[id].g,glsc3D_g_def_text[id].b, glsc3D_g_def_text[id].a);
+	g_text_color_s(glsc3D_g_def_text[id].color);
 	g_text_font_core(glsc3D_g_def_text[id].font_type, glsc3D_g_def_text[id].font_size);
 }
 

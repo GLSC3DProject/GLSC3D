@@ -8,7 +8,7 @@ struct
 
 void g_marker_color(double r,double g,double b,double a)
 {
-    current_marker_color = g_color_core(r,g,b,a);
+    g_current_marker_color = g_color_core(r,g,b,a);
 }
 
 void g_marker_size(double size)
@@ -34,7 +34,7 @@ void g_marker_3D(double x,double y,double z)
 	glEnd();
 	glDisable(GL_LIGHTING);
 	g_points();
-	glColor4d(current_marker_color.r, current_marker_color.g, current_marker_color.b, current_marker_color.a);
+	glColor4fv(&g_current_marker_color.r);
 	glVertex3d(x, y, z);
 	glEnd();
 }
@@ -42,7 +42,7 @@ void g_marker_2D(double x,double y)
 {
 	glDisable(GL_LIGHTING);
 	g_points();
-	glColor4d(current_marker_color.r, current_marker_color.g, current_marker_color.b, current_marker_color.a);
+	glColor4fv(&g_current_marker_color.r);
 	glVertex2d(x, y);
 	glEnd();
 }

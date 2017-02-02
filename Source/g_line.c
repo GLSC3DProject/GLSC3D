@@ -8,7 +8,7 @@ struct
 
 void g_line_color(double r,double g,double b,double a)
 {
-    current_line_color = g_color_core(r,g,b,a);
+    g_current_line_color = g_color_core(r,g,b,a);
 }
 
 void g_line_width(double size)

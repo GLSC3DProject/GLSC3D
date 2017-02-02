@@ -1,38 +1,26 @@
 #include "glsc3d_private.h"
 void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREFILL WireFill)
 {
-	G_VECTOR_F r0 = g_vector2f(left, bottom);
-	G_VECTOR_F r1 = g_vector2f(right, bottom);
-	G_VECTOR_F r2 = g_vector2f(right, top);
-	G_VECTOR_F r3 = g_vector2f(left, top);
+	G_VECTOR r0 = g_vector2(left, bottom);
+	G_VECTOR r1 = g_vector2(right, bottom);
+	G_VECTOR r2 = g_vector2(right, top);
+	G_VECTOR r3 = g_vector2(left, top);
 	
 	if (WireFill == G_FILL)
 	{
 		g_begin_triangles();
 		
-		g_vertex_buffer_append(r0);
-		g_vertex_buffer_append(r1);
-		g_vertex_buffer_append(r2);
-		
-		g_vertex_buffer_append(r0);
-		g_vertex_buffer_append(r2);
-		g_vertex_buffer_append(r3);
+		g_vertex_buffer_append_triangle_2D(r0, r1, r2);
+		g_vertex_buffer_append_triangle_2D(r0, r2, r3);
 	}
 	else
 	{
 		g_begin_lines();
 		
-		g_vertex_buffer_append(r0);
-		g_vertex_buffer_append(r1);
-		
-		g_vertex_buffer_append(r1);
-		g_vertex_buffer_append(r2);
-		
-		g_vertex_buffer_append(r2);
-		g_vertex_buffer_append(r3);
-		
-		g_vertex_buffer_append(r3);
-		g_vertex_buffer_append(r0);
+		g_vertex_buffer_append_line(r0, r1);
+		g_vertex_buffer_append_line(r1, r2);
+		g_vertex_buffer_append_line(r2, r3);
+		g_vertex_buffer_append_line(r3, r0);
 	}
 }
 
@@ -53,87 +41,51 @@ void g_box_3D_vert_core(double x_min, double x_max,
 	r7 = g_vector3(x_max, y_max, z_max);
 	
 	
-	if(WireFill == 1)
+	if (WireFill == G_FILL)
 	{
-		g_triangle_3D_core(r0.x, r0.y, r0.z,
-						   r1.x, r1.y, r1.z,
-						   r4.x, r4.y, r4.z,
-						   DivideLevel, WireFill);
-		g_triangle_3D_core(r1.x, r1.y, r1.z,
-						   r5.x, r5.y, r5.z,
-						   r4.x, r4.y, r4.z,
-						   DivideLevel, WireFill);
+		g_triangle_3D_core_worker(r0, r1, r4, DivideLevel);
+		g_triangle_3D_core_worker(r1, r5, r4, DivideLevel);
 		
-		g_triangle_3D_core(r6.x, r6.y, r6.z,
-						   r2.x, r2.y, r2.z,
-						   r4.x, r4.y, r4.z,
-						   DivideLevel, WireFill);
-		g_triangle_3D_core(r4.x, r4.y, r4.z,
-						   r2.x, r2.y, r2.z,
-						   r0.x, r0.y, r0.z,
-						   DivideLevel, WireFill);
+		g_triangle_3D_core_worker(r6, r2, r4, DivideLevel);
+		g_triangle_3D_core_worker(r4, r2, r0, DivideLevel);
 		
-		g_triangle_3D_core(r2.x, r2.y, r2.z,
-						   r7.x, r7.y, r7.z,
-						   r3.x, r3.y, r3.z,
-						   DivideLevel, WireFill);
-		g_triangle_3D_core(r6.x, r6.y, r6.z,
-						   r7.x, r7.y, r7.z,
-						   r2.x, r2.y, r2.z,
-						   DivideLevel, WireFill);
+		g_triangle_3D_core_worker(r2, r7, r3, DivideLevel);
+		g_triangle_3D_core_worker(r6, r7, r2, DivideLevel);
 		
-		g_triangle_3D_core(r1.x, r1.y, r1.z,
-						   r7.x, r7.y, r7.z,
-						   r5.x, r5.y, r5.z,
-						   DivideLevel, WireFill);
-		g_triangle_3D_core(r1.x, r1.y, r1.z,
-						   r3.x, r3.y, r3.z,
-						   r7.x, r7.y, r7.z,
-						   DivideLevel, WireFill);
+		g_triangle_3D_core_worker(r1, r7, r5, DivideLevel);
+		g_triangle_3D_core_worker(r1, r3, r7, DivideLevel);
 		
-		g_triangle_3D_core(r0.x, r0.y, r0.z,
-						   r2.x, r2.y, r2.z,
-						   r1.x, r1.y, r1.z,
-						   DivideLevel, WireFill);
-		g_triangle_3D_core(r2.x, r2.y, r2.z,
-						   r3.x, r3.y, r3.z,
-						   r1.x, r1.y, r1.z,
-						   DivideLevel, WireFill);
+		g_triangle_3D_core_worker(r0, r2, r1, DivideLevel);
+		g_triangle_3D_core_worker(r2, r3, r1, DivideLevel);
 		
-		g_triangle_3D_core(r6.x, r6.y, r6.z,
-						   r4.x, r4.y, r4.z,
-						   r7.x, r7.y, r7.z,
-						   DivideLevel, WireFill);
-		g_triangle_3D_core(r5.x, r5.y, r5.z,
-						   r7.x, r7.y, r7.z,
-						   r4.x, r4.y, r4.z,
-						   DivideLevel, WireFill);
+		g_triangle_3D_core_worker(r6, r4, r7, DivideLevel);
+		g_triangle_3D_core_worker(r5, r7, r4, DivideLevel);
 	}
-	if(WireFill == 0)
+	else
 	{
-		g_move_3D(r0.x,r0.y,r0.z);
-		g_plot_3D(r1.x,r1.y,r1.z);
-		g_plot_3D(r3.x,r3.y,r3.z);
-		g_plot_3D(r2.x,r2.y,r2.z);
-		g_plot_3D(r0.x,r0.y,r0.z);
+		g_move_s(r0);
+		g_plot_s(r1);
+		g_plot_s(r3);
+		g_plot_s(r2);
+		g_plot_s(r0);
 		
-		g_move_3D(r4.x,r4.y,r4.z);
-		g_plot_3D(r5.x,r5.y,r5.z);
-		g_plot_3D(r7.x,r7.y,r7.z);
-		g_plot_3D(r6.x,r6.y,r6.z);
-		g_plot_3D(r4.x,r4.y,r4.z);
+		g_move_s(r4);
+		g_plot_s(r5);
+		g_plot_s(r7);
+		g_plot_s(r6);
+		g_plot_s(r4);
 		
-		g_move_3D(r2.x,r2.y,r2.z);
-		g_plot_3D(r6.x,r6.y,r6.z);
+		g_move_s(r2);
+		g_plot_s(r6);
 		
-		g_move_3D(r3.x,r3.y,r3.z);
-		g_plot_3D(r7.x,r7.y,r7.z);
+		g_move_s(r3);
+		g_plot_s(r7);
 		
-		g_move_3D(r5.x,r5.y,r5.z);
-		g_plot_3D(r1.x,r1.y,r1.z);
+		g_move_s(r5);
+		g_plot_s(r1);
 		
-		g_move_3D(r0.x,r0.y,r0.z);
-		g_plot_3D(r4.x,r4.y,r4.z);
+		g_move_s(r0);
+		g_plot_s(r4);
 	}
 }
 void g_box_3D_vert(double x_min, double x_max,
