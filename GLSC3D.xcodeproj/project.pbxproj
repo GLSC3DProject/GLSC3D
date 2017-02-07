@@ -14,6 +14,7 @@
 		3F198F911E3F4C530062613D /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3F198FA01E3F4EC50062613D /* 3DFigures.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F9F1E3F4EC50062613D /* 3DFigures.c */; };
 		3F198FA11E3F4EFA0062613D /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
+		3F1F4CFE1E49E3D400497EBC /* g_shader_program.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */; };
 		3F75738F1E420B42009E14BF /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3F7573971E420BB0009E14BF /* Sample_g_triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F7573951E420B9D009E14BF /* Sample_g_triangle.c */; };
 		3F75739E1E420C8B009E14BF /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
@@ -31,7 +32,6 @@
 		3F7573EC1E421729009E14BF /* g_area.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E51E3E1E340031E4BE /* g_area.c */; };
 		3F7573ED1E421729009E14BF /* g_arrow.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E61E3E1E340031E4BE /* g_arrow.c */; };
 		3F7573EE1E421729009E14BF /* g_bird_view_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */; };
-		3F7573EF1E421729009E14BF /* g_box_vert.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F7F1E3F37E10062613D /* g_box_vert.c */; };
 		3F7573F01E421729009E14BF /* g_box.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E81E3E1E340031E4BE /* g_box.c */; };
 		3F7573F11E421729009E14BF /* g_camera.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E91E3E1E340031E4BE /* g_camera.c */; };
 		3F7573F21E421729009E14BF /* g_capture.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EA1E3E1E340031E4BE /* g_capture.c */; };
@@ -281,11 +281,11 @@
 		3F198F631E3F332A0062613D /* Marker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Marker.c; path = Test/Marker.c; sourceTree = SOURCE_ROOT; };
 		3F198F741E3F375C0062613D /* Box */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Box; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F198F7B1E3F377C0062613D /* Box.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Box.c; path = Test/Box.c; sourceTree = SOURCE_ROOT; };
-		3F198F7F1E3F37E10062613D /* g_box_vert.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_box_vert.c; path = Source/g_box_vert.c; sourceTree = "<group>"; };
 		3F198F881E3F4BC10062613D /* Cone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Cone; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F198F8F1E3F4C180062613D /* Cone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Cone.c; path = Test/Cone.c; sourceTree = SOURCE_ROOT; };
 		3F198F981E3F4D210062613D /* 3DFigures */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 3DFigures; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F198F9F1E3F4EC50062613D /* 3DFigures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = 3DFigures.c; path = Test/3DFigures.c; sourceTree = SOURCE_ROOT; };
+		3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_shader_program.c; path = Source/g_shader_program.c; sourceTree = "<group>"; };
 		3F7573941E420B42009E14BF /* Sample_g_triangle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sample_g_triangle; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7573951E420B9D009E14BF /* Sample_g_triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Sample_g_triangle.c; path = Test/Sample_g_triangle.c; sourceTree = SOURCE_ROOT; };
 		3F7573A31E420C8B009E14BF /* Sample_g_sphere */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sample_g_sphere; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -520,7 +520,6 @@
 				3F9884E51E3E1E340031E4BE /* g_area.c */,
 				3F9884E61E3E1E340031E4BE /* g_arrow.c */,
 				3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */,
-				3F198F7F1E3F37E10062613D /* g_box_vert.c */,
 				3F9884E81E3E1E340031E4BE /* g_box.c */,
 				3F9884E91E3E1E340031E4BE /* g_camera.c */,
 				3F9884EA1E3E1E340031E4BE /* g_capture.c */,
@@ -557,6 +556,7 @@
 				3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */,
 				3F98850D1E3E1E340031E4BE /* g_triangle.c */,
 				3FFE934A1E40C28B00BB053B /* g_vertex_buffer.c */,
+				3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -992,7 +992,6 @@
 				3F7573EC1E421729009E14BF /* g_area.c in Sources */,
 				3F7573ED1E421729009E14BF /* g_arrow.c in Sources */,
 				3F7573EE1E421729009E14BF /* g_bird_view_3D.c in Sources */,
-				3F7573EF1E421729009E14BF /* g_box_vert.c in Sources */,
 				3F7573F01E421729009E14BF /* g_box.c in Sources */,
 				3F7573F11E421729009E14BF /* g_camera.c in Sources */,
 				3F7573F21E421729009E14BF /* g_capture.c in Sources */,
@@ -1021,6 +1020,7 @@
 				3F75740A1E421729009E14BF /* g_prism_3D.c in Sources */,
 				3F75740B1E421729009E14BF /* g_pyramid_3D.c in Sources */,
 				3F75740C1E421729009E14BF /* g_rectangle.c in Sources */,
+				3F1F4CFE1E49E3D400497EBC /* g_shader_program.c in Sources */,
 				3F75740D1E421729009E14BF /* g_scale.c in Sources */,
 				3F75740E1E421729009E14BF /* g_scr_color.c in Sources */,
 				3F75740F1E421729009E14BF /* g_sleep.c in Sources */,

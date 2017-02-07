@@ -6,16 +6,18 @@
 //  Copyright © 2017年 student. All rights reserved.
 //
 
-#include <stdio.h>
 #include "glsc3d_private.h"
 
-//#define VERTEX_BUFFER_SIZE (3 << 10)
 static const size_t VERTEX_BUFFER_SIZE = 3 << 12;
 
+#define BUFFER_OFFSET_NORMAL ((void *)sizeof(G_VECTOR))
+#define BUFFER_OFFSET_COLOR  ((void *)(sizeof(G_VECTOR) * 2))
+
 GLenum g_primitive_mode;
-G_BOOL g_lighting_enabled;
 
 int g_vertex_data_count;
+
+GLuint g_vertex_buffer_id;
 
 G_VERTEX *g_vertex_data;
 
@@ -34,9 +36,15 @@ void* g_malloc(size_t size)
 
 void g_vertex_buffer_init()
 {
+	glGenBuffers(1, &g_vertex_buffer_id);
+	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
+	glBufferData(GL_ARRAY_BUFFER, VERTEX_BUFFER_SIZE * sizeof(G_VERTEX), NULL, GL_STREAM_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	
 	g_vertex_data = (G_VERTEX *)g_malloc(VERTEX_BUFFER_SIZE * sizeof(G_VERTEX));
-
 	g_vertex_data_count = 0;
+	
+	g_shader_program_init();
 }
 
 void g_vertex_buffer_append(G_VERTEX vertex)
@@ -67,18 +75,24 @@ void g_vertex_buffer_flush()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 	
-	glVertexPointer(3, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data[0].position);
-	glColorPointer(4, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data[0].color);
+	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, g_vertex_data_count * sizeof(G_VERTEX), g_vertex_data);
+	
+	glVertexPointer(3, GL_FLOAT, sizeof(G_VERTEX), 0);
 	
 	if (g_lighting_enabled) {
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
 		glEnable(GL_COLOR_MATERIAL);
 		
-		glNormalPointer(GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data[0].normal);
+		glNormalPointer(GL_FLOAT, sizeof(G_VERTEX), BUFFER_OFFSET_NORMAL);
 	}
 	
+	glColorPointer(4, GL_FLOAT, sizeof(G_VERTEX), BUFFER_OFFSET_COLOR);
+	
 	glDrawArrays(g_primitive_mode, 0, g_vertex_data_count);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
 	if (g_lighting_enabled) {
 		glDisable(GL_COLOR_MATERIAL);
@@ -97,20 +111,6 @@ void g_set_primitive_mode(GLenum mode)
 		g_vertex_buffer_flush();
 	
 	g_primitive_mode = mode;
-}
-
-void g_enable_lighting()
-{
-	glEnd();
-	glEnable(GL_LIGHTING);
-	g_lighting_enabled = G_TRUE;
-}
-
-void g_disable_lighting()
-{
-	glEnd();
-	glDisable(GL_LIGHTING);
-	g_lighting_enabled = G_FALSE;
 }
 
 void g_begin_points()

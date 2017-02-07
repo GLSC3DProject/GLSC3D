@@ -241,14 +241,12 @@ extern "C"
 //		G_COLOR c = current_area_color_3D;
 //		
 //		G_DIRECTION n = g_cross(g_minus(p1, p0), g_minus(p2, p0));
-////		n.w = 0;
 //
 //		G_TRIANGLE t = {{{p0, n, c}, {p1, n, c}, {p2, n, c}}};
 //		return t;
 //	}
 	
 	void g_text_init();
-	
 
 	extern int             glsc3D_width;
 	extern int             glsc3D_height;
@@ -304,13 +302,17 @@ extern "C"
 	void g_vertex_buffer_append_line(G_VECTOR a, G_VECTOR b);
 	void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c);
 
-//	void g_vertex_buffer_append_triangle_normal(G_VECTOR_F a, G_VECTOR_F b, G_VECTOR_F c, G_VECTOR_F n);
-
 	void g_vertex_buffer_flush();
-//	void g_set_primitive_mode(GLenum mode);
-	
+
+	void g_begin_points();
 	void g_begin_lines();
 	void g_begin_triangles();
+
+	// ---- g_shader_program.c
+	void g_shader_program_init();
+
+	void g_enable_lighting();
+	void g_disable_lighting();
 
 #ifdef __cplusplus
 }

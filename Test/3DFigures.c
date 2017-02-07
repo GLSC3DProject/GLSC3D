@@ -5,7 +5,7 @@
 int main()
 {
 	const int Size = 320;
-	const int CountX = 4, CountY = 2;
+	const int CountX = 5, CountY = 2;
 
 	g_init("GLSC3D", Size * CountX, Size * CountY);
 
@@ -15,9 +15,9 @@ int main()
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	g_area_color_3D(0.5, 0.75, 0.5, 1);
-	g_line_color(1, 1, 1, 1);
+	g_line_color(0, 0, 0, 1);
 
-	g_text_color(1, 1, 1, 1);
+	g_text_color(0, 0, 0, 1);
 	g_text_font(G_IPA_GOTHIC, 24);
 
 	int id = 0;
@@ -47,8 +47,14 @@ int main()
 
 		g_sel_scale_3D(5);
 		g_box_3D_core(0, 0, 0, 3, 2, 1.5, 0, WIRE_OR_FILL);
-
+		
 		g_sel_scale_3D(6);
+		g_sphere_3D_core(0, 0, 0, 1, 8, 0, WIRE_OR_FILL);
+		
+		g_sel_scale_3D(7);
+		g_rectangle_3D_core(0, 0, 0, c, s, 0, 3, 2, 0, 0, WIRE_OR_FILL);
+
+		g_sel_scale_3D(8);
 		g_arrow_3D_core(0, 0, 0, c, s, 0, 1, 0.25, 16, 1, 0, WIRE_OR_FILL);
 		g_arrow_3D_core(0, 0, 0,-s, c, 0, 1, 0.25, 16, 1, 0, WIRE_OR_FILL);
 		g_arrow_3D_core(0, 0, 0, 0, 0, 1, 1, 0.25, 16, 1, 0, WIRE_OR_FILL);
@@ -56,7 +62,7 @@ int main()
 		g_text_3D_virtual(-1.1*s, 1.1*c, 0, "y");
 		g_text_3D_virtual(0, 0, 1, "z");
 
-		g_sel_scale_3D(7);
+		g_sel_scale_3D(9);
 		g_fan_3D_core(0, 0, 0, c, s, 0, 1, 2.0, 0, 4, 0, WIRE_OR_FILL);
 
 		g_finish();

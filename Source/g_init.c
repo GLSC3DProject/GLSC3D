@@ -123,30 +123,10 @@ void g_init_core(
 	
 	g_vertex_buffer_init();
 
-//	g_def_scale_3D_core(0, -1,1,-1,1,-1,1,0,0,width,height,1,1,1,0,0,1,0);
-	/*glEnd();
-	  glMatrixMode(GL_PROJECTION);
-	  glLoadIdentity();
-	  gluPerspective(45,
-	  width/height,
-	  1,10);
-	  glMatrixMode(GL_MODELVIEW);
-	  glLoadIdentity();
-	  gluLookAt(2, 2, 2,
-	  0, 0, 0,
-	  0,1,0);
-	  glViewport(0, 0,
-	  width, height);
-	 */
-//	if(!g_enable_transparent)
-//	{
-//		glEnable(GL_DEPTH_TEST);
-//	}
-
 	g_scr_color(r,g,b);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	g_finish();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	g_finish();
+//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	font = GLUT_BITMAP_HELVETICA_10;
 	
