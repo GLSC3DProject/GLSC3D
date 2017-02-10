@@ -78,10 +78,23 @@ void g_init_core(
 	glutInitWindowPosition(pos_x,pos_y);
 	glutInitWindowSize(glsc3D_width,glsc3D_height);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | (g_enable_transparent ? 0 : GLUT_DEPTH));
+	glutInitContextVersion(3, 1);
+	glutInitContextProfile(GLUT_CORE_PROFILE);
+	glutInitContextFlags(GLUT_FORWARD_COMPATIBLE);
 	glutCreateWindow(WindowName);
+	CheckGLError(0);
+//	GLint major_version, minor_version;
+//	glGetIntegerv(GL_MAJOR_VERSION, &major_version);
+//	CheckGLError(10);
+//	glGetIntegerv(GL_MINOR_VERSION, &minor_version);
+//	CheckGLError(11);
+//	printf("Version : %d.%d\n", major_version, minor_version);
+	printf("%s\n", glGetString(GL_VERSION));
 
 	g_input_init();
+	CheckGLError(12);
 	g_text_init();
+	CheckGLError(13);
 	glShadeModel(GL_SMOOTH);
 	
 	glMatrixMode(GL_PROJECTION);
@@ -89,9 +102,11 @@ void g_init_core(
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
 	
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
+	CheckGLError(14);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 128);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT ,1);
+	CheckGLError(1);
 
 	g_init_light(0, 1, 1, 1);
 

@@ -4,6 +4,10 @@
 #include "glsc3d.h"
 #include <GL/freeglut.h>
 
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#endif
+
 #include <math.h>
 #include <float.h>
 #include <stdio.h>
@@ -11,7 +15,6 @@
 #define TotalDisplayNumber (100)
 
 #define PI M_PI
-
 
 #ifdef __cplusplus
 #include <cassert>
@@ -297,7 +300,6 @@ extern "C"
 	
 	void g_vertex_buffer_init();
 	void g_vertex_buffer_append(G_VERTEX vertex);
-//	void g_vertex_buffer_append_normal(G_VECTOR_F position, G_VECTOR_F normal);
 
 	void g_vertex_buffer_append_line(G_VECTOR a, G_VECTOR b);
 	void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c);
@@ -307,6 +309,8 @@ extern "C"
 	void g_begin_points();
 	void g_begin_lines();
 	void g_begin_triangles();
+	
+	void CheckGLError(int checkpoint);
 
 	// ---- g_shader_program.c
 	void g_shader_program_init();
