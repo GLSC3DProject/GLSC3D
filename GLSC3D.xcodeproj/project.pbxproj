@@ -73,10 +73,11 @@
 		3F98853B1E3E1E7B0031E4BE /* glsc3d_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */; };
 		3F98853D1E3E1E7B0031E4BE /* glsc3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F98853A1E3E1E7B0031E4BE /* glsc3d.h */; };
 		3FBFFB301E3E23110074CD0A /* libpng16.16.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */; };
-		3FBFFB321E3E23460074CD0A /* libglut.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB311E3E23460074CD0A /* libglut.3.dylib */; };
 		3FBFFB371E3E2CB70074CD0A /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */; };
 		3FBFFB3A1E3E2F7E0074CD0A /* g_font_obj.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */; };
 		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
+		3FFCFE2C1E619055006AD71F /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFCFE2B1E619055006AD71F /* libSDL2-2.0.0.dylib */; };
+		3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,6 +349,8 @@
 		3FBFFB311E3E23460074CD0A /* libglut.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglut.3.dylib; path = ../../../opt/X11/lib/libglut.3.dylib; sourceTree = "<group>"; };
 		3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../opt/X11/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
 		3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = g_font_obj.o; path = Object/g_font_obj.o; sourceTree = "<group>"; };
+		3FFCFE2B1E619055006AD71F /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../opt/local/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
+		3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sdl_wrapper.c; path = Source/g_sdl_wrapper.c; sourceTree = "<group>"; };
 		3FFE934A1E40C28B00BB053B /* g_vertex_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_vertex_buffer.c; path = Source/g_vertex_buffer.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -446,7 +449,7 @@
 			files = (
 				3FBFFB3A1E3E2F7E0074CD0A /* g_font_obj.o in Frameworks */,
 				3FBFFB371E3E2CB70074CD0A /* libfreetype.6.dylib in Frameworks */,
-				3FBFFB321E3E23460074CD0A /* libglut.3.dylib in Frameworks */,
+				3FFCFE2C1E619055006AD71F /* libSDL2-2.0.0.dylib in Frameworks */,
 				3FBFFB301E3E23110074CD0A /* libpng16.16.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -557,6 +560,7 @@
 				3F98850D1E3E1E340031E4BE /* g_triangle.c */,
 				3FFE934A1E40C28B00BB053B /* g_vertex_buffer.c */,
 				3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */,
+				3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.c */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -573,6 +577,7 @@
 		3FBFFB2E1E3E23110074CD0A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3FFCFE2B1E619055006AD71F /* libSDL2-2.0.0.dylib */,
 				3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */,
 				3FBFFB311E3E23460074CD0A /* libglut.3.dylib */,
 				3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */,
@@ -1026,6 +1031,7 @@
 				3F75740F1E421729009E14BF /* g_sleep.c in Sources */,
 				3F7574101E421729009E14BF /* g_sphere_3D.c in Sources */,
 				3F7574111E421729009E14BF /* g_text.c in Sources */,
+				3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.c in Sources */,
 				3F7574121E421729009E14BF /* g_triangle_buffer.c in Sources */,
 				3F7574131E421729009E14BF /* g_triangle.c in Sources */,
 				3F7574141E421729009E14BF /* g_vertex_buffer.c in Sources */,
@@ -1355,10 +1361,10 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				HEADER_SEARCH_PATHS = (
-					/opt/X11/include,
+					/opt/local/include,
 					/opt/X11/include/freetype2,
 				);
-				LIBRARY_SEARCH_PATHS = /opt/X11/lib;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1371,10 +1377,10 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				HEADER_SEARCH_PATHS = (
-					/opt/X11/include,
+					/opt/local/include,
 					/opt/X11/include/freetype2,
 				);
-				LIBRARY_SEARCH_PATHS = /opt/X11/lib;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

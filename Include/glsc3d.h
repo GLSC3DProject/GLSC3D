@@ -46,54 +46,7 @@ extern "C"
 typedef int G_BOOL;
 #define G_TRUE  1
 #define G_FALSE 0
-
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-extern int g_enable_transparent;
-
-extern int TRIANGLE_BUFFER_SIZE;
-extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
-    
-#define NDEBUG
-#define NDEBUG2
-    
-#ifndef NDEBUG
-#define DBG_WRITE(...) fprintf(stderr, "%s:%d In function '%s'", __FILE__, __LINE__, __func__), fprintf(stderr, "  "  __VA_ARGS__), fprintf(stderr, "\n")
-#else
-#define DBG_WRITE(...)
-#endif
-    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-extern int color2D_id;
-extern int color3D_id;
-
-void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z, double lit_pow);
-
-void g_init_light(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z);
-
-void g_init_core (
-                      const char *WindowName,int width,int height,
-                      int pos_x,int pos_y,
-                      double r,double g,double b,
-                      int g_enable_transparent_out,
-                      int TEMPORARY_TRIANGLE_BUFFER_SIZE_out,
-                      int TRIANGLE_BUFFER_SIZE_out
-                      );
-
-
-void g_init (const char *WindowName,int width,int height);
-
-void g_scr_color(double r, double g, double b);
-
-void g_cls();
-
-void g_finish();
-
-void g_sleep(double wait_time);
-
-int g_capture();
-int g_capture_set(const char *name);
-    
+	
 /*typedef enum
 {
     G_2D   = 0,
@@ -129,7 +82,55 @@ typedef int G_FONT_ID;
 #define G_IPA_MINCHO_PROPORTIONAL 3
 
 
-#define G_OFF_SCREEN NULL
+#define G_OFF_SCREEN			NULL
+
+#define G_WINDOWPOS_CENTERED	0x2FFF0000
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+extern int g_enable_transparent;
+
+extern int TRIANGLE_BUFFER_SIZE;
+extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
+    
+#define NDEBUG
+#define NDEBUG2
+    
+#ifndef NDEBUG
+#define DBG_WRITE(...) fprintf(stderr, "%s:%d In function '%s'", __FILE__, __LINE__, __func__), fprintf(stderr, "  "  __VA_ARGS__), fprintf(stderr, "\n")
+#else
+#define DBG_WRITE(...)
+#endif
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+extern int color2D_id;
+extern int color3D_id;
+
+void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z, double lit_pow);
+
+void g_init_light(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z);
+
+void g_init_core (
+                      const char *WindowName,int width,int height,
+                      int pos_x,int pos_y,
+                      double r,double g,double b,
+                      int g_enable_transparent_out,
+                      int TEMPORARY_TRIANGLE_BUFFER_SIZE_out,
+                      int TRIANGLE_BUFFER_SIZE_out
+                      );
+
+
+void g_init (const char *WindowName,int width,int height);
+
+void g_scr_color(double r, double g, double b);
+
+void g_cls();
+
+void g_finish();
+
+void g_sleep(double wait_time);
+
+int g_capture();
+int g_capture_set(const char *name);
     
 void g_def_scale_2D(int id,
                     double x_left, double x_right, double y_bottom, double y_top,

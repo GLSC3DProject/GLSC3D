@@ -1,5 +1,4 @@
 #include "glsc3d_private.h"
-#include <stdio.h>
 
 int             get_scale_id_number;
 G_DIMENSION     g_scale_dim_flag;
@@ -23,7 +22,7 @@ void g_def_scale_2D(int id,                                                     
 	glsc3D_inner_screen[id] = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 	if(id >= 100){
 		fprintf(stderr,"too large id number\n");
-		exit(0);
+		g_quit();
 	}
 }
 
@@ -62,7 +61,7 @@ void g_def_scale_3D_core(int id,
 	glsc3D_inner_screen[id] = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 	if(id >= 100){
 		fprintf(stderr,"too large id number\n");
-		exit(0);
+		g_quit();
 	}
 }
 

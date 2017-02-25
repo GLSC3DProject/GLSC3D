@@ -1,16 +1,20 @@
 #ifndef GLSC3D_STRUCT_H
 #define GLSC3D_STRUCT_H
 
+#define _LIBICONV_H
+
 #include "glsc3d.h"
-#include <GL/freeglut.h>
 
 #ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
 #include <OpenGL/gl3.h>
 #endif
 
 #include <math.h>
 #include <float.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define TotalDisplayNumber (100)
 
@@ -251,11 +255,11 @@ extern "C"
 	
 	void g_text_init();
 
-	extern int             glsc3D_width;
-	extern int             glsc3D_height;
+	extern int				glsc3D_width;
+	extern int				glsc3D_height;
 
-	extern int             get_scale_id_number;
-	extern G_DIMENSION     g_scale_dim_flag;
+	extern int				get_scale_id_number;
+	extern G_DIMENSION		g_scale_dim_flag;
 
 	void g_triangle_buffer_init();
 	void g_triangle_buffer_append(G_TRIANGLE t);
@@ -318,6 +322,11 @@ extern "C"
 	void g_enable_lighting();
 	void g_disable_lighting();
 
+	// ---- g_sdl_wrapper.c
+	void g_sdl_init(int pos_x, int pos_y);
+	void g_swap_buffers();
+	void g_poll_events();
+	void g_quit();
 #ifdef __cplusplus
 }
 #endif

@@ -1,6 +1,6 @@
 #include "glsc3d_private.h"
 #include <stdio.h>
-
+/*
 #define INPUT_KEY_MAX (128) // This is enough size to store ASCII character.
 							//And, I'll store special keys and mouse buttons
 							//in place of contoroll character.
@@ -299,3 +299,4 @@ char *g_key_code_string[] =
 		"~",
 		"Delete"
 	};
+*/

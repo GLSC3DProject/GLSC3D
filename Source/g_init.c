@@ -1,12 +1,7 @@
 #include "glsc3d_private.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-int             glsc3D_width =  800;
-int             glsc3D_height = 800;
-int             glsc3D_argc = 1;
-char            **glsc3D_argv;
-void            *font;
+int             glsc3D_width;
+int             glsc3D_height;
 
 G_COLOR g_current_area_color_2D = {1, 1, 1, 1};
 G_COLOR g_current_area_color_3D = {1, 1, 1, 1};
@@ -72,16 +67,8 @@ void g_init_core(
 	glsc3D_width = width;
 	glsc3D_height = height;
 	
-	glsc3D_argc = 1;
-	glsc3D_argv = NULL;
-	glutInit(&glsc3D_argc,glsc3D_argv);
-	glutInitWindowPosition(pos_x,pos_y);
-	glutInitWindowSize(glsc3D_width,glsc3D_height);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | (g_enable_transparent ? 0 : GLUT_DEPTH));
-	glutInitContextVersion(3, 1);
-	glutInitContextProfile(GLUT_CORE_PROFILE);
-	glutInitContextFlags(GLUT_FORWARD_COMPATIBLE);
-	glutCreateWindow(WindowName);
+	g_sdl_init(pos_x, pos_y);
+	
 	CheckGLError(0);
 //	GLint major_version, minor_version;
 //	glGetIntegerv(GL_MAJOR_VERSION, &major_version);
@@ -91,10 +78,12 @@ void g_init_core(
 //	printf("Version : %d.%d\n", major_version, minor_version);
 	printf("%s\n", glGetString(GL_VERSION));
 
-	g_input_init();
-	CheckGLError(12);
+//	g_input_init();
 	g_text_init();
-	CheckGLError(13);
+	
+	g_vertex_buffer_init();
+	g_shader_program_init();
+	
 	glShadeModel(GL_SMOOTH);
 	
 	glMatrixMode(GL_PROJECTION);
@@ -102,7 +91,6 @@ void g_init_core(
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
 	
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
-	CheckGLError(14);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 128);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT ,1);
@@ -135,25 +123,21 @@ void g_init_core(
 		
 		g_triangle_buffer_init();
 	}
-	
-	g_vertex_buffer_init();
 
 	g_scr_color(r,g,b);
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	g_finish();
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	font = GLUT_BITMAP_HELVETICA_10;
 	
 	if(WindowName == G_OFF_SCREEN)
 	{
 		g_init_off_screen_rendering();
 		g_begin_off_screen_rendering();
-		glutHideWindow();
+//		glutHideWindow();
 	}
 }
 
 void g_init (const char *WindowName,int width,int height)
 {
-	g_init_core(WindowName,width,height,50,50,0,0,0,0,0,0);
+	g_init_core(WindowName,width,height,G_WINDOWPOS_CENTERED,G_WINDOWPOS_CENTERED,0,0,0,0,0,0);
 }
