@@ -2,7 +2,6 @@
 
 void g_finish()
 {
-	glEnd();
 	g_vertex_buffer_flush();
 	g_triangle_buffer_draw();
 	

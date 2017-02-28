@@ -115,6 +115,7 @@
     <ClCompile Include="..\Source\g_triangle.c" />
     <ClCompile Include="..\Source\g_triangle_buffer.c" />
     <ClCompile Include="..\Source\g_vertex_buffer.cpp" />
+    <ClCompile Include="g_debug_callback.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\glsc3d.h" />

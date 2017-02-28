@@ -109,7 +109,7 @@ void g_bind_uniform_block(GLuint program, const GLchar *name, GLuint binding)
 void g_update_uniform(GLuint index, GLsizei size, GLvoid *data)
 {
 	glBindBufferBase(GL_UNIFORM_BUFFER, index, g_uniforms[index]);
-	glBufferData(GL_UNIFORM_BUFFER, size, data, GL_STATIC_DRAW);
+	glBufferData(GL_UNIFORM_BUFFER, size, data, GL_DYNAMIC_DRAW);
 }
 
 void g_shader_program_init()

@@ -132,6 +132,9 @@
     <ClCompile Include="..\Source\g_init.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="g_debug_callback.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\glsc3d.h">

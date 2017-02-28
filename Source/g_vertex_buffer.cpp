@@ -28,8 +28,7 @@ static const char * ErrorNames[] = {
 
 void CheckGLError(int checkpoint)
 {
-	GLenum error = glGetError();
-	if (error != GL_NO_ERROR)
+	if (GLenum error = glGetError())
 		printf("OpenGL Error : %s Checkpoint: %d\n",
 			ErrorNames[error - GL_INVALID_ENUM], checkpoint);
 }

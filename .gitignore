@@ -2,5 +2,6 @@
 # この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
 ################################################################################
 
-/vcxproj/x64/Release
-/x64/Release
+/vcxproj/x64
+/x64
+/.vs/GLSC3D/v14

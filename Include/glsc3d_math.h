@@ -170,7 +170,7 @@ static inline G_REAL g_dot (G_VECTOR u, G_VECTOR v)
 
 static inline G_REAL g_norm(G_VECTOR u)
 {
-	return sqrt(u.x*u.x + u.y*u.y + u.z*u.z);
+	return sqrtf(u.x*u.x + u.y*u.y + u.z*u.z);
 }
 
 static inline G_VECTOR g_normalize(G_VECTOR u)

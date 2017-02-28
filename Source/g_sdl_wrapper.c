@@ -1,4 +1,4 @@
-#include "glsc3d_private_ext.h"
+﻿#include "glsc3d_private_ext.h"
 #include <SDL2/SDL.h>
 
 SDL_Window*		g_window;
@@ -16,7 +16,13 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+#ifdef G_ENABLE_OPENGL_DEBUG
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG | SDL_GL_CONTEXT_DEBUG_FLAG);
+#else
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+#endif
+
 #endif
 
 	g_window = SDL_CreateWindow(WindowName,

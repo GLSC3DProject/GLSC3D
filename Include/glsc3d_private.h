@@ -1,7 +1,8 @@
 #ifndef GLSC3D_PRIVATE_H
 #define GLSC3D_PRIVATE_H
 
-#define _LIBICONV_H
+//#undef NDEBUG
+//#define _LIBICONV_H
 
 #include "glsc3d.h"
 #include "glsc3d_math.h"

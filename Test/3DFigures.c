@@ -1,8 +1,9 @@
 #include "glsc3d.h"
+#include <SDL2/SDL_main.h>
 
 #define WIRE_OR_FILL G_FILL
 
-int main()
+int main(int argc, char *argv[])
 {
 	const int Size = 320;
 	const int CountX = 5, CountY = 2;
