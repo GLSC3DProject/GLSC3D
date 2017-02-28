@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+/*#include "glsc3d_private.h"
 #include <stdarg.h>
 #include "g_font_obj.symb"
 #include <stdio.h>
@@ -198,3 +198,4 @@ void g_text_init()
 	g_text_color(0, 0, 0, 1);
 	g_text_font(G_IPA_GOTHIC, 12);
 }
+*/

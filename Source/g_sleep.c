@@ -9,5 +9,5 @@ void g_sleep(double wait_time)
     wait.tv_sec  =  (int)wait_time;
     wait.tv_nsec =  (wait_time - wait.tv_sec)*1.0e+9;
     //usleep(1000000 * wait_time);//deprecated
-    nanosleep(&wait,NULL);
+    //nanosleep(&wait,NULL);
 }

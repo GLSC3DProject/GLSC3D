@@ -4,26 +4,9 @@
 #include <time.h>
 #include <errno.h>
 #include <assert.h>
-#include <png.h>
-
+//#include <png.h>
+/*
 #include "glsc3d_private.h"
-
-///* Mac OS X */
-//#ifdef __APPLE__
-//#include <GLUT/glut.h>
-//#include <OpenGL/gl.h>
-//#endif
-//
-///* Linux */
-//#ifdef __linux
-//#include <GL/glut.h>
-//#endif
-//
-///* Windows */
-//#ifdef WIN32
-//#include <windows.h>
-//#include <GL/glut.h>
-//#endif
 
 //g_normaly, bit_depth = 8, color_type = PNG_COLOR_TYPE_RGB_ALPHA.
 //if you don't reserve buffer for alpha, color_type = PNG_COLOR_TYPE_RGB.
@@ -176,3 +159,4 @@ g_capture_set(name)
 
 	return 0;
 }
+*/

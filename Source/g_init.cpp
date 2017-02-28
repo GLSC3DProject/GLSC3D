@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_private_ext.h"
 
 int             glsc3D_width;
 int             glsc3D_height;
@@ -8,11 +8,35 @@ G_COLOR g_current_area_color_3D = {1, 1, 1, 1};
 G_COLOR g_current_line_color = {1, 1, 1, 1};
 G_COLOR g_current_text_color = {1, 1, 1, 1};
 G_COLOR g_current_marker_color = {1, 1, 1, 1};
+G_COLOR g_current_color = {1, 1, 1, 1};
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
+#ifdef _WIN32
+EMIT_GL_FUNCTIONS(DECL_GL_FUNC);
+#endif
+
+struct G_LIGHT
+{
+	G_VECTOR direction;
+	float _pad;
+	float ambient, diffuse, specular, shininess;
+};
+
 void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z, double lit_pow)
 {
+#ifdef G_USE_CORE_PROFILE
+	if (lightnum != 0) return;
+
+	G_LIGHT light;
+	light.direction = g_normalize(G_VECTOR(lit_pos_x, lit_pos_y, lit_pos_z));
+	light.ambient = 0;
+	light.diffuse = lit_pow;
+	light.specular = 1.0f;
+	light.shininess = 64;
+
+	g_update_uniform(G_UNIFORM_LIGHTS, sizeof(light), &light);
+#else
 //	static GLfloat lit_amb[4]={0.3, 0.3, 0.3, 0.0};	// 環境光の強さ
 	GLfloat lit_dif[4]={lit_pow, lit_pow, lit_pow, 0.0};	// 拡散光の強さ
 	static GLfloat lit_spc[4]={1.0, 1.0, 1.0, 0.0};	// 鏡面反射光の強さ
@@ -46,7 +70,7 @@ void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit
 	glLightfv(lightname, GL_POSITION, lit_pos);
 
 	glEnable(lightname);
-//	glEnable(GL_LIGHTING);
+#endif
 }
 void g_init_light(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z)
 {
@@ -62,41 +86,40 @@ void g_init_core(
 					int TRIANGLE_BUFFER_SIZE_out
 				)
 {
-	GLfloat specular[4] = {1, 1, 1, 1};
-	
 	glsc3D_width = width;
 	glsc3D_height = height;
 	
-	g_sdl_init(pos_x, pos_y);
-	
-	CheckGLError(0);
-//	GLint major_version, minor_version;
-//	glGetIntegerv(GL_MAJOR_VERSION, &major_version);
-//	CheckGLError(10);
-//	glGetIntegerv(GL_MINOR_VERSION, &minor_version);
-//	CheckGLError(11);
-//	printf("Version : %d.%d\n", major_version, minor_version);
-	printf("%s\n", glGetString(GL_VERSION));
+	g_sdl_init(WindowName, pos_x, pos_y);
 
-//	g_input_init();
-	g_text_init();
+	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
+
+#ifdef _WIN32
+	EMIT_GL_FUNCTIONS(INIT_GL_FUNC);
+#endif
 	
 	g_vertex_buffer_init();
 	g_shader_program_init();
+
+//	g_input_init();
+//	g_text_init();
+	
+#ifndef G_USE_CORE_PROFILE
+	GLfloat specular[4] = {1, 1, 1, 1};
 	
 	glShadeModel(GL_SMOOTH);
 	
-	glMatrixMode(GL_PROJECTION);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
 	
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 128);
+#endif
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT ,1);
-	CheckGLError(1);
-
+	CheckGLError(0);
 	g_init_light(0, 1, 1, 1);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	CheckGLError(1);
 
 	g_enable_transparent = g_enable_transparent_out;
 
@@ -129,12 +152,12 @@ void g_init_core(
 //	g_finish();
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	if(WindowName == G_OFF_SCREEN)
-	{
-		g_init_off_screen_rendering();
-		g_begin_off_screen_rendering();
-//		glutHideWindow();
-	}
+	//if(WindowName == G_OFF_SCREEN)
+	//{
+	//	g_init_off_screen_rendering();
+	//	g_begin_off_screen_rendering();
+	//	glutHideWindow();
+	//}
 }
 
 void g_init (const char *WindowName,int width,int height)

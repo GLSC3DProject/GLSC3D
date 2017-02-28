@@ -1,6 +1,6 @@
 #include "glsc3d_private.h"
 
-#define USE_g_triangle_3D_core
+//#define USE_g_triangle_3D_core
 
 void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill)
 {
@@ -11,9 +11,8 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
     double a = 1,b = 0,c = 1,d = 0,P,Q,R,S;
     double atmp,btmp,ctmp,dtmp;
     double A = cos(dth),B = sin(dth),C = cos(dp),D = sin(dp);
-    G_POSITION r0, r1, r2, r3, X = {x, y, z, 1};
+    G_POSITION r0, r1, r2, r3, X = {x, y, z};
 #ifndef USE_g_triangle_3D_core
-    G_MATERIAL m1 = g_make_material(current_area_color_3D);
     G_VERTEX   v0, v1, v2, v3;
     G_TRIANGLE t0, t1;
     double r_inv = 1 / radius;
@@ -43,10 +42,10 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
                                    r2.x,r2.y,r2.z,
                                    DivideLevel, WireFill);
 #else
-            v0 = g_material_vertex(g_plus(r0, X),g_multi(r_inv, r0), m1);
-            v1 = g_material_vertex(g_plus(r1, X),g_multi(r_inv, r1), m1);
-            v2 = g_material_vertex(g_plus(r2, X),g_multi(r_inv, r2), m1);
-            v3 = g_material_vertex(g_plus(r3, X),g_multi(r_inv, r3), m1);
+            v0 = g_make_vertex(g_plus(r0, X),g_multi(r_inv, r0), g_current_area_color_3D);
+            v1 = g_make_vertex(g_plus(r1, X),g_multi(r_inv, r1), g_current_area_color_3D);
+            v2 = g_make_vertex(g_plus(r2, X),g_multi(r_inv, r2), g_current_area_color_3D);
+            v3 = g_make_vertex(g_plus(r3, X),g_multi(r_inv, r3), g_current_area_color_3D);
             t0 = g_make_triangle_core(v0, v1, v3);
             t1 = g_make_triangle_core(v0, v3, v2);
             if(theta < Nt - 2)g_set_triangle(t0);

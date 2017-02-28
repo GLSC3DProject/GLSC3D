@@ -22,8 +22,8 @@ int main()
 	g_area_color_2D(0.5, 0.75, 0.5, 1);
 	g_line_color(1, 1, 1, 1);
 
-	g_text_color(1, 1, 1, 1);
-	g_text_font(G_IPA_GOTHIC, 24);
+	//g_text_color(1, 1, 1, 1);
+	//g_text_font(G_IPA_GOTHIC, 24);
 
 	int id = 0;
 	for (int i = 0; i < CountX; i++)
@@ -56,8 +56,8 @@ int main()
 		g_sel_scale_2D(2);
 		g_arrow_2D(0, 0, c, s, 1, 0.25, 0);
 		g_arrow_2D(0, 0,-s, c, 1, 0.25, 0);
-		g_text_2D_virtual( 1.1*c, 1.1*s, "x");
-		g_text_2D_virtual(-1.1*s, 1.1*c, "y");
+		//g_text_2D_virtual( 1.1*c, 1.1*s, "x");
+		//g_text_2D_virtual(-1.1*s, 1.1*c, "y");
 
 		g_sel_scale_2D(3);
 		g_fan_2D(0, 0, c, s, 1, 2.0, G_FILL);

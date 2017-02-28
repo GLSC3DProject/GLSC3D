@@ -26,13 +26,6 @@
 #endif
 
 #ifdef __cplusplus
-#define DELETE_ON_CXX(def) 
-#else
-#define DELETE_ON_CXX(def) def
-#endif
-
-
-#ifdef __cplusplus
 extern "C"
 {
 #endif
@@ -91,10 +84,7 @@ extern int g_enable_transparent;
 
 extern int TRIANGLE_BUFFER_SIZE;
 extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
-    
-#define NDEBUG
-#define NDEBUG2
-    
+
 #ifndef NDEBUG
 #define DBG_WRITE(...) fprintf(stderr, "%s:%d In function '%s'", __FILE__, __LINE__, __func__), fprintf(stderr, "  "  __VA_ARGS__), fprintf(stderr, "\n")
 #else
@@ -201,11 +191,32 @@ void g_text_color(double r,double g,double b,double a);
 void g_def_text(int id, double r, double g, double b, double a, int font, unsigned int font_size);
 void g_sel_text(int id);
 
-DELETE_ON_CXX(void g_bird_view_3D(double x0, double x1,
-                    double y0, double y1,
-                    int N_x, int N_y,
-                    double data[N_x][N_y],
-                    G_WIREFILL WireFill);)
+//#ifndef __cplusplus
+//
+//void g_bird_view_3D(double x0, double x1,
+//	double y0, double y1,
+//	int N_x, int N_y,
+//	double data[N_x][N_y],
+//	G_WIREFILL WireFill);
+//
+//void g_contln_2D(double x_left, double x_right,
+//	double y_bottom, double y_top,
+//	int N_x, int N_y,
+//	double data2D[N_x][N_y],
+//	double level);
+//void g_isosurface_3D(double x0, double x1,
+//	double y0, double y1,
+//	double z0, double z1,
+//	int number_x, int number_y, int number_z,
+//	double u[number_x][number_y][number_z],
+//	double height);
+//void g_data_plot_3D(double x0, double x1,
+//	double y0, double y1,
+//	int N_x, int N_y,
+//	double data[N_x][N_y]);
+//
+//#endif
+
 
 void g_bird_view_f_3D(double x0, double x1,
                       double y0, double y1,
@@ -213,24 +224,11 @@ void g_bird_view_f_3D(double x0, double x1,
                       double *data,
                       G_WIREFILL WireFill);
 
-DELETE_ON_CXX(void g_contln_2D(double x_left, double x_right,
-                 double y_bottom, double y_top,
-                 int N_x, int N_y,
-                 double data2D[N_x][N_y],
-                 double level);)
-
 void g_contln_f_2D(double x_left, double x_right,
                    double y_bottom, double y_top,
                    int N_x, int N_y,
                    double *data2D,
                    double level);
-
-DELETE_ON_CXX(void g_isosurface_3D(double x0,double x1,
-                     double y0,double y1,
-                     double z0,double z1,
-                     int number_x,int number_y,int number_z,
-                     double u[number_x][number_y][number_z],
-                     double height);)
 
 void g_isosurface_f_3D(double x0,double x1,
                          double y0,double y1,
@@ -238,11 +236,6 @@ void g_isosurface_f_3D(double x0,double x1,
                          int number_x,int number_y,int number_z,
                          double *u,
                          double height);
-
-DELETE_ON_CXX(void g_data_plot_3D(double x0, double x1,
-                    double y0, double y1,
-                    int N_x, int N_y,
-                    double data[N_x][N_y]);)
 
 void g_data_plot_f_3D(double x0, double x1,
                       double y0, double y1,
@@ -254,16 +247,16 @@ void g_data_plot_2D(double x_left, double x_right,
 
 // ------ g_box_vert.c ------
 
-void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREFILL WireFill);
-
-void g_box_3D_vert_core(double x_min, double x_max,
-						double y_min, double y_max,
-						double z_min, double z_max,
-						int DivideLevel, G_WIREFILL WireFill);
-
-void g_box_3D_vert(double x_min, double x_max,
-				   double y_min, double y_max,
-				   double z_min, double z_max);
+//void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREFILL WireFill);
+//
+//void g_box_3D_vert_core(double x_min, double x_max,
+//						double y_min, double y_max,
+//						double z_min, double z_max,
+//						int DivideLevel, G_WIREFILL WireFill);
+//
+//void g_box_3D_vert(double x_min, double x_max,
+//				   double y_min, double y_max,
+//				   double z_min, double z_max);
 
 // ------ g_box.c -----
 
@@ -455,42 +448,6 @@ typedef int G_KEY_CODE;
 
 G_INPUT_STATE g_key_state(G_KEY_CODE key);
 G_INPUT_STATE g_input_state(G_KEY_CODE key, int *x, int *y);
-
-typedef struct
-{
-	int x, y, width, height;
-}G_SCREEN;
-
-typedef struct
-{
-	double fovy, aspect, near, far;
-	double eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ;
-	int mirror;
-}G_CAMERA;
-
-typedef enum
-{
-	G_EYE,
-	G_CENTER,
-}G_ROTATE_ANCHOR;
-
-typedef enum
-{
-	G_PITCH,
-	G_ROLL,
-	G_YAW,
-}G_ROTATE_DIRECTION;
-
-G_SCREEN g_make_screen(int x, int y, int width, int height);
-G_CAMERA g_make_camera_core(double fovy, double near, double far, double eyeX, double  eyeY, double  eyeZ, double  centerX, double  centerY, double  centerZ, double  upX, double  upY, double  upZ);
-G_CAMERA g_make_camera(double eyeX, double  eyeY, double  eyeZ, double  centerX, double  centerY, double  centerZ);
-G_CAMERA g_make_camera_2D(double X, double  Y);
-G_CAMERA g_make_camera_like_scale_3D_core(double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far, double direction_x, double direction_y, double direction_z, double r, double up_x, double up_y, double up_z);
-G_CAMERA g_make_camera_like_scale_3D(double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far, double direction_x, double direction_y, double direction_z, double r);
-G_CAMERA g_make_camera_like_scale_2D(double x_left, double x_right, double y_bottom, double y_top);
-void g_camera_rotate(G_CAMERA *cam, G_ROTATE_DIRECTION dire, G_ROTATE_ANCHOR anc, double theta);
-
-void g_set_camera(G_CAMERA camera, G_SCREEN screen);
 
 void g_init_off_screen_rendering();
 void g_begin_off_screen_rendering();

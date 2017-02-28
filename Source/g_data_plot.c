@@ -43,12 +43,10 @@ void g_data_plot_2D(double x_left, double x_right,
 	glEnd();
 }
 
-void g_data_plot_3D(double x0, double x1,
-		double y0, double y1,
-		int N_x, int N_y,
-		double data[N_x][N_y])
-{
-	g_data_plot_f_3D(x0, x1, y0, y1, N_y, N_x, &data[0][0]);
-}
-
-
+//void g_data_plot_3D(double x0, double x1,
+//		double y0, double y1,
+//		int N_x, int N_y,
+//		double data[N_x][N_y])
+//{
+//	g_data_plot_f_3D(x0, x1, y0, y1, N_y, N_x, &data[0][0]);
+//}

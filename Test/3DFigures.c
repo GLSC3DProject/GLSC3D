@@ -9,16 +9,16 @@ int main()
 
 	g_init("GLSC3D", Size * CountX, Size * CountY);
 
-//	g_init_light(0, 0, 0, 1);
+	//g_init_light_core(0, 0, 1, 2, 1);
+	//g_init_light(0, 0, 0, 1);
 
-	 g_scr_color(1, 1, 1);
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	g_scr_color(1, 1, 1);
 
 	g_area_color_3D(0.5, 0.75, 0.5, 1);
 	g_line_color(0, 0, 0, 1);
 
-	g_text_color(0, 0, 0, 1);
-	g_text_font(G_IPA_GOTHIC, 24);
+	//g_text_color(0, 0, 0, 1);
+	//g_text_font(G_IPA_GOTHIC, 24);
 
 	int id = 0;
 	for (int i = 0; i < CountX; i++)
@@ -58,9 +58,9 @@ int main()
 		g_arrow_3D_core(0, 0, 0, c, s, 0, 1, 0.25, 16, 1, 0, WIRE_OR_FILL);
 		g_arrow_3D_core(0, 0, 0,-s, c, 0, 1, 0.25, 16, 1, 0, WIRE_OR_FILL);
 		g_arrow_3D_core(0, 0, 0, 0, 0, 1, 1, 0.25, 16, 1, 0, WIRE_OR_FILL);
-		g_text_3D_virtual( 1.1*c, 1.1*s, 0, "x");
-		g_text_3D_virtual(-1.1*s, 1.1*c, 0, "y");
-		g_text_3D_virtual(0, 0, 1, "z");
+		//g_text_3D_virtual( 1.1*c, 1.1*s, 0, "x");
+		//g_text_3D_virtual(-1.1*s, 1.1*c, 0, "y");
+		//g_text_3D_virtual(0, 0, 1, "z");
 
 		g_sel_scale_3D(9);
 		g_fan_3D_core(0, 0, 0, c, s, 0, 1, 2.0, 0, 4, 0, WIRE_OR_FILL);

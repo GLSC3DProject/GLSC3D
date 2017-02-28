@@ -5,11 +5,12 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 {
 	int i;
 	G_VECTOR top,center,r,r0,r1,r2,r3,n_x;
-	double dth;
+	double dth = 2*PI/N;
 	double phi = g_direction_phi(g_vector3(direction_x, direction_y, direction_z));
 	double theta = g_direction_theta(g_vector3(direction_x, direction_y, direction_z));
 
-	dth = 2*PI/N;
+	//G_MATRIX mat;
+
 	center = g_vector3(center_x, center_y, center_z);
 	top = g_vector3(height, 0, 0);
 	r = g_vector3(0,radius,0);
@@ -63,7 +64,6 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 
 		if(WireFill == 1)
 		{
-			glEnable(GL_LIGHTING);
 			G_TRIANGLE t0,t1;
 			G_VECTOR n0,n1,n2,n3;
 			G_VERTEX   v0, v1, v2, v3;
@@ -72,10 +72,10 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 			n1 = g_plus(Ry(Rz(Rx(Rx(r,psi),(i-0.5)*dth+PI/N),phi),theta),Ry(Rz(Rx(Rx(r,psi),(i+0.5)*dth+PI/N),phi),theta));
 			n2 = g_plus(Ry(Rz(Rx(Rx(r,psi),(i+0.5)*dth+PI/N),phi),theta),Ry(Rz(Rx(Rx(r,psi),(i+1.5)*dth+PI/N),phi),theta));
 			n3 = g_plus(Ry(Rz(Rx(Rx(r,psi),(i+0.5)*dth+PI/N),phi),theta),Ry(Rz(Rx(Rx(r,psi),(i+1.5)*dth+PI/N),phi),theta));
-			n0 = g_multi(1/g_norm(n0),n0);
-			n1 = g_multi(1/g_norm(n1),n1);
-			n2 = g_multi(1/g_norm(n2),n2);
-			n3 = g_multi(1/g_norm(n3),n3);
+			n0 = g_normalize(n0);
+			n1 = g_normalize(n1);
+			n2 = g_normalize(n2);
+			n3 = g_normalize(n3);
 
 			v0 = g_make_vertex(r0,n0,g_current_area_color_3D);
 			v1 = g_make_vertex(r1,n1,g_current_area_color_3D);
@@ -86,7 +86,6 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 			t1 = g_make_triangle_core(v1, v3, v2);
 			g_set_triangle(t0);
 			g_set_triangle(t1);
-			glEnd();
 		}
 		if(WireFill == 0)
 		{

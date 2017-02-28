@@ -1,6 +1,6 @@
 #include "glsc3d_private.h"
 
-#define USE_g_triangle_3D_core
+//#define USE_g_triangle_3D_core
 
 void g_ellipse_3D_core(double x, double y, double z,                                 //中心座標
                        double Sx, double Sy, double Sz,                              //x,y,z方向への拡大率
@@ -21,7 +21,6 @@ void g_ellipse_3D_core(double x, double y, double z,                            
     G_VECTOR SCALE = g_vector3(Sx,Sy,Sz);
     
 #ifndef USE_g_triangle_3D_core
-    G_MATERIAL m1 = g_make_material(current_area_color_3D);
     G_VERTEX   v0, v1, v2, v3;
     G_TRIANGLE t0, t1;
     G_VECTOR n0, n1, n2, n3;
@@ -66,10 +65,10 @@ void g_ellipse_3D_core(double x, double y, double z,                            
             n2 = Scaling3Ds(r2,n_SCALE);
             n3 = Scaling3Ds(r3,n_SCALE);
             
-            v0 = g_material_vertex(g_plus(r0, X),g_multi(1/g_norm(n0), n0), m1);
-            v1 = g_material_vertex(g_plus(r1, X),g_multi(1/g_norm(n1), n1), m1);
-            v2 = g_material_vertex(g_plus(r2, X),g_multi(1/g_norm(n2), n2), m1);
-            v3 = g_material_vertex(g_plus(r3, X),g_multi(1/g_norm(n3), n3), m1);
+            v0 = g_make_vertex(g_plus(r0, X), g_normalize(n0), g_current_area_color_3D);
+            v1 = g_make_vertex(g_plus(r1, X), g_normalize(n1), g_current_area_color_3D);
+            v2 = g_make_vertex(g_plus(r2, X), g_normalize(n2), g_current_area_color_3D);
+            v3 = g_make_vertex(g_plus(r3, X), g_normalize(n3), g_current_area_color_3D);
             
             t0 = g_make_triangle_core(v0, v1, v3);
             t1 = g_make_triangle_core(v0, v3, v2);

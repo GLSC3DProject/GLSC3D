@@ -76,7 +76,7 @@ static void do_isosurface(MarchingCube Cube,MarchingTetrahedron *Tetrahedron, Ma
     int UraOmoteFlag;
     int SankakuShikaku;
     int EdgeMember[4];
-    G_VECTOR    n = {},n1 = {};
+    G_VECTOR    n,n1;
     G_POSITION r0, r1, r2, r3;
 
     int l,m;
@@ -244,14 +244,14 @@ void g_isosurface_f_3D(double x0,double x1,
 #undef u
 ////////////////////////////////////////////////////////////////////////////////
 //#define FAST_CODE
-void g_isosurface_3D(double x0,double x1,
-                     double y0,double y1,
-                     double z0,double z1,
-                     int number_x,int number_y,int number_z,
-                     double u[number_x][number_y][number_z],
-                     double height)
-{
-    //g_isosurface_f_3D(x0,x1,y0,y1,z0,z1,number_x,number_y,number_z,&u[0][0][0],height);
-	g_isosurface_f_3D(x0,x1,y0,y1,z0,z1,number_z,number_y,number_x,&u[0][0][0],height);
-}
+//void g_isosurface_3D(double x0,double x1,
+//                     double y0,double y1,
+//                     double z0,double z1,
+//                     int number_x,int number_y,int number_z,
+//                     double u[number_x][number_y][number_z],
+//                     double height)
+//{
+//    //g_isosurface_f_3D(x0,x1,y0,y1,z0,z1,number_x,number_y,number_z,&u[0][0][0],height);
+//	g_isosurface_f_3D(x0,x1,y0,y1,z0,z1,number_z,number_y,number_x,&u[0][0][0],height);
+//}
 //#undef FAST_CODE

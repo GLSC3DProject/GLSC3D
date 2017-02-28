@@ -72,42 +72,38 @@ void g_contln_f_2D(double x_left, double x_right,
 				}
 				if(dflag == 2)
 				{
-					glEnd();
-					glDisable(GL_LIGHTING);
-					glColor4fv(&g_current_line_color.r);
-					g_line_loop();
+					g_begin_lines();
 					//等高線描写
 					if(flag[0]*flag[1] < 0)
 					{
 						s = (level - trimember[k][0].z)/(trimember[k][1].z - trimember[k][0].z);
-						glVertexs(g_plus(g_multi(1-s, trimember2D[0]),g_multi(s, trimember2D[1])));
+						g_vertex_buffer_append_position(g_plus(g_multi(1-s, trimember2D[0]),g_multi(s, trimember2D[1])));
 						if(flag[2] == 0)
 						{
-							glVertexs(trimember2D[2]);
+							g_vertex_buffer_append_position(trimember2D[2]);
 							continue;
 						}
 					}
 					if(flag[1]*flag[2] < 0)
 					{
 						s = (level - trimember[k][1].z)/(trimember[k][2].z - trimember[k][1].z);
-						glVertexs(g_plus(g_multi(1-s, trimember2D[1]),g_multi(s, trimember2D[2])));
+						g_vertex_buffer_append_position(g_plus(g_multi(1-s, trimember2D[1]),g_multi(s, trimember2D[2])));
 						if(flag[0] == 0)
 						{
-							glVertexs(trimember2D[0]);
+							g_vertex_buffer_append_position(trimember2D[0]);
 							continue;
 						}
 					}
 					if(flag[2]*flag[0] < 0)
 					{
 						s = (level - trimember[k][2].z)/(trimember[k][0].z - trimember[k][2].z);
-						glVertexs(g_plus(g_multi(1-s, trimember2D[2]), g_multi(s,trimember2D[0])));
+						g_vertex_buffer_append_position(g_plus(g_multi(1-s, trimember2D[2]), g_multi(s,trimember2D[0])));
 						if(flag[1] == 0)
 						{
-							glVertexs(trimember2D[1]);
+							g_vertex_buffer_append_position(trimember2D[1]);
 							continue;
 						}
 					}
-					glEnd();
 				}
 
 			}
@@ -115,13 +111,11 @@ void g_contln_f_2D(double x_left, double x_right,
 	}
 }
 
-void g_contln_2D(double x_left, double x_right,
-		double y_bottom, double y_top,
-		int n_x, int n_y,
-		double data2d[n_x][n_y],
-		double level)
-{
-	g_contln_f_2D(x_left, x_right, y_bottom, y_top, n_x, n_y, &data2d[0][0], level);
-}
-
-
+//void g_contln_2D(double x_left, double x_right,
+//		double y_bottom, double y_top,
+//		int n_x, int n_y,
+//		double data2d[n_x][n_y],
+//		double level)
+//{
+//	g_contln_f_2D(x_left, x_right, y_bottom, y_top, n_x, n_y, &data2d[0][0], level);
+//}

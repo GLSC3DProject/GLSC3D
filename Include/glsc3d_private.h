@@ -1,24 +1,10 @@
-#ifndef GLSC3D_STRUCT_H
-#define GLSC3D_STRUCT_H
+#ifndef GLSC3D_PRIVATE_H
+#define GLSC3D_PRIVATE_H
 
 #define _LIBICONV_H
 
 #include "glsc3d.h"
-
-#ifdef __APPLE__
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <OpenGL/gl3.h>
-#endif
-
-#include <math.h>
-#include <float.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#define TotalDisplayNumber (100)
-
-#define PI M_PI
+#include "glsc3d_math.h"
 
 #ifdef __cplusplus
 #include <cassert>
@@ -26,170 +12,36 @@
 #include <assert.h>
 #endif
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <OpenGL/gl3.h>
+#endif
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <gl/GL.h>
+#include <gl/glext.h>
+#undef near
+#undef far
+#endif
+
+#define TotalDisplayNumber (100)
+
+#define PI M_PI
+//#define DEGREES (PI / 180)
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-	//#ifdef G_USE_DOUBLE_PRECISION_VECTOR
-	//#define G_REAL double
-	//#else
-	//#define G_REAL float
-	//#endif
-	typedef float G_REAL;
-
-	typedef struct { float r, g, b, a; } G_COLOR;
-
-	//3D homogeneous coordinate
-	typedef struct { G_REAL x, y, z; } G_VECTOR;
-
-	typedef G_VECTOR G_POSITION;
-	typedef G_VECTOR G_DIRECTION;
-
-	static inline G_COLOR g_color_core(float r, float g, float b, float a)
-	{
-		G_COLOR c = {r, g, b, a};
-		return c;
-	}
-
-	static inline G_COLOR g_color(float r, float g, float b)
-	{
-		return g_color_core(r, g, b, 1);
-	}
-
-	static inline G_VECTOR g_vector_core(G_REAL x, G_REAL y, G_REAL z)
-	{
-		G_VECTOR v = {x, y, z};
-		return v;
-	}
-
-	static inline G_VECTOR g_vector(G_REAL x, G_REAL y, G_REAL z)
-	{
-		return g_vector_core(x, y, z);
-	}
-
-//	static inline G_VECTOR g_vector4(G_REAL x, G_REAL y, G_REAL z, G_REAL w)
-//	{
-//		return g_vector_core(x, y, z, w);
-//	}
-
-	static inline G_VECTOR g_vector3(G_REAL x, G_REAL y, G_REAL z)
-	{
-		return g_vector(x, y, z);
-	}
-
-	static inline G_VECTOR g_vector2(G_REAL x, G_REAL y)
-	{
-		return g_vector(x, y, 0);
-	}
-
-	static inline G_POSITION g_position(G_REAL x, G_REAL y, G_REAL z)
-	{
-		return g_vector_core(x, y, z);
-	}
-
-	static inline G_POSITION g_position3(G_REAL x, G_REAL y, G_REAL z)
-	{
-		return g_position(x, y, z);
-	}
-
-	static inline G_POSITION g_position2(G_REAL x, G_REAL y)
-	{
-		return g_position(x, y, 0);
-	}
-
-	static inline G_DIRECTION g_direction(G_REAL x, G_REAL y, G_REAL z)
-	{
-		return g_vector_core(x, y, z);
-	}
-
-	static inline G_DIRECTION g_direction3(G_REAL x, G_REAL y, G_REAL z)
-	{
-		return g_direction(x, y, z);
-	}
-
-	static inline G_DIRECTION g_direction2(G_REAL x, G_REAL y)
-	{
-		return g_direction(x, y, 0);
-	}
-	
-//	static inline G_VECTOR_F g_vector4f(float x, float y, float z, float w)
-//	{
-//		G_VECTOR_F v = {x, y, z, w};
-//		return v;
-//	}
-//	
-//	static inline G_VECTOR_F g_vector3f(float x, float y, float z)
-//	{
-//		return g_vector4f(x, y, z, 1);
-//	}
-//	
-//	static inline G_VECTOR_F g_vector2f(float x, float y)
-//	{
-//		return g_vector4f(x, y, 0, 1);
-//	}
-//	
-//	static inline G_VECTOR_F g_vectorf(G_VECTOR v)
-//	{
-//		return g_vector4f(v.x, v.y, v.z, v.w);
-//	}
-
-#define EPS_helper(g_real) (sizeof(g_real) == sizeof(float) ? 1e-6 : 1e-14)
-#define EPS EPS_helper(G_REAL)
-
-	static inline G_VECTOR g_plus (G_VECTOR u,G_VECTOR v)
-	{
-		assert(fabs(u.w - v.w) <= EPS*fabs(u.w) || fabs(u.w - v.w) <= EPS*fabs(v.w));
-		return g_vector3(u.x + v.x, u.y + v.y, u.z + v.z);
-	}
-
-	static inline G_VECTOR g_minus (G_VECTOR u,G_VECTOR v)
-	{
-		assert(fabs(u.w - v.w) <= EPS*fabs(u.w) || fabs(u.w - v.w) <= EPS*fabs(v.w));
-		return g_vector3(u.x - v.x, u.y - v.y, u.z - v.z);
-	}
-
-	static inline G_VECTOR g_multi (G_REAL a, G_VECTOR u)
-	{
-		return g_vector3(a*u.x, a*u.y, a*u.z);
-	}
-
-	static inline G_VECTOR g_cross (G_VECTOR u,G_VECTOR v)
-	{
-		assert(fabs(u.w - v.w) <= EPS*fabs(u.w) || fabs(u.w - v.w) <= EPS*fabs(v.w));
-		return g_vector3(
-				u.y*v.z - v.y*u.z,
-				u.z*v.x - v.z*u.x,
-				u.x*v.y - v.x*u.y);
-	}
-
-	static inline G_REAL g_dot (G_VECTOR u, G_VECTOR v)
-	{
-		return u.x*v.x + u.y*v.y + u.z*v.z;
-	}
-
-	static inline G_REAL g_norm(G_VECTOR u)
-	{
-		return sqrt(u.x*u.x + u.y*u.y + u.z*u.z);
-	}
-
-	static inline G_VECTOR g_normalize(G_VECTOR u)
-	{
-		G_REAL s = 1 / g_norm(u);
-		return g_vector3(u.x*s, u.y*s, u.z*s);
-	}
-	
-	static inline G_VECTOR g_calc_normal(G_POSITION u, G_POSITION v, G_POSITION w)
-	{
-		return g_normalize(g_cross(g_minus(v, u), g_minus(w, u)));
-	}
-
-	static const G_VECTOR g_vector_zero = {0.0, 0.0, 0.0};
-
 	G_REAL g_direction_phi(G_VECTOR v);
 	G_REAL g_direction_theta(G_VECTOR v);
-
-	void g_polar(G_VECTOR v, G_REAL *phi, G_REAL *theta);
 
 	G_VECTOR Rn(G_VECTOR u,G_VECTOR n,G_REAL theta);
 	G_VECTOR Rx(G_VECTOR u,G_REAL theta);
@@ -203,13 +55,47 @@ extern "C"
 	G_VECTOR Scaling3Ds(G_VECTOR u,G_VECTOR s);
 
 	G_VECTOR Rx2D(G_VECTOR u,G_REAL theta);
-	
+
+	typedef struct
+	{
+		int x, y, width, height;
+	}G_SCREEN;
+
+	typedef struct
+	{
+		G_MATRIX proj, view;
+		G_VECTOR eye;
+		float _pad;
+	}G_CAMERA;
+
+	typedef enum
+	{
+		G_EYE,
+		G_CENTER,
+	}G_ROTATE_ANCHOR;
+
+	typedef enum
+	{
+		G_PITCH,
+		G_ROLL,
+		G_YAW,
+	}G_ROTATE_DIRECTION;
+
+	G_SCREEN g_make_screen(int x, int y, int width, int height);
+	//G_CAMERA g_make_camera_core(float fovy, float near, float far, float eyeX, float  eyeY, float  eyeZ, float  centerX, float  centerY, float  centerZ, float  upX, float  upY, float  upZ);
+	//G_CAMERA g_make_camera(float eyeX, float  eyeY, float  eyeZ, float  centerX, float  centerY, float  centerZ);
+	//G_CAMERA g_make_camera_2D(float X, float  Y);
+	G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR direction, float r, float aspect, G_VECTOR up);
+	//G_CAMERA g_make_camera_3D(float x_left, float x_right, float y_bottom, float y_top, float z_near, float z_far, float direction_x, float direction_y, float direction_z, float r, float aspect);
+	G_CAMERA g_make_camera_2D(float x_left, float x_right, float y_bottom, float y_top);
+	//void g_camera_rotate(G_CAMERA *cam, G_ROTATE_DIRECTION dire, G_ROTATE_ANCHOR anc, float theta);
+
 	extern G_CAMERA glsc3D_inner_camera[TotalDisplayNumber];
 	extern G_SCREEN glsc3D_inner_screen[TotalDisplayNumber];
 	
 	extern G_COLOR g_current_area_color_3D, g_current_area_color_2D;
 	extern G_COLOR g_current_line_color, g_current_text_color, g_current_marker_color;
-//	extern G_COLOR current_color;
+	extern G_COLOR g_current_color;
 	
 	extern G_BOOL g_lighting_enabled;
 
@@ -230,28 +116,12 @@ extern "C"
 		G_VERTEX v = {position, normal, color};
 		return v;
 	}
-	
-//	static inline G_VERTEX g_make_vertex_normal(G_POSITION position, G_DIRECTION normal)
-//	{
-//		G_VERTEX v = {position, normal, current_color};
-//		return v;
-//	}
 
 	static inline G_TRIANGLE g_make_triangle_core(G_VERTEX v0, G_VERTEX v1, G_VERTEX v2)
 	{
 		G_TRIANGLE t = {{v0, v1, v2}};
 		return t;
 	}
-
-//	static inline G_TRIANGLE g_make_triangle_3D(G_POSITION p0, G_POSITION p1, G_POSITION p2)
-//	{
-//		G_COLOR c = current_area_color_3D;
-//		
-//		G_DIRECTION n = g_cross(g_minus(p1, p0), g_minus(p2, p0));
-//
-//		G_TRIANGLE t = {{{p0, n, c}, {p1, n, c}, {p2, n, c}}};
-//		return t;
-//	}
 	
 	void g_text_init();
 
@@ -286,12 +156,6 @@ extern "C"
 	void g_input_init(void);
 	void g_get_input(void);
 
-	DELETE_ON_CXX(double g_max(int N_x, int N_z, double data[N_x][N_z]);)
-#define g_max(i,j,k)     (g_max((i),(j),(double(*)[(j)])(k)))
-
-	DELETE_ON_CXX(double g_min(int N_x, int N_z, double data[N_x][N_z]);)
-#define g_min(i,j,k)     (g_min((i),(j),(double(*)[(j)])(k)))
-
 	// ---- g_triangle.c
 	
 	void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int DivideLevel);
@@ -304,6 +168,7 @@ extern "C"
 	
 	void g_vertex_buffer_init();
 	void g_vertex_buffer_append(G_VERTEX vertex);
+	void g_vertex_buffer_append_position(G_VECTOR position);
 
 	void g_vertex_buffer_append_line(G_VECTOR a, G_VECTOR b);
 	void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c);
@@ -317,16 +182,19 @@ extern "C"
 	void CheckGLError(int checkpoint);
 
 	// ---- g_shader_program.c
+
 	void g_shader_program_init();
 
 	void g_enable_lighting();
 	void g_disable_lighting();
 
 	// ---- g_sdl_wrapper.c
-	void g_sdl_init(int pos_x, int pos_y);
+
+	void g_sdl_init(const char *WindowName, int pos_x, int pos_y);
 	void g_swap_buffers();
 	void g_poll_events();
 	void g_quit();
+
 #ifdef __cplusplus
 }
 #endif

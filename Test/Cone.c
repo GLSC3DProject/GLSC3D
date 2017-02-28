@@ -3,7 +3,9 @@
 #define WIDTH 640*2
 #define HEIGHT 320*2
 
-static const int x_division = 64, y_division = 32;
+#define x_division 64
+#define y_division 32
+
 static const double h = -0.5;
 
 #define WIRE_OR_FILL G_FILL
