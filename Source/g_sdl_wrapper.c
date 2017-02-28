@@ -1,4 +1,4 @@
-﻿#include "glsc3d_private_ext.h"
+#include "glsc3d_private_ext.h"
 #include <SDL2/SDL.h>
 
 SDL_Window*		g_window;
