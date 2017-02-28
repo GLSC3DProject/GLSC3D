@@ -10,6 +10,14 @@ extern "C"
 {
 #endif
 
+#ifdef G_USE_CORE_PROFILE
+
+	enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
+
+	void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
+
+#endif
+
 #ifdef _WIN32
 	#define EXTERN_DECL_GL_FUNC(Type, Name) extern Type Name;
 	#define DECL_GL_FUNC(Type, Name) Type Name;
@@ -47,14 +55,6 @@ extern "C"
 
 	EMIT_GL_FUNCTIONS(EXTERN_DECL_GL_FUNC);
 #endif
-
-#ifdef G_USE_CORE_PROFILE
-
-	enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
-
-	void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
-
-#endif // G_USE_CORE_PROFILE
 
 #ifdef __cplusplus
 }

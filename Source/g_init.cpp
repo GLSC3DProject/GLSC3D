@@ -23,19 +23,19 @@ struct G_LIGHT
 	float ambient, diffuse, specular, shininess;
 };
 
-void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z, double lit_pow)
+void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z, float lit_pow)
 {
 #ifdef G_USE_CORE_PROFILE
-	if (lightnum != 0) return;
-
-	G_LIGHT light;
-	light.direction = g_normalize(G_VECTOR(lit_pos_x, lit_pos_y, lit_pos_z));
-	light.ambient = 0;
-	light.diffuse = lit_pow;
-	light.specular = 1.0f;
-	light.shininess = 64;
-
-	g_update_uniform(G_UNIFORM_LIGHTS, sizeof(light), &light);
+//	if (lightnum != 0) return;
+//
+//	G_LIGHT light;
+//	light.direction = g_normalize(G_VECTOR(lit_pos_x, lit_pos_y, lit_pos_z));
+//	light.ambient = 0;
+//	light.diffuse = lit_pow;
+//	light.specular = 1.0f;
+//	light.shininess = 64;
+//
+//	g_update_uniform(G_UNIFORM_LIGHTS, sizeof(light), &light);
 #else
 //	static GLfloat lit_amb[4]={0.3, 0.3, 0.3, 0.0};	// 環境光の強さ
 	GLfloat lit_dif[4]={lit_pow, lit_pow, lit_pow, 0.0};	// 拡散光の強さ
@@ -72,7 +72,7 @@ void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit
 	glEnable(lightname);
 #endif
 }
-void g_init_light(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z)
+void g_init_light(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z)
 {
 	g_init_light_core(lightnum,lit_pos_x,lit_pos_y,lit_pos_z, 1.0);
 }
@@ -97,8 +97,8 @@ void g_init_core(
 	EMIT_GL_FUNCTIONS(INIT_GL_FUNC);
 #endif
 	
-	g_vertex_buffer_init();
 	g_shader_program_init();
+	g_vertex_buffer_init();
 
 //	g_input_init();
 //	g_text_init();
@@ -115,11 +115,9 @@ void g_init_core(
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 128);
 #endif
 
-	CheckGLError(0);
 	g_init_light(0, 1, 1, 1);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	CheckGLError(1);
 
 	g_enable_transparent = g_enable_transparent_out;
 

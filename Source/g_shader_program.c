@@ -124,7 +124,7 @@ void g_shader_program_init()
 	g_create_shader(g_lighting_program, GL_FRAGMENT_SHADER, LIGHTING_FRAG_SHADER_SOURCE);
 	glLinkProgram(g_lighting_program);
 
-	glGenBuffers(G_NUM_UNIFORMS, &g_uniforms);
+	glGenBuffers(G_NUM_UNIFORMS, g_uniforms);
 
 	glBindBuffer(GL_UNIFORM_BUFFER, g_uniforms[G_UNIFORM_MATRICES]);
 	g_bind_uniform_block(g_constant_program, "MatrixBlock", G_UNIFORM_MATRICES);

@@ -55,16 +55,17 @@ void g_vertex_buffer_init()
 	glGenBuffers(1, &g_vertex_buffer_id);
 	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
 	glBufferData(GL_ARRAY_BUFFER, VERTEX_BUFFER_SIZE * sizeof(G_VERTEX), NULL, GL_STREAM_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	g_vertex_data = (G_VERTEX *)g_malloc(VERTEX_BUFFER_SIZE * sizeof(G_VERTEX));
-	g_vertex_data_count = 0;
 
 #ifdef G_USE_CORE_PROFILE
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 #endif
+	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	g_vertex_data = (G_VERTEX *)g_malloc(VERTEX_BUFFER_SIZE * sizeof(G_VERTEX));
+	g_vertex_data_count = 0;
 }
 
 void g_vertex_buffer_append(G_VERTEX vertex)

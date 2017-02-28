@@ -39,6 +39,10 @@ void g_poll_events()
 		if (event.type == SDL_QUIT) {
 			g_quit();
 		}
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+			g_quit();
+		}
+
 	}
 }
 

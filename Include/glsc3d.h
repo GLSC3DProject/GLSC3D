@@ -95,9 +95,9 @@ extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
 extern int color2D_id;
 extern int color3D_id;
 
-void g_init_light_core(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z, double lit_pow);
+void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z, float lit_pow);
 
-void g_init_light(int lightnum,double lit_pos_x,double lit_pos_y,double lit_pos_z);
+void g_init_light(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z);
 
 void g_init_core (
                       const char *WindowName,int width,int height,
