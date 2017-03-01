@@ -23,7 +23,7 @@ G_BOOL g_lighting_enabled;
 
 #define LIGHTING_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"uniform MatrixBlock { mat4 Proj, View; };\n" \
+	"uniform Matrices { mat4 Proj, View; };\n" \
 	"layout(location = 0) in vec3 Position;\n" \
 	"layout(location = 1) in vec3 Normal;\n" \
 	"layout(location = 2) in vec4 Color;\n" \
@@ -40,7 +40,7 @@ G_BOOL g_lighting_enabled;
 
 #define LIGHTING_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"uniform LightBlock { vec4 LightPos; float Ambient, Diffuse, Specular, Shininess; };\n" \
+	"uniform Lights { vec4 LightPos; float Ambient, Diffuse, Specular, Shininess; };\n" \
 	"layout(location = 0) in vec4 Color;\n" \
 	"layout(location = 1) in vec4 Normal;\n" \
 	"layout(location = 2) in vec4 Position;\n" \
@@ -94,6 +94,7 @@ GLuint g_create_shader(GLuint program, GLenum type, const char *source)
 void g_bind_uniform_block(GLuint program, const GLchar *name, GLuint binding)
 {
 	GLuint uniform_block_index = glGetUniformBlockIndex(program, name);
+	printf("%d\n", uniform_block_index);
 	glUniformBlockBinding(program, uniform_block_index, binding);
 }
 
@@ -118,11 +119,11 @@ void g_shader_program_init()
 	glGenBuffers(G_NUM_UNIFORMS, g_uniforms);
 
 	glBindBuffer(GL_UNIFORM_BUFFER, g_uniforms[G_UNIFORM_MATRICES]);
-	g_bind_uniform_block(g_constant_program, "MatrixBlock", G_UNIFORM_MATRICES);
-	g_bind_uniform_block(g_lighting_program, "MatrixBlock", G_UNIFORM_MATRICES);
+	g_bind_uniform_block(g_constant_program, "Matrices", G_UNIFORM_MATRICES);
+	g_bind_uniform_block(g_lighting_program, "Matrices", G_UNIFORM_MATRICES);
 
 	glBindBuffer(GL_UNIFORM_BUFFER, g_uniforms[G_UNIFORM_LIGHTS]);
-	g_bind_uniform_block(g_lighting_program, "LightBlock", G_UNIFORM_LIGHTS);
+	g_bind_uniform_block(g_lighting_program, "Lights", G_UNIFORM_LIGHTS);
 }
 
 void g_enable_lighting()
