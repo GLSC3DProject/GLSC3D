@@ -1,11 +1,3 @@
-//
-//  g_shader_program.c
-//  GLSC3D
-//
-//  Created by student on 2017/02/07.
-//  Copyright © 2017年 student. All rights reserved.
-//
-
 #include "glsc3d_private_ext.h"
 
 G_BOOL g_lighting_enabled;

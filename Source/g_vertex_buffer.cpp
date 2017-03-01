@@ -1,11 +1,3 @@
-//
-//  g_vertex_buffer.c
-//  GLSC3D
-//
-//  Created by student on 2017/01/31.
-//  Copyright © 2017年 student. All rights reserved.
-//
-
 #include "glsc3d_private_ext.h"
 
 static const size_t VERTEX_BUFFER_SIZE = 3 << 12;

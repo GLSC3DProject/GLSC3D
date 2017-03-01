@@ -1,5 +1,8 @@
 #include "glsc3d.h"
+
+#ifdef _WIN32
 #include <SDL2/SDL_main.h>
+#endif
 
 #define WIRE_OR_FILL G_FILL
 

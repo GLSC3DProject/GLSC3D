@@ -1,4 +1,8 @@
 #include "glsc3d_private_ext.h"
+
+// Not to include iconv.c
+#define _LIBICONV_H
+
 #include <SDL2/SDL.h>
 
 SDL_Window*		g_window;
