@@ -1,4 +1,37 @@
-OpenGL Version : 4.1.0 - Build 21.20.16.4534
-0
-0
-1
+OpenGL Version : 4.1.0 NVIDIA 378.66
+Uniform block index of Matrices : 0
+Uniform block index of Matrices : 1
+Uniform block index of Lights : 0
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Trying to allocate VBO (2) with size:, 32 bytes to location: VID
+
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Buffer object 2 (bound to GL_UNIFORM_BUFFER (1), and GL_UNIFORM_BUFFER_EXT, usage hint is GL_STATIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Trying to allocate VBO (1) with size:, 128 bytes to location: VID
+
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Buffer object 1 (bound to GL_UNIFORM_BUFFER (0), and GL_UNIFORM_BUFFER_EXT, usage hint is GL_STATIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Trying to allocate VBO (3) with size:, 480.00 Kb to location: VID
+
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Buffer object 3 (bound to GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING_ARB (0), GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING_ARB (2), and GL_ARRAY_BUFFER_ARB, usage hint is GL_STREAM_DRAW) will use VIDEO memory as the source for buffer object operations.
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Buffer object 1 (bound to GL_UNIFORM_BUFFER (0), and GL_UNIFORM_BUFFER_EXT, usage hint is GL_DYNAMIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Buffer object 1 (bound to GL_UNIFORM_BUFFER (0), and GL_UNIFORM_BUFFER_EXT, usage hint is GL_DYNAMIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Buffer object 2 (bound to GL_UNIFORM_BUFFER (1), usage hint is GL_DYNAMIC_DRAW) will use VIDEO memory as the source for buffer object operations.
+
+Source : GL_DEBUG_SOURCE_API, Type : GL_DEBUG_TYPE_OTHER, Severity : GL_DEBUG_SEVERITY_NOTIFICATION
+Buffer detailed info: Buffer object 2 (bound to GL_UNIFORM_BUFFER (1), usage hint is GL_DYNAMIC_DRAW) will use VIDEO memory as the source for buffer object operations.

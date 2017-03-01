@@ -132,7 +132,7 @@ void g_init_core(
 
 	g_init_light(0, 1, 1, 1);
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	g_enable_transparent = g_enable_transparent_out;
 

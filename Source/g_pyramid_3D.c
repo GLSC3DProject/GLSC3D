@@ -38,8 +38,8 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 		if(WireFill==1)
 		{
 			g_triangle_3D_core(r0.x, r0.y, r0.z,
-					r2.x, r2.y, r2.z,
 					r1.x, r1.y, r1.z,
+					r2.x, r2.y, r2.z,
 					DivideLevel, WireFill);
 		}
 		if(WireFill==0)

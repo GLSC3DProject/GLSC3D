@@ -8,59 +8,72 @@ G_BOOL g_lighting_enabled;
 
 #define CONSTANT_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 Proj, View; };\n" \
-	"layout(location = 0) in vec3 in_Position;\n" \
-	"layout(location = 1) in vec3 in_Normal;\n" \
-	"layout(location = 2) in vec4 in_Color;\n" \
-	"layout(location = 0) out vec4 var_Color;\n" \
-	"void main() { gl_Position = Proj * (View * vec4(in_Position, 1)); var_Color = in_Color; }"
+	"uniform Matrices { mat4 proj, view; };\n" \
+	"layout(location = 0) in vec3 in_position;\n" \
+	"layout(location = 1) in vec3 in_normal;\n" \
+	"layout(location = 2) in vec4 in_color;\n" \
+	"layout(location = 0) out vec4 vary_color;\n" \
+	"void main() { gl_Position = proj * (view * vec4(in_position, 1)); vary_color = in_color; }"
 
 #define CONSTANT_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"layout(location = 0) in vec4 var_Color;\n" \
-	"out vec4 out_Color;\n" \
-	"void main() { out_Color = var_Color; }"
+	"layout(location = 0) in vec4 vary_color;\n" \
+	"out vec4 out_color;\n" \
+	"void main() { out_color = vary_color; }"
 
 #define LIGHTING_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 Proj, View; };\n" \
-	"layout(location = 0) in vec3 in_Position;\n" \
-	"layout(location = 1) in vec3 in_Normal;\n" \
-	"layout(location = 2) in vec4 in_Color;\n" \
-	"layout(location = 0) out vec4 var_Color;\n" \
-	"layout(location = 1) out vec4 var_Normal;\n" \
-	"layout(location = 2) out vec4 var_Position;\n" \
+	"uniform Matrices { mat4 proj, view; };\n" \
+	"layout(location = 0) in vec3 in_position;\n" \
+	"layout(location = 1) in vec3 in_normal;\n" \
+	"layout(location = 2) in vec4 in_color;\n" \
+	"layout(location = 0) out vec4 vary_color;\n" \
+	"layout(location = 1) out vec4 vary_normal;\n" \
+	"layout(location = 2) out vec4 vary_position;\n" \
 	"void main() {\n" \
-	"	vec4 ViewPos = View * vec4(in_Position, 1);\n" \
-	"	gl_Position = Proj * ViewPos;\n" \
-	"	OutputColor = Color;\n" \
-	"	OutputNormal = View * vec4(Normal, 0);\n" \
-	"	OutputPosition = ViewPos;\n" \
+	"	vec4 view_pos = view * vec4(in_position, 1);\n" \
+	"	gl_Position = proj * view_pos;\n" \
+	"	vary_color = in_color;\n" \
+	"	vary_normal = view * vec4(in_normal, 0);\n" \
+	"	vary_position = view_pos;\n" \
 	"}"
 
 #define LIGHTING_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"uniform Lights { vec4 LightPos; float Ambient, Diffuse, Specular, Shininess; };\n" \
-	"layout(location = 0) in vec4 Color;\n" \
-	"layout(location = 1) in vec4 Normal;\n" \
-	"layout(location = 2) in vec4 Position;\n" \
-	"out vec4 OutputColor;\n" \
+	"uniform Lights { vec4 direction; float ambient, diffuse, specular, shininess; } light;\n" \
+	"layout(location = 0) in vec4 vary_color;\n" \
+	"layout(location = 1) in vec4 vary_normal;\n" \
+	"layout(location = 2) in vec4 vary_position;\n" \
+	"out vec4 out_color;\n" \
 	"void main() {\n" \
-	"	vec3 Half = normalize(LightPos.xyz - Position.xyz);\n" \
-	"	vec3 Normal = normalize(Normal.xyz);\n" \
-	"	OutputColor" \
-	"		= (Ambient + Diffuse * max(dot(LightPos.xyz, Normal), 0)) * Color" \
-	"		+ Specular * pow(max(dot(Normal, Half), 0), Shininess);\n" \
+	"	vec3 half_vec = normalize(light.direction.xyz - normalize(vary_position.xyz));\n" \
+	"	vec3 normal = normalize(vary_normal.xyz);\n" \
+	"	out_color" \
+	"		= (light.ambient + light.diffuse * max(dot(light.direction.xyz, normal), 0)) * vary_color" \
+	"		+ light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);\n" \
 	"}"
 
 GLuint g_constant_program, g_lighting_program;
 
 GLuint g_uniforms[G_NUM_UNIFORMS];
 
-void g_assert_shader_compile_status(GLuint shader)
+GLint g_get_shader_int(GLuint shader, GLenum pname)
 {
-	GLint info_log_length, compile_status;
-	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_log_length);
+	GLint ans;
+	glGetShaderiv(shader, pname, &ans);
+	return ans;
+}
+
+GLint g_get_program_info(GLuint program, GLenum pname)
+{
+	GLint ans;
+	glGetProgramiv(program, pname, &ans);
+	return ans;
+}
+
+void g_check_shader_compile_status(GLuint shader)
+{
+	GLint info_log_length = g_get_shader_int(shader, GL_INFO_LOG_LENGTH);
 	
 	if (info_log_length > 0) {
 		char *info_log = malloc(info_log_length);
@@ -70,8 +83,8 @@ void g_assert_shader_compile_status(GLuint shader)
 
 		free(info_log);
 		
-		glGetShaderiv(shader, GL_COMPILE_STATUS, &compile_status);
-		if (compile_status == GL_FALSE) printf("Compile Failed.\n");
+		if (g_get_shader_int(shader, GL_COMPILE_STATUS) == GL_FALSE)
+			printf("Compile Failed.\n");
 
 //		assert(CompileStatus);
 	}
@@ -84,7 +97,7 @@ GLuint g_create_shader(GLuint program, GLenum type, const char *source)
 	glShaderSource(shader, 1, &source, NULL);
 	glCompileShader(shader);
 	
-	g_assert_shader_compile_status(shader);
+	g_check_shader_compile_status(shader);
 	
 	glAttachShader(program, shader);
 	
@@ -95,8 +108,7 @@ void g_link_program(GLuint program)
 {
 	glLinkProgram(program);
 	
-	GLint info_log_length, link_status;
-	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_log_length);
+	GLint info_log_length = g_get_program_info(program, GL_INFO_LOG_LENGTH);
 	
 	if (info_log_length > 0) {
 		char *info_log = malloc(info_log_length);
@@ -106,16 +118,17 @@ void g_link_program(GLuint program)
 		
 		free(info_log);
 		
-		glGetProgramiv(program, GL_LINK_STATUS, &link_status);
-		if (link_status == GL_FALSE) printf("Link Failed.\n");
+		if (g_get_program_info(program, GL_LINK_STATUS) == GL_FALSE)
+			printf("Link Failed.\n");
 	}
 }
 
 void g_bind_uniform_block(GLuint program, const GLchar *name, GLuint binding)
 {
 	GLuint uniform_block_index = glGetUniformBlockIndex(program, name);
-	printf("%d\n", uniform_block_index);
 	glUniformBlockBinding(program, uniform_block_index, binding);
+
+	printf("Uniform block index of %s : %d\n", name, uniform_block_index);
 }
 
 void g_update_uniform(GLuint index, GLsizei size, GLvoid *data)
