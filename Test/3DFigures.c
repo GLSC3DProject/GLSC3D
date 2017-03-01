@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[])
 {
-	const int Size = 320;
+	const int Size = 640;
 	const int CountX = 5, CountY = 2;
 
 	g_init("GLSC3D", Size * CountX, Size * CountY);

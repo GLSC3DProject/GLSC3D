@@ -8,7 +8,7 @@ G_BOOL g_lighting_enabled;
 
 #define CONSTANT_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"uniform MatrixBlock { mat4 Proj, View; };\n" \
+	"uniform Matrices { mat4 Proj, View; };\n" \
 	"layout(location = 0) in vec3 Position;\n" \
 	"layout(location = 1) in vec3 Normal;\n" \
 	"layout(location = 2) in vec4 Color;\n" \
