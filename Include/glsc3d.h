@@ -44,7 +44,7 @@ typedef int G_BOOL;
 {
     G_2D   = 0,
     G_3D   = 1,
-} G_DIMENSION;//カレントスケールの次元判定．
+} G_DIMENSION;
 */
 typedef int G_DIMENSION;
 #define G_2D 0
@@ -54,7 +54,7 @@ typedef int G_DIMENSION;
 {
     G_WIRE   = 0,
     G_FILL   = 1,
-} G_WIREFILL;//３角形を塗りつぶすか否か．
+} G_WIREFILL;
 */
 typedef int G_WIREFILL;
 #define G_WIRE 0
@@ -407,41 +407,39 @@ extern char *g_key_code_string[];
 
 typedef enum
 {
-	G_NONE   = 0,//キーは直前のデータ取得で押されていないし，その前のデータ取得でも押されていなかった．
-	G_DOWN   = 1,//キーは直前のデータ取得で押されていたが，その前のデータ取得では押されていなかった（キーが押された）．
-	G_UP     = 2,//キーは直前のデータ取得で押されていないが，その前のデータ取得では押されていた（キーが解放された）．
-	G_REPEAT = 3,//キーは直前のデータ取得で押されていたし，その前のデータ取得でも押されていた（キーが押しっぱなし）．
+	G_NONE   = 0,
+	G_DOWN   = 1,
+	G_UP     = 2,
+	G_REPEAT = 3,
 } G_INPUT_STATE;
 
-//G_KEY_CODE列挙型は，各キー、及びマウス入力とASCIIコードとの対応関係を示します．
-//G_KEY_CODE列挙型は，マウス入力，及び特殊キーをASCIIの制御文字に割り当てます．
 typedef enum
 {
-	G_KEY_INVALID   = 0x00,//無効なキーです．本来はNUL ('\0' : Null : 空文字)に割り当てられています．
-	G_KEY_PAGE_UP   = 0x01,//Page Upキーです，本来はSOH (: Start Os Heading : ヘッダ開始)に割り当てられています．
-	G_KEY_PAGE_DOWN = 0x02,//Page Downキーです．本来はSTX (: Start of TeXt : テキスト開始)に割り当てられています．
-	G_KEY_HOME      = 0x03,//Homeキーです．本来はETX (: End of TeXt : テキスト終了)に割り当てられています．
-	G_KEY_END       = 0x04,//Endキーです．本来はEOT (: End Of Transmission : 伝送終了)に割り当てられています．
-	G_MOUSE_LEFT    = 0x05,//左クリックです．本来はENQ (: ENQuery : 問い合わせ)に割り当てられています．
-	G_MOUSE_MIDDLE  = 0x06,//中央クリックです．本来はACK (: ACKnowlegdement : 肯定応答)に割り当てられています．
-	G_MOUSE_RIGHT   = 0x07,//右クリックです．本来はBEL (: BELl : 警告音を鳴らす)に割り当てられています．
-	G_KEY_INSERT    = 0x0b,//Insertキーです．本来はVT (: Vertical Tabulation : )に割り当てられています．
-	G_KEY_F1        = 0x0e,//F1キーです．本来はSO (: Shift Out : シフトアウト（多バイト文字終了）)に割り当てられています． 
-	G_KEY_F2        = 0x0f,//F2キーです．本来はSI (: Shift In : シフトイン　（多バイト文字開始）)に割り当てられています． 
-	G_KEY_F3        = 0x10,//F3キーです．本来はDLE (: Data Link Escape : データリンク拡張（バイナリ通信開始）)に割り当てられています． 
-	G_KEY_F4        = 0x11,//F4キーです．本来はDC1 (: Device Control 1 : 装置制御１)に割り当てられています． 
-	G_KEY_F5        = 0x12,//F5キーです．本来はDC2 (: Device Control 2 : 装置制御２)に割り当てられています． 
-	G_KEY_F6        = 0x13,//F6キーです．本来はDC3 (: Device Control 3 : 装置制御３)に割り当てられています． 
-	G_KEY_F7        = 0x14,//F7キーです．本来はDC4 (: Device Control 4 : 装置制御４)に割り当てられています． 
-	G_KEY_F8        = 0x15,//F8キーです．本来はNAK (: Negative AcKnowledgement : 否定応答)に割り当てられています． 
-	G_KEY_F9        = 0x16,//F9キーです．本来はSYN (: SYNchronous idle : 同期)に割り当てられています． 
-	G_KEY_F10       = 0x17,//F10キーです．本来はETB (: End of Transmission Block : 伝送ブロック終了)に割り当てられています． 
-	G_KEY_F11       = 0x18,//F11キーです．本来はCAN (: CANcel : 取り消し)に割り当てられています． 
-	G_KEY_F12       = 0x19,//F12キーです．本来はEM (: End of Medium : 記録媒体終端)に割り当てられています． 
-	G_KEY_LEFT      = 0x1c,//左キーです．本来はFS(: File Separator : ファイル区切り)に割り当てられています．
-	G_KEY_UP        = 0x1d,//上キーです．本来はGS(: Group Separator : グループ区切り)に割り当てられています．
-	G_KEY_RIGHT     = 0x1e,//右キーです．本来はRS(: Record Separator : レコード区切り)に割り当てられています．
-	G_KEY_DOWN      = 0x1f//下キーです．本来はUS(: Unit Separator : ユニット区切り)に割り当てられています．
+	G_KEY_INVALID   = 0x00,
+	G_KEY_PAGE_UP   = 0x01,
+	G_KEY_PAGE_DOWN = 0x02,
+	G_KEY_HOME      = 0x03,
+	G_KEY_END       = 0x04,
+	G_MOUSE_LEFT    = 0x05,
+	G_MOUSE_MIDDLE  = 0x06,
+	G_MOUSE_RIGHT   = 0x07,
+	G_KEY_INSERT    = 0x0b,
+	G_KEY_F1        = 0x0e,
+	G_KEY_F2        = 0x0f,
+	G_KEY_F3        = 0x10,
+	G_KEY_F4        = 0x11,
+	G_KEY_F5        = 0x12,
+	G_KEY_F6        = 0x13,
+	G_KEY_F7        = 0x14,
+	G_KEY_F8        = 0x15,
+	G_KEY_F9        = 0x16,
+	G_KEY_F10       = 0x17,
+	G_KEY_F11       = 0x18,
+	G_KEY_F12       = 0x19,
+	G_KEY_LEFT      = 0x1c,
+	G_KEY_UP        = 0x1d,
+	G_KEY_RIGHT     = 0x1e,
+	G_KEY_DOWN      = 0x1f,
 } G_KEY_CODE_CONSTANT;
 
 typedef int G_KEY_CODE;
