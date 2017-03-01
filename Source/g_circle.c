@@ -55,7 +55,7 @@ void g_circle_3D_core(double center_x, double center_y, double center_z,
 					DivideLevel, WireFill);
 		}
 		//glEnd();
-	}    
+	}
 	if(WireFill==0)
 	{
 		glEnd();

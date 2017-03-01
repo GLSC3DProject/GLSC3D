@@ -1,25 +1,6 @@
 #ifndef GLSC3D_H
 #define GLSC3D_H
 
-/*
-// Mac OS X
-#ifdef __APPLE__
-#include <GL/freeglut.h>
-#include <GL/gl.h>
-#endif
-
-// Linux 
-#ifdef __linux
-#include <GL/freeglut.h>
-#endif
-
-// Windows 
-#ifdef WIN32
-#include <windows.h>
-#include <GL/glut.h>
-#endif
-*/
-
 #include <math.h>
 #ifndef M_PI
 #define M_PI (3.14159265358979323846264338327950288)

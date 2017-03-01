@@ -2,7 +2,7 @@
 #define GLSC3D_PRIVATE_H
 
 //#undef NDEBUG
-//#define _LIBICONV_H
+#define NCURSES_UNCTRL_H_incl
 
 #include "glsc3d.h"
 #include "glsc3d_math.h"
