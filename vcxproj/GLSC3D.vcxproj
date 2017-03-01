@@ -88,6 +88,7 @@
     <ClCompile Include="..\Source\g_contln_2D.c" />
     <ClCompile Include="..\Source\g_cylinder_3D.c" />
     <ClCompile Include="..\Source\g_data_plot.c" />
+    <ClCompile Include="..\Source\g_debug_callback.cpp" />
     <ClCompile Include="..\Source\g_direction_private.c" />
     <ClCompile Include="..\Source\g_ellipse_3D.c" />
     <ClCompile Include="..\Source\g_fan.c" />
@@ -115,7 +116,6 @@
     <ClCompile Include="..\Source\g_triangle.c" />
     <ClCompile Include="..\Source\g_triangle_buffer.c" />
     <ClCompile Include="..\Source\g_vertex_buffer.cpp" />
-    <ClCompile Include="g_debug_callback.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\glsc3d.h" />

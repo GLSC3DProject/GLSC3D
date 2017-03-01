@@ -95,6 +95,10 @@ void g_init_core(
 {
 	glsc3D_width = width;
 	glsc3D_height = height;
+
+#ifdef _WIN32
+	SetProcessDPIAware();
+#endif
 	
 	g_sdl_init(WindowName, pos_x, pos_y);
 

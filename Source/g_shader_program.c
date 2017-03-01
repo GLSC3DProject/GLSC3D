@@ -11,14 +11,14 @@ G_BOOL g_lighting_enabled;
 	"uniform MatrixBlock { mat4 Proj, View; };\n" \
 	"layout(location = 0) in vec3 Position;\n" \
 	"layout(location = 1) in vec3 Normal;\n" \
-	"layout(location = 2) in vec3 Color;\n" \
-	"layout(location = 0) out vec3 OutputColor;\n" \
+	"layout(location = 2) in vec4 Color;\n" \
+	"layout(location = 0) out vec4 OutputColor;\n" \
 	"void main() { gl_Position = Proj * (View * vec4(Position, 1)); OutputColor = Color; }"
 
 #define CONSTANT_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"layout(location = 0) in vec3 Color;\n" \
-	"out vec3 OutputColor;\n" \
+	"layout(location = 0) in vec4 Color;\n" \
+	"out vec4 OutputColor;\n" \
 	"void main() { OutputColor = Color; }"
 
 #define LIGHTING_VERT_SHADER_SOURCE \
@@ -42,13 +42,12 @@ G_BOOL g_lighting_enabled;
 	GLSL_VERSION_DECL \
 	"uniform LightBlock { vec4 LightPos; float Ambient, Diffuse, Specular, Shininess; };\n" \
 	"layout(location = 0) in vec4 Color;\n" \
-	"layout(location = 1) in vec3 Normal;\n" \
-	"layout(location = 2) in vec3 Position;\n" \
+	"layout(location = 1) in vec4 Normal;\n" \
+	"layout(location = 2) in vec4 Position;\n" \
 	"out vec4 OutputColor;\n" \
 	"void main() {\n" \
-	"	vec3 Half = normalize(LightPos.xyz - Position);\n" \
-	"	vec3 Normal = normalize(Normal);\n" \
-	"//	Normal = faceforward(Normal, Position, Normal);\n" \
+	"	vec3 Half = normalize(LightPos.xyz - Position.xyz);\n" \
+	"	vec3 Normal = normalize(Normal.xyz);\n" \
 	"	OutputColor" \
 	"		= (Ambient + Diffuse * max(dot(LightPos.xyz, Normal), 0)) * Color" \
 	"		+ Specular * pow(max(dot(Normal, Half), 0), Shininess);\n" \

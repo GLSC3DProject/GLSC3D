@@ -4,6 +4,7 @@
 #include "glsc3d_private.h"
 
 #define G_USE_CORE_PROFILE
+#undef NDEBUG
 
 #ifdef __cplusplus
 extern "C"
