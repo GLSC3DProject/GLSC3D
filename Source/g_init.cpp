@@ -110,7 +110,6 @@ void g_init_core(
 
 #ifdef G_ENABLE_OPENGL_DEBUG
 	glDebugMessageCallback(g_debug_callback, NULL);
-	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 #endif
 
 	g_shader_program_init();
