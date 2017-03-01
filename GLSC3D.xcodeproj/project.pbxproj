@@ -70,10 +70,10 @@
 		3F7574221E423429009E14BF /* 2DFigures.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F7574211E423429009E14BF /* 2DFigures.c */; };
 		3F98853B1E3E1E7B0031E4BE /* glsc3d_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */; };
 		3F98853D1E3E1E7B0031E4BE /* glsc3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F98853A1E3E1E7B0031E4BE /* glsc3d.h */; };
+		3F9AAF171E66FA9D000AB5C5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */; };
 		3FCF504B1E6578200099B124 /* glsc3d_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF50491E6578200099B124 /* glsc3d_math.h */; };
 		3FCF504C1E6578200099B124 /* glsc3d_private_ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF504A1E6578200099B124 /* glsc3d_private_ext.h */; };
 		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
-		3FD2EFAD1E65DBB600223DA2 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */; };
 		3FFCFE2C1E619055006AD71F /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFCFE2B1E619055006AD71F /* libSDL2-2.0.0.dylib */; };
 		3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.c */; };
 /* End PBXBuildFile section */
@@ -445,7 +445,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FD2EFAD1E65DBB600223DA2 /* OpenGL.framework in Frameworks */,
+				3F9AAF171E66FA9D000AB5C5 /* OpenGL.framework in Frameworks */,
 				3FFCFE2C1E619055006AD71F /* libSDL2-2.0.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1352,6 +1352,7 @@
 		3F9884CD1E3E1BCC0031E4BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
@@ -1368,6 +1369,7 @@
 		3F9884CE1E3E1BCC0031E4BE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;

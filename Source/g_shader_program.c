@@ -9,29 +9,29 @@ G_BOOL g_lighting_enabled;
 #define CONSTANT_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
 	"uniform Matrices { mat4 Proj, View; };\n" \
-	"layout(location = 0) in vec3 Position;\n" \
-	"layout(location = 1) in vec3 Normal;\n" \
-	"layout(location = 2) in vec4 Color;\n" \
-	"layout(location = 0) out vec4 OutputColor;\n" \
-	"void main() { gl_Position = Proj * (View * vec4(Position, 1)); OutputColor = Color; }"
+	"layout(location = 0) in vec3 in_Position;\n" \
+	"layout(location = 1) in vec3 in_Normal;\n" \
+	"layout(location = 2) in vec4 in_Color;\n" \
+	"layout(location = 0) out vec4 var_Color;\n" \
+	"void main() { gl_Position = Proj * (View * vec4(in_Position, 1)); var_Color = in_Color; }"
 
 #define CONSTANT_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"layout(location = 0) in vec4 Color;\n" \
-	"out vec4 OutputColor;\n" \
-	"void main() { OutputColor = Color; }"
+	"layout(location = 0) in vec4 var_Color;\n" \
+	"out vec4 out_Color;\n" \
+	"void main() { out_Color = var_Color; }"
 
 #define LIGHTING_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
 	"uniform Matrices { mat4 Proj, View; };\n" \
-	"layout(location = 0) in vec3 Position;\n" \
-	"layout(location = 1) in vec3 Normal;\n" \
-	"layout(location = 2) in vec4 Color;\n" \
-	"layout(location = 0) out vec4 OutputColor;\n" \
-	"layout(location = 1) out vec4 OutputNormal;\n" \
-	"layout(location = 2) out vec4 OutputPosition;\n" \
+	"layout(location = 0) in vec3 in_Position;\n" \
+	"layout(location = 1) in vec3 in_Normal;\n" \
+	"layout(location = 2) in vec4 in_Color;\n" \
+	"layout(location = 0) out vec4 var_Color;\n" \
+	"layout(location = 1) out vec4 var_Normal;\n" \
+	"layout(location = 2) out vec4 var_Position;\n" \
 	"void main() {\n" \
-	"	vec4 ViewPos = View * vec4(Position, 1);\n" \
+	"	vec4 ViewPos = View * vec4(in_Position, 1);\n" \
 	"	gl_Position = Proj * ViewPos;\n" \
 	"	OutputColor = Color;\n" \
 	"	OutputNormal = View * vec4(Normal, 0);\n" \
@@ -59,21 +59,21 @@ GLuint g_uniforms[G_NUM_UNIFORMS];
 
 void g_assert_shader_compile_status(GLuint shader)
 {
-	GLint InfoLogLength, CompileStatus;
-	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	GLint info_log_length, compile_status;
+	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_log_length);
 	
-	if (InfoLogLength > 0) {
-		char *info_log = malloc(InfoLogLength);
+	if (info_log_length > 0) {
+		char *info_log = malloc(info_log_length);
 		
-		glGetShaderInfoLog(shader, InfoLogLength, &InfoLogLength, info_log);
+		glGetShaderInfoLog(shader, info_log_length, NULL, info_log);
 		printf("%s\n", info_log);
 
 		free(info_log);
 		
-		glGetShaderiv(shader, GL_COMPILE_STATUS, &CompileStatus);
-		if (CompileStatus == GL_FALSE) printf("Compile Failed.\n");
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &compile_status);
+		if (compile_status == GL_FALSE) printf("Compile Failed.\n");
 
-		assert(CompileStatus);
+//		assert(CompileStatus);
 	}
 }
 
@@ -89,6 +89,26 @@ GLuint g_create_shader(GLuint program, GLenum type, const char *source)
 	glAttachShader(program, shader);
 	
 	return shader;
+}
+
+void g_link_program(GLuint program)
+{
+	glLinkProgram(program);
+	
+	GLint info_log_length, link_status;
+	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_log_length);
+	
+	if (info_log_length > 0) {
+		char *info_log = malloc(info_log_length);
+		
+		glGetProgramInfoLog(program, GL_INFO_LOG_LENGTH, NULL, info_log);
+		printf("%s", info_log);
+		
+		free(info_log);
+		
+		glGetProgramiv(program, GL_LINK_STATUS, &link_status);
+		if (link_status == GL_FALSE) printf("Link Failed.\n");
+	}
 }
 
 void g_bind_uniform_block(GLuint program, const GLchar *name, GLuint binding)
@@ -109,12 +129,12 @@ void g_shader_program_init()
 	g_constant_program = glCreateProgram();
 	g_create_shader(g_constant_program, GL_VERTEX_SHADER, CONSTANT_VERT_SHADER_SOURCE);
 	g_create_shader(g_constant_program, GL_FRAGMENT_SHADER, CONSTANT_FRAG_SHADER_SOURCE);
-	glLinkProgram(g_constant_program);
+	g_link_program(g_constant_program);
 
 	g_lighting_program = glCreateProgram();
 	g_create_shader(g_lighting_program, GL_VERTEX_SHADER, LIGHTING_VERT_SHADER_SOURCE);
 	g_create_shader(g_lighting_program, GL_FRAGMENT_SHADER, LIGHTING_FRAG_SHADER_SOURCE);
-	glLinkProgram(g_lighting_program);
+	g_link_program(g_lighting_program);
 
 	glGenBuffers(G_NUM_UNIFORMS, g_uniforms);
 

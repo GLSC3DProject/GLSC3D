@@ -1,7 +1,7 @@
 #ifndef GLSC3D_PRIVATE_H
 #define GLSC3D_PRIVATE_H
 
-//#undef NDEBUG
+#undef NDEBUG
 
 #include "glsc3d.h"
 #include "glsc3d_math.h"
