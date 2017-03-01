@@ -8,7 +8,7 @@
 SDL_Window*		g_window;
 SDL_GLContext	g_context;
 
-void g_sdl_init(const char *WindowName, int pos_x, int pos_y)
+void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height)
 {
 	SDL_Init(SDL_INIT_VIDEO);
 	
@@ -30,7 +30,7 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y)
 #endif
 
 	g_window = SDL_CreateWindow(WindowName,
-		pos_x, pos_y, glsc3D_width, glsc3D_height,
+		pos_x, pos_y, width, height,
 		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 	
 	g_context = SDL_GL_CreateContext(g_window);

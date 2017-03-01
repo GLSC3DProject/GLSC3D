@@ -90,7 +90,7 @@ void g_check_shader_compile_status(GLuint shader)
 	}
 }
 
-GLuint g_create_shader(GLuint program, GLenum type, const char *source)
+void g_create_shader(GLuint program, GLenum type, const char *source)
 {
 	GLuint shader = glCreateShader(type);
 	
@@ -100,8 +100,6 @@ GLuint g_create_shader(GLuint program, GLenum type, const char *source)
 	g_check_shader_compile_status(shader);
 	
 	glAttachShader(program, shader);
-	
-	return shader;
 }
 
 void g_link_program(GLuint program)

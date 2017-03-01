@@ -18,7 +18,7 @@ static const char * ErrorNames[] = {
 	"GL_STACK_OVERFLOW", "GL_STACK_UNDERFLOW", "GL_OUT_OF_MEMORY"
 };
 
-void CheckGLError(int checkpoint)
+void g_check_opengl_error(int checkpoint)
 {
 	if (GLenum error = glGetError())
 		printf("OpenGL Error : %s Checkpoint: %d\n",

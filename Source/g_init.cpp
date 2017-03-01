@@ -100,7 +100,7 @@ void g_init_core(
 	SetProcessDPIAware();
 #endif
 	
-	g_sdl_init(WindowName, pos_x, pos_y);
+	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
 #ifdef _WIN32
 	EMIT_GL_FUNCTIONS(INIT_GL_FUNC);

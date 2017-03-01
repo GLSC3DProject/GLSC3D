@@ -178,7 +178,7 @@ extern "C"
 	void g_begin_lines();
 	void g_begin_triangles();
 	
-	void CheckGLError(int checkpoint);
+	void g_check_opengl_error(int checkpoint);
 
 	// ---- g_shader_program.c
 
@@ -189,7 +189,7 @@ extern "C"
 
 	// ---- g_sdl_wrapper.c
 
-	void g_sdl_init(const char *WindowName, int pos_x, int pos_y);
+	void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height);
 	void g_swap_buffers();
 	void g_poll_events();
 	void g_quit();
