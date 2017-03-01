@@ -6,21 +6,25 @@ G_DIMENSION     g_scale_dim_flag;
 G_CAMERA glsc3D_inner_camera[TotalDisplayNumber];
 G_SCREEN glsc3D_inner_screen[TotalDisplayNumber];
 
-void g_set_screen(G_SCREEN *s)
+void g_set_screen(G_SCREEN &screen)
 {
-	glViewport(s->x, glsc3D_height - s->height - s->y, s->width, s->height);
+	GLint x = g_screen_scale_factor * screen.x;
+	GLint y = glsc3D_height - g_screen_scale_factor * (screen.height + screen.y);
+	GLsizei w = g_screen_scale_factor * screen.width;
+	GLsizei h = g_screen_scale_factor * screen.height;
+	glViewport(x, y, w, h);
 }
 
-void g_set_camera(G_CAMERA *c)
+void g_set_camera(G_CAMERA &camera)
 {
 #ifdef G_USE_CORE_PROFILE
-	g_update_uniform(G_UNIFORM_MATRICES, 2 * sizeof(G_MATRIX), c);
+	g_update_uniform(G_UNIFORM_MATRICES, 2 * sizeof(G_MATRIX), &camera);
 #else
 	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf((float *)&c->proj);
+	glLoadMatrixf((float *)&camera.proj);
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf((float *)&c->view);
+	glLoadMatrixf((float *)&camera.view);
 #endif
 }
 
@@ -53,8 +57,8 @@ void g_sel_scale_2D(int id)
 	g_scale_dim_flag = G_2D;
 	get_scale_id_number = id;
 
-	g_set_camera(&glsc3D_inner_camera[id]);
-	g_set_screen(&glsc3D_inner_screen[id]);
+	g_set_camera(glsc3D_inner_camera[id]);
+	g_set_screen(glsc3D_inner_screen[id]);
 }
 
 void g_def_scale_3D(int id,
@@ -100,6 +104,6 @@ void g_sel_scale_3D(int id)
 	g_scale_dim_flag = G_3D;
 	get_scale_id_number = id;
 	
-	g_set_camera(&glsc3D_inner_camera[id]);
-	g_set_screen(&glsc3D_inner_screen[id]);
+	g_set_camera(glsc3D_inner_camera[id]);
+	g_set_screen(glsc3D_inner_screen[id]);
 }

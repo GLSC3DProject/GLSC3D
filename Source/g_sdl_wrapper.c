@@ -29,9 +29,12 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 
 #endif
 
-	g_window = SDL_CreateWindow(WindowName,
-		pos_x, pos_y, width, height,
-		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+	g_window = SDL_CreateWindow(WindowName, pos_x, pos_y, width, height,
+								SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
+	
+	
+	SDL_GL_GetDrawableSize(g_window, &glsc3D_width, &glsc3D_height);
+	g_screen_scale_factor = (float)glsc3D_height / height;
 	
 	g_context = SDL_GL_CreateContext(g_window);
 	SDL_GL_SetSwapInterval(1);

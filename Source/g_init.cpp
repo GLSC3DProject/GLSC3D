@@ -2,6 +2,7 @@
 
 int             glsc3D_width;
 int             glsc3D_height;
+float			g_screen_scale_factor;
 
 G_COLOR g_current_area_color_2D = {1, 1, 1, 1};
 G_COLOR g_current_area_color_3D = {1, 1, 1, 1};
@@ -93,32 +94,30 @@ void g_init_core(
 					int TRIANGLE_BUFFER_SIZE_out
 				)
 {
-	glsc3D_width = width;
-	glsc3D_height = height;
-
 #ifdef _WIN32
 	SetProcessDPIAware();
 #endif
-	
+
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
 #ifdef _WIN32
 	EMIT_GL_FUNCTIONS(INIT_GL_FUNC);
 #endif
 
-	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
+//	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG
 	glDebugMessageCallback(g_debug_callback, NULL);
 #endif
 
-	g_shader_program_init();
 	g_vertex_buffer_init();
 
 //	g_input_init();
 //	g_text_init();
 	
-#ifndef G_USE_CORE_PROFILE
+#ifdef G_USE_CORE_PROFILE
+	g_shader_program_init();
+#else
 	GLfloat specular[4] = {1, 1, 1, 1};
 	
 	glShadeModel(GL_SMOOTH);

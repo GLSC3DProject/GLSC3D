@@ -126,6 +126,7 @@ extern "C"
 
 	extern int				glsc3D_width;
 	extern int				glsc3D_height;
+	extern float			g_screen_scale_factor;
 
 	extern int				get_scale_id_number;
 	extern G_DIMENSION		g_scale_dim_flag;
@@ -159,7 +160,6 @@ extern "C"
 	
 	void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int DivideLevel);
 
-//	void g_set_material(GLenum face, G_MATERIAL mat);
 	void g_set_triangle(G_TRIANGLE t);
 	void g_triangle_terminal(G_TRIANGLE t);
 	
@@ -181,8 +181,6 @@ extern "C"
 	void g_check_opengl_error(int checkpoint);
 
 	// ---- g_shader_program.c
-
-	void g_shader_program_init();
 
 	void g_enable_lighting();
 	void g_disable_lighting();

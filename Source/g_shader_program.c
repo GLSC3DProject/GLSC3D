@@ -59,16 +59,16 @@ GLuint g_uniforms[G_NUM_UNIFORMS];
 
 GLint g_get_shader_int(GLuint shader, GLenum pname)
 {
-	GLint ans;
-	glGetShaderiv(shader, pname, &ans);
-	return ans;
+	GLint param;
+	glGetShaderiv(shader, pname, &param);
+	return param;
 }
 
 GLint g_get_program_info(GLuint program, GLenum pname)
 {
-	GLint ans;
-	glGetProgramiv(program, pname, &ans);
-	return ans;
+	GLint param;
+	glGetProgramiv(program, pname, &param);
+	return param;
 }
 
 void g_check_shader_compile_status(GLuint shader)
@@ -126,7 +126,7 @@ void g_bind_uniform_block(GLuint program, const GLchar *name, GLuint binding)
 	GLuint uniform_block_index = glGetUniformBlockIndex(program, name);
 	glUniformBlockBinding(program, uniform_block_index, binding);
 
-	printf("Uniform block index of %s : %d\n", name, uniform_block_index);
+//	printf("Uniform block index of %s : %d\n", name, uniform_block_index);
 }
 
 void g_update_uniform(GLuint index, GLsizei size, GLvoid *data)
@@ -175,18 +175,6 @@ void g_disable_lighting()
 
 #else
 
-void g_shader_program_init()
-{
-}
-
-void g_set_camera(G_CAMERA *c)
-{
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf((float *)&c->proj);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf((float *)&c->view);
-}
 
 void g_enable_lighting()
 {

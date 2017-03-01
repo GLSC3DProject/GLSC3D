@@ -13,7 +13,8 @@ extern "C"
 #ifdef G_USE_CORE_PROFILE
 
 enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
-
+	
+void g_shader_program_init();
 void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
 
 #endif
