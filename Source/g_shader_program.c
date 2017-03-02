@@ -175,7 +175,6 @@ void g_disable_lighting()
 
 #else
 
-
 void g_enable_lighting()
 {
 	glEnable(GL_LIGHTING);
