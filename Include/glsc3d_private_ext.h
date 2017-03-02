@@ -3,7 +3,7 @@
 
 #include "glsc3d_private.h"
 
-#define G_USE_CORE_PROFILE
+//#define G_USE_CORE_PROFILE
 
 #ifdef __cplusplus
 extern "C"

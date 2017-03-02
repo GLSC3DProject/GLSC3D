@@ -29,6 +29,10 @@
 #undef far
 #endif
 
+#ifdef __linux__
+#include <GL/gl.h>
+#endif
+
 #define TotalDisplayNumber (100)
 
 #define PI M_PI

@@ -133,7 +133,7 @@ void g_init_core(
 
 	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-	g_enable_transparent = g_enable_transparent_out;
+/*	g_enable_transparent = g_enable_transparent_out;
 
 	if(g_enable_transparent)
 	{
@@ -158,7 +158,7 @@ void g_init_core(
 		
 		g_triangle_buffer_init();
 	}
-
+*/
 	g_scr_color(r,g,b);
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	g_finish();
