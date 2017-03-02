@@ -31,6 +31,8 @@
 
 #ifdef __linux__
 #include <GL/gl.h>
+#include <GL/glext.h>
+#include <GL/glx.h>
 #endif
 
 #define TotalDisplayNumber (100)
