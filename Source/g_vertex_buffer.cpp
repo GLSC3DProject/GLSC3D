@@ -13,7 +13,7 @@ GLuint g_vertex_array_id, g_vertex_buffer_id;
 
 G_VERTEX *g_vertex_data;
 
-static const char * ErrorNames[] = {
+static const char * g_opengl_error_names[] = {
 	"GL_INVALID_ENUM", "GL_INVALID_VALUE", "GL_INVALID_OPERATION",
 	"GL_STACK_OVERFLOW", "GL_STACK_UNDERFLOW", "GL_OUT_OF_MEMORY"
 };
@@ -22,7 +22,7 @@ void g_check_opengl_error(int checkpoint)
 {
 	if (GLenum error = glGetError())
 		printf("OpenGL Error : %s Checkpoint: %d\n",
-			ErrorNames[error - GL_INVALID_ENUM], checkpoint);
+			g_opengl_error_names[error - GL_INVALID_ENUM], checkpoint);
 }
 
 void* g_malloc(size_t size)
