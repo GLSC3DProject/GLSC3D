@@ -1,5 +1,13 @@
 find_package(OpenGL)
 find_package(SDL)
+#include(FindSDL)
+
+#if (UNIX)
+#	set(SDL_LIBRARY_TEMP /usr/lib/x86_64-linux-gnu/libSDL2.so)
+#endif (UNIX)
+
+include_directories(${SDL_INCLUDE_DIR})
+message(${SDL_LIBRARY})
 
 add_library(Source
 	g_area.c
@@ -23,7 +31,7 @@ add_library(Source
 	g_pyramid_3D.c
 	g_rectangle.c
 	g_scale.cpp
-	g_sdl_wrapper.c
+	g_sdl_wrapper.cpp
 	g_shader_program.c
 	g_sphere_3D.c
 	g_triangle.c
@@ -31,4 +39,4 @@ add_library(Source
 	g_vertex_buffer.cpp
 )
 
-target_link_libraries(Source ${OPENGL_LIBRARY} ${SDL_LIBRARY})
+target_link_libraries(Source libGL.so libSDL2.so)
