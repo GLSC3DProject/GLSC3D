@@ -1,4 +1,4 @@
-#include "glsc3d_private_ext.h"
+﻿#include "glsc3d_private_ext.h"
 
 int             glsc3D_width;
 int             glsc3D_height;
@@ -13,8 +13,8 @@ G_COLOR g_current_color = {1, 1, 1, 1};
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
-#ifdef _WIN32
-EMIT_GL_FUNCTIONS(DECL_GL_FUNC);
+#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
+G_EMIT_GLEXT(G_DECL_GLEXT);
 #endif
 
 #ifdef G_USE_CORE_PROFILE
@@ -100,11 +100,11 @@ void g_init_core(
 
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
-#ifdef _WIN32
-	EMIT_GL_FUNCTIONS(INIT_GL_FUNC);
+#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
+	G_EMIT_GLEXT(G_INIT_GLEXT);
 #endif
 
-//	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
+	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG
 	glDebugMessageCallback(g_debug_callback, NULL);
@@ -133,7 +133,7 @@ void g_init_core(
 
 	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-	g_enable_transparent = g_enable_transparent_out;
+/*	g_enable_transparent = g_enable_transparent_out;
 
 	if(g_enable_transparent)
 	{
@@ -158,7 +158,7 @@ void g_init_core(
 		
 		g_triangle_buffer_init();
 	}
-
+*/
 	g_scr_color(r,g,b);
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	g_finish();

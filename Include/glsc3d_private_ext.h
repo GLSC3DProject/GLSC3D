@@ -17,14 +17,22 @@ enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
 void g_shader_program_init();
 void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
 
-#endif
+// In Windows and Linux, it is required to get address of OpenGL 1.2+ functions.
+#if defined(_WIN32) || defined(__linux__)
+#define G_NEED_GET_GLEXT_PROC_ADDRESS
+
+#define G_EXTERN_DECL_GLEXT(Type, Name) extern Type Name;
+#define G_DECL_GLEXT(Type, Name) Type Name;
 
 #ifdef _WIN32
-#define EXTERN_DECL_GL_FUNC(Type, Name) extern Type Name;
-#define DECL_GL_FUNC(Type, Name) Type Name;
-#define INIT_GL_FUNC(Type, Name) Name = (Type)wglGetProcAddress(#Name);
+#define G_INIT_GLEXT(Type, Name) Name = (Type)wglGetProcAddress(#Name);
+#endif
 
-#define EMIT_GL_FUNCTIONS(Action) \
+#ifdef __linux__
+#define G_INIT_GLEXT(Type, Name) Name = (Type)glXGetProcAddress((const GLubyte *)#Name);
+#endif
+
+#define G_EMIT_GLEXT(Action) \
 Action(PFNGLVERTEXATTRIBPOINTERPROC,		glVertexAttribPointer) \
 Action(PFNGLENABLEVERTEXATTRIBARRAYPROC,	glEnableVertexAttribArray) \
 Action(PFNGLGENVERTEXARRAYSPROC,			glGenVertexArrays) \
@@ -55,17 +63,19 @@ Action(PFNGLDEBUGMESSAGECALLBACKPROC,		glDebugMessageCallback)
 //Action(PFNGLBINDFRAMEBUFFERPROC,			glBindFramebuffer) \
 //Action(PFNGLFRAMEBUFFERRENDERBUFFERPROC,	glFramebufferRenderbuffer)
 
-EMIT_GL_FUNCTIONS(EXTERN_DECL_GL_FUNC);
+G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 
-#endif
-
-#if defined(G_USE_CORE_PROFILE) && !defined(__APPLE__) && !defined(NDEBUG)
+#ifndef NDEBUG
 #define G_ENABLE_OPENGL_DEBUG
 void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user);
 #endif
+
+#endif //defined(_WIN32) || defined(__linux__)
+
+#endif //G_USE_CORE_PROFILE
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif //GLSC3D_PRIVATE_EXT_H
