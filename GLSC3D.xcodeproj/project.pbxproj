@@ -75,7 +75,7 @@
 		3FCF504C1E6578200099B124 /* glsc3d_private_ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF504A1E6578200099B124 /* glsc3d_private_ext.h */; };
 		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3FFCFE2C1E619055006AD71F /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFCFE2B1E619055006AD71F /* libSDL2-2.0.0.dylib */; };
-		3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.c */; };
+		3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,7 +348,7 @@
 		3FCF504A1E6578200099B124 /* glsc3d_private_ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d_private_ext.h; path = Include/glsc3d_private_ext.h; sourceTree = "<group>"; };
 		3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		3FFCFE2B1E619055006AD71F /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../opt/local/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
-		3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sdl_wrapper.c; path = Source/g_sdl_wrapper.c; sourceTree = "<group>"; };
+		3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_sdl_wrapper.cpp; path = Source/g_sdl_wrapper.cpp; sourceTree = "<group>"; };
 		3FFE934A1E40C28B00BB053B /* g_vertex_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_vertex_buffer.cpp; path = Source/g_vertex_buffer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -554,7 +554,7 @@
 				3F98850D1E3E1E340031E4BE /* g_triangle.c */,
 				3FFE934A1E40C28B00BB053B /* g_vertex_buffer.cpp */,
 				3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */,
-				3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.c */,
+				3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -1027,7 +1027,7 @@
 				3F75740F1E421729009E14BF /* g_sleep.c in Sources */,
 				3F7574101E421729009E14BF /* g_sphere_3D.c in Sources */,
 				3F7574111E421729009E14BF /* g_text.c in Sources */,
-				3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.c in Sources */,
+				3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.cpp in Sources */,
 				3F7574121E421729009E14BF /* g_triangle_buffer.c in Sources */,
 				3F7574131E421729009E14BF /* g_triangle.c in Sources */,
 				3F7574141E421729009E14BF /* g_vertex_buffer.cpp in Sources */,

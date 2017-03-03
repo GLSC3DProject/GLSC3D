@@ -10,6 +10,16 @@ SDL_GLContext	g_context;
 
 float g_window_width, g_window_height;
 
+void g_update_drawable_size()
+{
+	SDL_GL_GetDrawableSize(g_window, &glsc3D_width, &glsc3D_height);
+	
+	float sx = (float)glsc3D_width / g_window_width;
+	float sy = (float)glsc3D_height / g_window_height;
+	
+	g_screen_scale_factor = sx < sy ? sx : sy;
+}
+
 void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height)
 {
 	SDL_Init(SDL_INIT_VIDEO);
@@ -32,11 +42,10 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 #endif
 
 	g_window = SDL_CreateWindow(WindowName, pos_x, pos_y, width, height,
-								SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+				SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 	
 	g_window_width = width, g_window_height = height;
-	SDL_GL_GetDrawableSize(g_window, &glsc3D_width, &glsc3D_height);
-	g_screen_scale_factor = (float)glsc3D_height / height;
+	g_update_drawable_size();
 	
 	g_context = SDL_GL_CreateContext(g_window);
 	SDL_GL_SetSwapInterval(1);
@@ -52,10 +61,7 @@ void g_poll_events()
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) {
-			SDL_GL_GetDrawableSize(g_window, &glsc3D_width, &glsc3D_height);
-			float sx = (float)glsc3D_width / g_window_width;
-			float sy = (float)glsc3D_height / g_window_height;
-			g_screen_scale_factor = sx < sy ? sx : sy;
+			g_update_drawable_size();
 		}
 		if (event.type == SDL_QUIT) {
 			g_quit();

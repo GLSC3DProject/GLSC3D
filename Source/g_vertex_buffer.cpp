@@ -8,6 +8,13 @@ int g_vertex_data_count;
 
 G_VERTEX *g_vertex_data;
 
+#ifdef G_USE_CORE_PROFILE
+#define BUFFER_OFFSET_NORMAL ((void *)sizeof(G_VECTOR))
+#define BUFFER_OFFSET_COLOR  ((void *)(sizeof(G_VECTOR) * 2))
+
+GLuint g_vertex_array_id, g_vertex_buffer_id;
+#endif
+
 static const char * g_opengl_error_names[] = {
 	"GL_INVALID_ENUM", "GL_INVALID_VALUE", "GL_INVALID_OPERATION",
 	"GL_STACK_OVERFLOW", "GL_STACK_UNDERFLOW", "GL_OUT_OF_MEMORY"
