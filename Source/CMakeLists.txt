@@ -1,5 +1,5 @@
 find_package(OpenGL)
-#find_package(SDL)
+find_package(SDL)
 
 if (WINDOWS)
 #	set(OPENGL_LIBRARY OpenGL32.lib)
@@ -7,24 +7,22 @@ if (WINDOWS)
 else ()
 	message(${OPENGL_gl_LIBRARY})
 	#message(${SDL_LIBRARY})
-	set(SDL_LIBRARY libSDL2.a)
+	set(SDL_LIBRARY libSDL2.dll.a)
 endif ()
 
 #include_directories(${SDL_INCLUDE_DIR})
 
 add_library(Source
-	g_area.c
 	g_arrow.c
 	g_box.c
 	g_camera.cpp
-	g_cls.c
 	g_cone.c
 	g_cylinder_3D.c
-	g_debug_callback.cpp
+	g_debug.cpp
 	g_direction_private.c
 	g_ellipse_3D.c
 	g_fan.c
-	g_finish.c
+	g_fundamentals.c
 	g_glwrapper_private.c
 	g_init.cpp
 	g_line.c

@@ -66,20 +66,20 @@ void g_vertex_buffer_append(G_VERTEX vertex)
 
 void g_vertex_buffer_append_position(G_VECTOR position)
 {
-	g_vertex_buffer_append(g_make_vertex(position, g_vector_zero, g_current_color));
+	g_vertex_buffer_append(g_make_vertex(position, g_vector_zero));
 }
 
 void g_vertex_buffer_append_line(G_VECTOR a, G_VECTOR b)
 {
-	g_vertex_buffer_append(g_make_vertex(a, g_vector_zero, g_current_line_color));
-	g_vertex_buffer_append(g_make_vertex(b, g_vector_zero, g_current_line_color));
+	g_vertex_buffer_append(g_make_vertex(a, g_vector_zero));
+	g_vertex_buffer_append(g_make_vertex(b, g_vector_zero));
 }
 
 void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c)
 {
-	g_vertex_buffer_append(g_make_vertex(a, g_vector_zero, g_current_area_color_2D));
-	g_vertex_buffer_append(g_make_vertex(b, g_vector_zero, g_current_area_color_2D));
-	g_vertex_buffer_append(g_make_vertex(c, g_vector_zero, g_current_area_color_2D));
+	g_vertex_buffer_append(g_make_vertex(a, g_vector_zero));
+	g_vertex_buffer_append(g_make_vertex(b, g_vector_zero));
+	g_vertex_buffer_append(g_make_vertex(c, g_vector_zero));
 }
 
 #ifdef G_USE_CORE_PROFILE
@@ -157,7 +157,6 @@ void g_begin_lines()
 {
 	g_set_primitive_mode(GL_LINES);
 	
-	g_current_color = g_current_line_color;
 	g_disable_lighting();
 }
 
@@ -166,10 +165,8 @@ void g_begin_triangles()
 	g_set_primitive_mode(GL_TRIANGLES);
 	
 	if (g_scale_dim_flag == G_3D) {
-		g_current_color = g_current_area_color_3D;
 		g_enable_lighting();
 	} else {
-		g_current_color = g_current_area_color_2D;
 		g_disable_lighting();
 	}
 }

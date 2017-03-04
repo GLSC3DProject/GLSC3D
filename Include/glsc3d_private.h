@@ -96,8 +96,6 @@ extern "C"
 	extern G_CAMERA glsc3D_inner_camera[TotalDisplayNumber];
 	extern G_SCREEN glsc3D_inner_screen[TotalDisplayNumber];
 	
-	extern G_COLOR g_current_area_color_3D, g_current_area_color_2D;
-	extern G_COLOR g_current_line_color, g_current_text_color, g_current_marker_color;
 	extern G_COLOR g_current_color;
 	
 	extern G_BOOL g_lighting_enabled;
@@ -114,9 +112,9 @@ extern "C"
 		G_VERTEX vertex[3];
 	}G_TRIANGLE;
 
-	static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal, G_COLOR color)
+	static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal)
 	{
-		G_VERTEX v = {position, normal, color};
+		G_VERTEX v = {position, normal, g_current_color};
 		return v;
 	}
 

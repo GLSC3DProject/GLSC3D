@@ -5,10 +5,7 @@ int             glsc3D_height;
 float			g_screen_scale_factor;
 
 G_COLOR g_current_area_color_2D = {1, 1, 1, 1};
-G_COLOR g_current_area_color_3D = {1, 1, 1, 1};
 G_COLOR g_current_line_color = {1, 1, 1, 1};
-G_COLOR g_current_text_color = {1, 1, 1, 1};
-G_COLOR g_current_marker_color = {1, 1, 1, 1};
 G_COLOR g_current_color = {1, 1, 1, 1};
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
@@ -94,7 +91,7 @@ void g_init_core(
 					int TRIANGLE_BUFFER_SIZE_out
 				)
 {
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__MINGW32_VERSION)
 	SetProcessDPIAware();
 #endif
 

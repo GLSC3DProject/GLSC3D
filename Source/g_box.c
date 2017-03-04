@@ -17,7 +17,6 @@ void g_box_2D(double x, double y,
 		g_polygon();
 		for(i=0;i<4;i++)
 		{
-			glColor4fv(&g_current_area_color_2D.r);
 			glVertexs(g_plus(center,r[i]));
 		}
 		glEnd();
@@ -29,7 +28,6 @@ void g_box_2D(double x, double y,
 		g_line_loop();
 		for(i=0;i<4;i++)
 		{
-			glColor4fv(&g_current_line_color.r);
 			glVertexs(g_plus(center,r[i]));
 		}
 		glEnd();

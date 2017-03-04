@@ -6,11 +6,6 @@ struct
 	int type;
 }           glsc3D_g_def_line[TotalDisplayNumber];
 
-void g_line_color(double r,double g,double b,double a)
-{
-    g_current_line_color = g_color_core(r,g,b,a);
-}
-
 void g_line_width(double size)
 {
     glEnd();

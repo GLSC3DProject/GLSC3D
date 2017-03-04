@@ -77,10 +77,10 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 			n2 = g_normalize(n2);
 			n3 = g_normalize(n3);
 
-			v0 = g_make_vertex(r0,n0,g_current_area_color_3D);
-			v1 = g_make_vertex(r1,n1,g_current_area_color_3D);
-			v2 = g_make_vertex(r2,n2,g_current_area_color_3D);
-			v3 = g_make_vertex(r3,n3,g_current_area_color_3D);
+			v0 = g_make_vertex(r0,n0);
+			v1 = g_make_vertex(r1,n1);
+			v2 = g_make_vertex(r2,n2);
+			v3 = g_make_vertex(r3,n3);
 
 			t0 = g_make_triangle_core(v0, v1, v2);
 			t1 = g_make_triangle_core(v1, v3, v2);

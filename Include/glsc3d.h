@@ -92,10 +92,9 @@ void g_init_core (
 
 void g_init (const char *WindowName,int width,int height);
 
+void g_set_color(double r, double g, double b, double a);
 void g_scr_color(double r, double g, double b);
-
 void g_cls();
-
 void g_finish();
 
 void g_sleep(double wait_time);
@@ -133,7 +132,6 @@ void g_move_2D(double x,double y);
 void g_plot_3D(double x,double y,double z);
 void g_plot_2D(double x,double y);
 
-void g_marker_color(double r,double g,double b,double a);
 void g_marker_type(int type);
 void g_marker_size(double size);
 
@@ -150,15 +148,6 @@ void g_line_type(int type);
 void g_def_line(int id, double r, double g, double b, double a, double width, int type);
 void g_sel_line(int id);
 
-void g_area_color_3D(double r, double g, double b, double a);
-void g_area_color_2D(double r, double g, double b, double a);
-    
-void g_def_area_3D(int id, double r, double g, double b, double a);
-void g_def_area_2D(int id, double r, double g, double b, double a);
-
-void g_sel_area_3D(int id);
-void g_sel_area_2D(int id);
-    
 void g_text_standard(double x,double y, const char *str, ...);
 
 void g_text_3D_virtual(double x, double y, double z, const char *str, ...);
@@ -166,8 +155,6 @@ void g_text_2D_virtual(double x, double y, const char *str, ...);
 
 void g_text_font(G_FONT_ID id, unsigned int font_size);
 void g_text_font_core(const char *font_type, unsigned int font_size);
-
-void g_text_color(double r,double g,double b,double a);
 
 void g_def_text(int id, double r, double g, double b, double a, int font, unsigned int font_size);
 void g_sel_text(int id);

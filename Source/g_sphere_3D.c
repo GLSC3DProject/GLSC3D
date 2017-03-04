@@ -42,10 +42,10 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
                                    r2.x,r2.y,r2.z,
                                    DivideLevel, WireFill);
 #else
-            v0 = g_make_vertex(g_plus(r0, X),g_multi(r_inv, r0), g_current_area_color_3D);
-            v1 = g_make_vertex(g_plus(r1, X),g_multi(r_inv, r1), g_current_area_color_3D);
-            v2 = g_make_vertex(g_plus(r2, X),g_multi(r_inv, r2), g_current_area_color_3D);
-            v3 = g_make_vertex(g_plus(r3, X),g_multi(r_inv, r3), g_current_area_color_3D);
+            v0 = g_make_vertex(g_plus(r0, X),g_multi(r_inv, r0));
+            v1 = g_make_vertex(g_plus(r1, X),g_multi(r_inv, r1));
+            v2 = g_make_vertex(g_plus(r2, X),g_multi(r_inv, r2));
+            v3 = g_make_vertex(g_plus(r3, X),g_multi(r_inv, r3));
             t0 = g_make_triangle_core(v0, v1, v3);
             t1 = g_make_triangle_core(v0, v3, v2);
             if(theta < Nt - 2)g_set_triangle(t0);

@@ -65,10 +65,10 @@ void g_ellipse_3D_core(double x, double y, double z,                            
             n2 = Scaling3Ds(r2,n_SCALE);
             n3 = Scaling3Ds(r3,n_SCALE);
             
-            v0 = g_make_vertex(g_plus(r0, X), g_normalize(n0), g_current_area_color_3D);
-            v1 = g_make_vertex(g_plus(r1, X), g_normalize(n1), g_current_area_color_3D);
-            v2 = g_make_vertex(g_plus(r2, X), g_normalize(n2), g_current_area_color_3D);
-            v3 = g_make_vertex(g_plus(r3, X), g_normalize(n3), g_current_area_color_3D);
+            v0 = g_make_vertex(g_plus(r0, X), g_normalize(n0));
+            v1 = g_make_vertex(g_plus(r1, X), g_normalize(n1));
+            v2 = g_make_vertex(g_plus(r2, X), g_normalize(n2));
+            v3 = g_make_vertex(g_plus(r3, X), g_normalize(n3));
             
             t0 = g_make_triangle_core(v0, v1, v3);
             t1 = g_make_triangle_core(v0, v3, v2);

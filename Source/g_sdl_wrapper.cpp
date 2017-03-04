@@ -32,13 +32,12 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+#endif
 
-#ifdef G_ENABLE_OPENGL_DEBUG
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG | SDL_GL_CONTEXT_DEBUG_FLAG);
 #else
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
-#endif
-
 #endif
 
 	g_window = SDL_CreateWindow(WindowName, pos_x, pos_y, width, height,

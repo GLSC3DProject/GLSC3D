@@ -65,8 +65,9 @@ Action(PFNGLDEBUGMESSAGECALLBACKPROC,		glDebugMessageCallback)
 
 G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 
-#ifndef NDEBUG
 #define G_ENABLE_OPENGL_DEBUG_CALLBACK
+
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
 void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user);
 #endif
 
@@ -78,4 +79,4 @@ void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum sev
 }
 #endif
 
-#endif //GLSC3D_PRIVATE_EXT_H
+#endif

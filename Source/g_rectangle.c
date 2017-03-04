@@ -33,7 +33,6 @@ void g_rectangle_3D_core(double x, double y, double z,
 		g_line_loop();
 		for(int i=0;i<4;i++)
 		{
-			glColor4fv(&g_current_line_color.r);
 			glVertexs(g_plus(center,Ry(Rz(Rx(r[i],psi),phi),theta)));
 		}
 		glEnd();

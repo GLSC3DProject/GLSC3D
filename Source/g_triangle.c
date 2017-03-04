@@ -21,9 +21,9 @@ void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int 
 
 		n = g_calc_normal(r0, r1, r2);
 
-		v0 = g_make_vertex(r0, n, g_current_area_color_3D);
-		v1 = g_make_vertex(r1, n, g_current_area_color_3D);
-		v2 = g_make_vertex(r2, n, g_current_area_color_3D);
+		v0 = g_make_vertex(r0, n);
+		v1 = g_make_vertex(r1, n);
+		v2 = g_make_vertex(r2, n);
 		t0 = g_make_triangle_core(v0, v1, v2);
 		g_set_triangle(t0);
 	}
