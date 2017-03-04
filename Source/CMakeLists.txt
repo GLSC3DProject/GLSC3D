@@ -1,13 +1,16 @@
 find_package(OpenGL)
-find_package(SDL)
-#include(FindSDL)
+#find_package(SDL)
 
-#if (UNIX)
-#	set(SDL_LIBRARY_TEMP /usr/lib/x86_64-linux-gnu/libSDL2.so)
-#endif (UNIX)
+if (WINDOWS)
+#	set(OPENGL_LIBRARY OpenGL32.lib)
+#	set (SDL_LIBRARY SDL2.lib SDL2main.lib)
+else ()
+	message(${OPENGL_gl_LIBRARY})
+	#message(${SDL_LIBRARY})
+	set(SDL_LIBRARY libSDL2.a)
+endif ()
 
-include_directories(${SDL_INCLUDE_DIR})
-message(${SDL_LIBRARY})
+#include_directories(${SDL_INCLUDE_DIR})
 
 add_library(Source
 	g_area.c
@@ -39,4 +42,4 @@ add_library(Source
 	g_vertex_buffer.cpp
 )
 
-target_link_libraries(Source libGL.so libSDL2.so)
+target_link_libraries(Source ${OPENGL_gl_LIBRARY} ${SDL_LIBRARY})
