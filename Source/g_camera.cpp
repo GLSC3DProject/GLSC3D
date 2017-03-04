@@ -34,11 +34,6 @@ G_SCREEN g_make_screen(int x, int y, int width, int height)
 //{
 //	return g_make_camera_core(45, 0.1, 10, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 0, 1);
 //}
-//
-//G_CAMERA g_make_camera_2D(float X, float Y)
-//{
-//	return g_make_camera_core(45, 0.1, 10, X, Y, 1, X, Y, 0, 0, 1, 0);
-//}
 
 G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR direction, float r, float aspect, G_VECTOR up)
 {
@@ -53,11 +48,6 @@ G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR directio
 	c.eye = eye;
 	return c;
 }
-
-//G_CAMERA g_make_camera_3D(float x_left, float x_right, float y_bottom, float y_top, float z_near, float z_far, float direction_x, float direction_y, float direction_z, float r, float aspect)
-//{
-//	return g_make_camera_3D_core(x_left, x_right, y_bottom, y_top, z_near, z_far, direction_x, direction_y, direction_z, r, 0, 1, 0, aspect);
-//}
 
 G_CAMERA g_make_camera_2D(float x_left, float x_right, float y_bottom, float y_top)
 {

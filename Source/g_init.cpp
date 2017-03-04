@@ -106,7 +106,7 @@ void g_init_core(
 
 //	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
-#ifdef G_ENABLE_OPENGL_DEBUG
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
 	glDebugMessageCallback(g_debug_callback, NULL);
 #endif
 
