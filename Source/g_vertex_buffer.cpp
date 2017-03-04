@@ -20,13 +20,6 @@ static const char * g_opengl_error_names[] = {
 	"GL_STACK_OVERFLOW", "GL_STACK_UNDERFLOW", "GL_OUT_OF_MEMORY"
 };
 
-void g_check_opengl_error(int checkpoint)
-{
-	if (GLenum error = glGetError())
-		printf("OpenGL Error : %s Checkpoint: %d\n",
-			g_opengl_error_names[error - GL_INVALID_ENUM], checkpoint);
-}
-
 void* g_malloc(size_t size)
 {
 	void* ptr = malloc(size);
