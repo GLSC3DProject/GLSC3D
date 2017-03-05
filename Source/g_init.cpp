@@ -93,6 +93,9 @@ void g_init_core(
 
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
+//	g_input_init();
+	g_text_init();
+
 #ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
 	G_EMIT_GLEXT(G_INIT_GLEXT);
 #endif
@@ -104,9 +107,6 @@ void g_init_core(
 #endif
 
 	g_vertex_buffer_init();
-
-//	g_input_init();
-//	g_text_init();
 	
 #ifdef G_USE_CORE_PROFILE
 	g_shader_program_init();

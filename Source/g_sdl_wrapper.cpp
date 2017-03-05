@@ -23,7 +23,7 @@ void g_update_drawable_size()
 void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height)
 {
 	SDL_Init(SDL_INIT_VIDEO);
-	
+
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	
@@ -32,7 +32,6 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-#endif
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG | SDL_GL_CONTEXT_DEBUG_FLAG);
@@ -40,14 +39,17 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
 #endif
 
+#endif
+
 	g_window = SDL_CreateWindow(WindowName, pos_x, pos_y, width, height,
 				SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 	
 	g_window_width = width, g_window_height = height;
-	g_update_drawable_size();
-	
+
 	g_context = SDL_GL_CreateContext(g_window);
 	SDL_GL_SetSwapInterval(1);
+
+	g_update_drawable_size();
 }
 
 void g_swap_buffers()

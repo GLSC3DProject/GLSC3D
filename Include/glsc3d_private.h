@@ -33,10 +33,9 @@
 #include <GL/glx.h>
 #endif
 
-#define TotalDisplayNumber (100)
+#define TotalDisplayNumber (128)
 
 #define PI M_PI
-//#define DEGREES (PI / 180)
 
 #ifdef __cplusplus
 extern "C"

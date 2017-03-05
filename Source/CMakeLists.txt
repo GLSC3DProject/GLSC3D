@@ -5,7 +5,7 @@ if (WINDOWS)
 #	set(OPENGL_LIBRARY OpenGL32.lib)
 #	set (SDL_LIBRARY SDL2.lib SDL2main.lib)
 else ()
-	set(SDL_LIBRARY libSDL2.so)
+	set(SDL_LIBRARY libSDL2.so libSDL2_ttf.so)
 endif ()
 
 #include_directories(${SDL_INCLUDE_DIR})
@@ -35,7 +35,7 @@ add_library(GLSC3D
 		g_sdl_wrapper.cpp
 		g_shader_program.c
 		g_sphere_3D.c
-		g_text.c
+		g_sdl_text.c
 		g_triangle.c
 		g_triangle_buffer.c
 		g_vertex_buffer.cpp
