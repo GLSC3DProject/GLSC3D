@@ -149,14 +149,16 @@ void g_set_primitive_mode(GLenum mode)
 void g_begin_points()
 {
 	g_set_primitive_mode(GL_POINTS);
-	
+
+	g_current_color = g_current_marker_color;
 	g_disable_lighting();
 }
 
 void g_begin_lines()
 {
 	g_set_primitive_mode(GL_LINES);
-	
+
+	g_current_color = g_current_line_color;
 	g_disable_lighting();
 }
 
@@ -165,8 +167,10 @@ void g_begin_triangles()
 	g_set_primitive_mode(GL_TRIANGLES);
 	
 	if (g_scale_dim_flag == G_3D) {
+		g_current_color = g_current_area_color_3D;
 		g_enable_lighting();
 	} else {
+		g_current_color = g_current_area_color_2D;
 		g_disable_lighting();
 	}
 }

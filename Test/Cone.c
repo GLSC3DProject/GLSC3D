@@ -18,9 +18,7 @@ int main()
 	g_init_light(0, 1, 0, 1);
 	g_init_light(1,-1, 0, 1);
 	g_scr_color(1, 1, 1);
-	
-	g_line_color(0, 0, 0, 1);
-	
+
 	g_def_scale_3D(0, -2, +2, -2, +2, -1, +1, 0, 0, WIDTH, HEIGHT, 0, 1, 1, 8);
 	g_def_scale_2D(1, -2, +2, -1, +1, 0, HEIGHT, WIDTH, HEIGHT);
 	
@@ -51,6 +49,7 @@ int main()
 		g_cone_3D_core(2*c, 2*s, 0, -c, -s, 0, 2, 2, 64, 8, 0, WIRE_OR_FILL);
 		
 		g_sel_scale_2D(1);
+		g_line_color(0, 0, 0, 1);
 		g_contln_f_2D(-2, 2, -1, 1, x_division, y_division, (double *)data, 0);
 		
 		g_finish();

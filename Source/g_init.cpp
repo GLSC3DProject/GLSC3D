@@ -4,10 +4,6 @@ int             glsc3D_width;
 int             glsc3D_height;
 float			g_screen_scale_factor;
 
-G_COLOR g_current_area_color_2D = {1, 1, 1, 1};
-G_COLOR g_current_line_color = {1, 1, 1, 1};
-G_COLOR g_current_color = {1, 1, 1, 1};
-
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
 #ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
@@ -130,12 +126,12 @@ void g_init_core(
 
 	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-/*	g_enable_transparent = g_enable_transparent_out;
+	g_enable_transparent = g_enable_transparent_out;
 
 	if(g_enable_transparent)
 	{
 		glEnable(GL_BLEND);
-		
+
 		if(TEMPORARY_TRIANGLE_BUFFER_SIZE_out == 0)
 		{
 			TEMPORARY_TRIANGLE_BUFFER_SIZE = 1 << 10;
@@ -152,10 +148,10 @@ void g_init_core(
 		{
 			TRIANGLE_BUFFER_SIZE = TRIANGLE_BUFFER_SIZE_out;
 		}
-		
+
 		g_triangle_buffer_init();
 	}
-*/
+
 	g_scr_color(r,g,b);
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	g_finish();

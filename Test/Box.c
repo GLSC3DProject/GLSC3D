@@ -12,8 +12,7 @@ int main()
 	
 //	g_area_color_2D(1, 1, 0, 1);
 	g_line_color(0, 0, 0, 1);
-	g_area_color_3D(0.5, 0.75, 0.5, 1);
-	
+
 	g_def_scale_2D(0, -1.5, 1.5, -1.5, 1.5, 0, 0, s, s);
 	g_def_scale_2D(1, -1.5, 1.5, -1.5, 1.5, s, 0, s, s);
 	
@@ -27,15 +26,16 @@ int main()
 		g_area_color_2D(1, 1, 0, 1);
 		g_box_2D(0, 0, 2, 1, WIRE_OR_FILL);
 		
-		g_sel_scale_2D(1);
-		g_area_color_2D(1, 0, 0, 1);
-		g_box_2D_vert(-1, 1, -0.5, 0.5, WIRE_OR_FILL);
+//		g_sel_scale_2D(1);
+//		g_area_color_2D(1, 0, 0, 1);
+//		g_box_2D_vert(-1, 1, -0.5, 0.5, WIRE_OR_FILL);
 		
 		g_sel_scale_3D(2);
+		g_area_color_3D(0.5, 0.75, 0.5, 1);
 		g_box_3D_core(0, 0, 0, 2, 1, 1.5, 0, WIRE_OR_FILL);
 		
-		g_sel_scale_3D(3);
-		g_box_3D_vert_core(-1, 1, -0.5, 0.5, -0.75, 0.75, 0, WIRE_OR_FILL);
+//		g_sel_scale_3D(3);
+//		g_box_3D_vert_core(-1, 1, -0.5, 0.5, -0.75, 0.75, 0, WIRE_OR_FILL);
 		
 		g_finish();
 	}
