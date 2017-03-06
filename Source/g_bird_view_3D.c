@@ -87,9 +87,9 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
 				
 				for(k = 0; k < 4; ++k)
 				{
-					v0 = g_make_vertex(rc,n[k],g_current_area_color_3D);
-					v1 = g_make_vertex(r_corner[k],n[k],g_current_area_color_3D);
-					v2 = g_make_vertex(r_corner[(k + 1) & 3],n[k],g_current_area_color_3D);
+					v0 = g_make_vertex(rc,n[k]);
+					v1 = g_make_vertex(r_corner[k],n[k]);
+					v2 = g_make_vertex(r_corner[(k + 1) & 3],n[k]);
 					t[k] = g_make_triangle_core(v0, v1, v2);
 					g_set_triangle(t[k]);
 				}
