@@ -6,10 +6,6 @@ float			g_screen_scale_factor;
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
-#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
-G_EMIT_GLEXT(G_DECL_GLEXT);
-#endif
-
 #ifdef G_USE_CORE_PROFILE
 
 struct G_LIGHT
@@ -95,10 +91,6 @@ void g_init_core(
 
 //	g_input_init();
 	g_text_init();
-
-#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
-	G_EMIT_GLEXT(G_INIT_GLEXT);
-#endif
 
 //	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 

@@ -104,7 +104,9 @@ extern G_BOOL g_lighting_enabled;
 typedef struct
 {
 	G_VECTOR position;
+	float position_w;
 	G_VECTOR normal;
+	float normal_w;
 	G_COLOR  color;
 }G_VERTEX;
 
@@ -115,7 +117,7 @@ typedef struct
 
 static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal)
 {
-	G_VERTEX v = {position, normal, g_current_color};
+	G_VERTEX v = {position, 1, normal, 0, g_current_color};
 	return v;
 }
 

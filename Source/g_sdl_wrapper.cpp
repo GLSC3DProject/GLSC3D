@@ -5,6 +5,10 @@
 
 #include <SDL2/SDL.h>
 
+#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
+G_EMIT_GLEXT(G_DECL_GLEXT);
+#endif
+
 SDL_Window*		g_window;
 SDL_GLContext	g_context;
 
@@ -47,6 +51,11 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	g_window_width = width, g_window_height = height;
 
 	g_context = SDL_GL_CreateContext(g_window);
+
+#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
+	G_EMIT_GLEXT(G_INIT_GLEXT);
+#endif
+
 	SDL_GL_SetSwapInterval(1);
 
 	g_update_drawable_size();

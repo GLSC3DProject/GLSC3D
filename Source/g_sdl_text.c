@@ -40,7 +40,7 @@ void g_text_init()
 
 	TTF_Init();
 
-	g_font = TTF_OpenFont("DejaVu Sans", 12);
+	g_font = TTF_OpenFont("NotoSansCJKjp-Regular.otf", 12);
 	printf("%x\n", (uint)(ulong)g_font);
 	printf("Error: %s\n", SDL_GetError());
 }
@@ -83,9 +83,8 @@ void g_text_redering(char *pbuf)
 
 	SDL_Color color = {128, 128, 128, 255};
 	SDL_Surface* s = TTF_RenderUTF8_Blended(g_font, pbuf, color);
-	printf("Error: %s\n", SDL_GetError());
 
-	glBitmap(s->w, s->h, 0, 0, 0, 0, (GLubyte *)s->pixels);
+	glBitmap(s->w, s->h, 8, 0, 0, 0, (GLubyte *)s->pixels);
 
 	SDL_FreeSurface(s);
 
