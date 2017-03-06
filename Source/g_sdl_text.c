@@ -2,13 +2,13 @@
 #include <stdarg.h>
 //#include "g_font_obj.symb"
 #include <stdio.h>
-#include <SDL2/SDL_ttf.h>
+//#include <SDL2/SDL_ttf.h>
 //#include FT_FREETYPE_H
 
 //static FT_Library library;
 //static FT_Face face = 0;
 
-static TTF_Font* g_font;
+//static TTF_Font* g_font;
 
 //struct
 //{
@@ -38,11 +38,11 @@ void g_text_init()
 //	g_text_color(0, 0, 0, 1);
 //	g_text_font(G_IPA_GOTHIC, 12);
 
-	TTF_Init();
-
-	g_font = TTF_OpenFont("NotoSansCJKjp-Regular.otf", 12);
-	printf("%x\n", (uint)(ulong)g_font);
-	printf("Error: %s\n", SDL_GetError());
+//	TTF_Init();
+//
+//	g_font = TTF_OpenFont("NotoSansCJKjp-Regular.otf", 12);
+//	printf("%x\n", (uint)(ulong)g_font);
+//	printf("Error: %s\n", SDL_GetError());
 }
 
 void g_text_redering(char *pbuf)
@@ -81,12 +81,12 @@ void g_text_redering(char *pbuf)
 //		prev = index;
 //	}
 
-	SDL_Color color = {128, 128, 128, 255};
-	SDL_Surface* s = TTF_RenderUTF8_Blended(g_font, pbuf, color);
-
-	glBitmap(s->w, s->h, 8, 0, 0, 0, (GLubyte *)s->pixels);
-
-	SDL_FreeSurface(s);
+//	SDL_Color color = {128, 128, 128, 255};
+//	SDL_Surface* s = TTF_RenderUTF8_Blended(g_font, pbuf, color);
+//
+//	glBitmap(s->w, s->h, 8, 0, 0, 0, (GLubyte *)s->pixels);
+//
+//	SDL_FreeSurface(s);
 
 	glPixelZoom(1, 1);
 }

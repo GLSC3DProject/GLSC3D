@@ -68,6 +68,8 @@
 		3F98853B1E3E1E7B0031E4BE /* glsc3d_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */; };
 		3F98853D1E3E1E7B0031E4BE /* glsc3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F98853A1E3E1E7B0031E4BE /* glsc3d.h */; };
 		3F9AAF171E66FA9D000AB5C5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */; };
+		3FAE97EF1E6D7FE300145C23 /* g_color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE97EE1E6D7FE300145C23 /* g_color.cpp */; };
+		3FAE97F11E6D801800145C23 /* g_sdl_text.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE97F01E6D801800145C23 /* g_sdl_text.c */; };
 		3FCF504B1E6578200099B124 /* glsc3d_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF50491E6578200099B124 /* glsc3d_math.h */; };
 		3FCF504C1E6578200099B124 /* glsc3d_private_ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF504A1E6578200099B124 /* glsc3d_private_ext.h */; };
 		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
@@ -335,6 +337,8 @@
 		3F98850D1E3E1E340031E4BE /* g_triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_triangle.c; path = Source/g_triangle.c; sourceTree = "<group>"; };
 		3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d_private.h; path = Include/glsc3d_private.h; sourceTree = "<group>"; };
 		3F98853A1E3E1E7B0031E4BE /* glsc3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d.h; path = Include/glsc3d.h; sourceTree = "<group>"; };
+		3FAE97EE1E6D7FE300145C23 /* g_color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_color.cpp; path = Source/g_color.cpp; sourceTree = "<group>"; };
+		3FAE97F01E6D801800145C23 /* g_sdl_text.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sdl_text.c; path = Source/g_sdl_text.c; sourceTree = "<group>"; };
 		3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = ../../../opt/X11/lib/libpng16.16.dylib; sourceTree = "<group>"; };
 		3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../opt/X11/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
 		3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = g_font_obj.o; path = Object/g_font_obj.o; sourceTree = "<group>"; };
@@ -516,6 +520,7 @@
 				3F9884E91E3E1E340031E4BE /* g_camera.cpp */,
 				3F9884EA1E3E1E340031E4BE /* g_capture.c */,
 				3F9884EB1E3E1E340031E4BE /* g_circle.c */,
+				3FAE97EE1E6D7FE300145C23 /* g_color.cpp */,
 				3F9884ED1E3E1E340031E4BE /* g_cone.c */,
 				3F9884EE1E3E1E340031E4BE /* g_contln_2D.c */,
 				3F9884EF1E3E1E340031E4BE /* g_cylinder_3D.c */,
@@ -545,6 +550,7 @@
 				3F98850D1E3E1E340031E4BE /* g_triangle.c */,
 				3FFE934A1E40C28B00BB053B /* g_vertex_buffer.cpp */,
 				3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */,
+				3FAE97F01E6D801800145C23 /* g_sdl_text.c */,
 				3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */,
 			);
 			name = Source;
@@ -990,6 +996,7 @@
 				3F7573F21E421729009E14BF /* g_capture.c in Sources */,
 				3F7573F31E421729009E14BF /* g_circle.c in Sources */,
 				3F7573F51E421729009E14BF /* g_cone.c in Sources */,
+				3FAE97EF1E6D7FE300145C23 /* g_color.cpp in Sources */,
 				3F7573F61E421729009E14BF /* g_contln_2D.c in Sources */,
 				3F7573F71E421729009E14BF /* g_cylinder_3D.c in Sources */,
 				3F7573F81E421729009E14BF /* g_data_plot.c in Sources */,
@@ -1016,6 +1023,7 @@
 				3F75740F1E421729009E14BF /* g_sleep.c in Sources */,
 				3F7574101E421729009E14BF /* g_sphere_3D.c in Sources */,
 				3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.cpp in Sources */,
+				3FAE97F11E6D801800145C23 /* g_sdl_text.c in Sources */,
 				3F7574121E421729009E14BF /* g_triangle_buffer.c in Sources */,
 				3F7574131E421729009E14BF /* g_triangle.c in Sources */,
 				3F7574141E421729009E14BF /* g_vertex_buffer.cpp in Sources */,
