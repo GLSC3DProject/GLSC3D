@@ -50,6 +50,7 @@ int main()
 
 		g_set_color(0, 0, 0, 1);
 		g_sel_scale_2D(1);
+		g_line_color(0, 0, 0, 1);
 		g_contln_f_2D(-2, 2, -1, 1, x_division, y_division, (double *)data, 0);
 		
 		g_finish();

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F12DDF01E6D78C5008ACA71 /* g_fundamentals.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F12DDEF1E6D78C5008ACA71 /* g_fundamentals.c */; };
 		3F198F641E3F332A0062613D /* Marker.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F631E3F332A0062613D /* Marker.c */; };
 		3F198F7C1E3F377C0062613D /* Box.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F7B1E3F377C0062613D /* Box.c */; };
 		3F198F831E3F3BBC0062613D /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
@@ -29,14 +30,12 @@
 		3F7573DD1E420E45009E14BF /* Sample_g_polyline.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F7573A81E420D56009E14BF /* Sample_g_polyline.c */; };
 		3F7573E41E421164009E14BF /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3F7573EB1E4211A5009E14BF /* Sample_off_screen_rendering.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F7573EA1E4211A5009E14BF /* Sample_off_screen_rendering.c */; };
-		3F7573EC1E421729009E14BF /* g_area.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E51E3E1E340031E4BE /* g_area.c */; };
 		3F7573ED1E421729009E14BF /* g_arrow.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E61E3E1E340031E4BE /* g_arrow.c */; };
 		3F7573EE1E421729009E14BF /* g_bird_view_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */; };
 		3F7573F01E421729009E14BF /* g_box.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E81E3E1E340031E4BE /* g_box.c */; };
 		3F7573F11E421729009E14BF /* g_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884E91E3E1E340031E4BE /* g_camera.cpp */; };
 		3F7573F21E421729009E14BF /* g_capture.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EA1E3E1E340031E4BE /* g_capture.c */; };
 		3F7573F31E421729009E14BF /* g_circle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EB1E3E1E340031E4BE /* g_circle.c */; };
-		3F7573F41E421729009E14BF /* g_cls.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EC1E3E1E340031E4BE /* g_cls.c */; };
 		3F7573F51E421729009E14BF /* g_cone.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884ED1E3E1E340031E4BE /* g_cone.c */; };
 		3F7573F61E421729009E14BF /* g_contln_2D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EE1E3E1E340031E4BE /* g_contln_2D.c */; };
 		3F7573F71E421729009E14BF /* g_cylinder_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884EF1E3E1E340031E4BE /* g_cylinder_3D.c */; };
@@ -44,7 +43,6 @@
 		3F7573F91E421729009E14BF /* g_direction_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F11E3E1E340031E4BE /* g_direction_private.c */; };
 		3F7573FA1E421729009E14BF /* g_ellipse_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F21E3E1E340031E4BE /* g_ellipse_3D.c */; };
 		3F7573FB1E421729009E14BF /* g_fan.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F31E3E1E340031E4BE /* g_fan.c */; };
-		3F7573FC1E421729009E14BF /* g_finish.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F41E3E1E340031E4BE /* g_finish.c */; };
 		3F7573FD1E421729009E14BF /* g_glwrapper_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F61E3E1E340031E4BE /* g_glwrapper_private.c */; };
 		3F7573FE1E421729009E14BF /* g_init.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F71E3E1E340031E4BE /* g_init.cpp */; };
 		3F7573FF1E421729009E14BF /* g_input.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9884F81E3E1E340031E4BE /* g_input.c */; };
@@ -62,7 +60,6 @@
 		3F75740D1E421729009E14BF /* g_scale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885071E3E1E340031E4BE /* g_scale.cpp */; };
 		3F75740F1E421729009E14BF /* g_sleep.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885091E3E1E340031E4BE /* g_sleep.c */; };
 		3F7574101E421729009E14BF /* g_sphere_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */; };
-		3F7574111E421729009E14BF /* g_text.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850B1E3E1E340031E4BE /* g_text.c */; };
 		3F7574121E421729009E14BF /* g_triangle_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */; };
 		3F7574131E421729009E14BF /* g_triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850D1E3E1E340031E4BE /* g_triangle.c */; };
 		3F7574141E421729009E14BF /* g_vertex_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FFE934A1E40C28B00BB053B /* g_vertex_buffer.cpp */; };
@@ -71,6 +68,8 @@
 		3F98853B1E3E1E7B0031E4BE /* glsc3d_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */; };
 		3F98853D1E3E1E7B0031E4BE /* glsc3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F98853A1E3E1E7B0031E4BE /* glsc3d.h */; };
 		3F9AAF171E66FA9D000AB5C5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */; };
+		3FAE97EF1E6D7FE300145C23 /* g_color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE97EE1E6D7FE300145C23 /* g_color.cpp */; };
+		3FAE97F11E6D801800145C23 /* g_sdl_text.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE97F01E6D801800145C23 /* g_sdl_text.c */; };
 		3FCF504B1E6578200099B124 /* glsc3d_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF50491E6578200099B124 /* glsc3d_math.h */; };
 		3FCF504C1E6578200099B124 /* glsc3d_private_ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF504A1E6578200099B124 /* glsc3d_private_ext.h */; };
 		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
@@ -277,6 +276,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F12DDEF1E6D78C5008ACA71 /* g_fundamentals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_fundamentals.c; path = Source/g_fundamentals.c; sourceTree = "<group>"; };
 		3F198F631E3F332A0062613D /* Marker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Marker.c; path = Test/Marker.c; sourceTree = SOURCE_ROOT; };
 		3F198F741E3F375C0062613D /* Box */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Box; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F198F7B1E3F377C0062613D /* Box.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Box.c; path = Test/Box.c; sourceTree = SOURCE_ROOT; };
@@ -303,14 +303,12 @@
 		3F7574211E423429009E14BF /* 2DFigures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = 2DFigures.c; path = Test/2DFigures.c; sourceTree = SOURCE_ROOT; };
 		3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGLSC3D.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F9884D31E3E1BE80031E4BE /* Marker */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Marker; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F9884E51E3E1E340031E4BE /* g_area.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_area.c; path = Source/g_area.c; sourceTree = "<group>"; };
 		3F9884E61E3E1E340031E4BE /* g_arrow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_arrow.c; path = Source/g_arrow.c; sourceTree = "<group>"; };
 		3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_bird_view_3D.c; path = Source/g_bird_view_3D.c; sourceTree = "<group>"; };
 		3F9884E81E3E1E340031E4BE /* g_box.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_box.c; path = Source/g_box.c; sourceTree = "<group>"; };
 		3F9884E91E3E1E340031E4BE /* g_camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_camera.cpp; path = Source/g_camera.cpp; sourceTree = "<group>"; };
 		3F9884EA1E3E1E340031E4BE /* g_capture.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_capture.c; path = Source/g_capture.c; sourceTree = "<group>"; };
 		3F9884EB1E3E1E340031E4BE /* g_circle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_circle.c; path = Source/g_circle.c; sourceTree = "<group>"; };
-		3F9884EC1E3E1E340031E4BE /* g_cls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_cls.c; path = Source/g_cls.c; sourceTree = "<group>"; };
 		3F9884ED1E3E1E340031E4BE /* g_cone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_cone.c; path = Source/g_cone.c; sourceTree = "<group>"; };
 		3F9884EE1E3E1E340031E4BE /* g_contln_2D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_contln_2D.c; path = Source/g_contln_2D.c; sourceTree = "<group>"; };
 		3F9884EF1E3E1E340031E4BE /* g_cylinder_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_cylinder_3D.c; path = Source/g_cylinder_3D.c; sourceTree = "<group>"; };
@@ -318,7 +316,6 @@
 		3F9884F11E3E1E340031E4BE /* g_direction_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_direction_private.c; path = Source/g_direction_private.c; sourceTree = "<group>"; };
 		3F9884F21E3E1E340031E4BE /* g_ellipse_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_ellipse_3D.c; path = Source/g_ellipse_3D.c; sourceTree = "<group>"; };
 		3F9884F31E3E1E340031E4BE /* g_fan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_fan.c; path = Source/g_fan.c; sourceTree = "<group>"; };
-		3F9884F41E3E1E340031E4BE /* g_finish.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_finish.c; path = Source/g_finish.c; sourceTree = "<group>"; };
 		3F9884F61E3E1E340031E4BE /* g_glwrapper_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_glwrapper_private.c; path = Source/g_glwrapper_private.c; sourceTree = "<group>"; };
 		3F9884F71E3E1E340031E4BE /* g_init.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_init.cpp; path = Source/g_init.cpp; sourceTree = "<group>"; };
 		3F9884F81E3E1E340031E4BE /* g_input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_input.c; path = Source/g_input.c; sourceTree = "<group>"; };
@@ -336,11 +333,12 @@
 		3F9885071E3E1E340031E4BE /* g_scale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_scale.cpp; path = Source/g_scale.cpp; sourceTree = "<group>"; };
 		3F9885091E3E1E340031E4BE /* g_sleep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sleep.c; path = Source/g_sleep.c; sourceTree = "<group>"; };
 		3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sphere_3D.c; path = Source/g_sphere_3D.c; sourceTree = "<group>"; };
-		3F98850B1E3E1E340031E4BE /* g_text.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_text.c; path = Source/g_text.c; sourceTree = "<group>"; };
 		3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_triangle_buffer.c; path = Source/g_triangle_buffer.c; sourceTree = "<group>"; };
 		3F98850D1E3E1E340031E4BE /* g_triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_triangle.c; path = Source/g_triangle.c; sourceTree = "<group>"; };
 		3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d_private.h; path = Include/glsc3d_private.h; sourceTree = "<group>"; };
 		3F98853A1E3E1E7B0031E4BE /* glsc3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d.h; path = Include/glsc3d.h; sourceTree = "<group>"; };
+		3FAE97EE1E6D7FE300145C23 /* g_color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_color.cpp; path = Source/g_color.cpp; sourceTree = "<group>"; };
+		3FAE97F01E6D801800145C23 /* g_sdl_text.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sdl_text.c; path = Source/g_sdl_text.c; sourceTree = "<group>"; };
 		3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = ../../../opt/X11/lib/libpng16.16.dylib; sourceTree = "<group>"; };
 		3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../opt/X11/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
 		3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = g_font_obj.o; path = Object/g_font_obj.o; sourceTree = "<group>"; };
@@ -516,14 +514,13 @@
 		3F9884E41E3E1DFC0031E4BE /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3F9884E51E3E1E340031E4BE /* g_area.c */,
 				3F9884E61E3E1E340031E4BE /* g_arrow.c */,
 				3F9884E71E3E1E340031E4BE /* g_bird_view_3D.c */,
 				3F9884E81E3E1E340031E4BE /* g_box.c */,
 				3F9884E91E3E1E340031E4BE /* g_camera.cpp */,
 				3F9884EA1E3E1E340031E4BE /* g_capture.c */,
 				3F9884EB1E3E1E340031E4BE /* g_circle.c */,
-				3F9884EC1E3E1E340031E4BE /* g_cls.c */,
+				3FAE97EE1E6D7FE300145C23 /* g_color.cpp */,
 				3F9884ED1E3E1E340031E4BE /* g_cone.c */,
 				3F9884EE1E3E1E340031E4BE /* g_contln_2D.c */,
 				3F9884EF1E3E1E340031E4BE /* g_cylinder_3D.c */,
@@ -531,7 +528,7 @@
 				3F9884F11E3E1E340031E4BE /* g_direction_private.c */,
 				3F9884F21E3E1E340031E4BE /* g_ellipse_3D.c */,
 				3F9884F31E3E1E340031E4BE /* g_fan.c */,
-				3F9884F41E3E1E340031E4BE /* g_finish.c */,
+				3F12DDEF1E6D78C5008ACA71 /* g_fundamentals.c */,
 				3F9884F61E3E1E340031E4BE /* g_glwrapper_private.c */,
 				3F9884F71E3E1E340031E4BE /* g_init.cpp */,
 				3F9884F81E3E1E340031E4BE /* g_input.c */,
@@ -549,11 +546,11 @@
 				3F9885071E3E1E340031E4BE /* g_scale.cpp */,
 				3F9885091E3E1E340031E4BE /* g_sleep.c */,
 				3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */,
-				3F98850B1E3E1E340031E4BE /* g_text.c */,
 				3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */,
 				3F98850D1E3E1E340031E4BE /* g_triangle.c */,
 				3FFE934A1E40C28B00BB053B /* g_vertex_buffer.cpp */,
 				3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */,
+				3FAE97F01E6D801800145C23 /* g_sdl_text.c */,
 				3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */,
 			);
 			name = Source;
@@ -992,22 +989,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F7573EC1E421729009E14BF /* g_area.c in Sources */,
 				3F7573ED1E421729009E14BF /* g_arrow.c in Sources */,
 				3F7573EE1E421729009E14BF /* g_bird_view_3D.c in Sources */,
 				3F7573F01E421729009E14BF /* g_box.c in Sources */,
 				3F7573F11E421729009E14BF /* g_camera.cpp in Sources */,
 				3F7573F21E421729009E14BF /* g_capture.c in Sources */,
 				3F7573F31E421729009E14BF /* g_circle.c in Sources */,
-				3F7573F41E421729009E14BF /* g_cls.c in Sources */,
 				3F7573F51E421729009E14BF /* g_cone.c in Sources */,
+				3FAE97EF1E6D7FE300145C23 /* g_color.cpp in Sources */,
 				3F7573F61E421729009E14BF /* g_contln_2D.c in Sources */,
 				3F7573F71E421729009E14BF /* g_cylinder_3D.c in Sources */,
 				3F7573F81E421729009E14BF /* g_data_plot.c in Sources */,
 				3F7573F91E421729009E14BF /* g_direction_private.c in Sources */,
 				3F7573FA1E421729009E14BF /* g_ellipse_3D.c in Sources */,
 				3F7573FB1E421729009E14BF /* g_fan.c in Sources */,
-				3F7573FC1E421729009E14BF /* g_finish.c in Sources */,
+				3F12DDF01E6D78C5008ACA71 /* g_fundamentals.c in Sources */,
 				3F7573FD1E421729009E14BF /* g_glwrapper_private.c in Sources */,
 				3F7573FE1E421729009E14BF /* g_init.cpp in Sources */,
 				3F7573FF1E421729009E14BF /* g_input.c in Sources */,
@@ -1026,8 +1022,8 @@
 				3F75740D1E421729009E14BF /* g_scale.cpp in Sources */,
 				3F75740F1E421729009E14BF /* g_sleep.c in Sources */,
 				3F7574101E421729009E14BF /* g_sphere_3D.c in Sources */,
-				3F7574111E421729009E14BF /* g_text.c in Sources */,
 				3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.cpp in Sources */,
+				3FAE97F11E6D801800145C23 /* g_sdl_text.c in Sources */,
 				3F7574121E421729009E14BF /* g_triangle_buffer.c in Sources */,
 				3F7574131E421729009E14BF /* g_triangle.c in Sources */,
 				3F7574141E421729009E14BF /* g_vertex_buffer.cpp in Sources */,

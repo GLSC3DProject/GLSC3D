@@ -5,6 +5,14 @@
 
 #include <SDL2/SDL.h>
 
+#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
+
+#define G_DECL_GLEXT(Type, Name) Type Name;
+#define G_INIT_GLEXT(Type, Name) Name = (Type)SDL_GL_GetProcAddress(#Name);
+
+G_EMIT_GLEXT(G_DECL_GLEXT);
+#endif
+
 SDL_Window*		g_window;
 SDL_GLContext	g_context;
 
@@ -23,7 +31,7 @@ void g_update_drawable_size()
 void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height)
 {
 	SDL_Init(SDL_INIT_VIDEO);
-	
+
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	
@@ -32,22 +40,27 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-#endif
-
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG | SDL_GL_CONTEXT_DEBUG_FLAG);
-#else
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+		| SDL_GL_CONTEXT_DEBUG_FLAG
+#endif
+	);
 #endif
 
 	g_window = SDL_CreateWindow(WindowName, pos_x, pos_y, width, height,
-				SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 	
 	g_window_width = width, g_window_height = height;
-	g_update_drawable_size();
-	
+
 	g_context = SDL_GL_CreateContext(g_window);
+
+#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
+	G_EMIT_GLEXT(G_INIT_GLEXT);
+#endif
+
 	SDL_GL_SetSwapInterval(1);
+
+	g_update_drawable_size();
 }
 
 void g_swap_buffers()

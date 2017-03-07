@@ -6,9 +6,15 @@
 
 typedef float G_REAL;
 
-typedef struct { float r, g, b, a; } G_COLOR;
-
 #ifdef __cplusplus
+
+struct G_COLOR
+{
+	float r, g, b, a;
+
+	G_COLOR() = default;
+	G_COLOR(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {}
+};
 
 struct G_VECTOR
 {
@@ -34,6 +40,8 @@ static inline G_VECTOR operator *(G_REAL a, G_VECTOR u)
 }
 
 #else
+
+typedef struct { float r, g, b, a; } G_COLOR;
 
 typedef struct { G_REAL x, y, z; } G_VECTOR;
 

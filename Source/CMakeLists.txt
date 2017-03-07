@@ -1,20 +1,23 @@
 find_package(OpenGL)
-#find_package(SDL)
+find_package(SDL)
 
-if (WINDOWS)
-#	set(OPENGL_LIBRARY OpenGL32.lib)
-#	set (SDL_LIBRARY SDL2.lib SDL2main.lib)
-else ()
-	#message(${SDL_LIBRARY})
-	set(SDL_LIBRARY SDL2.a SDL2.dll.a SDL2main.a)
+if (MSVC)
+	set(SDL_LIBRARY SDL2.lib SDL2main.lib SDL2_ttf.lib)
+elseif (MINGW)
+	set(SDL_LIBRARY SDL2.a SDL2.dll.a SDL2main.a SDL2_ttf.dll.a)
+elseif (UNIX)
+	set(SDL_LIBRARY libSDL2.so libSDL2_ttf.so)
 endif ()
 
+message(OPENGL_gl_LIBRARY = ${OPENGL_gl_LIBRARY})
+message(SDL_LIBRARY = ${SDL_LIBRARY})
 #include_directories(${SDL_INCLUDE_DIR})
 
 add_library(GLSC3D
 		g_arrow.c
 		g_box.c
 		g_camera.cpp
+		g_color.cpp
 		g_cone.c
 		g_contln_2D.c
 		g_cylinder_3D.c
@@ -33,11 +36,16 @@ add_library(GLSC3D
 		g_rectangle.c
 		g_scale.cpp
 		g_sdl_wrapper.cpp
-		g_shader_program.c
+		g_shader_program.cpp
 		g_sphere_3D.c
+		g_sdl_text.cpp
 		g_triangle.c
 		g_triangle_buffer.c
 		g_vertex_buffer.cpp
+		../Include/glsc3d.h
+		../Include/glsc3d_math.h
+		../Include/glsc3d_private.h
+		../Include/glsc3d_private_ext.h
 )
 
 target_link_libraries(GLSC3D ${OPENGL_gl_LIBRARY} ${SDL_LIBRARY})

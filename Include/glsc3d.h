@@ -76,6 +76,8 @@ extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
 extern int color2D_id;
 extern int color3D_id;
 
+// ---- g_init.cpp
+
 void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z, float lit_pow);
 
 void g_init_light(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z);
@@ -92,7 +94,14 @@ void g_init_core (
 
 void g_init (const char *WindowName,int width,int height);
 
-void g_set_color(double r, double g, double b, double a);
+// ---- g_color.cpp
+
+void g_area_color_3D(double r, double g, double b, double a);
+void g_area_color_2D(double r, double g, double b, double a);
+void g_line_color(double r, double g, double b, double a);
+void g_text_color(double r, double g, double b, double a);
+void g_marker_color(double r,double g,double b,double a);
+
 void g_scr_color(double r, double g, double b);
 void g_cls();
 void g_finish();
