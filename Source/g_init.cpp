@@ -90,12 +90,9 @@ void g_init_core(
 
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
-<<<<<<< HEAD
-=======
 //	g_input_init();
 	g_text_init();
 
->>>>>>> 66c354d2976ce02da37d72f5f37d77f06ced99df
 //	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
@@ -103,17 +100,17 @@ void g_init_core(
 #endif
 
 	g_vertex_buffer_init();
-	
+
 #ifdef G_USE_CORE_PROFILE
 	g_shader_program_init();
 #else
 	GLfloat specular[4] = {1, 1, 1, 1};
-	
+
 	glShadeModel(GL_SMOOTH);
-	
+
 //	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 //	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-	
+
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 128);
 #endif
@@ -155,7 +152,7 @@ void g_init_core(
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	g_finish();
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
 	//if(WindowName == G_OFF_SCREEN)
 	//{
 	//	g_init_off_screen_rendering();
