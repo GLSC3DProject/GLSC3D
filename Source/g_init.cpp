@@ -6,16 +6,12 @@ float			g_screen_scale_factor;
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
-#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
-G_EMIT_GLEXT(G_DECL_GLEXT);
-#endif
-
 #ifdef G_USE_CORE_PROFILE
 
 struct G_LIGHT
 {
 	G_VECTOR direction;
-	float _pad;
+	float direction_w;
 	float ambient, diffuse, specular, shininess;
 };
 
@@ -25,6 +21,7 @@ void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit
 
 	G_LIGHT light;
 	light.direction = g_normalize(G_VECTOR(lit_pos_x, lit_pos_y, lit_pos_z));
+	light.direction_w = 0;
 	light.ambient = 0;
 	light.diffuse = lit_pow;
 	light.specular = 1.0f;
@@ -93,13 +90,6 @@ void g_init_core(
 
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
-//	g_input_init();
-	g_text_init();
-
-#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
-	G_EMIT_GLEXT(G_INIT_GLEXT);
-#endif
-
 //	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
@@ -115,12 +105,15 @@ void g_init_core(
 	
 	glShadeModel(GL_SMOOTH);
 	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
 	
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 128);
 #endif
+
+//	g_input_init();
+	g_text_init();
 
 	g_init_light(0, 1, 1, 1);
 

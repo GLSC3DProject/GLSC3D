@@ -18,7 +18,7 @@ struct G_COLOR
 
 struct G_VECTOR
 {
-	float x, y, z, w;
+	float x, y, z;
 
 	G_VECTOR() = default;
 	G_VECTOR(float x, float y, float z) : x(x), y(y), z(z) {}

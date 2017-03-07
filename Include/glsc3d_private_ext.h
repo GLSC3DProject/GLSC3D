@@ -3,7 +3,7 @@
 
 #include "glsc3d_private.h"
 
-//#define G_USE_CORE_PROFILE
+#define G_USE_CORE_PROFILE
 
 #ifdef __cplusplus
 extern "C"
@@ -22,15 +22,6 @@ void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
 #define G_NEED_GET_GLEXT_PROC_ADDRESS
 
 #define G_EXTERN_DECL_GLEXT(Type, Name) extern Type Name;
-#define G_DECL_GLEXT(Type, Name) Type Name;
-
-#ifdef _WIN32
-#define G_INIT_GLEXT(Type, Name) Name = (Type)wglGetProcAddress(#Name);
-#endif
-
-#ifdef __linux__
-#define G_INIT_GLEXT(Type, Name) Name = (Type)glXGetProcAddress((const GLubyte *)#Name);
-#endif
 
 #define G_EMIT_GLEXT(Action) \
 Action(PFNGLVERTEXATTRIBPOINTERPROC,		glVertexAttribPointer) \

@@ -9,11 +9,11 @@ G_BOOL g_lighting_enabled;
 #define CONSTANT_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
 	"uniform Matrices { mat4 proj, view; };\n" \
-	"layout(location = 0) in vec3 in_position;\n" \
-	"layout(location = 1) in vec3 in_normal;\n" \
+	"layout(location = 0) in vec4 in_position;\n" \
+	"layout(location = 1) in vec4 in_normal;\n" \
 	"layout(location = 2) in vec4 in_color;\n" \
 	"layout(location = 0) out vec4 vary_color;\n" \
-	"void main() { gl_Position = proj * (view * vec4(in_position, 1)); vary_color = in_color; }"
+	"void main() { gl_Position = proj * (view * in_position); vary_color = in_color; }"
 
 #define CONSTANT_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
@@ -24,17 +24,17 @@ G_BOOL g_lighting_enabled;
 #define LIGHTING_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
 	"uniform Matrices { mat4 proj, view; };\n" \
-	"layout(location = 0) in vec3 in_position;\n" \
-	"layout(location = 1) in vec3 in_normal;\n" \
+	"layout(location = 0) in vec4 in_position;\n" \
+	"layout(location = 1) in vec4 in_normal;\n" \
 	"layout(location = 2) in vec4 in_color;\n" \
 	"layout(location = 0) out vec4 vary_color;\n" \
 	"layout(location = 1) out vec4 vary_normal;\n" \
 	"layout(location = 2) out vec4 vary_position;\n" \
 	"void main() {\n" \
-	"	vec4 view_pos = view * vec4(in_position, 1);\n" \
+	"	vec4 view_pos = view * in_position;\n" \
 	"	gl_Position = proj * view_pos;\n" \
 	"	vary_color = in_color;\n" \
-	"	vary_normal = view * vec4(in_normal, 0);\n" \
+	"	vary_normal = view * in_normal;\n" \
 	"	vary_position = view_pos;\n" \
 	"}"
 
@@ -48,12 +48,34 @@ G_BOOL g_lighting_enabled;
 	"void main() {\n" \
 	"	vec3 half_vec = normalize(light.direction.xyz - normalize(vary_position.xyz));\n" \
 	"	vec3 normal = normalize(vary_normal.xyz);\n" \
-	"	out_color" \
-	"		= (light.ambient + light.diffuse * max(dot(light.direction.xyz, normal), 0)) * vary_color" \
-	"		+ light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);\n" \
+	"	float amb_dif = light.ambient + light.diffuse * max(dot(light.direction.xyz, normal), 0);\n" \
+	"	float spec = light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);\n" \
+	"	out_color = amb_dif * vary_color + spec;\n" \
 	"}"
 
-GLuint g_constant_program, g_lighting_program;
+#define TEXTURE_VERT_SHADER_SOURCE \
+	GLSL_VERSION_DECL \
+	"layout(location = 0) in vec2 in_position;\n" \
+	"layout(location = 1) in vec2 in_texcoord;\n" \
+	"layout(location = 0) out vec2 vary_position;\n" \
+	"layout(location = 1) out vec2 vary_texcoord;\n" \
+	"void main() {\n" \
+	"	vary_position = in_position;\n" \
+	"	vary_texcoord = in_texcoord;\n" \
+	"}"
+
+#define TEXTURE_FRAG_SHADER_SOURCE \
+	GLSL_VERSION_DECL \
+	"uniform sampler2D tex;\n" \
+	"layout(location = 0) in vec2 vary_position;\n" \
+	"layout(location = 1) in vec2 vary_texcoord;\n" \
+	"out vec4 out_color;\n" \
+	"void main() {\n" \
+	"	out_color = texture(tex, vary_texcoord);\n" \
+	"}"
+
+GLuint g_constant_program, g_lighting_program, g_texture_program;
+GLuint g_current_program;
 
 GLuint g_uniforms[G_NUM_UNIFORMS];
 
@@ -147,6 +169,11 @@ void g_shader_program_init()
 	g_create_shader(g_lighting_program, GL_FRAGMENT_SHADER, LIGHTING_FRAG_SHADER_SOURCE);
 	g_link_program(g_lighting_program);
 
+	g_texture_program = glCreateProgram();
+	g_create_shader(g_texture_program, GL_VERTEX_SHADER, TEXTURE_VERT_SHADER_SOURCE);
+	g_create_shader(g_texture_program, GL_FRAGMENT_SHADER, TEXTURE_FRAG_SHADER_SOURCE);
+	g_link_program(g_texture_program);
+
 	glGenBuffers(G_NUM_UNIFORMS, g_uniforms);
 
 	glBindBuffer(GL_UNIFORM_BUFFER, g_uniforms[G_UNIFORM_MATRICES]);
@@ -157,20 +184,30 @@ void g_shader_program_init()
 	g_bind_uniform_block(g_lighting_program, "Lights", G_UNIFORM_LIGHTS);
 }
 
+void g_use_program(GLuint program)
+{
+	if (g_current_program != program) {
+		glUseProgram(program);
+		g_current_program = program;
+	}
+}
+
 void g_enable_lighting()
 {
-	if (g_lighting_enabled == G_TRUE) return;
-
-	glUseProgram(g_lighting_program);
+	g_use_program(g_lighting_program);
 	g_lighting_enabled = G_TRUE;
 }
 
 void g_disable_lighting()
 {
-	if (g_lighting_enabled == G_FALSE) return;
-
-	glUseProgram(g_constant_program);
+	g_use_program(g_constant_program);
 	g_lighting_enabled = G_FALSE;
+}
+
+void g_activate_texture_mode()
+{
+	g_vertex_buffer_flush();
+	g_use_program(g_texture_program);
 }
 
 #else

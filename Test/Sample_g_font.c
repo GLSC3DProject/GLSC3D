@@ -20,46 +20,46 @@ int main()
 	char TEXT2[1024];
 	time_t time_val;
 	
-	for(i_time = 0;;i_time++)
+	for(i_time = 0; i_time < 4;i_time++)
 	{
 		g_cls();
 		
 		g_sel_scale_2D(0);
 		
 		g_text_color(1, 1, 1, 1);
-		time_val = time(0);
-		strftime(TEXT2, 1023, "%Y %m/%d\n%H:%M:%S", localtime(&time_val));
+//		time_val = time(0);
+//		strftime(TEXT2, 1023, "%Y %m/%d\n%H:%M:%S", localtime(&time_val));
 		unsigned x = 10, y = 20, dy = 25;
 //		g_text_font(G_IPA_GOTHIC_PROPORTIONAL, 24);
 		g_text_standard(x, y, "abcdefghijklmnopqrstuvwxyz");
-		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-		g_text_standard(x, y += dy, "Hello, World! with IPA_GOTHIC_PROPORTIONAL");
-		g_text_standard(x, y += dy, TEXT2);
-		
-		y += dy;
-		
-//		g_text_font(G_IPA_GOTHIC, 24);
-		g_text_standard(x, y += dy, "abcdefghijklmnopqrstuvwxyz");
-		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-		g_text_standard(x, y += dy, "Hello, World! with IPA_GOTHIC");
-		g_text_standard(x, y += dy, TEXT2);
-		
-		y += dy;
-		
-//		g_text_font(G_IPA_MINCHO_PROPORTIONAL, 24);
-		g_text_standard(x, y += dy, "abcdefghijklmnopqrstuvwxyz");
-		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-		g_text_standard(x, y += dy, "Hello, World! with IPA_MINCHO_PROPORTIONAL");
-		g_text_standard(x, y += dy, TEXT2);
-		
-		y += dy;
-		
-//		g_text_font(G_IPA_MINCHO, 24);
-		g_text_standard(x, y += dy, "abcdefghijklmnopqrstuvwxyz");
-		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-		g_text_standard(x, y += dy, "Hello, World! with IPA_MINCHO");
-		g_text_standard(x, y += dy, "あHello, World! with IPA_MINCHO");
-		g_text_standard(x, y += dy, TEXT2);
+//		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+//		g_text_standard(x, y += dy, "Hello, World! with IPA_GOTHIC_PROPORTIONAL");
+//		g_text_standard(x, y += dy, TEXT2);
+//
+//		y += dy;
+//
+////		g_text_font(G_IPA_GOTHIC, 24);
+//		g_text_standard(x, y += dy, "abcdefghijklmnopqrstuvwxyz");
+//		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+//		g_text_standard(x, y += dy, "Hello, World! with IPA_GOTHIC");
+//		g_text_standard(x, y += dy, TEXT2);
+//
+//		y += dy;
+//
+////		g_text_font(G_IPA_MINCHO_PROPORTIONAL, 24);
+//		g_text_standard(x, y += dy, "abcdefghijklmnopqrstuvwxyz");
+//		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+//		g_text_standard(x, y += dy, "Hello, World! with IPA_MINCHO_PROPORTIONAL");
+//		g_text_standard(x, y += dy, TEXT2);
+//
+//		y += dy;
+//
+////		g_text_font(G_IPA_MINCHO, 24);
+//		g_text_standard(x, y += dy, "abcdefghijklmnopqrstuvwxyz");
+//		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+//		g_text_standard(x, y += dy, "Hello, World! with IPA_MINCHO");
+//		g_text_standard(x, y += dy, "あHello, World! with IPA_MINCHO");
+//		g_text_standard(x, y += dy, TEXT2);
 		
 //		x = 10, y += 2*dy;
 //		for(unsigned i = 20; i < 46; ++i){

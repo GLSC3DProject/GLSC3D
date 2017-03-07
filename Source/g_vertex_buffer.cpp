@@ -9,16 +9,11 @@ int g_vertex_data_count;
 G_VERTEX *g_vertex_data;
 
 #ifdef G_USE_CORE_PROFILE
-#define BUFFER_OFFSET_NORMAL ((void *)sizeof(G_VECTOR))
-#define BUFFER_OFFSET_COLOR  ((void *)(sizeof(G_VECTOR) * 2))
+#define BUFFER_OFFSET_NORMAL ((void *)(sizeof(float) * 4))
+#define BUFFER_OFFSET_COLOR  ((void *)(sizeof(float) * 8))
 
 GLuint g_vertex_array_id, g_vertex_buffer_id;
 #endif
-
-static const char * g_opengl_error_names[] = {
-	"GL_INVALID_ENUM", "GL_INVALID_VALUE", "GL_INVALID_OPERATION",
-	"GL_STACK_OVERFLOW", "GL_STACK_UNDERFLOW", "GL_OUT_OF_MEMORY"
-};
 
 void* g_malloc(size_t size)
 {
@@ -89,10 +84,10 @@ void g_vertex_buffer_flush()
 	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, g_vertex_data_count * sizeof(G_VERTEX), g_vertex_data);
 	
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), 0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), 0);
 	
 	if (g_lighting_enabled) {
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_NORMAL);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_NORMAL);
 	}
 	
 	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_COLOR);
@@ -111,7 +106,7 @@ void g_vertex_buffer_flush()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 	
-	glVertexPointer(3, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data->position);
+	glVertexPointer(4, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data->position);
 	
 	if (g_lighting_enabled) {
 		glEnableClientState(GL_NORMAL_ARRAY);
@@ -168,6 +163,7 @@ void g_begin_triangles()
 	
 	if (g_scale_dim_flag == G_3D) {
 		g_current_color = g_current_area_color_3D;
+		assert(g_current_color.r != 0);
 		g_enable_lighting();
 	} else {
 		g_current_color = g_current_area_color_2D;
