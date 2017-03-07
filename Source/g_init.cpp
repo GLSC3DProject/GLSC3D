@@ -90,6 +90,12 @@ void g_init_core(
 
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
+<<<<<<< HEAD
+=======
+//	g_input_init();
+	g_text_init();
+
+>>>>>>> 66c354d2976ce02da37d72f5f37d77f06ced99df
 //	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK

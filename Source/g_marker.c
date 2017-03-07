@@ -6,11 +6,6 @@ struct
 	int type;
 }           glsc3D_g_def_marker[TotalDisplayNumber];
 
-void g_marker_color(double r,double g,double b,double a)
-{
-    g_current_marker_color = g_color_core(r,g,b,a);
-}
-
 void g_marker_size(double size)
 {
     glPointSize(size);
