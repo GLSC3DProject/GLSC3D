@@ -1,24 +1,10 @@
-#include "glsc3d_private.h"
+#include "glsc3d_private_ext.h"
 #include <stdarg.h>
-//#include "g_font_obj.symb"
-#include <stdio.h>
-<<<<<<< HEAD
 #include <SDL2/SDL_ttf.h>
-#include <glsc3d_private_ext.h>
-=======
-//#include <SDL2/SDL_ttf.h>
->>>>>>> 66c354d2976ce02da37d72f5f37d77f06ced99df
-//#include FT_FREETYPE_H
 
-//static FT_Library library;
-//static FT_Face face = 0;
-
-<<<<<<< HEAD
-static GLuint g_texture, g_quad_vao, g_quad_vbo;
+GLuint g_texture, g_sampler;
+GLuint g_quad_vao, g_quad_vbo;
 static TTF_Font* g_font;
-=======
-//static TTF_Font* g_font;
->>>>>>> 66c354d2976ce02da37d72f5f37d77f06ced99df
 
 void g_activate_texture_mode();
 
@@ -50,34 +36,36 @@ void g_text_init()
 //	g_text_color(0, 0, 0, 1);
 //	g_text_font(G_IPA_GOTHIC, 12);
 
-<<<<<<< HEAD
 	glGenTextures(1, &g_texture);
+	glGenSamplers(1, &g_sampler);
+
+	glSamplerParameteri(g_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glSamplerParameteri(g_sampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glSamplerParameteri(g_sampler, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glSamplerParameteri(g_sampler, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	glGenVertexArrays(1, &g_quad_vao);
+	glBindVertexArray(g_quad_vao);
 
 	glGenBuffers(1, &g_quad_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
+//	glBufferData(GL_ARRAY_BUFFER, )
 
 	TTF_Init();
 
 	g_font = TTF_OpenFont("NotoSansCJKjp-Regular.otf", 12);
-	printf("%x\n", (uint)(ulong)g_font);
-=======
-//	TTF_Init();
-//
-//	g_font = TTF_OpenFont("NotoSansCJKjp-Regular.otf", 12);
 //	printf("%x\n", (uint)(ulong)g_font);
->>>>>>> 66c354d2976ce02da37d72f5f37d77f06ced99df
 //	printf("Error: %s\n", SDL_GetError());
 }
 
 void g_text_redering(char *pbuf)
 {
-<<<<<<< HEAD
 	SDL_Color color = {128, 128, 128, 255};
 	SDL_Surface* s = TTF_RenderUTF8_Blended(g_font, pbuf, color);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, g_texture);
+	glBindSampler(0, g_sampler);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, s->w, s->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, s->pixels);
 	g_activate_texture_mode();
@@ -95,48 +83,9 @@ void g_text_redering(char *pbuf)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STREAM_DRAW);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float)*4, 0);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float)*4, (GLvoid *)(sizeof(float)*2));
-=======
-	glPixelZoom(1, -1);
-//	unsigned int prev = 0;
-//	while(*pbuf){
-//		unsigned index = FT_Get_Char_Index(face, *pbuf++);
-//		if(!index)
-//			continue;
-//		if(FT_Load_Glyph(face, index, FT_LOAD_DEFAULT))
-//			fprintf(stderr, "error occured while loading glyph.\n"), exit(1);
-//		if(face->glyph->format != FT_GLYPH_FORMAT_BITMAP)
-//			if(FT_Render_Glyph(face->glyph, FT_RENDER_MODE_MONO))
-//				fprintf(stderr, "error occured while rendering bitmap.\n"), exit(1);
-//		unsigned row = face->glyph->bitmap.rows;
-//		unsigned pitch = face->glyph->bitmap.pitch;
-//		unsigned char buf[row*pitch];
-//		for(unsigned r = 0; r < row; ++r)
-//			for(unsigned c = 0; c < pitch; ++c){
-//				buf[(row - 1 - r)*pitch + c] = face->glyph->bitmap.buffer[r*pitch + c];
-//			}
-//		FT_Vector delta = {0, 0};
-//		if(prev != 0){
-//			FT_Get_Kerning(face, prev, index, FT_KERNING_DEFAULT, &delta);
-//			delta.x >>= 6;
-//		}
-//
-//		glBitmap(pitch*8, row,
-//				 -face->glyph->bitmap_left,
-//				 ((face->glyph->metrics.height - face->glyph->metrics.horiBearingY) >> 6),
-//				 (face->glyph->advance.x/64.) + delta.x,
-//				 0,
-//				 buf);
-//
-//		prev = index;
-//	}
 
-//	SDL_Color color = {128, 128, 128, 255};
-//	SDL_Surface* s = TTF_RenderUTF8_Blended(g_font, pbuf, color);
-//
-//	glBitmap(s->w, s->h, 8, 0, 0, 0, (GLubyte *)s->pixels);
-//
-//	SDL_FreeSurface(s);
->>>>>>> 66c354d2976ce02da37d72f5f37d77f06ced99df
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
@@ -153,7 +102,7 @@ void g_text_standard(double x,double y, const char *str, ...)
 	va_list ap;
 	va_start(ap, str);
 
-	vsnprintf(buf, 255, str, ap);
+	vsnprintf(buf, sizeof(buf), str, ap);
 
 	g_text_redering(buf);
 
@@ -162,40 +111,40 @@ void g_text_standard(double x,double y, const char *str, ...)
 
 	va_end(ap);
 }
-void g_text_3D_virtual(double x,double y,double z, const char *str, ...)
-{
-	char buf[256], *pbuf = buf;
-	va_list ap;
-	va_start(ap, str);
-
-	vsnprintf(buf, 255, str, ap);
-
-	glEnd();
-	glDisable(GL_LIGHTING);
-	glColor4fv(&g_current_text_color.r);
-	glRasterPos3d(x,y,z);
-	g_text_redering(pbuf);
-
-	va_end(ap);
-	glEnd();
-}
-void g_text_2D_virtual(double x,double y, const char *str, ...)
-{
-	char buf[256], *pbuf = buf;
-	va_list ap;
-	va_start(ap, str);
-
-	vsnprintf(buf, 255, str, ap);
-
-	glEnd();
-	glDisable(GL_LIGHTING);
-	glColor4fv(&g_current_text_color.r);
-	glRasterPos2d(x, y);
-	g_text_redering(pbuf);
-
-	va_end(ap);
-	glEnd();
-}
+//void g_text_3D_virtual(double x,double y,double z, const char *str, ...)
+//{
+//	char buf[256], *pbuf = buf;
+//	va_list ap;
+//	va_start(ap, str);
+//
+//	vsnprintf(buf, 255, str, ap);
+//
+//	glEnd();
+//	glDisable(GL_LIGHTING);
+//	glColor4fv(&g_current_text_color.r);
+//	glRasterPos3d(x,y,z);
+//	g_text_redering(pbuf);
+//
+//	va_end(ap);
+//	glEnd();
+//}
+//void g_text_2D_virtual(double x,double y, const char *str, ...)
+//{
+//	char buf[256], *pbuf = buf;
+//	va_list ap;
+//	va_start(ap, str);
+//
+//	vsnprintf(buf, 255, str, ap);
+//
+//	glEnd();
+//	glDisable(GL_LIGHTING);
+//	glColor4fv(&g_current_text_color.r);
+//	glRasterPos2d(x, y);
+//	g_text_redering(pbuf);
+//
+//	va_end(ap);
+//	glEnd();
+//}
 /*
 void g_text_font(G_FONT_ID id, unsigned int font_size)
 {

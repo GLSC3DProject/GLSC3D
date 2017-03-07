@@ -20,7 +20,7 @@ int main()
 	char TEXT2[1024];
 	time_t time_val;
 	
-	for(i_time = 0; i_time < 4;i_time++)
+	for(i_time = 0; i_time < 256;i_time++)
 	{
 		g_cls();
 		

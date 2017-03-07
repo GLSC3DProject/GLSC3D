@@ -44,8 +44,6 @@ void g_vertex_buffer_init()
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 #endif
 }
 
@@ -81,6 +79,7 @@ void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c)
 
 void g_vertex_buffer_flush()
 {
+	glBindVertexArray(g_vertex_array_id);
 	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, g_vertex_data_count * sizeof(G_VERTEX), g_vertex_data);
 	
@@ -93,9 +92,7 @@ void g_vertex_buffer_flush()
 	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_COLOR);
 	
 	glDrawArrays(g_primitive_mode, 0, g_vertex_data_count);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
+
 	g_vertex_data_count = 0;
 }
 

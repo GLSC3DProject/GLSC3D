@@ -1,4 +1,5 @@
 #include "glsc3d_private_ext.h"
+#include <vector>
 
 G_BOOL g_lighting_enabled;
 
@@ -13,7 +14,10 @@ G_BOOL g_lighting_enabled;
 	"layout(location = 1) in vec4 in_normal;\n" \
 	"layout(location = 2) in vec4 in_color;\n" \
 	"layout(location = 0) out vec4 vary_color;\n" \
-	"void main() { gl_Position = proj * (view * in_position); vary_color = in_color; }"
+	"void main() {\n" \
+	"	gl_Position = proj * (view * in_position);\n" \
+	"	vary_color = in_color;\n" \
+	"}"
 
 #define CONSTANT_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
@@ -60,6 +64,7 @@ G_BOOL g_lighting_enabled;
 	"layout(location = 0) out vec2 vary_position;\n" \
 	"layout(location = 1) out vec2 vary_texcoord;\n" \
 	"void main() {\n" \
+	"	gl_Position = vec4(in_texcoord, 0, 1);\n" \
 	"	vary_position = in_position;\n" \
 	"	vary_texcoord = in_texcoord;\n" \
 	"}"
@@ -72,10 +77,13 @@ G_BOOL g_lighting_enabled;
 	"out vec4 out_color;\n" \
 	"void main() {\n" \
 	"	out_color = texture(tex, vary_texcoord);\n" \
+	"//	out_color = vec4(vary_texcoord, 0, 1);\n" \
 	"}"
 
 GLuint g_constant_program, g_lighting_program, g_texture_program;
 GLuint g_current_program;
+
+GLint g_texture_location;
 
 GLuint g_uniforms[G_NUM_UNIFORMS];
 
@@ -98,13 +106,11 @@ void g_check_shader_compile_status(GLuint shader)
 	GLint info_log_length = g_get_shader_int(shader, GL_INFO_LOG_LENGTH);
 	
 	if (info_log_length > 0) {
-		char *info_log = malloc(info_log_length);
+		std::vector<char> info_log((size_t)info_log_length);
 		
-		glGetShaderInfoLog(shader, info_log_length, NULL, info_log);
-		printf("%s\n", info_log);
+		glGetShaderInfoLog(shader, info_log_length, NULL, info_log.data());
+		printf("%s\n", info_log.data());
 
-		free(info_log);
-		
 		if (g_get_shader_int(shader, GL_COMPILE_STATUS) == GL_FALSE)
 			printf("Compile Failed.\n");
 
@@ -131,13 +137,11 @@ void g_link_program(GLuint program)
 	GLint info_log_length = g_get_program_info(program, GL_INFO_LOG_LENGTH);
 	
 	if (info_log_length > 0) {
-		char *info_log = malloc(info_log_length);
+		std::vector<char> info_log((size_t)info_log_length);
 		
-		glGetProgramInfoLog(program, GL_INFO_LOG_LENGTH, NULL, info_log);
-		printf("%s", info_log);
-		
-		free(info_log);
-		
+		glGetProgramInfoLog(program, GL_INFO_LOG_LENGTH, NULL, info_log.data());
+		printf("%s", info_log.data());
+
 		if (g_get_program_info(program, GL_LINK_STATUS) == GL_FALSE)
 			printf("Link Failed.\n");
 	}
@@ -176,6 +180,9 @@ void g_shader_program_init()
 
 	glGenBuffers(G_NUM_UNIFORMS, g_uniforms);
 
+	g_texture_location = glGetUniformLocation(g_texture_program, "tex");
+	printf("location : 0x%X\n", g_texture_location);
+
 	glBindBuffer(GL_UNIFORM_BUFFER, g_uniforms[G_UNIFORM_MATRICES]);
 	g_bind_uniform_block(g_constant_program, "Matrices", G_UNIFORM_MATRICES);
 	g_bind_uniform_block(g_lighting_program, "Matrices", G_UNIFORM_MATRICES);
@@ -208,6 +215,8 @@ void g_activate_texture_mode()
 {
 	g_vertex_buffer_flush();
 	g_use_program(g_texture_program);
+
+	glUniform1i(g_texture_location, 0);
 }
 
 #else
