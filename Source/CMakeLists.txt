@@ -1,17 +1,19 @@
 find_package(OpenGL)
-find_package(SDL)
+find_package(SDL2)
 
 if (MSVC)
 	set(SDL_LIBRARY SDL2.lib SDL2main.lib SDL2_ttf.lib)
 elseif (MINGW)
 	set(SDL_LIBRARY SDL2.a SDL2.dll.a SDL2main.a SDL2_ttf.dll.a)
+elseif(MACOS)
+	include_directories(/opt/local/include)
 elseif (UNIX)
 	set(SDL_LIBRARY libSDL2.so libSDL2_ttf.so)
 endif ()
 
 message(OPENGL_gl_LIBRARY = ${OPENGL_gl_LIBRARY})
 message(SDL_LIBRARY = ${SDL_LIBRARY})
-#include_directories(${SDL_INCLUDE_DIR})
+message(SDL_INCLUDE_DIR = ${SDL_INCLUDE_DIR})
 
 add_library(GLSC3D
 		g_arrow.c

@@ -7,7 +7,7 @@ project(Cone)
 project(Sample_g_box)
 project(Sample_g_font)
 
-set(CMAKE_C_FLAGS -Werror)
+#set(CMAKE_C_FLAGS -Werror)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_VERBOSE_MAKEFILE 1)
 

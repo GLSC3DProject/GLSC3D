@@ -10,7 +10,7 @@ G_SCREEN g_make_screen(int x, int y, int width, int height)
 }
 
 //G_CAMERA g_make_camera_core(
-//		float fovy,    float near,    float far,
+//		float fovy,    float near,    float far,,
 //		float eyeX,    float eyeY,    float eyeZ, 
 //		float centerX, float centerY, float centerZ, 
 //		float upX,     float upY,     float upZ)

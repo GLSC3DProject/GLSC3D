@@ -15,7 +15,13 @@
 		3F198F911E3F4C530062613D /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3F198FA01E3F4EC50062613D /* 3DFigures.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F198F9F1E3F4EC50062613D /* 3DFigures.c */; };
 		3F198FA11E3F4EFA0062613D /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
-		3F1F4CFE1E49E3D400497EBC /* g_shader_program.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */; };
+		3F1A32641E6F4FD50016811C /* g_debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32611E6F4FD50016811C /* g_debug.cpp */; };
+		3F1A32651E6F4FD50016811C /* g_sdl_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32621E6F4FD50016811C /* g_sdl_text.cpp */; };
+		3F1A32661E6F4FD50016811C /* g_shader_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32631E6F4FD50016811C /* g_shader_program.cpp */; };
+		3F1A326A1E6F51A10016811C /* libSDL2_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1A32691E6F51A10016811C /* libSDL2_ttf-2.0.0.dylib */; };
+		3F1A326C1E6F52230016811C /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1A326B1E6F52230016811C /* libSDL2-2.0.0.dylib */; };
+		3F1A32731E6F52640016811C /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
+		3F1A327B1E6F52DA0016811C /* Sample_g_font.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32791E6F52BD0016811C /* Sample_g_font.c */; };
 		3F75738F1E420B42009E14BF /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3F7573971E420BB0009E14BF /* Sample_g_triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F7573951E420B9D009E14BF /* Sample_g_triangle.c */; };
 		3F75739E1E420C8B009E14BF /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
@@ -69,11 +75,9 @@
 		3F98853D1E3E1E7B0031E4BE /* glsc3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F98853A1E3E1E7B0031E4BE /* glsc3d.h */; };
 		3F9AAF171E66FA9D000AB5C5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */; };
 		3FAE97EF1E6D7FE300145C23 /* g_color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE97EE1E6D7FE300145C23 /* g_color.cpp */; };
-		3FAE97F11E6D801800145C23 /* g_sdl_text.c in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE97F01E6D801800145C23 /* g_sdl_text.c */; };
 		3FCF504B1E6578200099B124 /* glsc3d_math.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF50491E6578200099B124 /* glsc3d_math.h */; };
 		3FCF504C1E6578200099B124 /* glsc3d_private_ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF504A1E6578200099B124 /* glsc3d_private_ext.h */; };
 		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
-		3FFCFE2C1E619055006AD71F /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FFCFE2B1E619055006AD71F /* libSDL2-2.0.0.dylib */; };
 		3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +97,13 @@
 			remoteInfo = GLSC3D;
 		};
 		3F198FA21E3F4EFF0062613D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F9884C01E3E1BCC0031E4BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F9884C71E3E1BCC0031E4BE;
+			remoteInfo = GLSC3D;
+		};
+		3F1A326F1E6F52640016811C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3F9884C01E3E1BCC0031E4BE /* Project object */;
 			proxyType = 1;
@@ -184,6 +195,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		3F198F961E3F4D210062613D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		3F1A32741E6F52640016811C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -284,7 +304,13 @@
 		3F198F8F1E3F4C180062613D /* Cone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Cone.c; path = Test/Cone.c; sourceTree = SOURCE_ROOT; };
 		3F198F981E3F4D210062613D /* 3DFigures */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 3DFigures; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F198F9F1E3F4EC50062613D /* 3DFigures.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = 3DFigures.c; path = Test/3DFigures.c; sourceTree = SOURCE_ROOT; };
-		3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_shader_program.c; path = Source/g_shader_program.c; sourceTree = "<group>"; };
+		3F1A32611E6F4FD50016811C /* g_debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_debug.cpp; path = Source/g_debug.cpp; sourceTree = "<group>"; };
+		3F1A32621E6F4FD50016811C /* g_sdl_text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_sdl_text.cpp; path = Source/g_sdl_text.cpp; sourceTree = "<group>"; };
+		3F1A32631E6F4FD50016811C /* g_shader_program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_shader_program.cpp; path = Source/g_shader_program.cpp; sourceTree = "<group>"; };
+		3F1A32691E6F51A10016811C /* libSDL2_ttf-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2_ttf-2.0.0.dylib"; path = "../../../opt/local/lib/libSDL2_ttf-2.0.0.dylib"; sourceTree = "<group>"; };
+		3F1A326B1E6F52230016811C /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../opt/local/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
+		3F1A32781E6F52640016811C /* Sample_g_font */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sample_g_font; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F1A32791E6F52BD0016811C /* Sample_g_font.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Sample_g_font.c; path = Test/Sample_g_font.c; sourceTree = SOURCE_ROOT; };
 		3F7573941E420B42009E14BF /* Sample_g_triangle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sample_g_triangle; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7573951E420B9D009E14BF /* Sample_g_triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Sample_g_triangle.c; path = Test/Sample_g_triangle.c; sourceTree = SOURCE_ROOT; };
 		3F7573A31E420C8B009E14BF /* Sample_g_sphere */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Sample_g_sphere; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,14 +364,9 @@
 		3F9885381E3E1E7B0031E4BE /* glsc3d_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d_private.h; path = Include/glsc3d_private.h; sourceTree = "<group>"; };
 		3F98853A1E3E1E7B0031E4BE /* glsc3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d.h; path = Include/glsc3d.h; sourceTree = "<group>"; };
 		3FAE97EE1E6D7FE300145C23 /* g_color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_color.cpp; path = Source/g_color.cpp; sourceTree = "<group>"; };
-		3FAE97F01E6D801800145C23 /* g_sdl_text.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sdl_text.c; path = Source/g_sdl_text.c; sourceTree = "<group>"; };
-		3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = ../../../opt/X11/lib/libpng16.16.dylib; sourceTree = "<group>"; };
-		3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../opt/X11/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
-		3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = g_font_obj.o; path = Object/g_font_obj.o; sourceTree = "<group>"; };
 		3FCF50491E6578200099B124 /* glsc3d_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d_math.h; path = Include/glsc3d_math.h; sourceTree = "<group>"; };
 		3FCF504A1E6578200099B124 /* glsc3d_private_ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glsc3d_private_ext.h; path = Include/glsc3d_private_ext.h; sourceTree = "<group>"; };
 		3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		3FFCFE2B1E619055006AD71F /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../opt/local/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
 		3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_sdl_wrapper.cpp; path = Source/g_sdl_wrapper.cpp; sourceTree = "<group>"; };
 		3FFE934A1E40C28B00BB053B /* g_vertex_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_vertex_buffer.cpp; path = Source/g_vertex_buffer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -372,6 +393,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F198FA11E3F4EFA0062613D /* libGLSC3D.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F1A32721E6F52640016811C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F1A32731E6F52640016811C /* libGLSC3D.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,7 +473,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F9AAF171E66FA9D000AB5C5 /* OpenGL.framework in Frameworks */,
-				3FFCFE2C1E619055006AD71F /* libSDL2-2.0.0.dylib in Frameworks */,
+				3F1A326C1E6F52230016811C /* libSDL2-2.0.0.dylib in Frameworks */,
+				3F1A326A1E6F51A10016811C /* libSDL2_ttf-2.0.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +494,6 @@
 			children = (
 				3FBFFB2E1E3E23110074CD0A /* Frameworks */,
 				3F9885371E3E1E6D0031E4BE /* Include */,
-				3FBFFB381E3E2F2B0074CD0A /* Object */,
 				3F9884C91E3E1BCC0031E4BE /* Products */,
 				3F9884E41E3E1DFC0031E4BE /* Source */,
 				3F9884D41E3E1BE80031E4BE /* Test */,
@@ -487,6 +516,7 @@
 				3F7573DB1E420E25009E14BF /* Sample_g_polyline */,
 				3F7573E91E421164009E14BF /* Sample_off_screen_rendering */,
 				3F7574201E4233E7009E14BF /* 2DFigures */,
+				3F1A32781E6F52640016811C /* Sample_g_font */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -499,6 +529,7 @@
 				3F198F7B1E3F377C0062613D /* Box.c */,
 				3F198F8F1E3F4C180062613D /* Cone.c */,
 				3F198F631E3F332A0062613D /* Marker.c */,
+				3F1A32791E6F52BD0016811C /* Sample_g_font.c */,
 				3F7573A71E420D4B009E14BF /* Sample_g_move_g_plot.c */,
 				3F7573C31E420E10009E14BF /* Sample_g_polygon.c */,
 				3F7573A81E420D56009E14BF /* Sample_g_polyline.c */,
@@ -525,6 +556,7 @@
 				3F9884EE1E3E1E340031E4BE /* g_contln_2D.c */,
 				3F9884EF1E3E1E340031E4BE /* g_cylinder_3D.c */,
 				3F9884F01E3E1E340031E4BE /* g_data_plot.c */,
+				3F1A32611E6F4FD50016811C /* g_debug.cpp */,
 				3F9884F11E3E1E340031E4BE /* g_direction_private.c */,
 				3F9884F21E3E1E340031E4BE /* g_ellipse_3D.c */,
 				3F9884F31E3E1E340031E4BE /* g_fan.c */,
@@ -544,14 +576,14 @@
 				3F9885051E3E1E340031E4BE /* g_pyramid_3D.c */,
 				3F9885061E3E1E340031E4BE /* g_rectangle.c */,
 				3F9885071E3E1E340031E4BE /* g_scale.cpp */,
+				3F1A32621E6F4FD50016811C /* g_sdl_text.cpp */,
+				3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */,
+				3F1A32631E6F4FD50016811C /* g_shader_program.cpp */,
 				3F9885091E3E1E340031E4BE /* g_sleep.c */,
 				3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */,
 				3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */,
 				3F98850D1E3E1E340031E4BE /* g_triangle.c */,
 				3FFE934A1E40C28B00BB053B /* g_vertex_buffer.cpp */,
-				3F1F4CFD1E49E3D400497EBC /* g_shader_program.c */,
-				3FAE97F01E6D801800145C23 /* g_sdl_text.c */,
-				3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -571,19 +603,10 @@
 			isa = PBXGroup;
 			children = (
 				3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */,
-				3FFCFE2B1E619055006AD71F /* libSDL2-2.0.0.dylib */,
-				3FBFFB361E3E2CB70074CD0A /* libfreetype.6.dylib */,
-				3FBFFB2F1E3E23110074CD0A /* libpng16.16.dylib */,
+				3F1A326B1E6F52230016811C /* libSDL2-2.0.0.dylib */,
+				3F1A32691E6F51A10016811C /* libSDL2_ttf-2.0.0.dylib */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3FBFFB381E3E2F2B0074CD0A /* Object */ = {
-			isa = PBXGroup;
-			children = (
-				3FBFFB391E3E2F7E0074CD0A /* g_font_obj.o */,
-			);
-			name = Object;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -655,6 +678,24 @@
 			name = 3DFigures;
 			productName = 3DFigures;
 			productReference = 3F198F981E3F4D210062613D /* 3DFigures */;
+			productType = "com.apple.product-type.tool";
+		};
+		3F1A326D1E6F52640016811C /* Sample_g_font */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F1A32751E6F52640016811C /* Build configuration list for PBXNativeTarget "Sample_g_font" */;
+			buildPhases = (
+				3F1A32701E6F52640016811C /* Sources */,
+				3F1A32721E6F52640016811C /* Frameworks */,
+				3F1A32741E6F52640016811C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F1A326E1E6F52640016811C /* PBXTargetDependency */,
+			);
+			name = Sample_g_font;
+			productName = Marker;
+			productReference = 3F1A32781E6F52640016811C /* Sample_g_font */;
 			productType = "com.apple.product-type.tool";
 		};
 		3F7573891E420B42009E14BF /* Sample_g_triangle */ = {
@@ -885,6 +926,7 @@
 				3F198F731E3F375C0062613D /* Box */,
 				3F198F871E3F4BC10062613D /* Cone */,
 				3F9884D21E3E1BE80031E4BE /* Marker */,
+				3F1A326D1E6F52640016811C /* Sample_g_font */,
 				3F7573B61E420D8A009E14BF /* Sample_g_move_g_plot */,
 				3F7573C41E420E15009E14BF /* Sample_g_polygon */,
 				3F7573D01E420E25009E14BF /* Sample_g_polyline */,
@@ -918,6 +960,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F198FA01E3F4EC50062613D /* 3DFigures.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F1A32701E6F52640016811C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F1A327B1E6F52DA0016811C /* Sample_g_font.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1013,19 +1063,20 @@
 				3F7574041E421729009E14BF /* g_matrix_private.c in Sources */,
 				3F7574061E421729009E14BF /* g_move_plot.c in Sources */,
 				3F7574071E421729009E14BF /* g_off_screen.c in Sources */,
+				3F1A32641E6F4FD50016811C /* g_debug.cpp in Sources */,
 				3F7574081E421729009E14BF /* g_polygon_2D.c in Sources */,
 				3F7574091E421729009E14BF /* g_polyline.c in Sources */,
 				3F75740A1E421729009E14BF /* g_prism_3D.c in Sources */,
 				3F75740B1E421729009E14BF /* g_pyramid_3D.c in Sources */,
+				3F1A32661E6F4FD50016811C /* g_shader_program.cpp in Sources */,
 				3F75740C1E421729009E14BF /* g_rectangle.c in Sources */,
-				3F1F4CFE1E49E3D400497EBC /* g_shader_program.c in Sources */,
 				3F75740D1E421729009E14BF /* g_scale.cpp in Sources */,
 				3F75740F1E421729009E14BF /* g_sleep.c in Sources */,
 				3F7574101E421729009E14BF /* g_sphere_3D.c in Sources */,
 				3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.cpp in Sources */,
-				3FAE97F11E6D801800145C23 /* g_sdl_text.c in Sources */,
 				3F7574121E421729009E14BF /* g_triangle_buffer.c in Sources */,
 				3F7574131E421729009E14BF /* g_triangle.c in Sources */,
+				3F1A32651E6F4FD50016811C /* g_sdl_text.cpp in Sources */,
 				3F7574141E421729009E14BF /* g_vertex_buffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1055,6 +1106,11 @@
 			isa = PBXTargetDependency;
 			target = 3F9884C71E3E1BCC0031E4BE /* GLSC3D */;
 			targetProxy = 3F198FA21E3F4EFF0062613D /* PBXContainerItemProxy */;
+		};
+		3F1A326E1E6F52640016811C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F9884C71E3E1BCC0031E4BE /* GLSC3D */;
+			targetProxy = 3F1A326F1E6F52640016811C /* PBXContainerItemProxy */;
 		};
 		3F75738A1E420B42009E14BF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1140,6 +1196,20 @@
 			name = Debug;
 		};
 		3F198F9E1E3F4D210062613D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3F1A32761E6F52640016811C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3F1A32771E6F52640016811C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1419,6 +1489,15 @@
 			buildConfigurations = (
 				3F198F9D1E3F4D210062613D /* Debug */,
 				3F198F9E1E3F4D210062613D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F1A32751E6F52640016811C /* Build configuration list for PBXNativeTarget "Sample_g_font" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F1A32761E6F52640016811C /* Debug */,
+				3F1A32771E6F52640016811C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
