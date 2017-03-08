@@ -39,7 +39,7 @@ void g_activate_texture_mode();
 #define FONT_FILE "C:/Windows/Fonts/Consola.ttf"
 #endif
 
-SDL_Surface s;
+SDL_Surface* s;
 void g_text_init()
 {
 //	if(FT_Init_FreeType(&library)){
@@ -79,15 +79,15 @@ void g_text_init()
 		printf("Unable to load font. Abort.\n");
 		g_quit();
 	}
-//	SDL_Color color = {255, 255, 128};
-//	s = TTF_RenderText_Blended(g_font, "ABC", color);
-//	printf("w = %d, h = %d\n", s->w, s->h);
-//	for (int i = 0; i < s->h; i++) {
-//		for (int j = 0; j < s->w; j++)
-//			printf("%X ", ((uint32_t *)s->pixels)[j * s->w + i] & 0xFF);
-//		printf("\n");
-//	}
-//	s = TTF_RenderText_Blended(g_font, "ABC", color);
+	SDL_Color color = {255, 255, 128}, back = {0};
+	s = TTF_RenderText_Blended(g_font, "ABC", color);
+	printf("w = %d, h = %d\n", s->w, s->h);
+	for (int i = 0; i < s->h; i++) {
+		for (int j = 0; j < s->w; j++)
+			printf("%X ", ((uint32_t *)s->pixels)[j * s->w + i] & 0xFF);
+		printf("\n");
+	}
+	s = TTF_RenderText_Shaded(g_font, "ABC", color, back);
 //	printf("w = %d, h = %d\n", s->w, s->h);
 //	s.w = 256; s.h = 128;
 //	s.pixels = malloc(s.w*s.h*4);
@@ -110,12 +110,12 @@ void g_text_redering(char *pbuf)
 	glBindTexture(GL_TEXTURE_2D, g_texture);
 	glBindSampler(0, g_sampler);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, s.w, s.h, 0, GL_RGBA, GL_UNSIGNED_BYTE, s.pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, s->w, s->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, s->pixels);
 	g_activate_texture_mode();
 
 	glBindVertexArray(g_quad_vao);
 
-	glViewport(0, 0, s.w, s.h);
+	glViewport(0, 0, s->w, s->h);
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
