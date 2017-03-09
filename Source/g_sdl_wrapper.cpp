@@ -84,6 +84,11 @@ void g_poll_events()
 	}
 }
 
+void g_sleep(double wait_time)
+{
+	SDL_Delay((Uint32)(wait_time * 1000));
+}
+
 void g_quit()
 {
 	SDL_GL_DeleteContext(g_context);

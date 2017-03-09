@@ -1,12 +1,18 @@
-#include<stdlib.h>
+﻿#include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
 #include<time.h>
 #include<math.h>
 #include "glsc3d.h"
 
+#ifdef _WIN32
+#pragma execution_character_set("utf-8")
+#endif
+
 #define WINDOW_SIZE_X     (600)
 #define WINDOW_SIZE_Y     (600)
+
+//void g_text_render(double x, double y, const char *str);
 
 int main()
 {
@@ -17,8 +23,7 @@ int main()
 	
 	int i_time;
 	
-	char TEXT2[1024];
-	time_t time_val;
+	char TEXT2[20];
 	
 	for(i_time = 0;;i_time++)
 	{
@@ -27,15 +32,26 @@ int main()
 		g_sel_scale_2D(0);
 		
 		g_text_color(1, 1, 1, 1);
-//		time_val = time(0);
-//		strftime(TEXT2, 1023, "%Y %m/%d\n%H:%M:%S", localtime(&time_val));
-		unsigned x = 10, y = 20, dy = 25;
+		time_t time_val = time(0);
+		strftime(TEXT2, sizeof(TEXT2), "%Y/%m/%d %H:%M:%S", localtime(&time_val));
+
+		int x = 10, y = 20, dy = 25;
 //		g_text_font(G_IPA_GOTHIC_PROPORTIONAL, 24);
-		g_text_standard(x, y, "abcdefghijklmnopqrstuvwxyz");
-//		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-//		g_text_standard(x, y += dy, "Hello, World! with IPA_GOTHIC_PROPORTIONAL");
-//		g_text_standard(x, y += dy, TEXT2);
-//
+		// 1-byte characters
+		g_text_standard(x, y, "Hello, World!");
+
+		// 2-byte characters
+		g_text_standard(x, y += dy, "Γειά σου Κόσμε!");
+
+		// 3-byte characters
+		g_text_standard(x, y += dy, "こんにちは，世界!");
+
+		//g_text_standard(x, y += dy, "Hello, World! with IPA_GOTHIC_PROPORTIONAL");
+
+		g_text_standard(x, y += dy, TEXT2);
+
+		g_text_standard(x, y += dy, "i_time = %d", i_time);
+
 //		y += dy;
 //
 ////		g_text_font(G_IPA_GOTHIC, 24);
@@ -76,7 +92,7 @@ int main()
 //		g_text_font(0, 50);
 //		g_text_standard(10, y, "!\"#$%&'()`@;:+*<>,.{}[]\\");
 		
-//		g_sleep(0.01);
+		g_sleep(1);
 		g_finish();
 
  	}

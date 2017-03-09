@@ -1,10 +1,13 @@
 #include "glsc3d_private_ext.h"
 #include <stdarg.h>
-#include <SDL2/SDL_ttf.h>
+#include <ft2build.h>
+//#include FT_FREETYPE_H
+#include <freetype/freetype.h>
 
 GLuint g_texture, g_sampler;
 GLuint g_quad_vao, g_quad_vbo;
-static TTF_Font* g_font;
+static FT_Library library;
+static FT_Face face = 0;
 
 void g_activate_texture_mode();
 
@@ -36,18 +39,12 @@ void g_activate_texture_mode();
 #endif
 
 #ifdef _WIN32
-#define FONT_FILE "C:/Windows/Fonts/Consola.ttf"
+#define FONT_FILE "C:/Windows/Fonts/Meiryo.ttc"
 #endif
 
-SDL_Surface* s;
 void g_text_init()
 {
-//	if(FT_Init_FreeType(&library)){
-//		fprintf(stderr, "error occured while initializing freetype2.\n");
-//		exit(1);
-//	}
-//	g_text_color(0, 0, 0, 1);
-//	g_text_font(G_IPA_GOTHIC, 12);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	glGenTextures(1, &g_texture);
 	glGenSamplers(1, &g_sampler);
@@ -69,78 +66,95 @@ void g_text_init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
-	if (TTF_Init() < 0) {
-		printf("Unable to init SDL_TTF. Abort.\nError: %s\n", SDL_GetError());
+	if (FT_Error error = FT_Init_FreeType(&library)){
+		fprintf(stderr, "Unable to init Freetype.Abort.\nError : %s\n", error);
 		g_quit();
 	}
 
-	g_font = TTF_OpenFont(FONT_FILE, 32);
-	if (g_font == NULL) {
-		printf("Unable to load font. Abort.\n");
+	if (FT_Error error = FT_New_Face(library, FONT_FILE, 0, &face)) {
+		printf("Unable to load font. Abort.\nError: %s\n", error);
 		g_quit();
 	}
-	SDL_Color color = {255, 255, 128}, back = {0};
-	s = TTF_RenderText_Blended(g_font, "ABC", color);
-	printf("w = %d, h = %d\n", s->w, s->h);
-	for (int i = 0; i < s->h; i++) {
-		for (int j = 0; j < s->w; j++)
-			printf("%X ", ((uint32_t *)s->pixels)[j * s->w + i] & 0xFF);
-		printf("\n");
-	}
-	s = TTF_RenderText_Shaded(g_font, "ABC", color, back);
-//	printf("w = %d, h = %d\n", s->w, s->h);
-//	s.w = 256; s.h = 128;
-//	s.pixels = malloc(s.w*s.h*4);
-//	for (int i = 0; i < s.h; i++) {
-//		for (int j = 0; j < s.w; j++)
-//			((uint32_t *)s.pixels)[i * s.h + j] = ((i ^ j) & 4) * 0x303010;
-//		printf("\n");
-//	}
-	//SDL_FreeSurface(s);
 
-	//printf("%x\n", g_font);
+	if (FT_Error error = FT_Set_Pixel_Sizes(face, 0, 24)) {
+		printf("Unable to set font size. Abort.\nError: %s\n", error);
+		g_quit();
+	}
 }
 
-void g_text_redering(char *pbuf)
+void g_text_render(double x, double y, const char *str)
 {
-	//SDL_Color color = {128, 128, 0, 255};
-	//SDL_Surface* s = TTF_RenderUTF8_Blended(g_font, pbuf, color);
-
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, g_texture);
 	glBindSampler(0, g_sampler);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, s->w, s->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, s->pixels);
 	g_activate_texture_mode();
-
 	glBindVertexArray(g_quad_vao);
 
-	glViewport(0, 0, s->w, s->h);
+	//unsigned int prev = 0;
+	while (FT_UInt c = (FT_Byte)*str) {
+		FT_UInt char_code = 0;
+		if (c < 0x80) {
+			// 1-byte, 7-bit character (ASCII)
+			char_code = c;
+			str += 1;
+		}
+		else if (c < 0xC0) {
+			// Invalid
+			printf("Invalid text.\n");
+			return;
+		}
+		else if (c < 0xE0) {
+			// 2-byte, 11-bit character
+			char_code = ((c & 0x1F) << 6) | (str[1] & 0x3F);
+			str += 2;
+		}
+		else if (c < 0xF0) {
+			// 3-byte, 16-bit character
+			char_code = ((c & 0x1F) << 12) | (str[1] & 0x3F) << 6 | (str[2] & 0x3F);
+			str += 3;
+		}
+		else {
+			// Invalid
+			printf("Invalid text.\n");
+			return;
+		}
 
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		FT_Error error = FT_Load_Char(face, char_code, FT_LOAD_RENDER);
+		if (error) continue;
+
+		FT_Bitmap& bitmap = face->glyph->bitmap;
+
+		glViewport(x, glsc3D_height - (y + bitmap.rows), bitmap.width, bitmap.rows);
+		glBindVertexArray(g_quad_vao);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, bitmap.width, bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, bitmap.buffer);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+		x += face->glyph->advance.x / 64;
+		//y += face->glyph->advance.y / 64;
+		//prev = index;
+	}
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	//SDL_FreeSurface(s);
+	if (g_scale_dim_flag == G_3D)
+		g_sel_scale_3D(get_scale_id_number);
+	else
+		g_sel_scale_2D(get_scale_id_number);
 }
 
-void g_text_standard(double x,double y, const char *str, ...)
+void g_text_standard(double x, double y, const char *str, ...)
 {
-	glViewport(0, 0, glsc3D_width, glsc3D_height);
-
 	char buf[256];
 	va_list ap;
 	va_start(ap, str);
 
 	vsnprintf(buf, sizeof(buf), str, ap);
 
-	g_text_redering(buf);
-
-	if(g_scale_dim_flag == G_3D) g_sel_scale_3D(get_scale_id_number);
-	if(g_scale_dim_flag == G_2D) g_sel_scale_2D(get_scale_id_number);
+	g_text_render(x, y, buf);
 
 	va_end(ap);
 }
+
 //void g_text_3D_virtual(double x,double y,double z, const char *str, ...)
 //{
 //	char buf[256], *pbuf = buf;
@@ -175,39 +189,39 @@ void g_text_standard(double x,double y, const char *str, ...)
 //	va_end(ap);
 //	glEnd();
 //}
+//void g_text_font(G_FONT_ID id, unsigned int font_size)
+//{
+//	g_text_font_core((const char *)id, font_size);
+//}
+//
+//void g_text_font_core(const char *font_type, unsigned int font_size)
+//{
+//	//current_font.color = g_current_text_color;
+//
+//	//current_font.font_type = font_type;
+//	//current_font.font_size = font_size;
+//
+//	if(face && FT_Done_Face(face)){
+//		fprintf(stderr, "error occurring while destroying face object.\n");
+//		exit(1);
+//	}
+//	if((unsigned int)font_type < 4){
+//		if(FT_New_Memory_Face(library, (const FT_Byte *)glsc3D_g_embedded_text[(int)font_type].memory, glsc3D_g_embedded_text[(int)font_type].size, 0, &face)){
+//			fprintf(stderr, "error occurring while reading font from memory.\n");
+//			exit(1);
+//		}
+//	}else{
+//		if(FT_New_Face(library, font_type, 0, &face)){
+//			fprintf(stderr, "error occurring while reading font file.\n");
+//			exit(1);
+//		}
+//	}
+//	if(FT_Set_Pixel_Sizes(face, 0, font_size)){
+//		fprintf(stderr, "error occurring while setting font size.\n");
+//		exit(1);
+//	}
+//}
 /*
-void g_text_font(G_FONT_ID id, unsigned int font_size)
-{
-	g_text_font_core((const char *)id, font_size);
-}
-
-void g_text_font_core(const char *font_type, unsigned int font_size)
-{
-	current_font.color = g_current_text_color;
-
-	current_font.font_type = font_type;
-	current_font.font_size = font_size;
-
-	if(face && FT_Done_Face(face)){
-		fprintf(stderr, "error occurring while destroying face object.\n");
-		exit(1);
-	}
-	if((unsigned int)font_type < 4){
-		if(FT_New_Memory_Face(library, (const FT_Byte *)glsc3D_g_embedded_text[(int)font_type].memory, glsc3D_g_embedded_text[(int)font_type].size, 0, &face)){
-			fprintf(stderr, "error occurring while reading font from memory.\n");
-			exit(1);
-		}
-	}else{
-		if(FT_New_Face(library, font_type, 0, &face)){
-			fprintf(stderr, "error occurring while reading font file.\n");
-			exit(1);
-		}
-	}
-	if(FT_Set_Pixel_Sizes(face, 0, font_size)){
-		fprintf(stderr, "error occurring while setting font size.\n");
-		exit(1);
-	}
-}
 
 void g_text_color_s(G_COLOR color)
 {
