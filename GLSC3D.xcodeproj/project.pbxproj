@@ -18,7 +18,6 @@
 		3F1A32641E6F4FD50016811C /* g_debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32611E6F4FD50016811C /* g_debug.cpp */; };
 		3F1A32651E6F4FD50016811C /* g_sdl_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32621E6F4FD50016811C /* g_sdl_text.cpp */; };
 		3F1A32661E6F4FD50016811C /* g_shader_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32631E6F4FD50016811C /* g_shader_program.cpp */; };
-		3F1A326C1E6F52230016811C /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1A326B1E6F52230016811C /* libSDL2-2.0.0.dylib */; };
 		3F1A32731E6F52640016811C /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3F1A327B1E6F52DA0016811C /* Sample_g_font.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32791E6F52BD0016811C /* Sample_g_font.c */; };
 		3F75738F1E420B42009E14BF /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
@@ -63,7 +62,6 @@
 		3F75740B1E421729009E14BF /* g_pyramid_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885051E3E1E340031E4BE /* g_pyramid_3D.c */; };
 		3F75740C1E421729009E14BF /* g_rectangle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885061E3E1E340031E4BE /* g_rectangle.c */; };
 		3F75740D1E421729009E14BF /* g_scale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885071E3E1E340031E4BE /* g_scale.cpp */; };
-		3F75740F1E421729009E14BF /* g_sleep.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9885091E3E1E340031E4BE /* g_sleep.c */; };
 		3F7574101E421729009E14BF /* g_sphere_3D.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */; };
 		3F7574121E421729009E14BF /* g_triangle_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */; };
 		3F7574131E421729009E14BF /* g_triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F98850D1E3E1E340031E4BE /* g_triangle.c */; };
@@ -78,7 +76,8 @@
 		3FCF504C1E6578200099B124 /* glsc3d_private_ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF504A1E6578200099B124 /* glsc3d_private_ext.h */; };
 		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */; };
-		A413B7D81E714D3B002E6141 /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A413B7D71E714D3B002E6141 /* libfreetype.6.dylib */; };
+		A413B7D91E71503C002E6141 /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A413B7D71E714D3B002E6141 /* libfreetype.6.dylib */; };
+		A413B7DB1E715063002E6141 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A413B7DA1E715063002E6141 /* libSDL2-2.0.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,7 +356,6 @@
 		3F9885051E3E1E340031E4BE /* g_pyramid_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_pyramid_3D.c; path = Source/g_pyramid_3D.c; sourceTree = "<group>"; };
 		3F9885061E3E1E340031E4BE /* g_rectangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_rectangle.c; path = Source/g_rectangle.c; sourceTree = "<group>"; };
 		3F9885071E3E1E340031E4BE /* g_scale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_scale.cpp; path = Source/g_scale.cpp; sourceTree = "<group>"; };
-		3F9885091E3E1E340031E4BE /* g_sleep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sleep.c; path = Source/g_sleep.c; sourceTree = "<group>"; };
 		3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_sphere_3D.c; path = Source/g_sphere_3D.c; sourceTree = "<group>"; };
 		3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_triangle_buffer.c; path = Source/g_triangle_buffer.c; sourceTree = "<group>"; };
 		3F98850D1E3E1E340031E4BE /* g_triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = g_triangle.c; path = Source/g_triangle.c; sourceTree = "<group>"; };
@@ -370,6 +368,7 @@
 		3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_sdl_wrapper.cpp; path = Source/g_sdl_wrapper.cpp; sourceTree = "<group>"; };
 		3FFE934A1E40C28B00BB053B /* g_vertex_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_vertex_buffer.cpp; path = Source/g_vertex_buffer.cpp; sourceTree = "<group>"; };
 		A413B7D71E714D3B002E6141 /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../../opt/local/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
+		A413B7DA1E715063002E6141 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../../opt/local/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,8 +473,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F9AAF171E66FA9D000AB5C5 /* OpenGL.framework in Frameworks */,
-				3F1A326C1E6F52230016811C /* libSDL2-2.0.0.dylib in Frameworks */,
-				A413B7D81E714D3B002E6141 /* libfreetype.6.dylib in Frameworks */,
+				A413B7DB1E715063002E6141 /* libSDL2-2.0.0.dylib in Frameworks */,
+				A413B7D91E71503C002E6141 /* libfreetype.6.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,7 +579,6 @@
 				3F1A32621E6F4FD50016811C /* g_sdl_text.cpp */,
 				3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */,
 				3F1A32631E6F4FD50016811C /* g_shader_program.cpp */,
-				3F9885091E3E1E340031E4BE /* g_sleep.c */,
 				3F98850A1E3E1E340031E4BE /* g_sphere_3D.c */,
 				3F98850C1E3E1E340031E4BE /* g_triangle_buffer.c */,
 				3F98850D1E3E1E340031E4BE /* g_triangle.c */,
@@ -603,6 +601,7 @@
 		3FBFFB2E1E3E23110074CD0A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A413B7DA1E715063002E6141 /* libSDL2-2.0.0.dylib */,
 				A413B7D71E714D3B002E6141 /* libfreetype.6.dylib */,
 				3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */,
 				3F1A326B1E6F52230016811C /* libSDL2-2.0.0.dylib */,
@@ -1073,7 +1072,6 @@
 				3F1A32661E6F4FD50016811C /* g_shader_program.cpp in Sources */,
 				3F75740C1E421729009E14BF /* g_rectangle.c in Sources */,
 				3F75740D1E421729009E14BF /* g_scale.cpp in Sources */,
-				3F75740F1E421729009E14BF /* g_sleep.c in Sources */,
 				3F7574101E421729009E14BF /* g_sphere_3D.c in Sources */,
 				3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.cpp in Sources */,
 				3F7574121E421729009E14BF /* g_triangle_buffer.c in Sources */,

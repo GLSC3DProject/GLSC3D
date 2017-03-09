@@ -1,8 +1,8 @@
 #include "glsc3d_private_ext.h"
 #include <stdarg.h>
 #include <ft2build.h>
-//#include FT_FREETYPE_H
-#include <freetype/freetype.h>
+#include FT_FREETYPE_H
+//#include <freetype/freetype.h>
 
 GLuint g_texture, g_sampler;
 GLuint g_quad_vao, g_quad_vbo;
@@ -30,7 +30,7 @@ void g_activate_texture_mode();
 //	{G_IPA_MINCHO_PROPORTIONAL, g_font_ipamp_data, g_font_ipamp_size}
 //};
 
-#ifdef __MACOSX__
+#ifdef __APPLE__
 #define FONT_FILE "/System/Library/Fonts/Menlo.ttc"
 #endif
 
@@ -67,17 +67,17 @@ void g_text_init()
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
 	if (FT_Error error = FT_Init_FreeType(&library)){
-		fprintf(stderr, "Unable to init Freetype.Abort.\nError : %s\n", error);
+		fprintf(stderr, "Unable to init Freetype.Abort.\nError : %d\n", error);
 		g_quit();
 	}
 
 	if (FT_Error error = FT_New_Face(library, FONT_FILE, 0, &face)) {
-		printf("Unable to load font. Abort.\nError: %s\n", error);
+		printf("Unable to load font. Abort.\nError: %d\n", error);
 		g_quit();
 	}
 
 	if (FT_Error error = FT_Set_Pixel_Sizes(face, 0, 24)) {
-		printf("Unable to set font size. Abort.\nError: %s\n", error);
+		printf("Unable to set font size. Abort.\nError: %d\n", error);
 		g_quit();
 	}
 }
