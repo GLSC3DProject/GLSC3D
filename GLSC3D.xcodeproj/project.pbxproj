@@ -18,7 +18,6 @@
 		3F1A32641E6F4FD50016811C /* g_debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32611E6F4FD50016811C /* g_debug.cpp */; };
 		3F1A32651E6F4FD50016811C /* g_sdl_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32621E6F4FD50016811C /* g_sdl_text.cpp */; };
 		3F1A32661E6F4FD50016811C /* g_shader_program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32631E6F4FD50016811C /* g_shader_program.cpp */; };
-		3F1A326A1E6F51A10016811C /* libSDL2_ttf-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1A32691E6F51A10016811C /* libSDL2_ttf-2.0.0.dylib */; };
 		3F1A326C1E6F52230016811C /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F1A326B1E6F52230016811C /* libSDL2-2.0.0.dylib */; };
 		3F1A32731E6F52640016811C /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3F1A327B1E6F52DA0016811C /* Sample_g_font.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A32791E6F52BD0016811C /* Sample_g_font.c */; };
@@ -79,6 +78,7 @@
 		3FCF504C1E6578200099B124 /* glsc3d_private_ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FCF504A1E6578200099B124 /* glsc3d_private_ext.h */; };
 		3FD1CAFD1E3E4139006015AC /* libGLSC3D.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9884C81E3E1BCC0031E4BE /* libGLSC3D.dylib */; };
 		3FFCFE2E1E6199D2006AD71F /* g_sdl_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */; };
+		A413B7D81E714D3B002E6141 /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A413B7D71E714D3B002E6141 /* libfreetype.6.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -369,6 +369,7 @@
 		3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		3FFCFE2D1E6199D2006AD71F /* g_sdl_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_sdl_wrapper.cpp; path = Source/g_sdl_wrapper.cpp; sourceTree = "<group>"; };
 		3FFE934A1E40C28B00BB053B /* g_vertex_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_vertex_buffer.cpp; path = Source/g_vertex_buffer.cpp; sourceTree = "<group>"; };
+		A413B7D71E714D3B002E6141 /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = ../../../../opt/local/lib/libfreetype.6.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,7 +475,7 @@
 			files = (
 				3F9AAF171E66FA9D000AB5C5 /* OpenGL.framework in Frameworks */,
 				3F1A326C1E6F52230016811C /* libSDL2-2.0.0.dylib in Frameworks */,
-				3F1A326A1E6F51A10016811C /* libSDL2_ttf-2.0.0.dylib in Frameworks */,
+				A413B7D81E714D3B002E6141 /* libfreetype.6.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +603,7 @@
 		3FBFFB2E1E3E23110074CD0A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A413B7D71E714D3B002E6141 /* libfreetype.6.dylib */,
 				3FD2EFAC1E65DBB600223DA2 /* OpenGL.framework */,
 				3F1A326B1E6F52230016811C /* libSDL2-2.0.0.dylib */,
 				3F1A32691E6F51A10016811C /* libSDL2_ttf-2.0.0.dylib */,
@@ -1425,7 +1427,7 @@
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
-					/opt/X11/include/freetype2,
+					/opt/local/include/freetype2,
 				);
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1442,7 +1444,7 @@
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
-					/opt/X11/include/freetype2,
+					/opt/local/include/freetype2,
 				);
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
