@@ -62,7 +62,7 @@ G_BOOL g_lighting_enabled;
 	"layout(location = 0) in vec2 in_texcoord;\n" \
 	"layout(location = 0) out vec2 vary_texcoord;\n" \
 	"void main() {\n" \
-	"	gl_Position = vec4(in_texcoord * 2 - 1, 0, 1);\n" \
+	"	gl_Position = vec4(in_texcoord.x * 2 - 1, in_texcoord.y * -2 + 1, 0, 1);\n" \
 	"	vary_texcoord = in_texcoord;\n" \
 	"}"
 
@@ -72,7 +72,7 @@ G_BOOL g_lighting_enabled;
 	"layout(location = 0) in vec2 vary_texcoord;\n" \
 	"out vec4 out_color;\n" \
 	"void main() {\n" \
-	"	out_color = texture(tex, vary_texcoord);\n" \
+	"	out_color = texture(tex, vary_texcoord).rrrr;\n" \
 	"//	out_color = vec4(vary_texcoord, 0, 1);\n" \
 	"}"
 

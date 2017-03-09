@@ -2,7 +2,7 @@ find_package(OpenGL)
 find_package(SDL2)
 
 if (MSVC)
-	set(SDL_LIBRARY SDL2.lib SDL2main.lib SDL2_ttf.lib)
+	set(SDL_LIBRARY SDL2.lib SDL2main.lib freetype271.lib)
 elseif (MINGW)
 	set(SDL_LIBRARY SDL2.a SDL2.dll.a SDL2main.a SDL2_ttf.dll.a)
 elseif(MACOS)
