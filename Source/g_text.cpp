@@ -31,7 +31,7 @@ void g_activate_texture_mode();
 //};
 
 #ifdef __APPLE__
-#define FONT_FILE "/System/Library/Fonts/Menlo.ttc"
+#define FONT_FILE "/System/Library/Fonts/ヒラギノ角ゴシック W4.ttc"
 #endif
 
 #ifdef __linux__
