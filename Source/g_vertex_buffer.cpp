@@ -57,7 +57,7 @@ void g_vertex_buffer_append(G_VERTEX vertex)
 		g_vertex_buffer_flush();
 }
 
-void g_vertex_buffer_append_position(G_VECTOR position)
+void g_emit_vertex(G_VECTOR position)
 {
 	g_vertex_buffer_append(g_make_vertex(position, g_vector_zero));
 }
@@ -138,6 +138,24 @@ void g_set_primitive_mode(GLenum mode)
 	g_primitive_mode = mode;
 }
 
+void g_prepare_lines()
+{
+	g_current_color = g_current_line_color;
+	g_disable_lighting();
+}
+
+void g_prepare_triangles()
+{
+	if (g_scale_dim_flag == G_3D) {
+		g_current_color = g_current_area_color_3D;
+		assert(g_current_color.r != 0);
+		g_enable_lighting();
+	} else {
+		g_current_color = g_current_area_color_2D;
+		g_disable_lighting();
+	}
+}
+
 void g_begin_points()
 {
 	g_set_primitive_mode(GL_POINTS);
@@ -149,21 +167,35 @@ void g_begin_points()
 void g_begin_lines()
 {
 	g_set_primitive_mode(GL_LINES);
+	g_prepare_lines();
+}
 
-	g_current_color = g_current_line_color;
-	g_disable_lighting();
+void g_begin_line_strip()
+{
+	g_set_primitive_mode(GL_LINE_STRIP);
+	g_prepare_lines();
+}
+
+void g_begin_line_loop()
+{
+	g_set_primitive_mode(GL_LINE_LOOP);
+	g_prepare_lines();
 }
 
 void g_begin_triangles()
 {
 	g_set_primitive_mode(GL_TRIANGLES);
-	
-	if (g_scale_dim_flag == G_3D) {
-		g_current_color = g_current_area_color_3D;
-		assert(g_current_color.r != 0);
-		g_enable_lighting();
-	} else {
-		g_current_color = g_current_area_color_2D;
-		g_disable_lighting();
-	}
+	g_prepare_triangles();
+}
+
+void g_begin_triangle_strip()
+{
+	g_set_primitive_mode(GL_TRIANGLE_STRIP);
+	g_prepare_triangles();
+}
+
+void g_begin_triangle_fan()
+{
+	g_set_primitive_mode(GL_TRIANGLE_FAN);
+	g_prepare_triangles();
 }

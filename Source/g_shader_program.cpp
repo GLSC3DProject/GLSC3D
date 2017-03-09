@@ -54,7 +54,7 @@ G_BOOL g_lighting_enabled;
 	"	vec3 normal = normalize(vary_normal.xyz);\n" \
 	"	float amb_dif = light.ambient + light.diffuse * max(dot(light.direction.xyz, normal), 0);\n" \
 	"	float spec = light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);\n" \
-	"	out_color = amb_dif * vary_color + spec;\n" \
+	"	out_color = vec4(amb_dif * vary_color.rgb + spec, vary_color.a);\n" \
 	"}"
 
 #define TEXTURE_VERT_SHADER_SOURCE \
@@ -69,17 +69,17 @@ G_BOOL g_lighting_enabled;
 #define TEXTURE_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
 	"uniform sampler2D tex;\n" \
+	"uniform vec4 color;\n" \
 	"layout(location = 0) in vec2 vary_texcoord;\n" \
 	"out vec4 out_color;\n" \
 	"void main() {\n" \
-	"	out_color = texture(tex, vary_texcoord).rrrr;\n" \
-	"//	out_color = vec4(vary_texcoord, 0, 1);\n" \
+	"	out_color = vec4(color.rgb, color.a * texture(tex, vary_texcoord).r);\n" \
 	"}"
 
 GLuint g_constant_program, g_lighting_program, g_texture_program;
 GLuint g_current_program;
 
-GLint g_texture_location;
+GLint g_texture_sampler_location, g_texture_color_location;
 
 GLuint g_uniforms[G_NUM_UNIFORMS];
 
@@ -176,8 +176,8 @@ void g_shader_program_init()
 
 	glGenBuffers(G_NUM_UNIFORMS, g_uniforms);
 
-	g_texture_location = glGetUniformLocation(g_texture_program, "tex");
-	//printf("location : 0x%X\n", g_texture_location);
+	g_texture_sampler_location = glGetUniformLocation(g_texture_program, "tex");
+	g_texture_color_location = glGetUniformLocation(g_texture_program, "color");
 
 	glBindBuffer(GL_UNIFORM_BUFFER, g_uniforms[G_UNIFORM_MATRICES]);
 	g_bind_uniform_block(g_constant_program, "Matrices", G_UNIFORM_MATRICES);
@@ -212,7 +212,7 @@ void g_activate_texture_mode()
 	g_vertex_buffer_flush();
 	g_use_program(g_texture_program);
 
-	glUniform1i(g_texture_location, 0);
+	glUniform1i(g_texture_sampler_location, 0);
 }
 
 #else

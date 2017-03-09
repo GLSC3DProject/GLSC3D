@@ -47,12 +47,13 @@ Action(PFNGLGETUNIFORMBLOCKINDEXPROC,       glGetUniformBlockIndex) \
 Action(PFNGLUNIFORMBLOCKBINDINGPROC,        glUniformBlockBinding) \
 Action(PFNGLGETUNIFORMLOCATIONPROC,         glGetUniformLocation) \
 Action(PFNGLUNIFORM1IPROC,                  glUniform1i) \
-Action(PFNGLACTIVETEXTUREPROC,              glActiveTexture) \
+Action(PFNGLUNIFORM4FVPROC,                 glUniform4fv) \
 Action(PFNGLGENSAMPLERSPROC,                glGenSamplers) \
 Action(PFNGLBINDSAMPLERPROC,                glBindSampler) \
 Action(PFNGLSAMPLERPARAMETERIPROC,          glSamplerParameteri) \
 Action(PFNGLBINDBUFFERBASEPROC,             glBindBufferBase) \
 Action(PFNGLDEBUGMESSAGECALLBACKPROC,       glDebugMessageCallback)
+//Action(PFNGLACTIVETEXTUREPROC,            glActiveTexture) \
 //Action(PFNGLGENRENDERBUFFERSPROC,         glGenRenderbuffers) \
 //Action(PFNGLBINDRENDERBUFFERPROC,         glBindRenderbuffer) \
 //Action(PFNGLRENDERBUFFERSTORAGEPROC,      glRenderbufferStorage) \

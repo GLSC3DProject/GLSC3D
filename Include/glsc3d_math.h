@@ -21,7 +21,7 @@ struct G_VECTOR
 	float x, y, z;
 
 	G_VECTOR() = default;
-	G_VECTOR(float x, float y, float z) : x(x), y(y), z(z) {}
+	G_VECTOR(float x, float y, float z = 0) : x(x), y(y), z(z) {}
 };
 
 static inline G_VECTOR operator +(G_VECTOR u, G_VECTOR v)
@@ -193,7 +193,7 @@ static inline G_VECTOR g_calc_normal(G_POSITION u, G_POSITION v, G_POSITION w)
 }
 
 static const G_VECTOR g_vector_zero = {0, 0, 0};
-static const G_VECTOR g_vector_unit_x = {1, 0, 0}, g_vector_unit_y = {0, 1, 0}, g_vector_unit_z = {0, 0, 1};
+//static const G_VECTOR g_vector_unit_x = {1, 0, 0}, g_vector_unit_y = {0, 1, 0}, g_vector_unit_z = {0, 0, 1};
 
 #ifdef __cplusplus
 
@@ -331,12 +331,27 @@ struct G_MATRIX
 
 //static inline G_VECTOR g_transform(G_MATRIX m, G_VECTOR v)
 //{
-//	return g_vector(
+//	return G_VECTOR(
 //		m.m[0][0] * v.x + m.m[1][0] * v.y + m.m[2][0] * v.z + m.m[3][0],
 //		m.m[0][1] * v.x + m.m[1][1] * v.y + m.m[2][1] * v.z + m.m[3][1],
 //		m.m[0][2] * v.x + m.m[1][2] * v.y + m.m[2][2] * v.z + m.m[3][2]
 //	);
 //}
+
+inline G_VECTOR4 operator *(G_VECTOR4 v, const G_MATRIX &m)
+{
+	return G_VECTOR4(
+		v.x * m.x.x + v.y * m.y.x + v.z * m.z.x + v.w * m.w.x,
+		v.x * m.x.y + v.y * m.y.y + v.z * m.z.y + v.w * m.w.y,
+		v.x * m.x.z + v.y * m.y.z + v.z * m.z.z + v.w * m.w.z,
+		v.x * m.x.w + v.y * m.y.w + v.z * m.z.w + v.w * m.w.w
+	);
+}
+
+inline void operator *=(G_VECTOR4 &v, const G_MATRIX &m)
+{
+	v = v * m;
+}
 
 #else
 

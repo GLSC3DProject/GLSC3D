@@ -10,33 +10,24 @@ void g_cone_2D(double center_x, double center_y,       //底面の中心座標
 	double side = sqrt(head_size*head_size + radius*radius);
 	if(type == 1)
 	{
-		glEnd();
-		glDisable(GL_LIGHTING);
-		g_triangles();
-		glVertexs(g_plus(center, g_multi(head_size, n)));
-		glVertexs(g_minus(g_plus(center, g_multi(head_size, n)), Rx2D(g_multi(side, n), atan2(radius, head_size))));
-		glVertexs(g_minus(g_plus(center, g_multi(head_size, n)), Rx2D(g_multi(side, n), -atan2(radius, head_size))));
-		glEnd();
+		g_begin_triangles();
+		g_emit_vertex(g_plus(center, g_multi(head_size, n)));
+		g_emit_vertex(g_minus(g_plus(center, g_multi(head_size, n)), Rx2D(g_multi(side, n), atan2(radius, head_size))));
+		g_emit_vertex(g_minus(g_plus(center, g_multi(head_size, n)), Rx2D(g_multi(side, n), -atan2(radius, head_size))));
 	}
 	if(type == 0)
 	{
-		glEnd();
-		glDisable(GL_LIGHTING);
-		g_line_loop();
-		glVertexs(g_plus(center,g_multi(head_size, n)));
-		glVertexs(g_minus(g_plus(center, g_multi(head_size, n)),Rx2D(g_multi(side, n), atan2(radius, head_size))));
-		glVertexs(g_minus(g_plus(center, g_multi(head_size, n)),Rx2D(g_multi(side, n), -atan2(radius, head_size))));
-		glEnd();
+		g_begin_line_loop();
+		g_emit_vertex(g_plus(center, g_multi(head_size, n)));
+		g_emit_vertex(g_minus(g_plus(center, g_multi(head_size, n)), Rx2D(g_multi(side, n), atan2(radius, head_size))));
+		g_emit_vertex(g_minus(g_plus(center, g_multi(head_size, n)), Rx2D(g_multi(side, n), -atan2(radius, head_size))));
 	}
 	if(type == 2)
 	{
-		glEnd();
-		glDisable(GL_LIGHTING);
-		g_line_strip();
-		glVertexs(g_minus(g_plus(center,g_multi(head_size, n)),Rx2D(g_multi(side, n), atan(radius/head_size))));
-		glVertexs(g_plus(center,g_multi(head_size, n)));
-		glVertexs(g_minus(g_plus(center,g_multi(head_size, n)),Rx2D(g_multi(side, n), -atan(radius/head_size))));
-		glEnd();
+		g_begin_line_strip();
+		g_emit_vertex(g_minus(g_plus(center, g_multi(head_size, n)), Rx2D(g_multi(side, n), atan(radius / head_size))));
+		g_emit_vertex(g_plus(center, g_multi(head_size, n)));
+		g_emit_vertex(g_minus(g_plus(center, g_multi(head_size, n)), Rx2D(g_multi(side, n), -atan(radius / head_size))));
 	}
 }
 

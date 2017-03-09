@@ -172,7 +172,7 @@ void g_triangle_terminal(G_TRIANGLE t);
 
 void g_vertex_buffer_init();
 void g_vertex_buffer_append(G_VERTEX vertex);
-void g_vertex_buffer_append_position(G_VECTOR position);
+void g_emit_vertex(G_VECTOR position);
 
 void g_vertex_buffer_append_line(G_VECTOR a, G_VECTOR b);
 void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c);
@@ -183,12 +183,17 @@ void g_begin_points();
 void g_begin_lines();
 void g_begin_triangles();
 
-void g_check_opengl_error(int checkpoint);
+void g_begin_line_strip();
+void g_begin_line_loop();
+
+void g_begin_triangle_strip();
+void g_begin_triangle_fan();
 
 // ---- g_shader_program.c
 
 void g_enable_lighting();
 void g_disable_lighting();
+void g_activate_texture_mode();
 
 // ---- g_sdl_wrapper.c
 

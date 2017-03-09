@@ -1,5 +1,4 @@
-﻿#include<stdlib.h>
-#include<stdio.h>
+﻿#include<stdio.h>
 #include<string.h>
 #include<time.h>
 #include<math.h>
@@ -16,7 +15,6 @@
 
 int main()
 {
-//	printf("あ\n");
 	g_init("GRAPH",WINDOW_SIZE_X,WINDOW_SIZE_Y);
 	
 	g_def_scale_2D(0,-2, 2, -2, 2,0, 0,WINDOW_SIZE_X, WINDOW_SIZE_Y);
@@ -36,7 +34,7 @@ int main()
 		strftime(TEXT2, sizeof(TEXT2), "%Y/%m/%d %H:%M:%S", localtime(&time_val));
 
 		int x = 20, y = 20, dy = 25;
-//		g_text_font(G_IPA_GOTHIC_PROPORTIONAL, 24);
+		g_text_font_core(NULL, 24);
 		// 1-byte characters
 		g_text_standard(x, y, "Hello, World!");
 
@@ -46,20 +44,27 @@ int main()
 		// 3-byte characters
 		g_text_standard(x, y += dy, "こんにちは，世界!");
 
-		//g_text_standard(x, y += dy, "Hello, World! with IPA_GOTHIC_PROPORTIONAL");
-
 		g_text_standard(x, y += dy, TEXT2);
 
 		g_text_standard(x, y += dy, "i_time = %d", i_time);
 
-//		y += dy;
-//
-////		g_text_font(G_IPA_GOTHIC, 24);
-//		g_text_standard(x, y += dy, "abcdefghijklmnopqrstuvwxyz");
-//		g_text_standard(x, y += dy, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-//		g_text_standard(x, y += dy, "Hello, World! with IPA_GOTHIC");
-//		g_text_standard(x, y += dy, TEXT2);
-//
+		y += dy;
+
+		g_text_font_core(NULL, 12);
+		g_text_standard(x, y += 12, "12pt");
+
+		g_text_font_core(NULL, 18);
+		g_text_standard(x, y += 18, "18pt");
+
+		g_text_font_core(NULL, 24);
+		g_text_standard(x, y += 24, "24pt");
+
+		g_text_font_core(NULL, 32);
+		g_text_standard(x, y += 32, "32pt");
+
+		g_text_font_core(NULL, 48);
+		g_text_standard(x, y += 48, "48pt");
+
 //		y += dy;
 //
 ////		g_text_font(G_IPA_MINCHO_PROPORTIONAL, 24);
@@ -94,7 +99,6 @@ int main()
 		
 		g_sleep(1);
 		g_finish();
-
  	}
 	return 0;
 }

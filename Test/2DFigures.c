@@ -41,23 +41,11 @@ int main()
 		g_sel_scale_2D(1);
 		g_circle_2D(0, 0, 1, G_FILL);
 
-		// g_sel_scale_2D(2);
-		// g_prism_3D_core   (0, 0, 0, 0, 0, 1, 1, 2, t, 6, 0, WIRE_OR_FILL);
-
-		// g_sel_scale_3D(3);
-		// g_cylinder_3D_core(0, 0, 0, 0, 0, 1, 1, 2, t, 32, 0, WIRE_OR_FILL);
-
-		// g_sel_scale_3D(4);
-		// g_ellipse_3D_core(0, 0, 0, 1.5, 1, 0.75, c, s, 0, 8, 0, WIRE_OR_FILL);
-
-		// g_sel_scale_3D(5);
-		// g_box_3D_core(0, 0, 0, 3, 2, 1.5, 0, WIRE_OR_FILL);
-
 		g_sel_scale_2D(2);
 		g_arrow_2D(0, 0, c, s, 1, 0.25, 0);
 		g_arrow_2D(0, 0,-s, c, 1, 0.25, 0);
-		//g_text_2D_virtual( 1.1*c, 1.1*s, "x");
-		//g_text_2D_virtual(-1.1*s, 1.1*c, "y");
+		g_text_2D_virtual( 1.1*c, 1.1*s, "x");
+		g_text_2D_virtual(-1.1*s, 1.1*c, "y");
 
 		g_sel_scale_2D(3);
 		g_fan_2D(0, 0, c, s, 1, 2.0, G_FILL);
