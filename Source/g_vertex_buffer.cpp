@@ -144,7 +144,6 @@ void g_prepare_triangles()
 {
 	if (g_scale_dim_flag == G_3D) {
 		g_current_color = g_current_area_color_3D;
-		assert(g_current_color.r != 0);
 		g_enable_lighting();
 	} else {
 		g_current_color = g_current_area_color_2D;

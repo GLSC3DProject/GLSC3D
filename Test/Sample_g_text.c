@@ -33,10 +33,10 @@ int main()
 		time_t time_val = time(0);
 		strftime(TEXT2, sizeof(TEXT2), "%Y/%m/%d %H:%M:%S", localtime(&time_val));
 
-		int x = 20, y = 20, dy = 25;
+		int x = 20, y = 0, dy = 25;
 		g_text_font_core(NULL, 24);
 		// 1-byte characters
-		g_text_standard(x, y, "Hello, World!");
+		g_text_standard(x, y += dy, "Hello, World!");
 
 		// 2-byte characters
 		g_text_standard(x, y += dy, "Γειά σου Κόσμε!");

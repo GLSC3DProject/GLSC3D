@@ -124,7 +124,7 @@ static void g_text_render(double x, double y, const char *str)
 		FT_Error error = FT_Load_Char(face, char_code, FT_LOAD_RENDER);
 		if (error) continue;
 
-		FT_GlyphSlot& glyph = face->glyph;
+		FT_GlyphSlot glyph = face->glyph;
 		FT_Bitmap& bitmap = glyph->bitmap;
 
 		int left = physical_x + glyph->bitmap_left;
@@ -136,7 +136,7 @@ static void g_text_render(double x, double y, const char *str)
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 		physical_x += glyph->advance.x / 64;
-		physical_y += face->glyph->advance.y / 64;
+		physical_y += glyph->advance.y / 64;
 	}
 
 	glBindTexture(GL_TEXTURE_2D, 0);
