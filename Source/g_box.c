@@ -1,38 +1,38 @@
 #include "glsc3d_private.h"
-void g_box_2D(double x, double y,
-		double width, double height,
-		G_WIREFILL WireFill)
-{
-	int i;
-	G_VECTOR r[4],center;
-	center = g_vector2(x,y);
-	r[0] = g_vector2(-width/2, -height/2);
-	r[1] = g_vector2(width/2, -height/2);
-	r[2] = g_vector2(width/2, height/2);
-	r[3] = g_vector2(-width/2, height/2);
-	if(WireFill == 1)
-	{
-		glEnd();
-		glDisable(GL_LIGHTING);
-		g_polygon();
-		for(i=0;i<4;i++)
-		{
-			glVertexs(g_plus(center,r[i]));
-		}
-		glEnd();
-	}
-	if(WireFill == 0)
-	{
-		glEnd();
-		glDisable(GL_LIGHTING);
-		g_line_loop();
-		for(i=0;i<4;i++)
-		{
-			glVertexs(g_plus(center,r[i]));
-		}
-		glEnd();
-	}
-}
+//void g_box_2D(double x, double y,
+//		double width, double height,
+//		G_WIREFILL WireFill)
+//{
+//	int i;
+//	G_VECTOR r[4],center;
+//	center = g_vector2(x,y);
+//	r[0] = g_vector2(-width/2, -height/2);
+//	r[1] = g_vector2(width/2, -height/2);
+//	r[2] = g_vector2(width/2, height/2);
+//	r[3] = g_vector2(-width/2, height/2);
+//	if(WireFill == 1)
+//	{
+//		glEnd();
+//		glDisable(GL_LIGHTING);
+//		g_polygon();
+//		for(i=0;i<4;i++)
+//		{
+//			glVertexs(g_plus(center,r[i]));
+//		}
+//		glEnd();
+//	}
+//	if(WireFill == 0)
+//	{
+//		glEnd();
+//		glDisable(GL_LIGHTING);
+//		g_line_loop();
+//		for(i=0;i<4;i++)
+//		{
+//			glVertexs(g_plus(center,r[i]));
+//		}
+//		glEnd();
+//	}
+//}
 
 void g_box_3D_core(double x, double y, double z,
 		double width, double height, double depth,

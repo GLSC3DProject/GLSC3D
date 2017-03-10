@@ -28,14 +28,11 @@ void g_rectangle_3D_core(double x, double y, double z,
 	}
 	else
 	{
-		glEnd();
-		glDisable(GL_LIGHTING);
-		g_line_loop();
+		g_begin_line_loop();
 		for(int i=0;i<4;i++)
 		{
-			glVertexs(g_plus(center,Ry(Rz(Rx(r[i],psi),phi),theta)));
+			g_emit_vertex(g_plus(center,Ry(Rz(Rx(r[i],psi),phi),theta)));
 		}
-		glEnd();
 	}
 }
 

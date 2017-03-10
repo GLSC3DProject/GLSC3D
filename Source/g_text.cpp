@@ -77,7 +77,6 @@ void g_text_init()
 
 static void g_text_render(double x, double y, const char *str)
 {
-	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, g_texture);
 	glBindSampler(0, g_sampler);
 	g_activate_texture_mode();

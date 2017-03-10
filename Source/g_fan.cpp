@@ -28,12 +28,9 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 			dtheta = -0.5*angle/STEP;
 			g_emit_vertex(g_plus(center, Rx2D(g_multi(radius, direction),i*dtheta)));
 		}
-		glEnd();
 	}
 	if(WireFill == 0)
 	{
-		glEnd();
-		glDisable(GL_LIGHTING);
 		g_begin_line_strip();
 		for(i=0; i<=STEP; i++)
 		{
@@ -48,7 +45,6 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 			g_emit_vertex(g_plus(center, Rx2D(g_multi(radius, direction),i*dtheta)));
 		}
 		g_emit_vertex(center);
-		glEnd();
 	}
 }
 

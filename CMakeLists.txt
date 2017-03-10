@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_VERBOSE_MAKEFILE 1)
 
 include_directories(Include)
+
 add_subdirectory(Source)
 
 add_executable(2DFigures Test/2DFigures.c)

@@ -20,6 +20,8 @@ message(SDL_INCLUDE_DIR = ${SDL_INCLUDE_DIR})
 message(FREETYPE_LIBRARIES = ${FREETYPE_LIBRARIES})
 message(FREETYPE_INCLUDE_DIRS = ${FREETYPE_INCLUDE_DIRS})
 
+include_directories(Include)
+
 add_library(GLSC3D
 		g_arrow.c
 		g_box.c
@@ -38,8 +40,7 @@ add_library(GLSC3D
 		g_line.c
 		g_matrix_private.c
 		g_move_plot.c
-		g_polygon_2D.c
-		g_polyline.c
+		g_polygon_polyline.c
 		g_prism_3D.c
 		g_pyramid_3D.c
 		g_rectangle.c
