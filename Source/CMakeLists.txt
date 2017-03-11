@@ -1,26 +1,27 @@
 find_package(OpenGL)
 find_package(SDL2)
-find_package(Freetype)
+find_package(freetype)
 
 if (MSVC)
 	set(SDL_LIBRARY SDL2.lib SDL2main.lib)
 	set(FREETYPE_LIBRARIES freetype271.lib)
 #elseif (MINGW)
 #	set(SDL_LIBRARY SDL2.a SDL2.dll.a SDL2main.a)
-elseif(MACOS)
+elseif (APPLE)
 	include_directories(/opt/local/include)
+	set(SDL_LIBRARY /opt/local/lib/libSDL2.dylib)
+#	set(FREETYPE_LIBRARIES libfreetype.dylib)
 elseif (UNIX)
 	set(SDL_LIBRARY libSDL2.so)
 	set(FREETYPE_LIBRARIES /usr/lib/x86_64-linux-gnu/libfreetype.so.6)
 endif ()
 
+message(CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME})
 message(OPENGL_gl_LIBRARY = ${OPENGL_gl_LIBRARY})
 message(SDL_LIBRARY = ${SDL_LIBRARY})
 message(SDL_INCLUDE_DIR = ${SDL_INCLUDE_DIR})
 message(FREETYPE_LIBRARIES = ${FREETYPE_LIBRARIES})
 message(FREETYPE_INCLUDE_DIRS = ${FREETYPE_INCLUDE_DIRS})
-
-include_directories(Include)
 
 add_library(GLSC3D
 		g_arrow.c

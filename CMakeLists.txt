@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(GLSC3D)
 project(2DFigures)
 project(3DFigures)
 project(Box)
 project(Cone)
 project(Sample_g_box)
 project(Sample_g_text)
+project(GLSC3D)
 
 #set(CMAKE_C_FLAGS -Werror)
 set(CMAKE_CXX_STANDARD 11)
