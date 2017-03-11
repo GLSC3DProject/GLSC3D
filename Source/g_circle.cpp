@@ -22,7 +22,6 @@ void g_circle_2D(double center_x, double center_y,
 			G_VECTOR pos(center_x + radius*cos(i*dtheta),center_y + radius*sin(i*dtheta));
 			g_emit_vertex(pos);
 		}
-		glEnd();
 	}
 }
 

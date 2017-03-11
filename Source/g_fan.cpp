@@ -87,8 +87,6 @@ void g_fan_3D_core(double center_x, double center_y, double center_z,          /
 
 	if(WireFill == 0)
 	{	
-		glEnd();
-		glDisable(GL_LIGHTING);
 		g_begin_line_strip();
 		for(i=0; i<=STEP; i++)
 		{
@@ -103,9 +101,7 @@ void g_fan_3D_core(double center_x, double center_y, double center_z,          /
 			g_emit_vertex(g_plus(r0, Ry(Rz(Rx(Ry(g_multi(radius, nx),i*dtheta),psi),phi),theta)));
 		}
 		g_emit_vertex(r0);
-		glEnd();
 	}
-
 }
 
 

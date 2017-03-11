@@ -2,19 +2,21 @@
 
 struct
 {
-	double r,g,b,a, width;
+	G_COLOR color;
+	float width;
 	int type;
 }           glsc3D_g_def_line[TotalDisplayNumber];
 
 void g_line_width(double size)
 {
-    glEnd();
+#ifndef G_USE_CORE_PROFILE
     glLineWidth(size);
+#endif
 }
 
 void g_line_type(int type)
 {
-    glEnd();
+#ifndef G_USE_CORE_PROFILE
     if (type==0) {
         glDisable(GL_LINE_STIPPLE);
     }else if (type==1) {
@@ -42,21 +44,19 @@ void g_line_type(int type)
         glLineStipple(4, 0xAAAA);
         glEnable(GL_LINE_STIPPLE);
     }
+#endif
 }
 
 void g_def_line(int id, double r, double g, double b, double a, double width, int type)
 {
-    glsc3D_g_def_line[id].r = r;
-    glsc3D_g_def_line[id].g = g;
-    glsc3D_g_def_line[id].b = b;
-    glsc3D_g_def_line[id].a = a;
+    glsc3D_g_def_line[id].color = g_color_core(r, g, b, a);
     glsc3D_g_def_line[id].width = width;
     glsc3D_g_def_line[id].type = type;
 }
 
 void g_sel_line(int id)
 {
-    g_line_color(glsc3D_g_def_line[id].r, glsc3D_g_def_line[id].g, glsc3D_g_def_line[id].b, glsc3D_g_def_line[id].a);
+    g_current_line_color = glsc3D_g_def_line[id].color;
     g_line_width(glsc3D_g_def_line[id].width);
     g_line_type(glsc3D_g_def_line[id].type);
 }

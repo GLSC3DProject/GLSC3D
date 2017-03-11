@@ -37,10 +37,76 @@
 
 #define PI M_PI
 
+#define G_USE_CORE_PROFILE
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
+// Comment out this to use legacy implementations
+#ifdef G_USE_CORE_PROFILE
+
+enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
+
+void g_shader_program_init();
+void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
+
+// In Windows and Linux, it is required to get address of OpenGL 1.2+ functions.
+#if defined(_WIN32) || defined(__linux__)
+#define G_NEED_GET_GLEXT_PROC_ADDRESS
+
+#define G_EXTERN_DECL_GLEXT(Type, Name) extern Type Name;
+
+#define G_EMIT_GLEXT(Action) \
+Action(PFNGLVERTEXATTRIBPOINTERPROC,        glVertexAttribPointer) \
+Action(PFNGLENABLEVERTEXATTRIBARRAYPROC,    glEnableVertexAttribArray) \
+Action(PFNGLGENVERTEXARRAYSPROC,            glGenVertexArrays) \
+Action(PFNGLBINDVERTEXARRAYPROC,            glBindVertexArray) \
+Action(PFNGLGENBUFFERSPROC,                 glGenBuffers) \
+Action(PFNGLBUFFERDATAPROC,                 glBufferData) \
+Action(PFNGLBUFFERSUBDATAPROC,              glBufferSubData) \
+Action(PFNGLBINDBUFFERPROC,                 glBindBuffer) \
+Action(PFNGLCREATEPROGRAMPROC,              glCreateProgram) \
+Action(PFNGLLINKPROGRAMPROC,                glLinkProgram) \
+Action(PFNGLUSEPROGRAMPROC,                 glUseProgram) \
+Action(PFNGLCREATESHADERPROC,               glCreateShader) \
+Action(PFNGLSHADERSOURCEPROC,               glShaderSource) \
+Action(PFNGLCOMPILESHADERPROC,              glCompileShader) \
+Action(PFNGLATTACHSHADERPROC,               glAttachShader) \
+Action(PFNGLGETPROGRAMIVPROC,               glGetProgramiv) \
+Action(PFNGLGETSHADERIVPROC,                glGetShaderiv) \
+Action(PFNGLGETPROGRAMINFOLOGPROC,          glGetProgramInfoLog) \
+Action(PFNGLGETSHADERINFOLOGPROC,           glGetShaderInfoLog) \
+Action(PFNGLGETUNIFORMBLOCKINDEXPROC,       glGetUniformBlockIndex) \
+Action(PFNGLUNIFORMBLOCKBINDINGPROC,        glUniformBlockBinding) \
+Action(PFNGLGETUNIFORMLOCATIONPROC,         glGetUniformLocation) \
+Action(PFNGLUNIFORM1IPROC,                  glUniform1i) \
+Action(PFNGLUNIFORM4FVPROC,                 glUniform4fv) \
+Action(PFNGLGENSAMPLERSPROC,                glGenSamplers) \
+Action(PFNGLBINDSAMPLERPROC,                glBindSampler) \
+Action(PFNGLSAMPLERPARAMETERIPROC,          glSamplerParameteri) \
+Action(PFNGLBINDBUFFERBASEPROC,             glBindBufferBase) \
+Action(PFNGLDEBUGMESSAGECALLBACKPROC,       glDebugMessageCallback)
+//Action(PFNGLACTIVETEXTUREPROC,            glActiveTexture) \
+//Action(PFNGLGENRENDERBUFFERSPROC,         glGenRenderbuffers) \
+//Action(PFNGLBINDRENDERBUFFERPROC,         glBindRenderbuffer) \
+//Action(PFNGLRENDERBUFFERSTORAGEPROC,      glRenderbufferStorage) \
+//Action(PFNGLGENFRAMEBUFFERSPROC,          glGenFramebuffers) \
+//Action(PFNGLBINDFRAMEBUFFERPROC,          glBindFramebuffer) \
+//Action(PFNGLFRAMEBUFFERRENDERBUFFERPROC,  glFramebufferRenderbuffer)
+
+G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
+
+#define G_ENABLE_OPENGL_DEBUG_CALLBACK
+
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
+void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user);
+#endif
+
+#endif //defined(_WIN32) || defined(__linux__)
+
+#endif //G_USE_CORE_PROFILE
 
 G_REAL g_direction_phi(G_VECTOR v);
 G_REAL g_direction_theta(G_VECTOR v);
@@ -141,17 +207,6 @@ void g_triangle_buffer_append(G_TRIANGLE t);
 void g_triangle_buffer_draw();
 void g_triangle_buffer_flush();
 
-void g_line_loop(void);
-void g_line_strip(void);
-void g_lines(void);
-void g_polygon(void);
-void g_triangles(void);
-void g_triangle_strip(void);
-void g_triangle_fan(void);
-void g_quads(void);
-void g_quad_strip(void);
-void g_points(void);
-
 void glNormals(G_VECTOR u);
 void glVertexs(G_VECTOR u);
 
@@ -177,30 +232,30 @@ void g_emit_vertex(G_VECTOR position);
 void g_vertex_buffer_append_line(G_VECTOR a, G_VECTOR b);
 void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c);
 
-void g_vertex_buffer_flush();
+void g_vertex_buffer_flush(void);
 
-void g_begin_points();
-void g_begin_lines();
-void g_begin_triangles();
+void g_begin_points(void);
+void g_begin_lines(void);
+void g_begin_triangles(void);
 
-void g_begin_line_strip();
-void g_begin_line_loop();
+void g_begin_line_strip(void);
+void g_begin_line_loop(void);
 
-void g_begin_triangle_strip();
-void g_begin_triangle_fan();
+void g_begin_triangle_strip(void);
+void g_begin_triangle_fan(void);
 
 // ---- g_shader_program.c
 
-void g_enable_lighting();
-void g_disable_lighting();
-void g_activate_texture_mode();
+void g_enable_lighting(void);
+void g_disable_lighting(void);
+void g_activate_texture_mode(void);
 
 // ---- g_sdl_wrapper.c
 
 void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height);
-void g_swap_buffers();
-void g_poll_events();
-void g_quit();
+void g_swap_buffers(void);
+void g_poll_events(void);
+void g_quit(void);
 
 #ifdef __cplusplus
 }

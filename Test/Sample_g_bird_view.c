@@ -62,7 +62,7 @@ int main()
 		g_sel_scale_3D(0);
 		g_area_color_3D(1, 0, 0, 1);
 		g_line_color(1, 0, 0, 1);
-		g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, 0);
+		//g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, 0);
 		
 		
 		g_sel_scale_3D(1);

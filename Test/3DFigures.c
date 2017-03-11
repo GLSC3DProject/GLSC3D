@@ -4,7 +4,7 @@
 #include <SDL2/SDL_main.h>
 #endif
 
-#define WIRE_OR_FILL G_FILL
+#define WIRE_OR_FILL G_WIRE
 
 int main(int argc, char *argv[])
 {

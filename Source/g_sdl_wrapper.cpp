@@ -1,4 +1,4 @@
-#include "glsc3d_private_ext.h"
+#include "glsc3d_private.h"
 
 // Not to include iconv.c
 #define _LIBICONV_H

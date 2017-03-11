@@ -47,7 +47,7 @@ int main()
 			g_sel_scale_3D(id);
 
 			g_area_color_3D(1, 0, 0, 0.4);
-			g_line_width(2);
+			//g_line_width(2);
 			g_line_color(1,0, 0, 1);
 			g_arrow_3D(-2*scale, 0, 0, 1, 0, 0, 4*scale, 0.1*scale);
 

@@ -1,4 +1,4 @@
-#include "glsc3d_private_ext.h"
+#include "glsc3d_private.h"
 
 int             get_scale_id_number;
 G_DIMENSION     g_scale_dim_flag;

@@ -1,9 +1,10 @@
-#include "glsc3d_private_ext.h"
+#include "glsc3d_private.h"
 #include <stdarg.h>
 #include <ft2build.h>
-#include <glsc3d_private.h>
 #include FT_FREETYPE_H
 //#include <freetype/freetype.h>
+
+#ifdef G_USE_CORE_PROFILE
 
 extern GLint g_texture_color_location;
 GLuint g_texture, g_sampler, g_quad_vao, g_quad_vbo;
@@ -242,3 +243,5 @@ void g_sel_text(int id)
 	g_text_font_core(glsc3D_g_def_text[id].font_type, glsc3D_g_def_text[id].font_size);
 }
 */
+
+#endif

@@ -1,4 +1,4 @@
-#include "glsc3d_private_ext.h"
+#include "glsc3d_private.h"
 #include <vector>
 
 G_BOOL g_lighting_enabled;

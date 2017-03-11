@@ -227,8 +227,6 @@ void g_triangle_buffer_draw()
 {
     if(g_enable_transparent)
     {
-        glEnd();
-        glEnable(GL_LIGHTING);
         g_triangle_buffer_flush();
         g_triangle_buffer_merge();
 

@@ -25,6 +25,7 @@ message(FREETYPE_INCLUDE_DIRS = ${FREETYPE_INCLUDE_DIRS})
 
 add_library(GLSC3D
 		g_arrow.c
+		g_bird_view_3D.c
 		g_box.c
 		g_camera.cpp
 		g_circle.cpp
@@ -32,13 +33,18 @@ add_library(GLSC3D
 		g_cone.c
 		g_contln_2D.c
 		g_cylinder_3D.c
+		g_data_plot.c
 		g_debug.cpp
 		g_direction_private.c
 		g_ellipse_3D.c
 		g_fan.cpp
 		g_fundamentals.c
 		g_init.cpp
+		g_input.c
+		g_isosurface.c
+		g_light.cpp
 		g_line.c
+		g_marker.cpp
 		g_matrix_private.c
 		g_move_plot.c
 		g_polygon_polyline.c
@@ -56,7 +62,6 @@ add_library(GLSC3D
 		../Include/glsc3d.h
 		../Include/glsc3d_math.h
 		../Include/glsc3d_private.h
-		../Include/glsc3d_private_ext.h
 )
 
 target_link_libraries(GLSC3D ${OPENGL_gl_LIBRARY} ${SDL_LIBRARY} ${FREETYPE_LIBRARIES})

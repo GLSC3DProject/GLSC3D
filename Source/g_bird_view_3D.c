@@ -80,8 +80,6 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
 			
 			if(WireFill ==1)
 			{
-				glEnd();
-				glEnable(GL_LIGHTING);
 				G_VERTEX v0,v1,v2;
 				G_TRIANGLE t[4];
 				
@@ -93,19 +91,14 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
 					t[k] = g_make_triangle_core(v0, v1, v2);
 					g_set_triangle(t[k]);
 				}
-				//glEnd();
 			}
 			if(WireFill == 0)
 			{
-				glEnd();
-				glDisable(GL_LIGHTING);
-				g_line_loop();
+				g_begin_line_loop();
 				for(k=0; k<4; k++)
 				{
-					glColor4fv(&g_current_line_color.r);
-					glVertexs(r_corner[k]);
+					g_emit_vertex(r_corner[k]);
 				}
-				//glEnd();
 			}
 		}
 	}

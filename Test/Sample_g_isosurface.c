@@ -39,7 +39,8 @@ int main()
 {
 	g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 	
-	double v[Imax * Jmax * Kmax],v2[Imax][Jmax][Kmax];
+	double v[Imax * Jmax * Kmax];
+	//double v2[Imax][Jmax][Kmax];
 	double d_x, d_y, d_z;
 	double r_x, r_y, r_z;
 	double r0_x, r0_y, r0_z;
@@ -62,7 +63,7 @@ int main()
 					1);
 	g_init_light_core(0,1,1,1,1);
 	int i_time;
-	double t,dt = 0.1;
+	double t,dt = 1./256;
 	for(i_time = 0;;i_time++)
 	{
 		t = i_time * dt;
@@ -83,10 +84,10 @@ int main()
 					+ f(r_x,r_y,r_z,-r0_x,r0_y,r0_z)
 					+ f(r_x,r_y,r_z,r0_x,-r0_y,r0_z)
 					+ f(r_x,r_y,r_z,r0_x,r0_y,-r0_z);
-					v2[i][j][k] = f(r_x,r_y,r_z,r0_x,r0_y,r0_z)
-					+ f(r_x,r_y,r_z,-r0_x,r0_y,r0_z)
-					+ f(r_x,r_y,r_z,r0_x,-r0_y,r0_z)
-					+ f(r_x,r_y,r_z,r0_x,r0_y,-r0_z);
+					//v2[i][j][k] = f(r_x,r_y,r_z,r0_x,r0_y,r0_z)
+					//+ f(r_x,r_y,r_z,-r0_x,r0_y,r0_z)
+					//+ f(r_x,r_y,r_z,r0_x,-r0_y,r0_z)
+					//+ f(r_x,r_y,r_z,r0_x,r0_y,-r0_z);
 				}
 			}
 		}
@@ -101,10 +102,10 @@ int main()
 						-ZLEN / 2 + 0.5 * d_z, ZLEN / 2 - 0.5 * d_z,
 						Imax, Jmax, Kmax,v, 0.5);
 
-		g_isosurface_3D(-XLEN / 2 + 0.5 * d_x, XLEN / 2 - 0.5 * d_x,
-						-YLEN / 2 + 0.5 * d_y, YLEN / 2 - 0.5 * d_y,
-						-ZLEN / 2 + 0.5 * d_z, ZLEN / 2 - 0.5 * d_z,
-						Imax, Jmax, Kmax,v2, 0.5);
+		//g_isosurface_3D(-XLEN / 2 + 0.5 * d_x, XLEN / 2 - 0.5 * d_x,
+		//				-YLEN / 2 + 0.5 * d_y, YLEN / 2 - 0.5 * d_y,
+		//				-ZLEN / 2 + 0.5 * d_z, ZLEN / 2 - 0.5 * d_z,
+		//				Imax, Jmax, Kmax,v2, 0.5);
 		 
 		
 		g_finish();

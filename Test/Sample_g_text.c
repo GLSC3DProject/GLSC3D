@@ -5,7 +5,7 @@
 #include "glsc3d.h"
 
 #ifdef _WIN32
-#pragma execution_character_set("utf-8")
+#pragma execution_character_set("UTF-8")
 #endif
 
 #define WINDOW_SIZE_X     (600)

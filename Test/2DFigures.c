@@ -1,5 +1,7 @@
 #include "glsc3d.h"
 
+#define WIRE_OR_FILL G_WIRE
+
 int main()
 {
 	const int Size = 320;
@@ -39,7 +41,7 @@ int main()
 		g_cone_2D(0, -0.5, 0, 1, 1, 1, 0);
 
 		g_sel_scale_2D(1);
-		g_circle_2D(0, 0, 1, G_FILL);
+		g_circle_2D(0, 0, 1, WIRE_OR_FILL);
 
 		g_sel_scale_2D(2);
 		g_arrow_2D(0, 0, c, s, 1, 0.25, 0);
@@ -48,10 +50,10 @@ int main()
 		g_text_2D_virtual(-1.1*s, 1.1*c, "y");
 
 		g_sel_scale_2D(3);
-		g_fan_2D(0, 0, c, s, 1, 2.0, G_FILL);
+		g_fan_2D(0, 0, c, s, 1, 2.0, WIRE_OR_FILL);
 
 		g_sel_scale_2D(4);
-		g_polygon_2D(p, q, 5, G_FILL);
+		g_polygon_2D(p, q, 5, WIRE_OR_FILL);
 
 		g_sel_scale_2D(5);
 		g_polyline_2D(u, v, 6);

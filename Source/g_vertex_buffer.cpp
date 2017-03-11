@@ -1,4 +1,4 @@
-#include "glsc3d_private_ext.h"
+#include "glsc3d_private.h"
 
 static const size_t VERTEX_BUFFER_SIZE = 3 << 12;
 
@@ -75,10 +75,12 @@ void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c)
 	g_vertex_buffer_append(g_make_vertex(c, g_vector_zero));
 }
 
-#ifdef G_USE_CORE_PROFILE
-
 void g_vertex_buffer_flush()
 {
+	if (g_vertex_data_count == 0) return;
+
+#ifdef G_USE_CORE_PROFILE
+
 	glBindVertexArray(g_vertex_array_id);
 	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, g_vertex_data_count * sizeof(G_VERTEX), g_vertex_data);
@@ -89,49 +91,50 @@ void g_vertex_buffer_flush()
 	
 	glDrawArrays(g_primitive_mode, 0, g_vertex_data_count);
 
-	g_vertex_data_count = 0;
-}
-
 #else
 
-void g_vertex_buffer_flush()
-{
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
-	
+
 	glVertexPointer(4, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data->position);
-	
+
 	if (g_lighting_enabled) {
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
 		glEnable(GL_COLOR_MATERIAL);
-		
+
 		glNormalPointer(GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data->normal);
 	}
-	
+
 	glColorPointer(4, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data->color);
-	
+
 	glDrawArrays(g_primitive_mode, 0, g_vertex_data_count);
-	
+
 	if (g_lighting_enabled) {
 		glDisable(GL_COLOR_MATERIAL);
 		glDisableClientState(GL_NORMAL_ARRAY);
 	}
-	
+
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
-	
-	g_vertex_data_count = 0;
-}
 
 #endif
 
-void g_set_primitive_mode(GLenum mode)
+	g_vertex_data_count = 0;
+}
+
+void g_set_primitive_mode(GLenum mode, bool always_flush)
 {
-	if (g_primitive_mode != mode && g_vertex_data_count != 0)
+	if (g_primitive_mode != mode || always_flush)
 		g_vertex_buffer_flush();
 	
 	g_primitive_mode = mode;
+}
+
+void g_prepare_points()
+{
+	g_current_color = g_current_marker_color;
+	g_disable_lighting();
 }
 
 void g_prepare_lines()
@@ -153,44 +156,42 @@ void g_prepare_triangles()
 
 void g_begin_points()
 {
-	g_set_primitive_mode(GL_POINTS);
-
-	g_current_color = g_current_marker_color;
-	g_disable_lighting();
+	g_set_primitive_mode(GL_POINTS, false);
+	g_prepare_points();
 }
 
 void g_begin_lines()
 {
-	g_set_primitive_mode(GL_LINES);
+	g_set_primitive_mode(GL_LINES, false);
 	g_prepare_lines();
 }
 
 void g_begin_line_strip()
 {
-	g_set_primitive_mode(GL_LINE_STRIP);
+	g_set_primitive_mode(GL_LINE_STRIP, true);
 	g_prepare_lines();
 }
 
 void g_begin_line_loop()
 {
-	g_set_primitive_mode(GL_LINE_LOOP);
+	g_set_primitive_mode(GL_LINE_LOOP, true);
 	g_prepare_lines();
 }
 
 void g_begin_triangles()
 {
-	g_set_primitive_mode(GL_TRIANGLES);
+	g_set_primitive_mode(GL_TRIANGLES, false);
 	g_prepare_triangles();
 }
 
 void g_begin_triangle_strip()
 {
-	g_set_primitive_mode(GL_TRIANGLE_STRIP);
+	g_set_primitive_mode(GL_TRIANGLE_STRIP, true);
 	g_prepare_triangles();
 }
 
 void g_begin_triangle_fan()
 {
-	g_set_primitive_mode(GL_TRIANGLE_FAN);
+	g_set_primitive_mode(GL_TRIANGLE_FAN, true);
 	g_prepare_triangles();
 }

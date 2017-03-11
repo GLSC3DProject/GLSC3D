@@ -1,4 +1,4 @@
-#include "glsc3d_private_ext.h"
+#include "glsc3d_private.h"
 
 #define DEF_CASE(value) case value: printf(#value); break
 

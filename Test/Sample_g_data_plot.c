@@ -58,7 +58,7 @@ int main()
 		g_sel_scale_3D(1);
 		g_marker_color(1,0,0,1);
 		g_marker_size(1);
-		g_data_plot_3D(-2, 2, -2, 2, Imax, Jmax, array2);
+		//g_data_plot_3D(-2, 2, -2, 2, Imax, Jmax, array2);
 		g_data_plot_f_3D(-2, 2, -2, 2, Imax, Jmax, array);
 		
 		g_finish();
