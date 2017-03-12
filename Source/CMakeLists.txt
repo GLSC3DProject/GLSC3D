@@ -28,6 +28,7 @@ add_library(GLSC3D
 		g_bird_view_3D.c
 		g_box.c
 		g_camera.cpp
+		g_capture.c
 		g_circle.cpp
 		g_color.cpp
 		g_cone.c

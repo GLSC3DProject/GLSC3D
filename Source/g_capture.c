@@ -4,8 +4,8 @@
 #include <time.h>
 #include <errno.h>
 #include <assert.h>
-//#include <png.h>
-/*
+#include <png.h>
+
 #include "glsc3d_private.h"
 
 //g_normaly, bit_depth = 8, color_type = PNG_COLOR_TYPE_RGB_ALPHA.
@@ -159,4 +159,3 @@ g_capture_set(name)
 
 	return 0;
 }
-*/

@@ -1,13 +1,10 @@
 cmake_minimum_required(VERSION 3.1)
-
 project(GLSC3D)
 
 #set(CMAKE_C_FLAGS -Werror)
 set(CMAKE_CXX_STANDARD 11)
-#set(CMAKE_VERBOSE_MAKEFILE 1)
 
 include_directories(Include)
-
 add_subdirectory(Source)
 
 add_executable(2DFigures Test/2DFigures.c)
@@ -42,6 +39,7 @@ add_executable(Sample_g_sphere Test/Sample_g_sphere.c)
 add_executable(Sample_g_text Test/Sample_g_text.c)
 add_executable(Sample_g_transparent Test/Sample_g_transparent.c)
 add_executable(Sample_g_triangle Test/Sample_g_triangle.c)
+add_executable(Sample_off_screen_rendering Test/Sample_off_screen_rendering.c)
 
 target_link_libraries(2DFigures GLSC3D)
 target_link_libraries(3DFigures GLSC3D)
@@ -75,5 +73,6 @@ target_link_libraries(Sample_g_sphere GLSC3D)
 target_link_libraries(Sample_g_text GLSC3D)
 target_link_libraries(Sample_g_transparent GLSC3D)
 target_link_libraries(Sample_g_triangle GLSC3D)
+target_link_libraries(Sample_off_screen_rendering GLSC3D)
 
 #install(TARGETS GLSC3D RUNTIME DESTINATION bin)
