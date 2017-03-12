@@ -47,12 +47,12 @@ void g_cone_3D_core(double center_x, double center_y, double center_z,          
 	top = g_vector3(head_size, 0, 0);
 	r = g_vector3(0,radius,0);
 
-	//r0 = Heiko3Ds(Ry(Rz(r,phi),theta),center);
+	//r0 = g_plus(Ry(Rz(r,phi),theta),center);
 	r0 = center;
 	for(i=0;i<=n;i++)
 	{
-		r1 = Heiko3Ds(Ry(Rz(Rx(r,i*dth),phi),theta),center);
-		r2 = Heiko3Ds(Ry(Rz(Rx(r,(i+1)*dth),phi),theta),center);
+		r1 = g_plus(Ry(Rz(Rx(r,i*dth),phi),theta),center);
+		r2 = g_plus(Ry(Rz(Rx(r,(i+1)*dth),phi),theta),center);
 		if(WireFill==1)
 		{
 			g_triangle_3D_core(r0.x,r0.y,r0.z,
@@ -71,10 +71,10 @@ void g_cone_3D_core(double center_x, double center_y, double center_z,          
 	{
 		for(i=0;i<=n;i++)
 		{
-			r0 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(g_multi(j*stack_size,r),g_multi(1-j*stack_size,top)),i*dth),phi),theta),center);
-			r1 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(g_multi((j+1)*stack_size,r),g_multi(1-(j+1)*stack_size,top)),i*dth),phi),theta),center);
-			r2 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(g_multi(j*stack_size,r),g_multi(1-j*stack_size,top)),(i+1)*dth),phi),theta),center);
-			r3 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(g_multi((j+1)*stack_size,r),g_multi(1-(j+1)*stack_size,top)),(i+1)*dth),phi),theta),center);
+			r0 = g_plus(Ry(Rz(Rx(g_plus(g_multi(j*stack_size,r),g_multi(1-j*stack_size,top)),i*dth),phi),theta),center);
+			r1 = g_plus(Ry(Rz(Rx(g_plus(g_multi((j+1)*stack_size,r),g_multi(1-(j+1)*stack_size,top)),i*dth),phi),theta),center);
+			r2 = g_plus(Ry(Rz(Rx(g_plus(g_multi(j*stack_size,r),g_multi(1-j*stack_size,top)),(i+1)*dth),phi),theta),center);
+			r3 = g_plus(Ry(Rz(Rx(g_plus(g_multi((j+1)*stack_size,r),g_multi(1-(j+1)*stack_size,top)),(i+1)*dth),phi),theta),center);
 
 			if(WireFill==1)
 			{

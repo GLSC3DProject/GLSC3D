@@ -17,5 +17,5 @@ void g_finish()
 
 	g_swap_buffers();
 	g_poll_events();
-//	g_get_input();
+	g_get_input();
 }

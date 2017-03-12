@@ -1,6 +1,6 @@
-/*#include "glsc3d_private.h"
+#include "glsc3d_private.h"
 
-#include <stdio.h>
+#ifdef G_USE_CORE_PROFILE
 
 static GLuint frame_buffer;
 static GLuint color_buffer, depth_buffer;
@@ -45,4 +45,5 @@ void g_end_off_screen_rendering()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-*/
+
+#endif

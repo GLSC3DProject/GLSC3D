@@ -157,10 +157,10 @@ void g_line_type(int type);
 void g_def_line(int id, double r, double g, double b, double a, double width, int type);
 void g_sel_line(int id);
 
-void g_text_standard(double x,double y, const char *str, ...);
+void g_text_standard(double x,double y, const char *format, ...);
 
-void g_text_3D_virtual(double x, double y, double z, const char *str, ...);
-void g_text_2D_virtual(double x, double y, const char *str, ...);
+void g_text_3D_virtual(double x, double y, double z, const char *format, ...);
+void g_text_2D_virtual(double x, double y, const char *format, ...);
 
 void g_text_font(G_FONT_ID id, unsigned int font_size);
 void g_text_font_core(const char *font_type, unsigned int font_size);
@@ -393,13 +393,13 @@ typedef enum
 typedef enum
 {
 	G_KEY_INVALID   = 0x00,
-	G_KEY_PAGE_UP   = 0x01,
-	G_KEY_PAGE_DOWN = 0x02,
-	G_KEY_HOME      = 0x03,
-	G_KEY_END       = 0x04,
-	G_MOUSE_LEFT    = 0x05,
-	G_MOUSE_MIDDLE  = 0x06,
-	G_MOUSE_RIGHT   = 0x07,
+	G_MOUSE_LEFT    = 0x01,
+	G_MOUSE_MIDDLE  = 0x02,
+	G_MOUSE_RIGHT   = 0x03,
+	G_KEY_PAGE_UP   = 0x04,
+	G_KEY_PAGE_DOWN = 0x05,
+	G_KEY_HOME      = 0x06,
+	G_KEY_END       = 0x07,
 	G_KEY_INSERT    = 0x0b,
 	G_KEY_F1        = 0x0e,
 	G_KEY_F2        = 0x0f,

@@ -1,6 +1,7 @@
 find_package(OpenGL)
 find_package(SDL2)
 find_package(freetype)
+find_package(png)
 
 if (MSVC)
 	set(SDL_LIBRARY SDL2.lib SDL2main.lib)
@@ -13,7 +14,8 @@ elseif (APPLE)
 #	set(FREETYPE_LIBRARIES libfreetype.dylib)
 elseif (UNIX)
 	set(SDL_LIBRARY libSDL2.so)
-	set(FREETYPE_LIBRARIES /usr/lib/x86_64-linux-gnu/libfreetype.so.6)
+	set(FREETYPE_LIBRARIES	/usr/lib/x86_64-linux-gnu/libfreetype.so.6)
+	set(PNG_LIBRARY			/usr/lib/x86_64-linux-gnu/libpng12.so)
 endif ()
 
 message(CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME})
@@ -22,6 +24,8 @@ message(SDL_LIBRARY = ${SDL_LIBRARY})
 message(SDL_INCLUDE_DIR = ${SDL_INCLUDE_DIR})
 message(FREETYPE_LIBRARIES = ${FREETYPE_LIBRARIES})
 message(FREETYPE_INCLUDE_DIRS = ${FREETYPE_INCLUDE_DIRS})
+message(PNG_LIBRARY = ${PNG_LIBRARY})
+message(PNG_INCLUDE_DIR = ${PNG_INCLUDE_DIR})
 
 add_library(GLSC3D
 		g_arrow.c
@@ -39,7 +43,7 @@ add_library(GLSC3D
 		g_direction_private.c
 		g_ellipse_3D.c
 		g_fan.cpp
-		g_fundamentals.c
+		g_cls_finish.c
 		g_init.cpp
 		g_input.c
 		g_isosurface.c
@@ -48,6 +52,7 @@ add_library(GLSC3D
 		g_marker.cpp
 		g_matrix_private.c
 		g_move_plot.c
+		g_off_screen.c
 		g_polygon_polyline.c
 		g_prism_3D.c
 		g_pyramid_3D.c
@@ -65,4 +70,4 @@ add_library(GLSC3D
 		../Include/glsc3d_private.h
 )
 
-target_link_libraries(GLSC3D ${OPENGL_gl_LIBRARY} ${SDL_LIBRARY} ${FREETYPE_LIBRARIES})
+target_link_libraries(GLSC3D ${OPENGL_gl_LIBRARY} ${SDL_LIBRARY} ${FREETYPE_LIBRARIES} ${PNG_LIBRARY})

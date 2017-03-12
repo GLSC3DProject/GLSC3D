@@ -8,8 +8,8 @@
 #pragma execution_character_set("UTF-8")
 #endif
 
-#define WINDOW_SIZE_X     (600)
-#define WINDOW_SIZE_Y     (600)
+#define WINDOW_SIZE_X     (320)
+#define WINDOW_SIZE_Y     (320)
 
 //void g_text_render(double x, double y, const char *str);
 

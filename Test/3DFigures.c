@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
 	g_init("GLSC3D", Size * CountX, Size * CountY);
 
-	g_init_light(0, 0, -1, 1);
+	g_init_light(0, 0, 0, -1);
 //	g_init_light(0, 1, -1, 1);
 
 //	g_scr_color(1, 1, 1);
@@ -51,10 +51,10 @@ int main(int argc, char *argv[])
 
 		g_sel_scale_3D(5);
 		g_box_3D_core(0, 0, 0, 3, 2, 1.5, 0, WIRE_OR_FILL);
-		
+
 		g_sel_scale_3D(6);
 		g_sphere_3D_core(0, 0, 0, 1, 8, 0, WIRE_OR_FILL);
-		
+
 		g_sel_scale_3D(7);
 		g_rectangle_3D_core(0, 0, 0, c, s, 0, 3, 2, 0, 0, WIRE_OR_FILL);
 

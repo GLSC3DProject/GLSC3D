@@ -31,15 +31,12 @@ void g_init_core(
 
 #ifdef G_USE_CORE_PROFILE
 	g_shader_program_init();
-
-//	g_input_init();
 	g_text_init();
 #else
 	GLfloat specular[4] = {1, 1, 1, 1};
 
 	glShadeModel(GL_SMOOTH);
 
-//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 //	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
 
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
@@ -80,13 +77,6 @@ void g_init_core(
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //	g_finish();
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	//if(WindowName == G_OFF_SCREEN)
-	//{
-	//	g_init_off_screen_rendering();
-	//	g_begin_off_screen_rendering();
-	//	glutHideWindow();
-	//}
 }
 
 void g_init (const char *WindowName,int width,int height)

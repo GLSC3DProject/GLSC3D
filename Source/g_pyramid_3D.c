@@ -18,8 +18,8 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 	for(i=0;i<N;i++)
 	{
 		r0 = center;
-		r1 = Heiko3Ds(Ry(Rz(Rx(Rx(r,psi),i*dth),phi),theta),center);
-		r2 = Heiko3Ds(Ry(Rz(Rx(Rx(r,psi),(i+1)*dth),phi),theta),center);
+		r1 = g_plus(Ry(Rz(Rx(Rx(r,psi),i*dth),phi),theta),center);
+		r2 = g_plus(Ry(Rz(Rx(Rx(r,psi),(i+1)*dth),phi),theta),center);
 		if(WireFill==1)
 		{
 			g_triangle_3D_core(r0.x, r0.y, r0.z,
@@ -32,9 +32,9 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 			g_move_3D(r1.x,r1.y,r1.z);
 			g_plot_3D(r2.x,r2.y,r2.z);
 		}
-		r0 = Heiko3Ds(Ry(Rz(top,phi),theta),center);
-		r1 = Heiko3Ds(Ry(Rz(Rx(Rx(r,psi),i*dth),phi),theta),center);
-		r2 = Heiko3Ds(Ry(Rz(Rx(Rx(r,psi),(i+1)*dth),phi),theta),center);
+		r0 = g_plus(Ry(Rz(top,phi),theta),center);
+		r1 = g_plus(Ry(Rz(Rx(Rx(r,psi),i*dth),phi),theta),center);
+		r2 = g_plus(Ry(Rz(Rx(Rx(r,psi),(i+1)*dth),phi),theta),center);
 		if(WireFill==1)
 		{
 			g_triangle_3D_core(r0.x, r0.y, r0.z,

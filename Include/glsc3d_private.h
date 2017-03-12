@@ -37,7 +37,7 @@
 
 #define PI M_PI
 
-// Comment out to use legacy implementations
+// Comment out to use legacy implementation
 #define G_USE_CORE_PROFILE
 
 #ifdef __cplusplus
@@ -87,14 +87,13 @@ Action(PFNGLGENSAMPLERSPROC,                glGenSamplers) \
 Action(PFNGLBINDSAMPLERPROC,                glBindSampler) \
 Action(PFNGLSAMPLERPARAMETERIPROC,          glSamplerParameteri) \
 Action(PFNGLBINDBUFFERBASEPROC,             glBindBufferBase) \
+Action(PFNGLGENRENDERBUFFERSPROC,           glGenRenderbuffers) \
+Action(PFNGLBINDRENDERBUFFERPROC,           glBindRenderbuffer) \
+Action(PFNGLRENDERBUFFERSTORAGEPROC,        glRenderbufferStorage) \
+Action(PFNGLGENFRAMEBUFFERSPROC,            glGenFramebuffers) \
+Action(PFNGLBINDFRAMEBUFFERPROC,            glBindFramebuffer) \
+Action(PFNGLFRAMEBUFFERRENDERBUFFERPROC,    glFramebufferRenderbuffer) \
 Action(PFNGLDEBUGMESSAGECALLBACKPROC,       glDebugMessageCallback)
-//Action(PFNGLACTIVETEXTUREPROC,            glActiveTexture) \
-//Action(PFNGLGENRENDERBUFFERSPROC,         glGenRenderbuffers) \
-//Action(PFNGLBINDRENDERBUFFERPROC,         glBindRenderbuffer) \
-//Action(PFNGLRENDERBUFFERSTORAGEPROC,      glRenderbufferStorage) \
-//Action(PFNGLGENFRAMEBUFFERSPROC,          glGenFramebuffers) \
-//Action(PFNGLBINDFRAMEBUFFERPROC,          glBindFramebuffer) \
-//Action(PFNGLFRAMEBUFFERRENDERBUFFERPROC,  glFramebufferRenderbuffer)
 
 G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 
@@ -117,10 +116,6 @@ G_VECTOR Rx(G_VECTOR u,G_REAL theta);
 G_VECTOR Ry(G_VECTOR u,G_REAL theta);
 G_VECTOR Rz(G_VECTOR u,G_REAL theta);
 
-G_VECTOR Heiko3D(G_VECTOR u,G_REAL x,G_REAL y,G_REAL z);
-G_VECTOR Heiko3Ds(G_VECTOR u,G_VECTOR r);
-
-G_VECTOR Scaling3D(G_VECTOR u,G_REAL x,G_REAL y,G_REAL z);
 G_VECTOR Scaling3Ds(G_VECTOR u,G_VECTOR s);
 
 G_VECTOR Rx2D(G_VECTOR u,G_REAL theta);
@@ -180,7 +175,7 @@ typedef struct
 
 static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal)
 {
-	G_VERTEX v = {position, 1, normal, 0, g_current_color};
+	G_VERTEX v = {position, 1, normal, 0, g_current_area_color_3D};
 	return v;
 }
 
@@ -207,7 +202,9 @@ void g_triangle_buffer_flush();
 void g_move_s(G_VECTOR u);
 void g_plot_s(G_VECTOR u);
 
-void g_input_init(void);
+void g_keyboard_func(G_KEY_CODE_CONSTANT key, G_INPUT_STATE state);
+void g_mouse_func(G_KEY_CODE_CONSTANT button, G_INPUT_STATE state, int x, int y);
+
 void g_get_input(void);
 
 // ---- g_triangle.c

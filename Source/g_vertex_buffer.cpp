@@ -61,7 +61,7 @@ void g_vertex_buffer_append(G_VERTEX vertex)
 
 void g_emit_vertex(G_VECTOR position)
 {
-	g_vertex_buffer_append(g_make_vertex(position, g_vector_zero));
+	g_vertex_buffer_append({position, 1, g_vector_zero, 0, g_current_color});
 }
 
 void g_vertex_buffer_flush()

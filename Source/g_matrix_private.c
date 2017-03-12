@@ -70,52 +70,6 @@ G_VECTOR Rz(G_VECTOR u,G_REAL theta)//uをz軸周りにtheta回転させる
     ans.z = R[2][0] * u.x + R[2][1] * u.y + R[2][2] * u.z;
     return ans;
 }
-G_VECTOR Heiko3D(G_VECTOR u,G_REAL x,G_REAL y,G_REAL z)//uを(x,y,z)平行移動させる
-{
-    G_VECTOR ans = g_vector(0, 0, 0);
-    
-    G_REAL R[4][4] = {
-        {1,     0,      0,      x},
-        {0,     1,      0,      y},
-        {0,     0,      1,      z},
-        {0,     0,      0,      1}
-    };
-    
-    ans.x = R[0][0] * u.x + R[0][1] * u.y + R[0][2] * u.z + R[0][3] * 1;
-    ans.y = R[1][0] * u.x + R[1][1] * u.y + R[1][2] * u.z + R[1][3] * 1;
-    ans.z = R[2][0] * u.x + R[2][1] * u.y + R[2][2] * u.z + R[2][3] * 1;
-    return ans;
-}
-G_VECTOR Heiko3Ds(G_VECTOR u,G_VECTOR r)//uを(r.x,r.y,r.z)平行移動させる
-{
-    G_VECTOR ans = g_vector(0, 0, 0);
-    
-    G_REAL R[4][4] = {
-        {1,     0,      0,      r.x},
-        {0,     1,      0,      r.y},
-        {0,     0,      1,      r.z},
-        {0,     0,      0,      1}
-    };
-    
-    ans.x = R[0][0] * u.x + R[0][1] * u.y + R[0][2] * u.z + R[0][3] * 1;
-    ans.y = R[1][0] * u.x + R[1][1] * u.y + R[1][2] * u.z + R[1][3] * 1;
-    ans.z = R[2][0] * u.x + R[2][1] * u.y + R[2][2] * u.z + R[2][3] * 1;
-    return ans;
-}
-G_VECTOR Scaling3D(G_VECTOR u, G_REAL x, G_REAL y, G_REAL z)//uをx,y,z方向にそれぞれx,y,z倍する
-{
-    G_VECTOR ans = g_vector(0, 0, 0);
-    
-    G_REAL R[3][3] = {
-        {x,    0,    0},
-        {0,    y,    0},
-        {0,    0,    z}
-    };
-    ans.x = R[0][0] * u.x + R[0][1] * u.y + R[0][2] * u.z;
-    ans.y = R[1][0] * u.x + R[1][1] * u.y + R[1][2] * u.z;
-    ans.z = R[2][0] * u.x + R[2][1] * u.y + R[2][2] * u.z;
-    return ans;
-}
 G_VECTOR Scaling3Ds(G_VECTOR u, G_VECTOR s)//uをx,y,z方向にそれぞれs.x,s.y,s.z倍する
 {
     G_VECTOR ans = g_vector(0, 0, 0);

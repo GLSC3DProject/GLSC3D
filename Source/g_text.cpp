@@ -13,13 +13,15 @@ int g_current_text_size;
 static FT_Library library;
 static FT_Face face = 0;
 
-//struct
-//{
-//	G_COLOR color;
-//	const char *font_type;
-//	unsigned int font_size;
-//}           glsc3D_g_def_text[TotalDisplayNumber], current_font;
-//
+struct G_FONT
+{
+	G_COLOR color;
+	const char *font_type;
+	unsigned int font_size;
+};
+
+G_FONT glsc3D_g_def_text[TotalDisplayNumber];
+
 //const struct
 //{
 //	G_FONT_ID id;
@@ -198,10 +200,10 @@ void g_text_2D_virtual(double x, double y, const char *format, ...)
 	va_end(args);
 }
 
-//void g_text_font(G_FONT_ID id, unsigned int font_size)
-//{
-//	g_text_font_core((const char *)id, font_size);
-//}
+void g_text_font(G_FONT_ID id, unsigned int font_size)
+{
+	g_text_font_core(NULL, font_size);
+}
 
 void g_text_font_core(const char *font_type, unsigned int font_size)
 {
@@ -224,7 +226,7 @@ void g_text_font_core(const char *font_type, unsigned int font_size)
 	g_current_text_size = font_size;
 }
 
-/*
+
 void g_def_text_core(int id, double r, double g, double b, double a, char * font_type, unsigned font_size)
 {
 	glsc3D_g_def_text[id].color = g_color_core(r, g, b, a);
@@ -232,16 +234,16 @@ void g_def_text_core(int id, double r, double g, double b, double a, char * font
 	glsc3D_g_def_text[id].font_size = font_size;
 }
 
+
 void g_def_text(int id, double r, double g, double b, double a, int font, unsigned int font_size)
 {
-	g_def_text_core(id, r, g, b, a, (char*)(long long)font, font_size);
+	g_def_text_core(id, r, g, b, a, NULL, font_size);
 }
 
 void g_sel_text(int id)
 {
-	g_text_color_s(glsc3D_g_def_text[id].color);
+	g_current_text_color = glsc3D_g_def_text[id].color;
 	g_text_font_core(glsc3D_g_def_text[id].font_type, glsc3D_g_def_text[id].font_size);
 }
-*/
 
 #endif

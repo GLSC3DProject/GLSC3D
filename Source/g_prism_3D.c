@@ -21,26 +21,26 @@ void g_prism_3D_core(double center_x, double center_y, double center_z,         
 	{	
 		for(i=0;i<N;i++)
 		{
-			r0 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(-0.5,top)),0*dth),phi),theta),center);
-			r1 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(-0.5,top)),i*dth),phi),theta),center);
-			r2 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(-0.5,top)),(i+1)*dth),phi),theta),center);
+			r0 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(-0.5,top)),0*dth),phi),theta),center);
+			r1 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(-0.5,top)),i*dth),phi),theta),center);
+			r2 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(-0.5,top)),(i+1)*dth),phi),theta),center);
 			g_triangle_3D_core(r0.x, r0.y, r0.z,
 					r1.x, r1.y, r1.z,
 					r2.x, r2.y, r2.z,
 					DivideLevel,WireFill);
 
-			r0 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(0.5,top)),0*dth),phi),theta),center);
-			r1 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(0.5,top)),i*dth),phi),theta),center);
-			r2 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(0.5,top)),(i+1)*dth),phi),theta),center);
+			r0 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(0.5,top)),0*dth),phi),theta),center);
+			r1 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(0.5,top)),i*dth),phi),theta),center);
+			r2 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(0.5,top)),(i+1)*dth),phi),theta),center);
 			g_triangle_3D_core(r0.x, r0.y, r0.z,
 					r1.x, r1.y, r1.z,
 					r2.x, r2.y, r2.z,
 					DivideLevel, WireFill);
 
-			r0 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(-0.5,top)),i*dth),phi),theta),center);
-			r1 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(-0.5,top)),(i+1)*dth),phi),theta),center);
-			r2 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(0.5,top)),(i+1)*dth),phi),theta),center);
-			r3 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(0.5,top)),i*dth),phi),theta),center);
+			r0 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(-0.5,top)),i*dth),phi),theta),center);
+			r1 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(-0.5,top)),(i+1)*dth),phi),theta),center);
+			r2 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(0.5,top)),(i+1)*dth),phi),theta),center);
+			r3 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(0.5,top)),i*dth),phi),theta),center);
 			g_triangle_3D_core(r0.x, r0.y, r0.z,
 					r1.x, r1.y, r1.z,
 					r3.x, r3.y, r3.z,
@@ -56,20 +56,20 @@ void g_prism_3D_core(double center_x, double center_y, double center_z,         
 	{	
 		for(i=0;i<N;i++)
 		{
-			r1 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(-0.5,top)),i*dth),phi),theta),center);
-			r2 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(-0.5,top)),(i+1)*dth),phi),theta),center);
+			r1 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(-0.5,top)),i*dth),phi),theta),center);
+			r2 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(-0.5,top)),(i+1)*dth),phi),theta),center);
 			g_move_3D(r1.x,r1.y,r1.z);
 			g_plot_3D(r2.x,r2.y,r2.z);
 
-			r1 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(0.5,top)),i*dth),phi),theta),center);
-			r2 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(0.5,top)),(i+1)*dth),phi),theta),center);
+			r1 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(0.5,top)),i*dth),phi),theta),center);
+			r2 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(0.5,top)),(i+1)*dth),phi),theta),center);
 			g_move_3D(r1.x,r1.y,r1.z);
 			g_plot_3D(r2.x,r2.y,r2.z);
 
-			r0 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(-0.5,top)),i*dth),phi),theta),center);
-			r1 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(-0.5,top)),(i+1)*dth),phi),theta),center);
-			r2 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(0.5,top)),(i+1)*dth),phi),theta),center);
-			r3 = Heiko3Ds(Ry(Rz(Rx(Heiko3Ds(Rx(r,psi),g_multi(0.5,top)),i*dth),phi),theta),center);
+			r0 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(-0.5,top)),i*dth),phi),theta),center);
+			r1 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(-0.5,top)),(i+1)*dth),phi),theta),center);
+			r2 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(0.5,top)),(i+1)*dth),phi),theta),center);
+			r3 = g_plus(Ry(Rz(Rx(g_plus(Rx(r,psi),g_multi(0.5,top)),i*dth),phi),theta),center);
 			g_move_3D(r0.x,r0.y,r0.z);
 			g_plot_3D(r1.x,r1.y,r1.z);
 			g_move_3D(r2.x,r2.y,r2.z);

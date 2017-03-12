@@ -102,7 +102,7 @@ static void do_isosurface(const MarchingCube *Cube,MarchingTetrahedron *Tetrahed
         {
             if(SankakuShikaku == 3)
             {
-               r0 = g_position3Ds(Edge[EdgeMember[0]].r);
+                r0 = g_position3Ds(Edge[EdgeMember[0]].r);
 
                 if(g_dot(n,n1) > 0) r1 = g_position3Ds(Edge[EdgeMember[1]].r), r2 = g_position3Ds(Edge[EdgeMember[2]].r);
                 else r1 = g_position3Ds(Edge[EdgeMember[2]].r), r2 = g_position3Ds(Edge[EdgeMember[1]].r);
@@ -124,7 +124,7 @@ static void do_isosurface(const MarchingCube *Cube,MarchingTetrahedron *Tetrahed
                     r0 = g_position3Ds(Edge[1].r);
                     r2 = g_position3Ds(Edge[5].r);
 
-                    if(g_dot(n,n1) > 0) r1 = g_position3Ds(Edge[3].r), r3 = g_position3Ds(Edge[4].r);
+                    if(g_dot(n,n1) < 0) r1 = g_position3Ds(Edge[3].r), r3 = g_position3Ds(Edge[4].r);
                     else r1 = g_position3Ds(Edge[4].r),r3 = g_position3Ds(Edge[3].r);
                 }
                 else
@@ -132,7 +132,7 @@ static void do_isosurface(const MarchingCube *Cube,MarchingTetrahedron *Tetrahed
                     r0 = g_position3Ds(Edge[3].r);
                     r2 = g_position3Ds(Edge[4].r);
 
-                    if(g_dot(n,n1) < 0) r1 = g_position3Ds(Edge[2].r),r3 = g_position3Ds(Edge[6].r);
+                    if(g_dot(n,n1) > 0) r1 = g_position3Ds(Edge[2].r),r3 = g_position3Ds(Edge[6].r);
                     else r1 = g_position3Ds(Edge[6].r),r3 = g_position3Ds(Edge[2].r);
                 }
                 g_triangle_3D_cores(r0,r1,r2,DIVIDE_LEVEL,WIRE_OR_FILL);
