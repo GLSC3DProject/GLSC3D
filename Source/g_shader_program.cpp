@@ -36,9 +36,9 @@ G_BOOL g_lighting_enabled;
 	"layout(location = 2) out vec4 vary_position;\n" \
 	"void main() {\n" \
 	"	vec4 view_pos = view * in_position;\n" \
-	"	gl_Position = proj * view_pos;\n" \
+	"	gl_Position = proj * vec4(view_pos.xyz, 1);\n" \
 	"	vary_color = in_color;\n" \
-	"	vary_normal = view * in_normal;\n" \
+	"	vary_normal = view * vec4(in_normal.xyz, 0);\n" \
 	"	vary_position = view_pos;\n" \
 	"}"
 
@@ -52,6 +52,7 @@ G_BOOL g_lighting_enabled;
 	"void main() {\n" \
 	"	vec3 half_vec = normalize(light.direction.xyz - normalize(vary_position.xyz));\n" \
 	"	vec3 normal = normalize(vary_normal.xyz);\n" \
+	"	normal *= gl_FrontFacing ? 1.0 : -1.0;\n" \
 	"	float amb_dif = light.ambient + light.diffuse * max(dot(light.direction.xyz, normal), 0);\n" \
 	"	float spec = light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);\n" \
 	"	out_color = vec4(amb_dif * vary_color.rgb + spec, vary_color.a);\n" \

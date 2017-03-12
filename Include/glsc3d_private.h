@@ -37,6 +37,7 @@
 
 #define PI M_PI
 
+// Comment out to use legacy implementations
 #define G_USE_CORE_PROFILE
 
 #ifdef __cplusplus
@@ -44,7 +45,6 @@ extern "C"
 {
 #endif
 
-// Comment out this to use legacy implementations
 #ifdef G_USE_CORE_PROFILE
 
 enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
@@ -98,6 +98,7 @@ Action(PFNGLDEBUGMESSAGECALLBACKPROC,       glDebugMessageCallback)
 
 G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 
+// Uncomment to enable OpenGL debug messages
 #define G_ENABLE_OPENGL_DEBUG_CALLBACK
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
@@ -150,11 +151,7 @@ typedef enum
 }G_ROTATE_DIRECTION;
 
 G_SCREEN g_make_screen(int x, int y, int width, int height);
-//G_CAMERA g_make_camera_core(float fovy, float near, float far, float eyeX, float  eyeY, float  eyeZ, float  centerX, float  centerY, float  centerZ, float  upX, float  upY, float  upZ);
-//G_CAMERA g_make_camera(float eyeX, float  eyeY, float  eyeZ, float  centerX, float  centerY, float  centerZ);
-//G_CAMERA g_make_camera_2D(float X, float  Y);
 G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR direction, float r, float aspect, G_VECTOR up);
-//G_CAMERA g_make_camera_3D(float x_left, float x_right, float y_bottom, float y_top, float z_near, float z_far, float direction_x, float direction_y, float direction_z, float r, float aspect);
 G_CAMERA g_make_camera_2D(float x_left, float x_right, float y_bottom, float y_top);
 //void g_camera_rotate(G_CAMERA *cam, G_ROTATE_DIRECTION dire, G_ROTATE_ANCHOR anc, float theta);
 
@@ -207,9 +204,6 @@ void g_triangle_buffer_append(G_TRIANGLE t);
 void g_triangle_buffer_draw();
 void g_triangle_buffer_flush();
 
-void glNormals(G_VECTOR u);
-void glVertexs(G_VECTOR u);
-
 void g_move_s(G_VECTOR u);
 void g_plot_s(G_VECTOR u);
 
@@ -228,9 +222,6 @@ void g_triangle_terminal(G_TRIANGLE t);
 void g_vertex_buffer_init();
 void g_vertex_buffer_append(G_VERTEX vertex);
 void g_emit_vertex(G_VECTOR position);
-
-void g_vertex_buffer_append_line(G_VECTOR a, G_VECTOR b);
-void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c);
 
 void g_vertex_buffer_flush(void);
 

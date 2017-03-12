@@ -63,7 +63,7 @@ int main()
 					1);
 	g_init_light_core(0,1,1,1,1);
 	int i_time;
-	double t,dt = 1./256;
+	double t,dt = 1./32;
 	for(i_time = 0;;i_time++)
 	{
 		t = i_time * dt;

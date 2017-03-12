@@ -24,19 +24,29 @@ struct G_VECTOR
 	G_VECTOR(float x, float y, float z = 0) : x(x), y(y), z(z) {}
 };
 
-static inline G_VECTOR operator +(G_VECTOR u, G_VECTOR v)
+inline G_VECTOR operator +(G_VECTOR u, G_VECTOR v)
 {
 	return G_VECTOR(u.x + v.x, u.y + v.y, u.z + v.z);
 }
 
-static inline G_VECTOR operator -(G_VECTOR u, G_VECTOR v)
+inline G_VECTOR operator -(G_VECTOR u, G_VECTOR v)
 {
 	return G_VECTOR(u.x - v.x, u.y - v.y, u.z - v.z);
 }
 
-static inline G_VECTOR operator *(G_REAL a, G_VECTOR u)
+inline G_VECTOR operator *(G_REAL a, G_VECTOR u)
 {
 	return G_VECTOR(a*u.x, a*u.y, a*u.z);
+}
+
+inline G_VECTOR operator /(G_VECTOR u, G_REAL a)
+{
+	return G_VECTOR(u.x/a, u.y/a, u.z/a);
+}
+
+inline G_VECTOR operator -(G_VECTOR u)
+{
+	return G_VECTOR(-u.x, -u.y, -u.z);
 }
 
 #else
@@ -192,10 +202,12 @@ static inline G_VECTOR g_calc_normal(G_POSITION u, G_POSITION v, G_POSITION w)
 	return g_normalize(g_cross(g_minus(v, u), g_minus(w, u)));
 }
 
-static const G_VECTOR g_vector_zero = {0, 0, 0};
+//static const G_VECTOR g_vector_zero = {0, 0, 0};
 //static const G_VECTOR g_vector_unit_x = {1, 0, 0}, g_vector_unit_y = {0, 1, 0}, g_vector_unit_z = {0, 0, 1};
 
 #ifdef __cplusplus
+
+} // extern "C"
 
 struct G_VECTOR4
 {
@@ -203,15 +215,26 @@ struct G_VECTOR4
 
 	G_VECTOR4() = default;
 	G_VECTOR4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
-
-	//explicit G_VECTOR4(G_VECTOR v) : x(v.x), y(v.y), z(v.z), w(1) {}
+	G_VECTOR4(G_VECTOR v, float w) : x(v.x), y(v.y), z(v.z), w(w) {}
 };
+
+inline G_VECTOR4 operator +(G_VECTOR4 u, G_VECTOR4 v)
+{
+	return G_VECTOR4(u.x + v.x, u.y + v.y, u.z + v.z, u.w + v.w);
+}
+
+inline G_VECTOR4 operator *(float a, G_VECTOR4 u)
+{
+	return G_VECTOR4(a * u.x, a * u.y, a * u.z, a * u.w);
+}
 
 struct G_MATRIX
 {
 	G_VECTOR4 x, y, z, w;
 
 	G_MATRIX() = default;
+	G_MATRIX(G_VECTOR4 x, G_VECTOR4 y, G_VECTOR4 z, G_VECTOR4 w)
+		: x(x), y(y), z(z), w(w) {}
 	G_MATRIX(
 		float xx, float xy, float xz, float xw,
 		float yx, float yy, float yz, float yw,
@@ -221,7 +244,7 @@ struct G_MATRIX
 		x(xx, xy, xz, xw),
 		y(yx, yy, yz, yw),
 		z(zx, zy, zz, zw),
-		w(wx, wy, wz, ww) { };
+		w(wx, wy, wz, ww) {}
 
 	static G_MATRIX Identity()
 	{
@@ -324,19 +347,23 @@ struct G_MATRIX
 	}
 };
 
-//static inline G_MATRIX g_mult_matrix(G_MATRIX A, G_MATRIX B)
-//{
-//
-//}
+inline G_VECTOR operator *(G_VECTOR v, const G_MATRIX &m)
+{
+	return G_VECTOR(
+		v.x * m.x.x + v.y * m.y.x + v.z * m.z.x + m.w.x,
+		v.x * m.x.y + v.y * m.y.y + v.z * m.z.y + m.w.y,
+		v.x * m.x.z + v.y * m.y.z + v.z * m.z.z + m.w.z
+	);
+}
 
-//static inline G_VECTOR g_transform(G_MATRIX m, G_VECTOR v)
-//{
-//	return G_VECTOR(
-//		m.m[0][0] * v.x + m.m[1][0] * v.y + m.m[2][0] * v.z + m.m[3][0],
-//		m.m[0][1] * v.x + m.m[1][1] * v.y + m.m[2][1] * v.z + m.m[3][1],
-//		m.m[0][2] * v.x + m.m[1][2] * v.y + m.m[2][2] * v.z + m.m[3][2]
-//	);
-//}
+inline G_VECTOR g_transform_normal(G_VECTOR v, const G_MATRIX &m)
+{
+	return G_VECTOR(
+		v.x * m.x.x + v.y * m.y.x + v.z * m.z.x,
+		v.x * m.x.y + v.y * m.y.y + v.z * m.z.y,
+		v.x * m.x.z + v.y * m.y.z + v.z * m.z.z
+	);
+}
 
 inline G_VECTOR4 operator *(G_VECTOR4 v, const G_MATRIX &m)
 {
@@ -348,10 +375,20 @@ inline G_VECTOR4 operator *(G_VECTOR4 v, const G_MATRIX &m)
 	);
 }
 
-inline void operator *=(G_VECTOR4 &v, const G_MATRIX &m)
+inline G_MATRIX operator *(const G_MATRIX &A, const G_MATRIX &B)
 {
-	v = v * m;
+	return G_MATRIX(
+		A.x.x * B.x + A.x.y * B.y + A.x.z * B.z + A.x.w * B.w,
+		A.y.x * B.x + A.y.y * B.y + A.y.z * B.z + A.y.w * B.w,
+		A.z.x * B.x + A.z.y * B.y + A.z.z * B.z + A.z.w * B.w,
+		A.w.x * B.x + A.w.y * B.y + A.w.z * B.z + A.w.w * B.w
+	);
 }
+
+//inline void operator *=(G_VECTOR4 &v, const G_MATRIX &m)
+//{
+//	v = v * m;
+//}
 
 #else
 
@@ -359,9 +396,5 @@ typedef struct { float x, y, z, w; } G_VECTOR4;
 typedef struct { G_VECTOR4 x, y, z, w; } G_MATRIX;
 
 #endif // __cplusplus
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

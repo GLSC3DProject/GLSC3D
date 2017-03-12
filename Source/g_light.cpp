@@ -28,10 +28,10 @@ void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit
 
 void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z, float lit_pow)
 {
-//	static GLfloat lit_amb[4]={0.3, 0.3, 0.3, 0.0};	// ŠÂ‹«Œõ‚Ì‹­‚³
-	GLfloat lit_dif[4]={lit_pow, lit_pow, lit_pow, 0.0};	// ŠgUŒõ‚Ì‹­‚³
-	static GLfloat lit_spc[4]={1.0, 1.0, 1.0, 0.0};	// ‹¾–Ê”½ËŒõ‚Ì‹­‚³
-	static GLfloat lit_pos[4]={0.0, 0.0, 0.0, 0.0}; // ŒõŒ¹‚ÌˆÊ’u
+//	static GLfloat lit_amb[4]={0.3, 0.3, 0.3, 0.0};	// ç’°å¢ƒå…‰ã®å¼·ã•
+	GLfloat lit_dif[4]={lit_pow, lit_pow, lit_pow, 0.0};	// æ‹¡æ•£å…‰ã®å¼·ã•
+	static GLfloat lit_spc[4]={1.0, 1.0, 1.0, 0.0};	// é¡é¢åå°„å…‰ã®å¼·ã•
+	static GLfloat lit_pos[4]={0.0, 0.0, 0.0, 0.0}; // å…‰æºã®ä½ç½®
 	int lightname=0;
 	
 	if (lightnum==0) {

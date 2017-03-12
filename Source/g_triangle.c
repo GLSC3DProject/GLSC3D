@@ -51,9 +51,14 @@ void g_triangle_3D_core(double x0, double y0, double z0,
 
 		g_begin_lines();
 		
-		g_vertex_buffer_append_line(r0, r1);
-		g_vertex_buffer_append_line(r1, r2);
-		g_vertex_buffer_append_line(r2, r0);
+		g_emit_vertex(r0);
+		g_emit_vertex(r1);
+
+		g_emit_vertex(r1);
+		g_emit_vertex(r2);
+
+		g_emit_vertex(r2);
+		g_emit_vertex(r0);
 	}
 }
 
@@ -103,14 +108,22 @@ void g_triangle_2D(double x0, double y0,
 	if(WireFill == G_FILL)
 	{
 		g_begin_triangles();
-		g_vertex_buffer_append_triangle_2D(r0, r1, r2);
+
+		g_emit_vertex(r0);
+		g_emit_vertex(r1);
+		g_emit_vertex(r2);
 	}
 	else
 	{
 		g_begin_lines();
-		
-		g_vertex_buffer_append_line(r0, r1);
-		g_vertex_buffer_append_line(r1, r2);
-		g_vertex_buffer_append_line(r2, r0);
+
+		g_emit_vertex(r0);
+		g_emit_vertex(r1);
+
+		g_emit_vertex(r1);
+		g_emit_vertex(r2);
+
+		g_emit_vertex(r2);
+		g_emit_vertex(r0);
 	}
 }

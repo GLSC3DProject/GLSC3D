@@ -2,6 +2,8 @@
 
 static const size_t VERTEX_BUFFER_SIZE = 3 << 12;
 
+static const G_VECTOR g_vector_zero(0, 0, 0);
+
 GLenum g_primitive_mode;
 
 int g_vertex_data_count;
@@ -60,19 +62,6 @@ void g_vertex_buffer_append(G_VERTEX vertex)
 void g_emit_vertex(G_VECTOR position)
 {
 	g_vertex_buffer_append(g_make_vertex(position, g_vector_zero));
-}
-
-void g_vertex_buffer_append_line(G_VECTOR a, G_VECTOR b)
-{
-	g_vertex_buffer_append(g_make_vertex(a, g_vector_zero));
-	g_vertex_buffer_append(g_make_vertex(b, g_vector_zero));
-}
-
-void g_vertex_buffer_append_triangle_2D(G_VECTOR a, G_VECTOR b, G_VECTOR c)
-{
-	g_vertex_buffer_append(g_make_vertex(a, g_vector_zero));
-	g_vertex_buffer_append(g_make_vertex(b, g_vector_zero));
-	g_vertex_buffer_append(g_make_vertex(c, g_vector_zero));
 }
 
 void g_vertex_buffer_flush()

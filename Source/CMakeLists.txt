@@ -32,7 +32,7 @@ add_library(GLSC3D
 		g_color.cpp
 		g_cone.c
 		g_contln_2D.c
-		g_cylinder_3D.c
+		g_cylinder_3D.cpp
 		g_data_plot.c
 		g_debug.cpp
 		g_direction_private.c
