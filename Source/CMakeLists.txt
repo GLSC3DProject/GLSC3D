@@ -29,6 +29,7 @@ message(PNG_LIBRARY = ${PNG_LIBRARY})
 message(PNG_INCLUDE_DIR = ${PNG_INCLUDE_DIR})
 
 add_library(GLSC3D
+		g_area.c
 		g_arrow.c
 		g_bird_view_3D.c
 		g_box.c

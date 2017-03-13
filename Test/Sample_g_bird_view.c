@@ -21,6 +21,7 @@
 int main()
 {
 	g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
+	g_capture_set("");
 
 	g_def_scale_3D_core(0, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, 0, 0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y, 1, 1, 1, 0, 0, 0, 1);
 	
@@ -62,7 +63,7 @@ int main()
 		g_sel_scale_3D(0);
 		g_area_color_3D(1, 0, 0, 1);
 		g_line_color(1, 0, 0, 1);
-		//g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, 0);
+		g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, 0);
 		
 		
 		g_sel_scale_3D(1);
@@ -71,6 +72,7 @@ int main()
 		
 		
 		g_finish();
+		g_capture();
 	}
 	return 0;
 }

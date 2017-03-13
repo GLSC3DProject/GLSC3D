@@ -33,12 +33,13 @@ int main()
 				key = i;
 
 		G_INPUT_STATE mouse_state = g_input_state(G_MOUSE_LEFT, &x, &y);
-		if (g_input_state(G_MOUSE_LEFT, &x, &y) == G_DOWN)
+		if (mouse_state == G_DOWN) {
 			down_x = x, down_y = y;
-		if (g_input_state(G_MOUSE_LEFT, &x, &y) == G_UP)
+		} else if (mouse_state == G_UP) {
 			up_x = x, up_y = y;
+		}
 
-		if (500 <= down_x && down_x <= 620 && 20 <= down_y && down_y <= 140)
+		if (500 <= up_x && up_x <= 620 && 20 <= up_y && up_y <= 140)
 			break;
 
 //		printf("b");

@@ -105,12 +105,12 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
 }
 
 //deprecated
-//void g_bird_view_3D(double x0, double x1,      //図を表示したい範囲
-//		double y0, double y1,      //図を表示したい範囲
-//		int N_x, int N_y,                   //配列のサイズ
-//		double data[N_x][N_y],              //二次元配列
-//		G_WIREFILL WireFill)
-//{
-//	g_bird_view_f_3D(x0, x1, y0, y1, N_y, N_x, &data[0][0], WireFill);
-//}
+void g_bird_view_3D(double x0, double x1,      //図を表示したい範囲
+		double y0, double y1,      //図を表示したい範囲
+		int N_x, int N_y,                   //配列のサイズ
+		double data[N_x][N_y],              //二次元配列
+		G_WIREFILL WireFill)
+{
+	g_bird_view_f_3D(x0, x1, y0, y1, N_y, N_x, &data[0][0], WireFill);
+}
 #undef data

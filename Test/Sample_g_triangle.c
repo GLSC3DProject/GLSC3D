@@ -35,13 +35,13 @@ int main()
 		g_triangle_2D(1, 1, 0, 0, 0, 1, G_FILL);
         
         g_sel_scale_3D(0);
-		
+
         g_line_color(1, 0, 0, 1);
         g_triangle_3D(0,-2.5,0,0,0.5,2,0,2.5,2,G_WIRE);
-		
+
         g_area_color_3D(1, 0, 0, 1);
         g_triangle_3D(2,-0.5,0,-2.5,0,0,2,-0.5,2,G_FILL);
-        
+
         g_finish();
     }
     return 0;

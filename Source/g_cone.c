@@ -49,7 +49,7 @@ void g_cone_3D_core(double center_x, double center_y, double center_z,          
 
 	//r0 = g_plus(Ry(Rz(r,phi),theta),center);
 	r0 = center;
-	for(i=0;i<=n;i++)
+	for(i=0;i<n;i++)
 	{
 		r1 = g_plus(Ry(Rz(Rx(r,i*dth),phi),theta),center);
 		r2 = g_plus(Ry(Rz(Rx(r,(i+1)*dth),phi),theta),center);
@@ -69,7 +69,7 @@ void g_cone_3D_core(double center_x, double center_y, double center_z,          
 
 	for(j=0;j<stack;j++)
 	{
-		for(i=0;i<=n;i++)
+		for(i=0;i<n;i++)
 		{
 			r0 = g_plus(Ry(Rz(Rx(g_plus(g_multi(j*stack_size,r),g_multi(1-j*stack_size,top)),i*dth),phi),theta),center);
 			r1 = g_plus(Ry(Rz(Rx(g_plus(g_multi((j+1)*stack_size,r),g_multi(1-(j+1)*stack_size,top)),i*dth),phi),theta),center);

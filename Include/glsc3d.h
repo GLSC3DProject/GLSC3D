@@ -94,6 +94,13 @@ void g_init_core (
 
 void g_init (const char *WindowName,int width,int height);
 
+// ----g_area.c
+
+void g_def_area_2D(int id, double r, double g, double b, double a);
+void g_sel_area_2D(int id);
+void g_def_area_3D(int id, double r, double g, double b, double a);
+void g_sel_area_3D(int id);
+
 // ---- g_color.cpp
 
 void g_area_color_3D(double r, double g, double b, double a);
@@ -168,31 +175,31 @@ void g_text_font_core(const char *font_type, unsigned int font_size);
 void g_def_text(int id, double r, double g, double b, double a, int font, unsigned int font_size);
 void g_sel_text(int id);
 
-//#ifndef __cplusplus
-//
-//void g_bird_view_3D(double x0, double x1,
-//	double y0, double y1,
-//	int N_x, int N_y,
-//	double data[N_x][N_y],
-//	G_WIREFILL WireFill);
-//
-//void g_contln_2D(double x_left, double x_right,
-//	double y_bottom, double y_top,
-//	int N_x, int N_y,
-//	double data2D[N_x][N_y],
-//	double level);
-//void g_isosurface_3D(double x0, double x1,
-//	double y0, double y1,
-//	double z0, double z1,
-//	int number_x, int number_y, int number_z,
-//	double u[number_x][number_y][number_z],
-//	double height);
-//void g_data_plot_3D(double x0, double x1,
-//	double y0, double y1,
-//	int N_x, int N_y,
-//	double data[N_x][N_y]);
-//
-//#endif
+#ifndef __cplusplus
+
+void g_bird_view_3D(double x0, double x1,
+	double y0, double y1,
+	int N_x, int N_y,
+	double data[N_x][N_y],
+	G_WIREFILL WireFill);
+
+void g_contln_2D(double x_left, double x_right,
+	double y_bottom, double y_top,
+	int N_x, int N_y,
+	double data2D[N_x][N_y],
+	double level);
+void g_isosurface_3D(double x0, double x1,
+	double y0, double y1,
+	double z0, double z1,
+	int number_x, int number_y, int number_z,
+	double u[number_x][number_y][number_z],
+	double height);
+void g_data_plot_3D(double x0, double x1,
+	double y0, double y1,
+	int N_x, int N_y,
+	double data[N_x][N_y]);
+
+#endif
 
 
 void g_bird_view_f_3D(double x0, double x1,

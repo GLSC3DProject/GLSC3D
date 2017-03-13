@@ -36,7 +36,7 @@ void g_mouse_func(G_KEY_CODE_CONSTANT button, G_INPUT_STATE state, int x, int y)
 void update_input_key_state()
 {
 	for(int i = 0; i < INPUT_KEY_MAX; ++i)
-		input_key[i] = (input_key[i] & 1) ? G_REPEAT : G_NONE;
+		input_key[i] = G_NONE;
 }
 
 G_INPUT_STATE g_key_state(G_KEY_CODE key)

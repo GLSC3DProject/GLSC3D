@@ -22,6 +22,8 @@
 int main()
 {
 	g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
+	g_scr_color(1, 1, 1);
+	g_line_width(4);
 	
 	g_def_scale_2D(0,-2, 2, -2, 2,0, 0,WINDOW_SIZE_X, WINDOW_SIZE_Y);
 	

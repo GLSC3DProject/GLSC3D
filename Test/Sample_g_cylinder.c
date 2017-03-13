@@ -11,7 +11,7 @@ int main()
     g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
     
     g_def_scale_3D(0,-2, 2, -2, 2, -2, 2,0, 0,WINDOW_SIZE_X, WINDOW_SIZE_Y,1,1,1,1);
-    g_init_light_core(0,-1,3,3,5);
+    g_init_light_core(0,-1,1,3,1);
     
     
     int i_time;

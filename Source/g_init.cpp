@@ -49,6 +49,7 @@ void g_init_core(
 	glDepthFunc(GL_LEQUAL);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
+	glEnable(GL_LINE_SMOOTH);
 
 	g_enable_transparent = g_enable_transparent_out;
 

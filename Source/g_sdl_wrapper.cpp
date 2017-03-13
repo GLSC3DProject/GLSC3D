@@ -97,6 +97,9 @@ void g_poll_events()
 			g_quit();
 		}
 		else if (event.type == SDL_KEYDOWN) {
+			if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				g_quit();
+
 			g_keyboard_event(event.key.keysym, G_DOWN);
 		}
 		else if (event.type == SDL_KEYUP) {

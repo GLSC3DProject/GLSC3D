@@ -52,7 +52,7 @@ G_BOOL g_lighting_enabled;
 	"void main() {\n" \
 	"	vec3 half_vec = normalize(light.direction.xyz - normalize(vary_position.xyz));\n" \
 	"	vec3 normal = normalize(vary_normal.xyz);\n" \
-	"//	normal *= gl_FrontFacing ? 1.0 : -1.0;\n" \
+	"	normal *= gl_FrontFacing ? 1.0 : -1.0;\n" \
 	"	float amb_dif = light.ambient + light.diffuse * max(dot(light.direction.xyz, normal), 0);\n" \
 	"	float spec = light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);\n" \
 	"	out_color = vec4(amb_dif * vary_color.rgb + spec, vary_color.a);\n" \
