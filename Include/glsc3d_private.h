@@ -14,7 +14,6 @@
 #include <stdlib.h>
 
 #ifdef __APPLE__
-#include <OpenGL/gl.h>
 #include <OpenGL/gl3.h>
 #endif
 
@@ -45,15 +44,9 @@ extern "C"
 {
 #endif
 
-#ifdef G_USE_CORE_PROFILE
-
-enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
-
-void g_shader_program_init();
-void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
-
 // In Windows and Linux, it is required to get address of OpenGL 1.2+ functions.
-#if defined(_WIN32) || defined(__linux__)
+#if defined(G_USE_CORE_PROFILE) && (defined(_WIN32) || defined(__linux__))
+
 #define G_NEED_GET_GLEXT_PROC_ADDRESS
 
 #define G_EXTERN_DECL_GLEXT(Type, Name) extern Type Name;
@@ -104,9 +97,7 @@ G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user);
 #endif
 
-#endif //defined(_WIN32) || defined(__linux__)
-
-#endif //G_USE_CORE_PROFILE
+#endif //defined(G_USE_CORE_PROFILE) && (defined(_WIN32) || defined(__linux__))
 
 G_REAL g_direction_phi(G_VECTOR v);
 G_REAL g_direction_theta(G_VECTOR v);
@@ -215,6 +206,24 @@ void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int 
 void g_set_triangle(G_TRIANGLE t);
 void g_triangle_terminal(G_TRIANGLE t);
 
+// ---- g_sdl_wrapper.c
+
+void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height);
+void g_swap_buffers(void);
+void g_poll_events(void);
+void g_quit(void);
+
+// ---- g_shader_program.c
+
+enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
+
+void g_shader_program_init();
+void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
+
+void g_enable_lighting(void);
+void g_disable_lighting(void);
+void g_activate_texture_mode(void);
+
 // ---- g_vertex_buffer.c
 
 void g_vertex_buffer_init();
@@ -232,19 +241,6 @@ void g_begin_line_loop(void);
 
 void g_begin_triangle_strip(void);
 void g_begin_triangle_fan(void);
-
-// ---- g_shader_program.c
-
-void g_enable_lighting(void);
-void g_disable_lighting(void);
-void g_activate_texture_mode(void);
-
-// ---- g_sdl_wrapper.c
-
-void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height);
-void g_swap_buffers(void);
-void g_poll_events(void);
-void g_quit(void);
 
 #ifdef __cplusplus
 }

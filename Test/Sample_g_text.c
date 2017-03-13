@@ -35,6 +35,7 @@ int main()
 
 		int x = 20, y = 0, dy = 25;
 		g_text_font_core(NULL, 24);
+
 		// 1-byte characters
 		g_text_standard(x, y += dy, "Hello, World!");
 
