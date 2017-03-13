@@ -21,7 +21,6 @@
 int main()
 {
 	g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
-	g_capture_set("");
 
 	g_def_scale_3D_core(0, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, 0, 0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y, 1, 1, 1, 0, 0, 0, 1);
 	
@@ -72,7 +71,6 @@ int main()
 		
 		
 		g_finish();
-		g_capture();
 	}
 	return 0;
 }
