@@ -66,11 +66,11 @@ extern int g_enable_transparent;
 extern int TRIANGLE_BUFFER_SIZE;
 extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
-#ifndef NDEBUG
-#define DBG_WRITE(...) fprintf(stderr, "%s:%d In function '%s'", __FILE__, __LINE__, __func__), fprintf(stderr, "  "  __VA_ARGS__), fprintf(stderr, "\n")
-#else
+//#ifndef NDEBUG
+//#define DBG_WRITE(...) fprintf(stderr, "%s:%d In function '%s'", __FILE__, __LINE__, __func__), fprintf(stderr, "  "  __VA_ARGS__), fprintf(stderr, "\n")
+//#else
 #define DBG_WRITE(...)
-#endif
+//#endif
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 extern int color2D_id;

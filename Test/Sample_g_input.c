@@ -13,7 +13,7 @@ int main()
 	g_def_scale_2D(0, 0, 640, 480, 0, 0, 0, 640, 480);
 	g_sel_scale_2D(0);
 	g_def_text(0, 1, 1, 1, 1, 0, 20);
-	g_def_text(1, 1, 0, 0, 1, 0, 20);
+	g_def_text(1, 0, 0, 0, 1, 0, 20);
 
 	while (1)
 	{
@@ -31,6 +31,8 @@ int main()
 		for (int i = 0; i < 128; ++i)
 			if(g_input_state(i, 0, 0) == G_DOWN)
 				key = i;
+
+		G_INPUT_STATE mouse_state = g_input_state(G_MOUSE_LEFT, &x, &y);
 		if (g_input_state(G_MOUSE_LEFT, &x, &y) == G_DOWN)
 			down_x = x, down_y = y;
 		if (g_input_state(G_MOUSE_LEFT, &x, &y) == G_UP)

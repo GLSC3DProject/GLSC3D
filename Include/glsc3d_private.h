@@ -190,6 +190,7 @@ void g_text_init();
 extern int				glsc3D_width;
 extern int				glsc3D_height;
 extern float			g_screen_scale_factor;
+extern float			g_retina_scale_factor;
 
 extern int				get_scale_id_number;
 extern G_DIMENSION		g_scale_dim_flag;
@@ -205,7 +206,7 @@ void g_plot_s(G_VECTOR u);
 void g_keyboard_func(G_KEY_CODE_CONSTANT key, G_INPUT_STATE state);
 void g_mouse_func(G_KEY_CODE_CONSTANT button, G_INPUT_STATE state, int x, int y);
 
-void g_get_input(void);
+void update_input_key_state(void);
 
 // ---- g_triangle.c
 

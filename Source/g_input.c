@@ -6,17 +6,16 @@
 							//in place of control character.
 
 G_INPUT_STATE input_key[INPUT_KEY_MAX];
-struct 
-{
-	int x, y;
-}click_pos;
+
+struct { int x, y; } click_pos;
 
 void g_keyboard_func(G_KEY_CODE_CONSTANT key, G_INPUT_STATE state)
 {
-	if (state == G_DOWN)
-		input_key[key] |= 1;
-	if (state == G_UP)
-		input_key[key] &= ~2;
+//	if (state == G_DOWN)
+//		input_key[key] |= 1;
+//	if (state == G_UP)
+//		input_key[key] &= ~2;
+	input_key[key] = state;
 }
 
 void g_mouse_func(G_KEY_CODE_CONSTANT button, G_INPUT_STATE state, int x, int y)
@@ -24,31 +23,26 @@ void g_mouse_func(G_KEY_CODE_CONSTANT button, G_INPUT_STATE state, int x, int y)
 #ifdef VERBOSE
 	printf("raw mouse parameter b:%x s:%x x:%d y:%d\n", button, state, x, y);
 #endif
-	click_pos.x = (int)(x / g_screen_scale_factor);
-	click_pos.y = (int)(y / g_screen_scale_factor);
-	if (state == G_DOWN)
-		input_key[button] |= 1;
-	if (state == G_UP)
-		input_key[button] &= -2;
+	click_pos.x = (int)(x * g_retina_scale_factor / g_screen_scale_factor);
+	click_pos.y = (int)(y * g_retina_scale_factor / g_screen_scale_factor);
+
+//	if (state == G_DOWN)
+//		input_key[button] |= 1;
+//	if (state == G_UP)
+//		input_key[button] &= ~2;
+	input_key[button] = state;
 }
 
 void update_input_key_state()
 {
 	for(int i = 0; i < INPUT_KEY_MAX; ++i)
-		input_key[i] = (input_key[i] & 1) << 1;
-//	input_key[G_MOUSE_LEFT]   |= (input_key[G_MOUSE_LEFT]   >> 1) & 1;
-//	input_key[G_MOUSE_MIDDLE] |= (input_key[G_MOUSE_MIDDLE] >> 1) & 1;
-//	input_key[G_MOUSE_RIGHT]  |= (input_key[G_MOUSE_RIGHT]  >> 1) & 1;
-}
-
-void g_get_input()
-{
-	update_input_key_state();
+		input_key[i] = (input_key[i] & 1) ? G_REPEAT : G_NONE;
 }
 
 G_INPUT_STATE g_key_state(G_KEY_CODE key)
 {
-	return (G_INPUT_STATE)((input_key[key] >> 1) & 3);
+//	return ((input_key[key] >> 1) & 3);
+	return input_key[key];
 }
 
 G_INPUT_STATE g_input_state(G_KEY_CODE key, int *x, int *y)

@@ -69,6 +69,7 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	SDL_GL_SetSwapInterval(1);
 
 	g_update_drawable_size();
+	g_retina_scale_factor = g_screen_scale_factor;
 
 #ifdef G_USE_CORE_PROFILE
 	if (WindowName == G_OFF_SCREEN) {
@@ -85,6 +86,8 @@ void g_swap_buffers()
 
 void g_poll_events()
 {
+	update_input_key_state();
+
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) {
@@ -176,7 +179,7 @@ G_KEY_CODE_CONSTANT g_scancode_map(SDL_Scancode code)
 }
 
 //filter function
-//non-accepted key is mapped 0
+//non-accepted key is mapped into 0
 G_KEY_CODE_CONSTANT g_keycode_map(SDL_Keycode code)
 {
 #ifdef VERBOSE

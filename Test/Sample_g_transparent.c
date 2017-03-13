@@ -75,7 +75,7 @@ int main()
 			g_cone_3D_core(0.5, 1, 0.5,
 			  1, 1, 1,
 			  1, 2,
-			  10, 2, 0, 1);
+			  24, 2, 0, 1);
 			 
 			//g_arrow_3D_core(0, 0, 0, 1, 0, 1, 2*scale, 0.5*scale, 5, 5, 0, G_WIRE);
 

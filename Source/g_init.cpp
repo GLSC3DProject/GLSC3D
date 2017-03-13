@@ -3,6 +3,7 @@
 int             glsc3D_width;
 int             glsc3D_height;
 float			g_screen_scale_factor;
+float			g_retina_scale_factor;
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
