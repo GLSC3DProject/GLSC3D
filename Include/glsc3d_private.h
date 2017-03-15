@@ -2,7 +2,6 @@
 #define GLSC3D_PRIVATE_H
 
 #include "glsc3d.h"
-#include "glsc3d_math.h"
 
 #ifdef __cplusplus
 #include <cassert>
@@ -97,7 +96,7 @@ G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user);
 #endif
 
-#endif //defined(G_USE_CORE_PROFILE) && (defined(_WIN32) || defined(__linux__))
+#endif // defined(G_USE_CORE_PROFILE) && (defined(_WIN32) || defined(__linux__))
 
 G_REAL g_direction_phi(G_VECTOR v);
 G_REAL g_direction_theta(G_VECTOR v);
@@ -145,18 +144,17 @@ extern G_CAMERA glsc3D_inner_camera[TotalDisplayNumber];
 extern G_SCREEN glsc3D_inner_screen[TotalDisplayNumber];
 
 extern G_COLOR g_current_area_color_3D, g_current_area_color_2D;
-extern G_COLOR g_current_line_color, g_current_text_color, g_current_marker_color;
-extern G_COLOR g_current_color;
+extern G_COLOR g_current_line_color, g_current_text_color;
 
-extern G_BOOL g_lighting_enabled;
+extern float g_current_line_size;
 
 typedef struct
 {
 	G_VECTOR position;
-	float position_w;
+	float size;
+	G_COLOR  color;
 	G_VECTOR normal;
 	float normal_w;
-	G_COLOR  color;
 }G_VERTEX;
 
 typedef struct
@@ -166,7 +164,7 @@ typedef struct
 
 static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal)
 {
-	G_VERTEX v = {position, 1, normal, 0, g_current_area_color_3D};
+	G_VERTEX v = {position, 1, g_current_area_color_3D, normal, 0};
 	return v;
 }
 
@@ -186,18 +184,30 @@ extern float			g_retina_scale_factor;
 extern int				get_scale_id_number;
 extern G_DIMENSION		g_scale_dim_flag;
 
-void g_triangle_buffer_init();
-void g_triangle_buffer_append(G_TRIANGLE t);
-void g_triangle_buffer_draw();
-void g_triangle_buffer_flush();
-
-void g_move_s(G_VECTOR u);
-void g_plot_s(G_VECTOR u);
+// ---- g_input.c
 
 void g_keyboard_func(G_KEY_CODE_CONSTANT key, G_INPUT_STATE state);
 void g_mouse_func(G_KEY_CODE_CONSTANT button, G_INPUT_STATE state, int x, int y);
 
 void update_input_key_state(void);
+
+// ---- g_marker.cpp
+
+extern G_COLOR	g_current_marker_color;
+extern float	g_current_marker_size;
+extern int		g_current_marker_type;
+
+// ---- g_move_plot.c
+
+void g_move_s(G_VECTOR u);
+void g_plot_s(G_VECTOR u);
+
+// ---- g_triangle_buffer.c
+
+void g_triangle_buffer_init();
+void g_triangle_buffer_append(G_TRIANGLE t);
+void g_triangle_buffer_draw();
+void g_triangle_buffer_flush();
 
 // ---- g_triangle.c
 
@@ -215,20 +225,40 @@ void g_quit(void);
 
 // ---- g_shader_program.c
 
+#ifdef G_USE_CORE_PROFILE
+
 enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
+
+extern GLuint g_constant_program, g_lighting_program;
+extern GLuint g_marker_programs[G_NUM_MARKER_TYPES];
+extern GLuint g_texture_program;
+extern GLuint g_current_program;
+
+extern GLint g_texture_sampler_location, g_texture_color_location;
 
 void g_shader_program_init();
 void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
+void g_use_program(GLuint program);
+
+#else
+
+extern G_BOOL g_lighting_enabled;
 
 void g_enable_lighting(void);
 void g_disable_lighting(void);
-void g_activate_texture_mode(void);
+
+#endif
 
 // ---- g_vertex_buffer.c
+
+extern GLenum g_primitive_mode;
 
 void g_vertex_buffer_init();
 void g_vertex_buffer_append(G_VERTEX vertex);
 void g_emit_vertex(G_VECTOR position);
+
+void g_emit_line(G_VECTOR p, G_VECTOR q);
+void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r);
 
 void g_vertex_buffer_flush(void);
 

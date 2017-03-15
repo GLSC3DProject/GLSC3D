@@ -8,6 +8,7 @@
 #define trimember2D(i,j) (trimember2D[(i)*N_y+(j)])
 #define flag(i,j)        (flag[(i)*N_y+(j)])
 #define data2D(i, j)     data2D[(i)*N_y+(j)]
+
 void g_contln_f_2D(double x_left, double x_right,
 		double y_bottom, double y_top,
 		int N_x, int N_y,
@@ -110,12 +111,3 @@ void g_contln_f_2D(double x_left, double x_right,
 		}
 	}
 }
-
-//void g_contln_2D(double x_left, double x_right,
-//		double y_bottom, double y_top,
-//		int n_x, int n_y,
-//		double data2d[n_x][n_y],
-//		double level)
-//{
-//	g_contln_f_2D(x_left, x_right, y_bottom, y_top, n_x, n_y, &data2d[0][0], level);
-//}

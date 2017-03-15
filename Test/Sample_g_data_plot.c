@@ -3,9 +3,6 @@
 
 #include "glsc3d.h"
 
-#define g_data_plot_3D(x_left,x_right,y_bottom,y_top,N_x,N_z,data)\
-(g_data_plot_3D((x_left),(x_right),(y_bottom),(y_top),(N_x),(N_z),(double(*)[N_z])(data)))
-
 #define WINDOW_SIZE_X     (1000)
 #define WINDOW_SIZE_Y     (500)
 

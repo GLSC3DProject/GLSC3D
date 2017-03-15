@@ -3,8 +3,7 @@
 
 #include "glsc3d.h"
 
-//#define g_isosurface_3D(x0, x1, y0, y1, z0, z1, number_x, number_y, number_z, u, height) (g_isosurface_3D((x0), (x1), (y0), (y1), (z0), (z1), (number_x), (number_y), (number_z),(double(*)[(number_y)][(number_z)])(u), height))
-
+//#define USE_MULTIDIMENSIONAL_ARRAY
 
 #define INTV              (1)
 #define WINDOW_SIZE_X     (500)
@@ -39,8 +38,11 @@ int main()
 {
 	g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 	
+#ifndef USE_MULTIDIMENSIONAL_ARRAY
 	double v[Imax * Jmax * Kmax];
-	//double v2[Imax][Jmax][Kmax];
+#else
+	double v2[Imax][Jmax][Kmax];
+#endif
 	double d_x, d_y, d_z;
 	double r_x, r_y, r_z;
 	double r0_x, r0_y, r0_z;
@@ -80,14 +82,17 @@ int main()
 				for(i = 0;i < Imax;i ++)
 				{
 					r_x = (i + 0.5) * d_x - XLEN / 2;
+#ifndef USE_MULTIDIMENSIONAL_ARRAY
 					v(i, j, k) = f(r_x,r_y,r_z,r0_x,r0_y,r0_z)
 					+ f(r_x,r_y,r_z,-r0_x,r0_y,r0_z)
 					+ f(r_x,r_y,r_z,r0_x,-r0_y,r0_z)
 					+ f(r_x,r_y,r_z,r0_x,r0_y,-r0_z);
-					//v2[i][j][k] = f(r_x,r_y,r_z,r0_x,r0_y,r0_z)
-					//+ f(r_x,r_y,r_z,-r0_x,r0_y,r0_z)
-					//+ f(r_x,r_y,r_z,r0_x,-r0_y,r0_z)
-					//+ f(r_x,r_y,r_z,r0_x,r0_y,-r0_z);
+#else
+					v2[i][j][k] = f(r_x,r_y,r_z,r0_x,r0_y,r0_z)
+					+ f(r_x,r_y,r_z,-r0_x,r0_y,r0_z)
+					+ f(r_x,r_y,r_z,r0_x,-r0_y,r0_z)
+					+ f(r_x,r_y,r_z,r0_x,r0_y,-r0_z);
+#endif
 				}
 			}
 		}
@@ -97,17 +102,18 @@ int main()
 		g_sel_scale_3D(0);
 		g_area_color_3D(1, 0, 0, 1);
 		
+#ifndef USE_MULTIDIMENSIONAL_ARRAY
 		g_isosurface_f_3D(-XLEN / 2 + 0.5 * d_x, XLEN / 2 - 0.5 * d_x,
 						-YLEN / 2 + 0.5 * d_y, YLEN / 2 - 0.5 * d_y,
 						-ZLEN / 2 + 0.5 * d_z, ZLEN / 2 - 0.5 * d_z,
 						Imax, Jmax, Kmax,v, 0.5);
+#else
+		g_isosurface_3D(-XLEN / 2 + 0.5 * d_x, XLEN / 2 - 0.5 * d_x,
+						-YLEN / 2 + 0.5 * d_y, YLEN / 2 - 0.5 * d_y,
+						-ZLEN / 2 + 0.5 * d_z, ZLEN / 2 - 0.5 * d_z,
+						Imax, Jmax, Kmax,v2, 0.5);
+#endif
 
-		//g_isosurface_3D(-XLEN / 2 + 0.5 * d_x, XLEN / 2 - 0.5 * d_x,
-		//				-YLEN / 2 + 0.5 * d_y, YLEN / 2 - 0.5 * d_y,
-		//				-ZLEN / 2 + 0.5 * d_z, ZLEN / 2 - 0.5 * d_z,
-		//				Imax, Jmax, Kmax,v2, 0.5);
-		 
-		
 		g_finish();
 	}
 	return 0;

@@ -6,14 +6,6 @@
 
 #include "glsc3d_private.h"
 
-//g_normaly, bit_depth = 8, color_type = PNG_COLOR_TYPE_RGB_ALPHA.
-//if you don't reserve buffer for alpha, color_type = PNG_COLOR_TYPE_RGB.
-int PNGWrite(const char *file_name, unsigned char **image, size_t width, size_t height, int bit_depth, int color_type);
-
-//g_normaly, x = 0, y = 0, pixel_width and pixel_height are size of client area.
-//If you wish clip from window to PNG file, you must set valid value.
-int GLCapture(const char *file_name, int x, int y, unsigned int pixel_width, unsigned int pixel_height);
-
 #define DirectoryPathLength 256
 #define FilePathLength (DirectoryPathLength + 12)
 #define CommandLength (DirectoryPathLength + 7)
@@ -49,9 +41,9 @@ static png_infop p_pi = 0;
 #define STRNCPY(dest, src, limit) {strncpy(dest, src, limit - 1); dest[limit - 1] = '\0';}
 #define STRERROR {fprintf(stderr, __FILE__ " : %s : %d : %s\n", __func__, __LINE__, strerror(errno));}
 
-int //error-code:if error occured then return non-0
-	//           else return 0
-g_capture()
+//error-code:if error occured then return non-0
+//           else return 0
+int g_capture()
 {
 	if(!isInitialized)
 	{
@@ -82,10 +74,10 @@ g_capture()
 	return 0;
 }
 
-int	//error_code:if error occured then return non-0
-	//          :else return 0
-g_capture_set(name)
-	const char *name;//null-terminated string represent directory name
+//error_code:if error occured then return non-0
+//          :else return 0
+//name:null-terminated string represent directory name
+int g_capture_set(const char *name)
 {
 	size_t len = name ? strlen(name) : 0;
 	int empty_flag = len ? 0 : 1;

@@ -6,15 +6,19 @@ static const G_VECTOR g_vector_zero(0, 0, 0);
 
 GLenum g_primitive_mode;
 
+G_COLOR	*g_current_color;
+float	g_current_size;
+
 int g_vertex_data_count;
 
 G_VERTEX *g_vertex_data;
 
 #ifdef G_USE_CORE_PROFILE
-#define BUFFER_OFFSET_NORMAL ((void *)(sizeof(float) * 4))
-#define BUFFER_OFFSET_COLOR  ((void *)(sizeof(float) * 8))
+#define BUFFER_OFFSET_COLOR  ((void *)(sizeof(float) * 4))
+#define BUFFER_OFFSET_NORMAL ((void *)(sizeof(float) * 8))
 
 GLuint g_vertex_array_id, g_vertex_buffer_id;
+
 #endif
 
 void* g_malloc(size_t size)
@@ -61,7 +65,20 @@ void g_vertex_buffer_append(G_VERTEX vertex)
 
 void g_emit_vertex(G_VECTOR position)
 {
-	g_vertex_buffer_append({position, 1, g_vector_zero, 0, g_current_color});
+	g_vertex_buffer_append({position, g_current_size, *g_current_color, g_vector_zero, 0});
+}
+
+void g_emit_line(G_VECTOR p, G_VECTOR q)
+{
+	g_emit_vertex(p);
+	g_emit_vertex(q);
+}
+
+void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r)
+{
+	g_emit_vertex(p);
+	g_emit_vertex(q);
+	g_emit_vertex(r);
 }
 
 void g_vertex_buffer_flush()
@@ -75,8 +92,8 @@ void g_vertex_buffer_flush()
 	glBufferSubData(GL_ARRAY_BUFFER, 0, g_vertex_data_count * sizeof(G_VERTEX), g_vertex_data);
 	
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), 0);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_NORMAL);
-	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_COLOR);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_COLOR);
+	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_NORMAL);
 	
 	glDrawArrays(g_primitive_mode, 0, g_vertex_data_count);
 
@@ -122,25 +139,28 @@ void g_set_primitive_mode(GLenum mode, bool always_flush)
 
 void g_prepare_points()
 {
-	g_current_color = g_current_marker_color;
-	g_disable_lighting();
+	g_current_color = &g_current_marker_color;
+	g_current_size = g_current_marker_size;
+	g_use_program(g_marker_programs[g_current_marker_type]);
 }
 
 void g_prepare_lines()
 {
-	g_current_color = g_current_line_color;
-	g_disable_lighting();
+	g_current_color = &g_current_line_color;
+	g_current_size = 0;
+	g_use_program(g_constant_program);
 }
 
 void g_prepare_triangles()
 {
 	if (g_scale_dim_flag == G_3D) {
-		g_current_color = g_current_area_color_3D;
-		g_enable_lighting();
+		g_current_color = &g_current_area_color_3D;
+		g_use_program(g_lighting_program);
 	} else {
-		g_current_color = g_current_area_color_2D;
-		g_disable_lighting();
+		g_current_color = &g_current_area_color_2D;
+		g_use_program(g_constant_program);
 	}
+	g_current_size = 0;
 }
 
 void g_begin_points()

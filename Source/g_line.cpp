@@ -1,11 +1,20 @@
 #include "glsc3d_private.h"
 
-struct
+struct G_LINE_APPEARANCE
 {
 	G_COLOR color;
 	float width;
 	int type;
-}           glsc3D_g_def_line[TotalDisplayNumber];
+};
+
+G_COLOR g_current_line_color(1, 1, 1, 1);
+
+G_LINE_APPEARANCE glsc3D_g_def_line[TotalDisplayNumber];
+
+void g_line_color(double r, double g, double b, double a)
+{
+	g_current_line_color = G_COLOR(r, g, b, a);
+}
 
 void g_line_width(double size)
 {

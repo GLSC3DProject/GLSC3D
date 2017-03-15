@@ -6,6 +6,7 @@ find_package(png)
 if (MSVC)
 	set(SDL_LIBRARY SDL2.lib SDL2main.lib)
 	set(FREETYPE_LIBRARIES freetype271.lib)
+	set(PNG_LIBRARY libpng16.lib zlib.lib)
 #elseif (MINGW)
 #	set(SDL_LIBRARY SDL2.a SDL2.dll.a SDL2main.a)
 elseif (APPLE)
@@ -29,14 +30,13 @@ message(PNG_LIBRARY = ${PNG_LIBRARY})
 message(PNG_INCLUDE_DIR = ${PNG_INCLUDE_DIR})
 
 add_library(GLSC3D
-		g_area.c
+		g_area.cpp
 		g_arrow.c
 		g_bird_view_3D.c
 		g_box.c
 		g_camera.cpp
 		g_capture.c
 		g_circle.cpp
-		g_color.cpp
 		g_cone.c
 		g_contln_2D.c
 		g_cylinder_3D.cpp
@@ -50,13 +50,13 @@ add_library(GLSC3D
 		g_input.c
 		g_isosurface.c
 		g_light.cpp
-		g_line.c
+		g_line.cpp
 		g_marker.cpp
 		g_matrix_private.c
 		g_move_plot.c
 		g_off_screen.c
 		g_polygon_polyline.c
-		g_prism_3D.c
+		g_prism_3D.cpp
 		g_pyramid_3D.c
 		g_rectangle.c
 		g_scale.cpp

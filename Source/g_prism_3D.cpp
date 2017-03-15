@@ -1,7 +1,8 @@
 #include "glsc3d_private.h"
-void g_cylinder_3D_core(double center_x, double center_y, double center_z,          //中心座標
+void g_prism_3D_core(double center_x, double center_y, double center_z,          //中心座標
 	double direction_x, double direction_y, double direction_z,    //向き
-	double radius, double height, double psi, int N, int DivideLevel, G_WIREFILL WireFill)                //半径、高さ、側面数
+	double radius, double height, double psi,
+	int N, int DivideLevel, G_WIREFILL WireFill)
 {
 	G_VECTOR r0, r1, r2, r3;
 	float dth = 2 * (float)PI / N;
@@ -11,7 +12,7 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 
 	G_VECTOR center(center_x, center_y, center_z);
 	G_VECTOR top(0.5 * height, 0, 0);
-	G_VECTOR rn = G_VECTOR(0, 0, 1);
+	G_VECTOR rn = G_VECTOR(0, 1, 0);
 	G_VECTOR r = radius * rn;
 
 	G_MATRIX matrix = G_MATRIX::RotationX(psi) * G_MATRIX::RotationZ(phi) * G_MATRIX::RotationY(-theta) * G_MATRIX::Translation(center);
@@ -31,16 +32,15 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 			r3 = (r + top) * B * matrix;
 
 			G_TRIANGLE t0, t1;
-			G_VECTOR n01, n23;
 			G_VERTEX v0, v1, v2, v3;
 
-			n01 = g_transform_normal(rn * A, matrix);
-			n23 = g_transform_normal(rn * B, matrix);
+			G_MATRIX C = G_MATRIX::RotationX((i + 0.5f) * dth);
+			G_VECTOR n = g_transform_normal(rn * C, matrix);
 
-			v0 = g_make_vertex(r0, n01);
-			v1 = g_make_vertex(r1, n01);
-			v2 = g_make_vertex(r2, n23);
-			v3 = g_make_vertex(r3, n23);
+			v0 = g_make_vertex(r0, n);
+			v1 = g_make_vertex(r1, n);
+			v2 = g_make_vertex(r2, n);
+			v3 = g_make_vertex(r3, n);
 
 			t0 = g_make_triangle_core(v0, v1, v2);
 			t1 = g_make_triangle_core(v1, v3, v2);
@@ -71,9 +71,9 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,      
 	}
 }
 
-void g_cylinder_3D(double center_x, double center_y, double center_z,          //中心座標
+void g_prism_3D(double center_x, double center_y, double center_z,          //中心座標
 	double direction_x, double direction_y, double direction_z,    //向き
-	double radius, double height, double psi)                //半径、高さ、側面数
+	double radius, double height, double psi, int N)                //半径、高さ、側面数
 {
-	g_cylinder_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, height, psi, 50, 0, 1);
+	g_prism_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, height, psi, N, 0, 1);
 }

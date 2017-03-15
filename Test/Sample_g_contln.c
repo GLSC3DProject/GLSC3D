@@ -3,9 +3,6 @@
 
 #include "glsc3d.h"
 
-#define g_contln_2D(x_left,x_right,y_bottom,y_top,N_x,N_y,data,level)\
-(g_contln_2D((x_left),(x_right),(y_bottom),(y_top),(N_x),(N_y),(double(*)[N_y])(data),level))
-
 #define WINDOW_SIZE_X     (500)
 #define WINDOW_SIZE_Y     (500)
 
@@ -50,7 +47,6 @@ int main()
 		g_cls();
 		g_sel_scale_2D(0);
 		g_line_color(1,0,0,1);
-		//g_contln_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array, 0.05);
 		g_contln_f_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array, 0.05);
 		//g_contln_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array2, 0.05);
 		

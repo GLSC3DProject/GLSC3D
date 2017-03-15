@@ -1,6 +1,6 @@
 #include "glsc3d.h"
 
-#define WIRE_OR_FILL G_WIRE
+#define WIRE_OR_FILL G_FILL
 
 int main()
 {
@@ -38,14 +38,14 @@ int main()
 		g_cls();
 
 		g_sel_scale_2D(0);
-		g_cone_2D(0, -0.5, 0, 1, 1, 1, 0);
+		g_cone_2D(0, -0.5, 0, 1, 1, 1, WIRE_OR_FILL);
 
 		g_sel_scale_2D(1);
 		g_circle_2D(0, 0, 1, WIRE_OR_FILL);
 
 		g_sel_scale_2D(2);
-		g_arrow_2D(0, 0, c, s, 1, 0.25, 0);
-		g_arrow_2D(0, 0,-s, c, 1, 0.25, 0);
+		g_arrow_2D(0, 0, c, s, 1, 0.25, WIRE_OR_FILL);
+		g_arrow_2D(0, 0,-s, c, 1, 0.25, WIRE_OR_FILL);
 		g_text_2D_virtual( 1.1*c, 1.1*s, "x");
 		g_text_2D_virtual(-1.1*s, 1.1*c, "y");
 

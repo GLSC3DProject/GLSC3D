@@ -1,10 +1,11 @@
 #ifndef GLSC3D_H
 #define GLSC3D_H
 
-#include <math.h>
 #ifndef M_PI
 #define M_PI (3.14159265358979323846264338327950288)
 #endif
+
+#include "glsc3d_math.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -96,18 +97,15 @@ void g_init (const char *WindowName,int width,int height);
 
 // ----g_area.c
 
+void g_area_color_3D(double r, double g, double b, double a);
+void g_area_color_2D(double r, double g, double b, double a);
+
 void g_def_area_2D(int id, double r, double g, double b, double a);
 void g_sel_area_2D(int id);
 void g_def_area_3D(int id, double r, double g, double b, double a);
 void g_sel_area_3D(int id);
 
-// ---- g_color.cpp
-
-void g_area_color_3D(double r, double g, double b, double a);
-void g_area_color_2D(double r, double g, double b, double a);
-void g_line_color(double r, double g, double b, double a);
-void g_text_color(double r, double g, double b, double a);
-void g_marker_color(double r,double g,double b,double a);
+// ---- g_cls_finish.c
 
 void g_scr_color(double r, double g, double b);
 void g_cls();
@@ -115,9 +113,13 @@ void g_finish();
 
 void g_sleep(double wait_time);
 
+// ---- g_capture.c
+
 int g_capture();
 int g_capture_set(const char *name);
-    
+
+// ---- g_scale.cpp
+
 void g_def_scale_2D(int id,
                     double x_left, double x_right, double y_bottom, double y_top,
                     double x_left_std, double y_top_std,
@@ -142,21 +144,33 @@ void g_def_scale_3D(int id,
 
 void g_sel_scale_3D(int id);
 
+// ---- g_move_plot.c
+
 void g_move_3D(double x,double y,double z);
 void g_move_2D(double x,double y);
 
 void g_plot_3D(double x,double y,double z);
 void g_plot_2D(double x,double y);
 
+// ---- g_marker.cpp
+
+enum { G_MARKER_SQUARE, G_MARKER_CIRCLE, G_MARKER_SPHERE, G_NUM_MARKER_TYPES };
+
+void g_marker_color_s(G_COLOR color);
+void g_marker_color(double r,double g,double b,double a);
 void g_marker_type(int type);
 void g_marker_size(double size);
 
+void g_marker_s(G_VECTOR position);
 void g_marker_3D(double x,double y,double z);
 void g_marker_2D(double x,double y);
 
 void g_def_marker(int id, double r, double g, double b, double a, int type, double size);
 void g_sel_marker(int id);
 
+// ---- g_line.cpp
+
+void g_line_color(double r, double g, double b, double a);
 void g_line_color(double r,double g,double b,double a);
 void g_line_width(double size);
 void g_line_type(int type);
@@ -164,43 +178,19 @@ void g_line_type(int type);
 void g_def_line(int id, double r, double g, double b, double a, double width, int type);
 void g_sel_line(int id);
 
+// ---- g_text.cpp
+
 void g_text_standard(double x,double y, const char *format, ...);
 
 void g_text_3D_virtual(double x, double y, double z, const char *format, ...);
 void g_text_2D_virtual(double x, double y, const char *format, ...);
 
+void g_text_color(double r, double g, double b, double a);
 void g_text_font(G_FONT_ID id, unsigned int font_size);
 void g_text_font_core(const char *font_type, unsigned int font_size);
 
 void g_def_text(int id, double r, double g, double b, double a, int font, unsigned int font_size);
 void g_sel_text(int id);
-
-#ifndef __cplusplus
-
-void g_bird_view_3D(double x0, double x1,
-	double y0, double y1,
-	int N_x, int N_y,
-	double data[N_x][N_y],
-	G_WIREFILL WireFill);
-
-void g_contln_2D(double x_left, double x_right,
-	double y_bottom, double y_top,
-	int N_x, int N_y,
-	double data2D[N_x][N_y],
-	double level);
-void g_isosurface_3D(double x0, double x1,
-	double y0, double y1,
-	double z0, double z1,
-	int number_x, int number_y, int number_z,
-	double u[number_x][number_y][number_z],
-	double height);
-void g_data_plot_3D(double x0, double x1,
-	double y0, double y1,
-	int N_x, int N_y,
-	double data[N_x][N_y]);
-
-#endif
-
 
 void g_bird_view_f_3D(double x0, double x1,
                       double y0, double y1,
@@ -228,6 +218,18 @@ void g_data_plot_f_3D(double x0, double x1,
 
 void g_data_plot_2D(double x_left, double x_right,
                     double *yy, int n);
+
+#define g_bird_view_3D(x0, x1, y0, y1, N_x, N_y, data, WireFill) \
+	g_bird_view_f_3D(x0, x1, y0, y1, N_x, N_y, &data[0][0], WireFill)
+
+#define g_contln_2D(x_left, x_right, y_bottom, y_top, N_x, N_y, data2D, level) \
+	g_contln_f_2D(x_left, x_right, y_bottom, y_top, N_x, N_y, &data2D[0][0], level)
+
+#define g_isosurface_3D(x0, x1, y0, y1, z0, z1, number_x, number_y, number_z, u, height) \
+	g_isosurface_f_3D(x0, x1, y0, y1, z0, z1, number_x, number_y, number_z, &u[0][0][0], height)
+
+#define g_data_plot_3D(x0, x1, y0, y1, N_x, N_y, data) \
+	g_data_plot_f_3D(x0, x1, y0, y1, N_x, N_y, &data[0][0])
 
 // ------ g_box_vert.c ------
 

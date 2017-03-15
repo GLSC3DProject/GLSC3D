@@ -1,11 +1,24 @@
 #include "glsc3d_private.h"
 
+G_COLOR g_current_area_color_3D(1, 1, 1, 1);
+G_COLOR g_current_area_color_2D(1, 1, 1, 1);
+
 G_COLOR glsc3D_g_def_area2D[TotalDisplayNumber];
 G_COLOR glsc3D_g_def_area3D[TotalDisplayNumber];
 
+void g_area_color_3D(double r, double g, double b, double a)
+{
+	g_current_area_color_3D = G_COLOR(r, g, b, a);
+}
+
+void g_area_color_2D(double r, double g, double b, double a)
+{
+	g_current_area_color_2D = G_COLOR(r, g, b, a);
+}
+
 void g_def_area_2D(int id, double r, double g, double b, double a)
 {
-    glsc3D_g_def_area2D[id] = g_color_core(r, g, b, a);
+    glsc3D_g_def_area2D[id] = G_COLOR(r, g, b, a);
 }
 
 void g_sel_area_2D(int id)
@@ -15,7 +28,7 @@ void g_sel_area_2D(int id)
 
 void g_def_area_3D(int id, double r, double g, double b, double a)
 {
-    glsc3D_g_def_area3D[id] = g_color_core(r, g, b, a);
+    glsc3D_g_def_area3D[id] = G_COLOR(r, g, b, a);
 }
 
 void g_sel_area_3D(int id)

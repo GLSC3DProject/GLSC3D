@@ -25,14 +25,26 @@ void g_init_core(
 //	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-	glDebugMessageCallback(g_debug_callback, NULL);
+	//glDebugMessageCallback(g_debug_callback, NULL);
 #endif
+
+	glDepthFunc(GL_LEQUAL);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+
+	glEnable(GL_LINE_SMOOTH);
+
+	//int range[2];
+	//glGetIntegerv(GL_POINT_SIZE_RANGE, range);
+	//printf("Supported point size range : [%d, %d]\n", range[0], range[1]);
 
 	g_vertex_buffer_init();
 
 #ifdef G_USE_CORE_PROFILE
 	g_shader_program_init();
 	g_text_init();
+
+	glEnable(GL_PROGRAM_POINT_SIZE);
 #else
 	GLfloat specular[4] = {1, 1, 1, 1};
 
@@ -45,11 +57,6 @@ void g_init_core(
 #endif
 
 	g_init_light(0, 1, 1, 1);
-
-	glDepthFunc(GL_LEQUAL);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-	glEnable(GL_LINE_SMOOTH);
 
 	g_enable_transparent = g_enable_transparent_out;
 

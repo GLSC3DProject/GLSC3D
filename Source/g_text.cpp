@@ -2,25 +2,25 @@
 #include <stdarg.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-//#include <freetype/freetype.h>
 
 #ifdef G_USE_CORE_PROFILE
 
-extern GLint g_texture_color_location;
 GLuint g_texture, g_sampler, g_quad_vao, g_quad_vbo;
+
+G_COLOR g_current_text_color(1, 1, 1, 1);
 int g_current_text_size;
 
 static FT_Library library;
 static FT_Face face = 0;
 
-struct G_FONT
+struct G_TEXT_APPEARANCE
 {
 	G_COLOR color;
 	const char *font_type;
 	unsigned int font_size;
 };
 
-G_FONT glsc3D_g_def_text[TotalDisplayNumber];
+G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
 //const struct
 //{
@@ -82,9 +82,10 @@ static void g_text_render(double x, double y, const char *str)
 {
 	glBindTexture(GL_TEXTURE_2D, g_texture);
 	glBindSampler(0, g_sampler);
-	g_activate_texture_mode();
+	g_use_program(g_texture_program);
 	glBindVertexArray(g_quad_vao);
 
+	glUniform1i(g_texture_sampler_location, 0);
 	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
 	int font_size = (int)(g_current_text_size * g_screen_scale_factor);
 
@@ -198,6 +199,11 @@ void g_text_2D_virtual(double x, double y, const char *format, ...)
 	g_text_3D_virtual_va(x, y, 0, format, args);
 
 	va_end(args);
+}
+
+void g_text_color(double r, double g, double b, double a)
+{
+	g_current_text_color = G_COLOR(r, g, b, a);
 }
 
 void g_text_font(G_FONT_ID id, unsigned int font_size)
