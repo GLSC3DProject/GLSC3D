@@ -72,17 +72,7 @@ G_VECTOR Rz(G_VECTOR u,G_REAL theta)//uをz軸周りにtheta回転させる
 }
 G_VECTOR Scaling3Ds(G_VECTOR u, G_VECTOR s)//uをx,y,z方向にそれぞれs.x,s.y,s.z倍する
 {
-    G_VECTOR ans = g_vector(0, 0, 0);
-    
-    G_REAL R[3][3] = {
-        {s.x,    0,      0},
-        {0,      s.y,    0},
-        {0,      0,      s.z}
-    };
-    ans.x = R[0][0] * u.x + R[0][1] * u.y + R[0][2] * u.z;
-    ans.y = R[1][0] * u.x + R[1][1] * u.y + R[1][2] * u.z;
-    ans.z = R[2][0] * u.x + R[2][1] * u.y + R[2][2] * u.z;
-    return ans;
+    return g_vector(u.x * s.x, u.y * s.y, u.z * s.z);
 }
 
 G_VECTOR Rx2D(G_VECTOR u,G_REAL theta)//二次元平面上でuをtheta回転させる

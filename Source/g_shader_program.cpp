@@ -71,7 +71,7 @@
 	"layout(location = 1) in vec4 in_color;\n" \
 	"out vec4 vary_color;\n" \
 	"out vec3 vary_position;\n" \
-	"out float vary_size;\n" \
+	"out float vary_radius;\n" \
 	"void main () {\n" \
 	"	vec4 view_pos = view * vec4(in_position.xyz, 1);\n" \
 	"	float size = in_position.w;\n" \
@@ -79,7 +79,7 @@
 	"	gl_PointSize = size / gl_Position.w;\n" \
 	"	vary_color = in_color;\n" \
 	"	vary_position = view_pos.xyz;\n" \
-	"	vary_size = size / pixel_scale;\n" \
+	"	vary_radius = size / pixel_scale;\n" \
 	"}"
 
 // Fragment shader for rendering markers as 2D squares
@@ -96,7 +96,9 @@
 	"out vec4 out_color;\n" \
 	"void main() {\n" \
 	"	vec2 coord = gl_PointCoord * 2 - 1;\n" \
-	"	out_color = vec4(vary_color.rgb, vary_color.a * step(dot(coord, coord), 1));\n" \
+	"	float discriminant = 1 - dot(coord, coord);\n" \
+	"	if (discriminant <= 0) discard;\n" \
+	"	out_color = vary_color;\n" \
 	"}"
 
 // Fragment shader for rendering markers as 3D spheres
@@ -105,14 +107,14 @@
 	"uniform Matrices { mat4 proj, view; float pixel_scale; };\n" \
 	"in vec4 vary_color;\n" \
 	"in vec3 vary_position;\n" \
-	"in float vary_size;\n" \
+	"in float vary_radius;\n" \
 	"out vec4 out_color;\n" \
 	"void main() {\n" \
 	"	vec2 coord = gl_PointCoord * 2 - 1;\n" \
 	"	float discriminant = 1 - dot(coord, coord);\n" \
 	"	if (discriminant <= 0) discard;\n" \
 	"	vec3 normal = vec3(coord, sqrt(discriminant));\n" \
-	"	vec4 pos = proj * vec4(vary_position + normal * vary_size, 1);\n" \
+	"	vec4 pos = proj * vec4(vary_position + normal * vary_radius, 1);\n" \
 	"	out_color = vec4(vary_color.rgb * normal.z, vary_color.a);\n" \
 	"	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;" \
 	"}"

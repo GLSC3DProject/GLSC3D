@@ -3,21 +3,21 @@
 #include <cstdlib>
 #include <vector>
 
-#define MANY_PARTICLES
+//#define MANY_PARTICLES
 
 #ifdef MANY_PARTICLES
 #define NUM_PARTICLES	262144
 #define MIN_PARTICLE_SIZE	16
-#define MAX_PARTICLE_SIZE	64
+#define MAX_PARTICLE_SIZE	32
 #else
 #define NUM_PARTICLES	256
-#define MIN_PARTICLE_SIZE	64
+#define MIN_PARTICLE_SIZE	256
 #define MAX_PARTICLE_SIZE	512
 #endif
 
 #define TIME_STEP		(1.f / 512)
 
-#define WINDOW_SIZE		2000
+#define WINDOW_SIZE		1024
 
 // return rand between 0 and 1
 float frand() { return (float)rand() / RAND_MAX; }
@@ -72,6 +72,15 @@ int main()
 	while (true) {
 		if (g_key_state(' ') == G_DOWN)
 			rotation_mode = !rotation_mode;
+
+		if (g_key_state('0') == G_DOWN)
+			g_marker_type(0);
+
+		if (g_key_state('1') == G_DOWN)
+			g_marker_type(1);
+
+		if (g_key_state('2') == G_DOWN)
+			g_marker_type(2);
 
 		g_cls();
 

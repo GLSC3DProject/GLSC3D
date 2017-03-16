@@ -15,7 +15,7 @@ void G_SCALE::set()
 	glViewport(x, y, w, h);
 
 #ifdef G_USE_CORE_PROFILE
-	camera.pixel_scale = 0.5f * h * camera.proj.y.y;
+	camera.pixel_scale = h * camera.proj.y.y;
 	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_CAMERA), &camera);
 #else
 	glMatrixMode(GL_PROJECTION);
