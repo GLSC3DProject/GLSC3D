@@ -102,13 +102,16 @@
 	"void main() {\n" \
 	"	vec2 coord = gl_PointCoord * 2 - 1;\n" \
 	"	float discriminant = 1 - dot(coord, coord);\n" \
-	"//	if (discriminant <= 0) discard;\n" \
-	"	vec3 normal = vec3(coord, sqrt(max(discriminant, 0)));\n" \
-	"	vec4 pos = vec4(vary_position.xyz + normal * vary_position.w, 1);\n" \
-	"	out_color = vec4(vary_color.rgb * normal.z, vary_color.a);\n" \
-	"	float depth = dot(proj[2], pos) / dot(proj[3], pos) * 0.5 + 0.5;\n" \
-	"//	float depth = pos.z / pos.w;\n" \
-	"	gl_FragDepth = discriminant <= 0 ? 1 : depth;" \
+	"	if (discriminant <= 0) discard;\n" \
+	"	vec3 normal = vec3(coord, sqrt(discriminant));\n" \
+	"	vec4 pos = proj * vec4(vary_position.xyz + normal * vary_position.w, 1);\n" \
+	"//	out_color = vec4(vary_color.rgb * normal.z, vary_color.a);\n" \
+	"	out_color = vec4(pos.z / pos.w - 2.5, 0, 0, 1);\n" \
+	"//	out_color = vec4(gl_FragCoord.w, 0, 0, 1);\n" \
+	"//	float depth = dot(proj[2], pos) / dot(proj[3], pos) * 0.5 + 0.5;\n" \
+	"//	float depth = pos.z / pos.w * gl_FragCoord.w;\n" \
+	"//	gl_FragDepth = 0.95;\n" \
+	"//	gl_FragDepth = discriminant <= 0 ? 1 : gl_FragCoord.z;\n" \
 	"}"
 
 // Vertex shader for rendering text

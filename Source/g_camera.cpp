@@ -43,7 +43,7 @@ G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR directio
 	G_VECTOR eye = center + R * direction;
 
 	G_CAMERA c;
-	c.proj = G_MATRIX::Perspective(2*asin(sphere_r/R), aspect, R*0.1, R + sphere_r);
+	c.proj = G_MATRIX::Perspective(2*asin(sphere_r/R), aspect, R*0.5f, R + sphere_r);
 	c.view = G_MATRIX::LookAt(eye, center, up);
 	c.eye = eye;
 	return c;
