@@ -9,32 +9,6 @@ G_SCREEN g_make_screen(int x, int y, int width, int height)
 	return screen;
 }
 
-//G_CAMERA g_make_camera_core(
-//		float fovy,    float near,    float far,,
-//		float eyeX,    float eyeY,    float eyeZ, 
-//		float centerX, float centerY, float centerZ, 
-//		float upX,     float upY,     float upZ)
-//{
-//	G_CAMERA camera = {fovy, NAN, near, far, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ};
-//    if(far/near > 500)
-//    {
-//        fprintf(stderr, 
-//                "For near and far in G_CAMERA, far/near is too big!\n"
-//                "GLSC3D will abort¥n");
-//        
-//        exit(1);
-//    }
-//    
-//	return camera;
-//}
-
-//G_CAMERA g_make_camera(
-//		float eyeX,    float eyeY,    float eyeZ, 
-//		float centerX, float centerY, float centerZ)
-//{
-//	return g_make_camera_core(45, 0.1, 10, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 0, 1);
-//}
-
 G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR direction, float r, float aspect, G_VECTOR up)
 {
 	G_VECTOR center = 0.5f * (lower + upper);
@@ -43,7 +17,7 @@ G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR directio
 	G_VECTOR eye = center + R * direction;
 
 	G_CAMERA c;
-	c.proj = G_MATRIX::Perspective(2*asin(sphere_r/R), aspect, R*0.1, R + sphere_r);
+	c.proj = G_MATRIX::Perspective(2*asin(sphere_r/R), aspect, R*0.25f, R + sphere_r);
 	c.view = G_MATRIX::LookAt(eye, center, up);
 	c.eye = eye;
 	return c;
@@ -52,13 +26,6 @@ G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR directio
 G_CAMERA g_make_camera_2D(float x_left, float x_right, float y_bottom, float y_top)
 {
 	G_CAMERA c;
-	//c.fovy = 2*atan((y_top - y_bottom)/2);
-	//c.aspect = fabs((x_right - x_left)/(y_top - y_bottom));
-	//c.near = 0.1f;
-	//c.far = 2;
-	//c.eye = g_vector((x_right + x_left)/2, (y_top + y_bottom)/2, 1);
-	//c.center = g_vector((x_left + x_right)/2, (y_top + y_bottom)/2, 0);
-	//c.up = g_vector_unit_y;
 	c.proj = G_MATRIX::Ortho(x_left, x_right, y_bottom, y_top, 1, -1);
 	c.view = G_MATRIX::Identity();
 	c.eye = G_VECTOR(0, 0, 1);

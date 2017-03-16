@@ -132,7 +132,7 @@ void g_triangle_buffer_append(G_TRIANGLE t)
 	if(!(temp_index < TEMPORARY_TRIANGLE_BUFFER_SIZE))
 		g_triangle_buffer_flush();
 	
-	G_CAMERA c = glsc3D_inner_camera[get_scale_id_number];
+	G_CAMERA c = glsc3D_inner_scale[get_scale_id_number].camera;
 	G_POSITION eye = c.eye;
 	G_POSITION g   = g_multi(1/3., g_plus(g_plus(t.vertex[0].position, t.vertex[1].position), t.vertex[2].position));
 	

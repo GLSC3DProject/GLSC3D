@@ -24,6 +24,8 @@
 	"out vec4 out_color;\n" \
 	"void main() { out_color = vary_color; }"
 
+// ----------------------------------------------------------------
+
 // Vertex shader for rendering 3D triangles
 #define LIGHTING_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
@@ -59,26 +61,31 @@
 	"	out_color = vec4(amb_dif * vary_color.rgb + spec, vary_color.a);\n" \
 	"}"
 
+// ----------------------------------------------------------------
+
 // Vertex shader for rendering markers
 #define MARKER_VERT_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 proj, view; };\n" \
+	"uniform Matrices { mat4 proj, view; float pixel_scale; };\n" \
 	"layout(location = 0) in vec4 in_position;\n" \
 	"layout(location = 1) in vec4 in_color;\n" \
-	"layout(location = 0) out vec4 vary_color;\n" \
-	"layout(location = 1) out vec4 vary_position;\n" \
+	"out vec4 vary_color;\n" \
+	"out vec3 vary_position;\n" \
+	"out float vary_size;\n" \
 	"void main () {\n" \
 	"	vec4 view_pos = view * vec4(in_position.xyz, 1);\n" \
+	"	float size = in_position.w;\n" \
 	"	gl_Position = proj * view_pos;\n" \
-	"	gl_PointSize = in_position.w / -view_pos.z * 8;\n" \
+	"	gl_PointSize = size / gl_Position.w;\n" \
 	"	vary_color = in_color;\n" \
-	"	vary_position = vec4(view_pos.xyz, in_position.w);\n" \
+	"	vary_position = view_pos.xyz;\n" \
+	"	vary_size = size / pixel_scale;\n" \
 	"}"
 
 // Fragment shader for rendering markers as 2D squares
 #define MARKER_SQUARE_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"layout(location = 0) in vec4 vary_color;\n" \
+	"in vec4 vary_color;\n" \
 	"out vec4 out_color;\n" \
 	"void main() { out_color = vary_color; }"
 
@@ -95,21 +102,76 @@
 // Fragment shader for rendering markers as 3D spheres
 #define MARKER_SPHERE_FRAG_SHADER_SOURCE \
 	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 proj, view; };\n" \
-	"layout(location = 0) in vec4 vary_color;\n" \
-	"layout(location = 1) in vec4 vary_position;\n" \
+	"uniform Matrices { mat4 proj, view; float pixel_scale; };\n" \
+	"in vec4 vary_color;\n" \
+	"in vec3 vary_position;\n" \
+	"in float vary_size;\n" \
 	"out vec4 out_color;\n" \
 	"void main() {\n" \
 	"	vec2 coord = gl_PointCoord * 2 - 1;\n" \
 	"	float discriminant = 1 - dot(coord, coord);\n" \
-	"//	if (discriminant <= 0) discard;\n" \
-	"	vec3 normal = vec3(coord, sqrt(max(discriminant, 0)));\n" \
-	"	vec4 pos = vec4(vary_position.xyz + normal * vary_position.w, 1);\n" \
+	"	if (discriminant <= 0) discard;\n" \
+	"	vec3 normal = vec3(coord, sqrt(discriminant));\n" \
+	"	vec4 pos = proj * vec4(vary_position + normal * vary_size, 1);\n" \
 	"	out_color = vec4(vary_color.rgb * normal.z, vary_color.a);\n" \
-	"	float depth = dot(proj[2], pos) / dot(proj[3], pos) * 0.5 + 0.5;\n" \
-	"//	float depth = pos.z / pos.w;\n" \
-	"	gl_FragDepth = discriminant <= 0 ? 1 : depth;" \
+	"	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;" \
 	"}"
+
+// ----------------------------------------------------------------
+
+#define LINE_VERTEX_SHADER_SOURCE \
+	GLSL_VERSION_DECL \
+	"uniform Matrices { mat4 proj, view; float pixel_scale; };\n" \
+	"layout(location = 0) in vec4 in_position;\n" \
+	"layout(location = 1) in vec4 in_color;\n" \
+	"out vec4 vary_color;\n" \
+	"out vec3 vary_position;\n" \
+	"out float vary_size;\n" \
+	"void main () {\n" \
+	"	vec4 view_pos = view * vec4(in_position.xyz, 1);\n" \
+	"	float size = in_position.w;\n" \
+	"	gl_Position = proj * view_pos;\n" \
+	"	gl_PointSize = size * pixel_scale / gl_Position.w;\n" \
+	"	vary_color = in_color;\n" \
+	"	vary_position = view_pos.xyz;\n" \
+	"	vary_size = size;\n" \
+	"}"
+
+#define LINE_GEOMETRY_SHADER_SOURCE \
+	GLSL_VERSION_DECL \
+	"uniform Matrices { mat4 proj, view; float pixel_scale; };\n" \
+	"layout(location = 0) in vec4 in_position;\n" \
+	"layout(location = 1) in vec4 in_color;\n" \
+	"out vec4 vary_color;\n" \
+	"out vec3 vary_position;\n" \
+	"out float vary_size;\n" \
+	"void main () {\n" \
+	"	vec4 view_pos = view * vec4(in_position.xyz, 1);\n" \
+	"	float size = in_position.w;\n" \
+	"	gl_Position = proj * view_pos;\n" \
+	"	gl_PointSize = size * pixel_scale / gl_Position.w;\n" \
+	"	vary_color = in_color;\n" \
+	"	vary_position = view_pos.xyz;\n" \
+	"	vary_size = size;\n" \
+	"}"
+
+//#define LINE_FRAGMENT_SHADER_SOURCE \
+//	GLSL_VERSION_DECL \
+//	"in vec4 vary_color;\n" \
+//	"in vec3 vary_position;\n" \
+//	"in float vary_size;\n" \
+//	"out vec4 out_color;\n" \
+//	"void main() {\n" \
+//	"	vec2 coord = gl_PointCoord * 2 - 1;\n" \
+//	"	float discriminant = 1 - dot(coord, coord);\n" \
+//	"	if (discriminant <= 0) discard;\n" \
+//	"	vec3 normal = vec3(coord, sqrt(discriminant));\n" \
+//	"	vec4 pos = proj * vec4(vary_position + normal * vary_size, 1);\n" \
+//	"	out_color = vec4(vary_color.rgb * normal.z, vary_color.a);\n" \
+//	"	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;" \
+//	"}"
+
+// ----------------------------------------------------------------
 
 // Vertex shader for rendering text
 #define TEXTURE_VERT_SHADER_SOURCE \

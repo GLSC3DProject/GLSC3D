@@ -149,6 +149,7 @@ static void g_text_render(double x, double y, const char *str)
 		g_sel_scale_3D(get_scale_id_number);
 	else
 		g_sel_scale_2D(get_scale_id_number);
+	//g_set_screen(glsc3D_inner_screen[get_scale_id_number]);
 }
 
 void g_text_standard_va(double x, double y, const char *format, va_list args)
@@ -161,12 +162,11 @@ void g_text_standard_va(double x, double y, const char *format, va_list args)
 
 void g_text_3D_virtual_va(double x, double y, double z, const char *format, va_list args)
 {
-	G_CAMERA& camera = glsc3D_inner_camera[get_scale_id_number];
-	G_SCREEN& screen = glsc3D_inner_screen[get_scale_id_number];
+	G_SCALE& scale = glsc3D_inner_scale[get_scale_id_number];
 
-	G_VECTOR4 p = G_VECTOR4(x, y, z, 1) * camera.view * camera.proj;
-	float std_x = screen.x + 0.5f * (1 + p.x / p.w) * screen.width;
-	float std_y = screen.y + 0.5f * (1 - p.y / p.w) * screen.height;
+	G_VECTOR4 p = G_VECTOR4(x, y, z, 1) * scale.camera.view * scale.camera.proj;
+	float std_x = scale.screen.x + 0.5f * (1 + p.x / p.w) * scale.screen.width;
+	float std_y = scale.screen.y + 0.5f * (1 - p.y / p.w) * scale.screen.height;
 
 	g_text_standard_va(std_x, std_y, format, args);
 }

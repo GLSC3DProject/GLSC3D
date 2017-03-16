@@ -110,38 +110,52 @@ G_VECTOR Scaling3Ds(G_VECTOR u,G_VECTOR s);
 
 G_VECTOR Rx2D(G_VECTOR u,G_REAL theta);
 
-typedef struct
+#ifdef __cplusplus
+
+struct G_SCREEN
 {
 	int x, y, width, height;
-}G_SCREEN;
+};
 
-typedef struct
+struct G_CAMERA
 {
 	G_MATRIX proj, view;
+	float pixel_scale;
 	G_VECTOR eye;
-	float _pad;
-}G_CAMERA;
+};
 
-typedef enum
+struct G_SCALE
 {
-	G_EYE,
-	G_CENTER,
-}G_ROTATE_ANCHOR;
+	G_SCREEN screen;
+	G_CAMERA camera;
 
-typedef enum
-{
-	G_PITCH,
-	G_ROLL,
-	G_YAW,
-}G_ROTATE_DIRECTION;
+	void set();
+};
 
 G_SCREEN g_make_screen(int x, int y, int width, int height);
 G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR direction, float r, float aspect, G_VECTOR up);
 G_CAMERA g_make_camera_2D(float x_left, float x_right, float y_bottom, float y_top);
 //void g_camera_rotate(G_CAMERA *cam, G_ROTATE_DIRECTION dire, G_ROTATE_ANCHOR anc, float theta);
 
-extern G_CAMERA glsc3D_inner_camera[TotalDisplayNumber];
-extern G_SCREEN glsc3D_inner_screen[TotalDisplayNumber];
+//void g_set_screen(G_SCREEN &screen);
+//void g_set_camera(G_CAMERA &camera);
+
+extern G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
+
+#endif
+
+//typedef enum
+//{
+//	G_EYE,
+//	G_CENTER,
+//}G_ROTATE_ANCHOR;
+//
+//typedef enum
+//{
+//	G_PITCH,
+//	G_ROLL,
+//	G_YAW,
+//}G_ROTATE_DIRECTION;
 
 extern G_COLOR g_current_area_color_3D, g_current_area_color_2D;
 extern G_COLOR g_current_line_color, g_current_text_color;

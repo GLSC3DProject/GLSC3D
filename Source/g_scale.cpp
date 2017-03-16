@@ -3,22 +3,20 @@
 int             get_scale_id_number;
 G_DIMENSION     g_scale_dim_flag;
 
-G_CAMERA glsc3D_inner_camera[TotalDisplayNumber];
-G_SCREEN glsc3D_inner_screen[TotalDisplayNumber];
+G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
-void g_set_screen(G_SCREEN &screen)
+void G_SCALE::set()
 {
 	GLint x = g_screen_scale_factor * screen.x;
 	GLint y = glsc3D_height - g_screen_scale_factor * (screen.height + screen.y);
 	GLsizei w = g_screen_scale_factor * screen.width;
 	GLsizei h = g_screen_scale_factor * screen.height;
-	glViewport(x, y, w, h);
-}
 
-void g_set_camera(G_CAMERA &camera)
-{
+	glViewport(x, y, w, h);
+
 #ifdef G_USE_CORE_PROFILE
-	g_update_uniform(G_UNIFORM_MATRICES, 2 * sizeof(G_MATRIX), &camera);
+	camera.pixel_scale = 0.5f * h * camera.proj.y.y;
+	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_CAMERA), &camera);
 #else
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf((float *)&camera.proj);
@@ -43,8 +41,8 @@ void g_def_scale_2D(int id,                                                     
 		fprintf(stderr,"too large id number\n");
 		g_quit();
 	}
-	glsc3D_inner_camera[id] = g_make_camera_2D(x_left, x_right, y_bottom, y_top);
-	glsc3D_inner_screen[id] = g_make_screen(x_left_std, y_top_std, width_std, height_std);
+	glsc3D_inner_scale[id].camera = g_make_camera_2D(x_left, x_right, y_bottom, y_top);
+	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 }
 
 void g_sel_scale_2D(int id)
@@ -57,8 +55,7 @@ void g_sel_scale_2D(int id)
 	g_scale_dim_flag = G_2D;
 	get_scale_id_number = id;
 
-	g_set_camera(glsc3D_inner_camera[id]);
-	g_set_screen(glsc3D_inner_screen[id]);
+	glsc3D_inner_scale[id].set();
 }
 
 void g_def_scale_3D(int id,
@@ -90,8 +87,8 @@ void g_def_scale_3D_core(int id,
 
 	float aspect = (float)width_std / (float)height_std;
 
-	glsc3D_inner_camera[id] = g_make_camera_3D_core(lower, upper, g_normalize(direction), r, aspect, up);
-	glsc3D_inner_screen[id] = g_make_screen(x_left_std, y_top_std, width_std, height_std);
+	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), r, aspect, up);
+	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 }
 
 void g_sel_scale_3D(int id)
@@ -104,6 +101,5 @@ void g_sel_scale_3D(int id)
 	g_scale_dim_flag = G_3D;
 	get_scale_id_number = id;
 	
-	g_set_camera(glsc3D_inner_camera[id]);
-	g_set_screen(glsc3D_inner_screen[id]);
+	glsc3D_inner_scale[id].set();
 }

@@ -3,11 +3,17 @@
 #include <cstdlib>
 #include <vector>
 
-#define NUM_PARTICLES	256
-//#define NUM_PARTICLES	262144
+#define MANY_PARTICLES
 
-#define MIN_PARTICLE_SIZE	32
-#define MAX_PARTICLE_SIZE	128
+#ifdef MANY_PARTICLES
+#define NUM_PARTICLES	262144
+#define MIN_PARTICLE_SIZE	16
+#define MAX_PARTICLE_SIZE	64
+#else
+#define NUM_PARTICLES	256
+#define MIN_PARTICLE_SIZE	64
+#define MAX_PARTICLE_SIZE	512
+#endif
 
 #define TIME_STEP		(1.f / 512)
 
@@ -53,6 +59,9 @@ int main()
 
 	g_init("GLSC3D", WINDOW_SIZE, WINDOW_SIZE);
 
+	//g_scr_color(1, 1, 1);
+	//g_line_color(0, 0, 0, 1);
+
 	g_def_scale_3D(0, -1, 1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE, 0, 0.75f, 1, 8);
 
 	g_marker_type(G_MARKER_SPHERE);
@@ -72,7 +81,6 @@ int main()
 		}
 
 		g_sel_scale_3D(0);
-		g_box_3D_core(0, 0, 0, 2, 2, 2, 0, G_WIRE);
 
 		if (rotation_mode) {
 			for (Particle &p : particles) {
@@ -85,6 +93,8 @@ int main()
 				p.Render();
 			}
 		}
+
+		g_box_3D_core(0, 0, 0, 2, 2, 2, 0, G_WIRE);
 
 		g_finish();
 	}

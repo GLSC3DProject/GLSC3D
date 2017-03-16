@@ -7,8 +7,8 @@
 //(g_bird_view_3D((x_left),(x_right),(y_bottom),(y_top),(N_x),(N_z),(double(*)[N_z])(data),fill))
 
 #define INTV              (1)
-#define WINDOW_SIZE_X     (1000*2)
-#define WINDOW_SIZE_Y     (500*2)
+#define WINDOW_SIZE_X     (1024)
+#define WINDOW_SIZE_Y     (512)
 #define WINDOW_POS_X      (50)
 #define WINDOW_POS_Y      (50)
 
@@ -27,7 +27,7 @@ int main()
 	g_def_scale_3D_core(1, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, WINDOW_SIZE_X/2, 0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y,1, 1, 1, 0, 0, 0, 1);
 	
 	g_init_light_core(0, 1, 2, 3, 1);
-	g_capture_set("");
+	//g_capture_set("");
 	
 	int i_time;
 	double dt = 0.03;
@@ -71,7 +71,7 @@ int main()
 		g_bird_view_f_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array, 1);
 		
 		g_finish();
-		g_capture();
+		//g_capture();
 	}
 	return 0;
 }
