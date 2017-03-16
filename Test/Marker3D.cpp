@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <vector>
 
-//#define MANY_PARTICLES
+#define MANY_PARTICLES
 
 #ifdef MANY_PARTICLES
 #define NUM_PARTICLES	262144
@@ -29,7 +29,6 @@ class Particle
 	float size;
 
 public:
-	// Constructor
 	Particle() :
 		position(frand() * 2 - 1, frand() * 2 - 1, frand() * 2 - 1),
 		velocity(frand() * 2 - 1, frand() * 2 - 1, frand() * 2 - 1),

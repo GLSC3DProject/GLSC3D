@@ -1,6 +1,6 @@
 #include "glsc3d_private.h"
 
-static const size_t VERTEX_BUFFER_SIZE = 3 << 12;
+static const size_t VERTEX_BUFFER_SIZE = 3 << 17;
 
 static const G_VECTOR g_vector_zero(0, 0, 0);
 
@@ -14,6 +14,7 @@ int g_vertex_data_count;
 G_VERTEX *g_vertex_data;
 
 #ifdef G_USE_CORE_PROFILE
+
 #define BUFFER_OFFSET_COLOR  ((void *)(sizeof(float) * 4))
 #define BUFFER_OFFSET_NORMAL ((void *)(sizeof(float) * 8))
 
@@ -84,7 +85,7 @@ void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r)
 void g_vertex_buffer_flush()
 {
 	if (g_vertex_data_count == 0) return;
-
+	printf("%d\n", g_vertex_data_count);
 #ifdef G_USE_CORE_PROFILE
 
 	glBindVertexArray(g_vertex_array_id);
@@ -102,7 +103,7 @@ void g_vertex_buffer_flush()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 
-	glVertexPointer(4, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data->position);
+	glVertexPointer(3, GL_FLOAT, sizeof(G_VERTEX), &g_vertex_data->position);
 
 	if (g_lighting_enabled) {
 		glEnableClientState(GL_NORMAL_ARRAY);

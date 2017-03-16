@@ -145,11 +145,7 @@ static void g_text_render(double x, double y, const char *str)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	if (g_scale_dim_flag == G_3D)
-		g_sel_scale_3D(get_scale_id_number);
-	else
-		g_sel_scale_2D(get_scale_id_number);
-	//g_set_screen(glsc3D_inner_screen[get_scale_id_number]);
+	glsc3D_inner_scale[get_scale_id_number].set();
 }
 
 void g_text_standard_va(double x, double y, const char *format, va_list args)
