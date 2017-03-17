@@ -10,7 +10,7 @@ void g_circle_2D(double center_x, double center_y,
 		g_begin_triangle_fan();
 		for(i=0; i<=STEP; i++)
 		{
-			G_VECTOR pos(center_x + radius*cos(i*dtheta),center_y + radius*sin(i*dtheta));
+			G_VECTOR pos = g_vector2(center_x + radius*cos(i*dtheta),center_y + radius*sin(i*dtheta));
 			g_emit_vertex(pos);
 		}
 	}
@@ -19,7 +19,7 @@ void g_circle_2D(double center_x, double center_y,
 		g_begin_line_strip();
 		for(i=0; i<=STEP; i++)
 		{
-			G_VECTOR pos(center_x + radius*cos(i*dtheta),center_y + radius*sin(i*dtheta));
+			G_VECTOR pos = g_vector2(center_x + radius*cos(i*dtheta),center_y + radius*sin(i*dtheta));
 			g_emit_vertex(pos);
 		}
 	}

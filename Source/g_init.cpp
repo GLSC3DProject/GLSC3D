@@ -10,7 +10,7 @@ int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 void g_init_core(
 					const char *WindowName,int width,int height,
 					int pos_x,int pos_y,
-					double r,double g,double b,
+					float r,float g,float b,
 					int g_enable_transparent_out,
 					int TEMPORARY_TRIANGLE_BUFFER_SIZE_out,
 					int TRIANGLE_BUFFER_SIZE_out

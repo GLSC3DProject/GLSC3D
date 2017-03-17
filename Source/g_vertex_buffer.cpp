@@ -85,7 +85,7 @@ void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r)
 void g_vertex_buffer_flush()
 {
 	if (g_vertex_data_count == 0) return;
-	printf("%d\n", g_vertex_data_count);
+
 #ifdef G_USE_CORE_PROFILE
 
 	glBindVertexArray(g_vertex_array_id);

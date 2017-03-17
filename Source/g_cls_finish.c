@@ -1,6 +1,6 @@
 #include "glsc3d_private.h"
 
-void g_scr_color(double r, double g, double b)
+void g_scr_color(float r, float g, float b)
 {
 	glClearColor(r, g, b, 1);
 }

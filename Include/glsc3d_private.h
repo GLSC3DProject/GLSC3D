@@ -101,6 +101,8 @@ void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum sev
 G_REAL g_direction_phi(G_VECTOR v);
 G_REAL g_direction_theta(G_VECTOR v);
 
+#ifndef __cplusplus
+
 G_VECTOR Rn(G_VECTOR u,G_VECTOR n,G_REAL theta);
 G_VECTOR Rx(G_VECTOR u,G_REAL theta);
 G_VECTOR Ry(G_VECTOR u,G_REAL theta);
@@ -109,6 +111,8 @@ G_VECTOR Rz(G_VECTOR u,G_REAL theta);
 G_VECTOR Scaling3Ds(G_VECTOR u,G_VECTOR s);
 
 G_VECTOR Rx2D(G_VECTOR u,G_REAL theta);
+
+#endif
 
 #ifdef __cplusplus
 
@@ -129,7 +133,7 @@ struct G_SCALE
 	G_SCREEN screen;
 	G_CAMERA camera;
 
-	void set();
+	void select();
 };
 
 G_SCREEN g_make_screen(int x, int y, int width, int height);
@@ -169,12 +173,12 @@ typedef struct
 	G_COLOR  color;
 	G_VECTOR normal;
 	float normal_w;
-}G_VERTEX;
+} G_VERTEX;
 
 typedef struct
 {
 	G_VERTEX vertex[3];
-}G_TRIANGLE;
+} G_TRIANGLE;
 
 static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal)
 {
@@ -200,8 +204,8 @@ extern G_DIMENSION		g_scale_dim_flag;
 
 // ---- g_input.c
 
-void g_keyboard_func(G_KEY_CODE_CONSTANT key, G_INPUT_STATE state);
-void g_mouse_func(G_KEY_CODE_CONSTANT button, G_INPUT_STATE state, int x, int y);
+void g_keyboard_func(G_KEY_CODE key, G_INPUT_STATE state);
+void g_mouse_func(G_KEY_CODE button, G_INPUT_STATE state, int x, int y);
 
 void update_input_key_state(void);
 

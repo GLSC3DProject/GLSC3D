@@ -7,9 +7,9 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 {
 	int i,STEP=100;
 	double dtheta;
-	G_VECTOR direction(direction_x, direction_y);
+	G_VECTOR direction = g_vector2(direction_x, direction_y);
 	direction = g_normalize(direction);
-	G_VECTOR center(center_x, center_y);
+	G_VECTOR center = g_vector2(center_x, center_y);
 	if(WireFill == 1)
 	{
 		g_begin_triangle_fan();
@@ -21,7 +21,6 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 		}
 	
 		g_begin_triangle_fan();
-		g_emit_vertex(center);
 		g_emit_vertex(center);
 		for(i=0; i<=STEP; i++)
 		{

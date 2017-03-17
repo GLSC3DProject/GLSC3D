@@ -19,7 +19,7 @@ void g_mouse_event(const SDL_MouseButtonEvent &event, G_INPUT_STATE state);
 SDL_Window*		g_window;
 SDL_GLContext	g_context;
 
-float g_window_width, g_window_height;
+int g_window_width, g_window_height;
 
 void g_update_drawable_size()
 {
@@ -127,7 +127,7 @@ void g_quit()
 	exit(0);
 }
 
-G_KEY_CODE_CONSTANT g_scancode_map(SDL_Scancode code)
+G_KEY_CODE g_scancode_map(SDL_Scancode code)
 {
 #ifdef VERBOSE
 	printf("raw special key %x\n", code);
@@ -183,13 +183,13 @@ G_KEY_CODE_CONSTANT g_scancode_map(SDL_Scancode code)
 
 //filter function
 //non-accepted key is mapped into 0
-G_KEY_CODE_CONSTANT g_keycode_map(SDL_Keycode code)
+G_KEY_CODE g_keycode_map(SDL_Keycode code)
 {
 #ifdef VERBOSE
 	printf("raw ascii key %x\n", code);
 #endif
 	if (0x20 <= code && code <= 0x7f)
-		return (G_KEY_CODE_CONSTANT)code;
+		return (G_KEY_CODE)code;
 	switch (code)
 	{
 		//fall through
@@ -198,7 +198,7 @@ G_KEY_CODE_CONSTANT g_keycode_map(SDL_Keycode code)
 		case 0x0a:
 		case 0x0d:
 		case 0x1b:
-			return (G_KEY_CODE_CONSTANT)code;
+			return (G_KEY_CODE)code;
 		default:
 			return G_KEY_INVALID;
 	}
@@ -206,7 +206,7 @@ G_KEY_CODE_CONSTANT g_keycode_map(SDL_Keycode code)
 
 void g_keyboard_event(const SDL_Keysym &keysym, G_INPUT_STATE state)
 {
-	G_KEY_CODE_CONSTANT key;
+	G_KEY_CODE key;
 
 	key = g_scancode_map(keysym.scancode);
 	if (key != G_KEY_INVALID) {
@@ -221,7 +221,7 @@ void g_keyboard_event(const SDL_Keysym &keysym, G_INPUT_STATE state)
 	}
 }
 
-G_KEY_CODE_CONSTANT g_mouse_button_map(Uint8 button)
+G_KEY_CODE g_mouse_button_map(Uint8 button)
 {
 	switch (button) {
 		case SDL_BUTTON_LEFT:
@@ -237,7 +237,7 @@ G_KEY_CODE_CONSTANT g_mouse_button_map(Uint8 button)
 
 void g_mouse_event(const SDL_MouseButtonEvent &event, G_INPUT_STATE state)
 {
-	G_KEY_CODE_CONSTANT button = g_mouse_button_map(event.button);
+	G_KEY_CODE button = g_mouse_button_map(event.button);
 
 	if (button != G_KEY_INVALID)
 		g_mouse_func(button, state, event.x, event.y);

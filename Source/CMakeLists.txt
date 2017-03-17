@@ -36,7 +36,7 @@ add_library(GLSC3D
 		g_box.c
 		g_camera.cpp
 		g_capture.c
-		g_circle.cpp
+		g_circle.c
 		g_cone.c
 		g_contln_2D.c
 		g_cylinder_3D.cpp
@@ -44,7 +44,7 @@ add_library(GLSC3D
 		g_debug.cpp
 		g_direction_private.c
 		g_ellipse_3D.c
-		g_fan.cpp
+		g_fan.c
 		g_cls_finish.c
 		g_init.cpp
 		g_input.c

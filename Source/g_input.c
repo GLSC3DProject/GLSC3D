@@ -9,7 +9,7 @@ G_INPUT_STATE input_key[INPUT_KEY_MAX];
 
 struct { int x, y; } click_pos;
 
-void g_keyboard_func(G_KEY_CODE_CONSTANT key, G_INPUT_STATE state)
+void g_keyboard_func(G_KEY_CODE key, G_INPUT_STATE state)
 {
 //	if (state == G_DOWN)
 //		input_key[key] |= 1;
@@ -18,7 +18,7 @@ void g_keyboard_func(G_KEY_CODE_CONSTANT key, G_INPUT_STATE state)
 	input_key[key] = state;
 }
 
-void g_mouse_func(G_KEY_CODE_CONSTANT button, G_INPUT_STATE state, int x, int y)
+void g_mouse_func(G_KEY_CODE button, G_INPUT_STATE state, int x, int y)
 {
 #ifdef VERBOSE
 	printf("raw mouse parameter b:%x s:%x x:%d y:%d\n", button, state, x, y);

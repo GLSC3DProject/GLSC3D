@@ -17,7 +17,13 @@ struct G_TEXT_APPEARANCE
 {
 	G_COLOR color;
 	const char *font_type;
-	unsigned int font_size;
+	float font_size;
+
+	void select()
+	{
+		g_text_color_s(color);
+		g_text_font_core(font_type, font_size);
+	}
 };
 
 G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
@@ -145,7 +151,7 @@ static void g_text_render(double x, double y, const char *str)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glsc3D_inner_scale[get_scale_id_number].set();
+	glsc3D_inner_scale[get_scale_id_number].select();
 }
 
 void g_text_standard_va(double x, double y, const char *format, va_list args)
@@ -197,17 +203,22 @@ void g_text_2D_virtual(double x, double y, const char *format, ...)
 	va_end(args);
 }
 
-void g_text_color(double r, double g, double b, double a)
+void g_text_color_s(G_COLOR color)
+{
+	g_current_text_color = color;
+}
+
+void g_text_color(float r, float g, float b, float a)
 {
 	g_current_text_color = G_COLOR(r, g, b, a);
 }
 
-void g_text_font(G_FONT_ID id, unsigned int font_size)
+void g_text_font(G_FONT_ID id, float font_size)
 {
 	g_text_font_core(NULL, font_size);
 }
 
-void g_text_font_core(const char *font_type, unsigned int font_size)
+void g_text_font_core(const char *font_type, float font_size)
 {
 	//current_font.color = g_current_text_color;
 
@@ -228,24 +239,21 @@ void g_text_font_core(const char *font_type, unsigned int font_size)
 	g_current_text_size = font_size;
 }
 
-
-void g_def_text_core(int id, double r, double g, double b, double a, char * font_type, unsigned font_size)
+void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size)
 {
-	glsc3D_g_def_text[id].color = g_color_core(r, g, b, a);
+	glsc3D_g_def_text[id].color = G_COLOR(r, g, b, a);
 	glsc3D_g_def_text[id].font_type = font_type;
 	glsc3D_g_def_text[id].font_size = font_size;
 }
 
-
-void g_def_text(int id, double r, double g, double b, double a, int font, unsigned int font_size)
+void g_def_text(int id, float r, float g, float b, float a, int font, float font_size)
 {
 	g_def_text_core(id, r, g, b, a, NULL, font_size);
 }
 
 void g_sel_text(int id)
 {
-	g_current_text_color = glsc3D_g_def_text[id].color;
-	g_text_font_core(glsc3D_g_def_text[id].font_type, glsc3D_g_def_text[id].font_size);
+	glsc3D_g_def_text[id].select();
 }
 
 #endif

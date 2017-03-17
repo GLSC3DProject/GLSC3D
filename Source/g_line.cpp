@@ -5,18 +5,30 @@ struct G_LINE_APPEARANCE
 	G_COLOR color;
 	float width;
 	int type;
+
+	void select()
+	{
+		g_line_color_s(color);
+		g_line_width(width);
+		g_line_type(type);
+	}
 };
 
 G_COLOR g_current_line_color(1, 1, 1, 1);
 
 G_LINE_APPEARANCE glsc3D_g_def_line[TotalDisplayNumber];
 
-void g_line_color(double r, double g, double b, double a)
+void g_line_color_s(G_COLOR color)
+{
+	g_current_line_color = color;
+}
+
+void g_line_color(float r, float g, float b, float a)
 {
 	g_current_line_color = G_COLOR(r, g, b, a);
 }
 
-void g_line_width(double size)
+void g_line_width(float size)
 {
 #ifndef G_USE_CORE_PROFILE
     glLineWidth(size);
@@ -56,16 +68,14 @@ void g_line_type(int type)
 #endif
 }
 
-void g_def_line(int id, double r, double g, double b, double a, double width, int type)
+void g_def_line(int id, float r, float g, float b, float a, float width, int type)
 {
-    glsc3D_g_def_line[id].color = g_color_core(r, g, b, a);
+    glsc3D_g_def_line[id].color = G_COLOR(r, g, b, a);
     glsc3D_g_def_line[id].width = width;
     glsc3D_g_def_line[id].type = type;
 }
 
 void g_sel_line(int id)
 {
-    g_current_line_color = glsc3D_g_def_line[id].color;
-    g_line_width(glsc3D_g_def_line[id].width);
-    g_line_type(glsc3D_g_def_line[id].type);
+	glsc3D_g_def_line[id].select();
 }

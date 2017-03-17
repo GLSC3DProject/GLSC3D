@@ -5,7 +5,7 @@ G_DIMENSION     g_scale_dim_flag;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
-void G_SCALE::set()
+void G_SCALE::select()
 {
 	GLint x = g_screen_scale_factor * screen.x;
 	GLint y = glsc3D_height - g_screen_scale_factor * (screen.height + screen.y);
@@ -55,7 +55,7 @@ void g_sel_scale_2D(int id)
 	g_scale_dim_flag = G_2D;
 	get_scale_id_number = id;
 
-	glsc3D_inner_scale[id].set();
+	glsc3D_inner_scale[id].select();
 }
 
 void g_def_scale_3D(int id,
@@ -101,5 +101,5 @@ void g_sel_scale_3D(int id)
 	g_scale_dim_flag = G_3D;
 	get_scale_id_number = id;
 	
-	glsc3D_inner_scale[id].set();
+	glsc3D_inner_scale[id].select();
 }

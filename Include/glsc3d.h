@@ -86,7 +86,7 @@ void g_init_light(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_
 void g_init_core (
                       const char *WindowName,int width,int height,
                       int pos_x,int pos_y,
-                      double r,double g,double b,
+                      float r,float g,float b,
                       int g_enable_transparent_out,
                       int TEMPORARY_TRIANGLE_BUFFER_SIZE_out,
                       int TRIANGLE_BUFFER_SIZE_out
@@ -97,17 +97,20 @@ void g_init (const char *WindowName,int width,int height);
 
 // ----g_area.c
 
-void g_area_color_3D(double r, double g, double b, double a);
-void g_area_color_2D(double r, double g, double b, double a);
+void g_area_color_3D_s(G_COLOR color);
+void g_area_color_2D_s(G_COLOR color);
 
-void g_def_area_2D(int id, double r, double g, double b, double a);
+void g_area_color_3D(float r, float g, float b, float a);
+void g_area_color_2D(float r, float g, float b, float a);
+
+void g_def_area_2D(int id, float r, float g, float b, float a);
 void g_sel_area_2D(int id);
-void g_def_area_3D(int id, double r, double g, double b, double a);
+void g_def_area_3D(int id, float r, float g, float b, float a);
 void g_sel_area_3D(int id);
 
 // ---- g_cls_finish.c
 
-void g_scr_color(double r, double g, double b);
+void g_scr_color(float r, float g, float b);
 void g_cls();
 void g_finish();
 
@@ -146,51 +149,57 @@ void g_sel_scale_3D(int id);
 
 // ---- g_move_plot.c
 
-void g_move_3D(double x,double y,double z);
-void g_move_2D(double x,double y);
+void g_move_s(G_VECTOR position);
+void g_move_3D(double x, double y, double z);
+void g_move_2D(double x, double y);
 
-void g_plot_3D(double x,double y,double z);
-void g_plot_2D(double x,double y);
+void g_plot_s(G_VECTOR position);
+void g_plot_3D(double x, double y, double z);
+void g_plot_2D(double x, double y);
 
 // ---- g_marker.cpp
 
-enum { G_MARKER_SQUARE, G_MARKER_CIRCLE, G_MARKER_SPHERE, G_NUM_MARKER_TYPES };
+enum G_MARKER_TYPE { G_MARKER_SQUARE, G_MARKER_CIRCLE, G_MARKER_SPHERE, G_NUM_MARKER_TYPES };
 
 void g_marker_color_s(G_COLOR color);
-void g_marker_color(double r,double g,double b,double a);
+void g_marker_color(float r, float g, float b, float a);
 void g_marker_type(int type);
-void g_marker_size(double size);
+void g_marker_size(float size);
 
 void g_marker_s(G_VECTOR position);
-void g_marker_3D(double x,double y,double z);
-void g_marker_2D(double x,double y);
+void g_marker_3D(double x, double y, double z);
+void g_marker_2D(double x, double y);
 
-void g_def_marker(int id, double r, double g, double b, double a, int type, double size);
+void g_def_marker(int id, float r, float g, float b, float a, int type, float size);
 void g_sel_marker(int id);
 
 // ---- g_line.cpp
 
-void g_line_color(double r, double g, double b, double a);
-void g_line_color(double r,double g,double b,double a);
-void g_line_width(double size);
+void g_line_color_s(G_COLOR color);
+void g_line_color(float r, float g, float b, float a);
+void g_line_width(float size);
 void g_line_type(int type);
 
-void g_def_line(int id, double r, double g, double b, double a, double width, int type);
+void g_def_line(int id, float r, float g, float b, float a, float width, int type);
 void g_sel_line(int id);
 
 // ---- g_text.cpp
 
-void g_text_standard(double x,double y, const char *format, ...);
+void g_text_standard(double x, double y, const char *format, ...);
 
 void g_text_3D_virtual(double x, double y, double z, const char *format, ...);
 void g_text_2D_virtual(double x, double y, const char *format, ...);
 
-void g_text_color(double r, double g, double b, double a);
-void g_text_font(G_FONT_ID id, unsigned int font_size);
-void g_text_font_core(const char *font_type, unsigned int font_size);
+void g_text_color_s(G_COLOR color);
+void g_text_color(float r, float g, float b, float a);
+void g_text_font(G_FONT_ID id, float font_size);
+void g_text_font_core(const char *font_type, float font_size);
 
-void g_def_text(int id, double r, double g, double b, double a, int font, unsigned int font_size);
+void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size);
+void g_def_text(int id, float r, float g, float b, float a, int font, float font_size);
 void g_sel_text(int id);
+
+// ----------------
 
 void g_bird_view_f_3D(double x0, double x1,
                       double y0, double y1,
@@ -399,34 +408,34 @@ typedef enum
 	G_REPEAT = 3,
 } G_INPUT_STATE;
 
-typedef enum
+enum
 {
-	G_KEY_INVALID   = 0x00,
-	G_MOUSE_LEFT    = 0x01,
-	G_MOUSE_MIDDLE  = 0x02,
-	G_MOUSE_RIGHT   = 0x03,
-	G_KEY_PAGE_UP   = 0x04,
+	G_KEY_INVALID = 0x00,
+	G_MOUSE_LEFT = 0x01,
+	G_MOUSE_MIDDLE = 0x02,
+	G_MOUSE_RIGHT = 0x03,
+	G_KEY_PAGE_UP = 0x04,
 	G_KEY_PAGE_DOWN = 0x05,
-	G_KEY_HOME      = 0x06,
-	G_KEY_END       = 0x07,
-	G_KEY_INSERT    = 0x0b,
-	G_KEY_F1        = 0x0e,
-	G_KEY_F2        = 0x0f,
-	G_KEY_F3        = 0x10,
-	G_KEY_F4        = 0x11,
-	G_KEY_F5        = 0x12,
-	G_KEY_F6        = 0x13,
-	G_KEY_F7        = 0x14,
-	G_KEY_F8        = 0x15,
-	G_KEY_F9        = 0x16,
-	G_KEY_F10       = 0x17,
-	G_KEY_F11       = 0x18,
-	G_KEY_F12       = 0x19,
-	G_KEY_LEFT      = 0x1c,
-	G_KEY_UP        = 0x1d,
-	G_KEY_RIGHT     = 0x1e,
-	G_KEY_DOWN      = 0x1f,
-} G_KEY_CODE_CONSTANT;
+	G_KEY_HOME = 0x06,
+	G_KEY_END = 0x07,
+	G_KEY_INSERT = 0x0b,
+	G_KEY_F1 = 0x0e,
+	G_KEY_F2 = 0x0f,
+	G_KEY_F3 = 0x10,
+	G_KEY_F4 = 0x11,
+	G_KEY_F5 = 0x12,
+	G_KEY_F6 = 0x13,
+	G_KEY_F7 = 0x14,
+	G_KEY_F8 = 0x15,
+	G_KEY_F9 = 0x16,
+	G_KEY_F10 = 0x17,
+	G_KEY_F11 = 0x18,
+	G_KEY_F12 = 0x19,
+	G_KEY_LEFT = 0x1c,
+	G_KEY_UP = 0x1d,
+	G_KEY_RIGHT = 0x1e,
+	G_KEY_DOWN = 0x1f,
+};
 
 typedef int G_KEY_CODE;
 

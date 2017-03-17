@@ -1,10 +1,13 @@
 #ifndef GLSC3D_MATH_H
 #define GLSC3D_MATH_H
 
+#ifdef __cplusplus
+#include <cmath>
+#else
 #include <math.h>
-#include <float.h>
+#endif
 
-typedef float G_REAL;
+typedef double G_REAL;
 
 #ifdef __cplusplus
 
@@ -46,124 +49,47 @@ typedef struct { float x, y, z; } G_VECTOR;
 
 #endif // __cplusplus
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-static inline G_COLOR g_color_core(float r, float g, float b, float a)
-{
-	G_COLOR c = {r, g, b, a};
-	return c;
-}
-
-static inline G_COLOR g_color(float r, float g, float b)
-{
-	return g_color_core(r, g, b, 1);
-}
-
 typedef G_VECTOR G_POSITION;
 typedef G_VECTOR G_DIRECTION;
 
-static inline G_VECTOR g_vector_core(float x, float y, float z)
+static inline G_VECTOR g_vector(G_REAL x, G_REAL y, G_REAL z)
 {
-	G_VECTOR v = {x, y, z};
+	G_VECTOR v = {(float)x, (float)y, (float)z};
 	return v;
 }
 
-static inline G_VECTOR g_vector(float x, float y, float z)
-{
-	return g_vector_core(x, y, z);
-}
-
-//static inline G_VECTOR g_vector4(float x, float y, float z, float w)
-//{
-//	return g_vector_core(x, y, z, w);
-//}
-
-static inline G_VECTOR g_vector3(float x, float y, float z)
+static inline G_VECTOR g_vector3(G_REAL x, G_REAL y, G_REAL z)
 {
 	return g_vector(x, y, z);
 }
 
-static inline G_VECTOR g_vector2(float x, float y)
+static inline G_VECTOR g_vector2(G_REAL x, G_REAL y)
 {
 	return g_vector(x, y, 0);
 }
 
-static inline G_POSITION g_position(float x, float y, float z)
+static inline G_POSITION g_position(G_REAL x, G_REAL y, G_REAL z)
 {
-	return g_vector_core(x, y, z);
+	return g_vector(x, y, z);
 }
-
-static inline G_POSITION g_position3(float x, float y, float z)
-{
-	return g_position(x, y, z);
-}
-
-static inline G_POSITION g_position2(float x, float y)
-{
-	return g_position(x, y, 0);
-}
-
-static inline G_DIRECTION g_direction(float x, float y, float z)
-{
-	return g_vector_core(x, y, z);
-}
-
-static inline G_DIRECTION g_direction3(float x, float y, float z)
-{
-	return g_direction(x, y, z);
-}
-
-static inline G_DIRECTION g_direction2(float x, float y)
-{
-	return g_direction(x, y, 0);
-}
-	
-//static inline G_VECTOR_F g_vector4f(float x, float y, float z, float w)
-//{
-//	G_VECTOR_F v = {x, y, z, w};
-//	return v;
-//}
-//	
-//static inline G_VECTOR_F g_vector3f(float x, float y, float z)
-//{
-//	return g_vector4f(x, y, z, 1);
-//}
-//	
-//static inline G_VECTOR_F g_vector2f(float x, float y)
-//{
-//	return g_vector4f(x, y, 0, 1);
-//}
-//	
-//static inline G_VECTOR_F g_vectorf(G_VECTOR v)
-//{
-//	return g_vector4f(v.x, v.y, v.z, v.w);
-//}
-
-#define EPS_helper(g_real) (sizeof(g_real) == sizeof(float) ? 1e-6 : 1e-14)
-#define EPS EPS_helper(float)
 
 static inline G_VECTOR g_plus (G_VECTOR u,G_VECTOR v)
 {
-	//assert(fabs(u.w - v.w) <= EPS*fabs(u.w) || fabs(u.w - v.w) <= EPS*fabs(v.w));
 	return g_vector3(u.x + v.x, u.y + v.y, u.z + v.z);
 }
 
 static inline G_VECTOR g_minus (G_VECTOR u,G_VECTOR v)
 {
-	//assert(fabs(u.w - v.w) <= EPS*fabs(u.w) || fabs(u.w - v.w) <= EPS*fabs(v.w));
 	return g_vector3(u.x - v.x, u.y - v.y, u.z - v.z);
 }
 
-static inline G_VECTOR g_multi (float a, G_VECTOR u)
+static inline G_VECTOR g_multi (G_REAL a, G_VECTOR u)
 {
 	return g_vector3(a*u.x, a*u.y, a*u.z);
 }
 
 static inline G_VECTOR g_cross (G_VECTOR u,G_VECTOR v)
 {
-	//assert(fabs(u.w - v.w) <= EPS*fabs(u.w) || fabs(u.w - v.w) <= EPS*fabs(v.w));
 	return g_vector3(
 			u.y*v.z - v.y*u.z,
 			u.z*v.x - v.z*u.x,
@@ -185,18 +111,13 @@ static inline G_VECTOR g_normalize(G_VECTOR u)
 	float s = 1 / g_norm(u);
 	return g_vector3(u.x*s, u.y*s, u.z*s);
 }
-	
+
 static inline G_VECTOR g_calc_normal(G_POSITION a, G_POSITION b, G_POSITION c)
 {
 	return g_normalize(g_cross(g_minus(b, a), g_minus(c, a)));
 }
 
-//static const G_VECTOR g_vector_zero = {0, 0, 0};
-//static const G_VECTOR g_vector_unit_x = {1, 0, 0}, g_vector_unit_y = {0, 1, 0}, g_vector_unit_z = {0, 0, 1};
-
 #ifdef __cplusplus
-
-} // extern "C"
 
 struct G_VECTOR4
 {
