@@ -442,9 +442,9 @@ typedef int G_KEY_CODE;
 G_INPUT_STATE g_key_state(G_KEY_CODE key);
 G_INPUT_STATE g_input_state(G_KEY_CODE key, int *x, int *y);
 
-void g_init_off_screen_rendering();
-void g_begin_off_screen_rendering();
-void g_end_off_screen_rendering();
+//void g_init_off_screen_rendering();
+//void g_begin_off_screen_rendering();
+//void g_end_off_screen_rendering();
 
 #ifdef __cplusplus
 }

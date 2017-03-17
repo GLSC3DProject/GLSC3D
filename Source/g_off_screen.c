@@ -1,6 +1,6 @@
 #include "glsc3d_private.h"
 
-#ifdef G_USE_CORE_PROFILE
+#if 0
 
 static GLuint frame_buffer;
 static GLuint color_buffer, depth_buffer;
@@ -16,7 +16,7 @@ void g_init_off_screen_rendering()
 	glGetIntegerv(GL_MINOR_VERSION, &minor_version);
 
 	if(major_version < 3 || (major_version == 3 && minor_version < 3))
-		fprintf(stderr, "GLSC3D : Sorry, your emvironment may be not able to use off-screen rendering,\nyour OpenGL implementation is : %s\n", glGetString(GL_VERSION));
+		fprintf(stderr, "GLSC3D : Sorry, your environment may be not able to use off-screen rendering,\nyour OpenGL implementation is : %s\n", glGetString(GL_VERSION));
 
 	//initialize
     glGenRenderbuffers(1, &color_buffer);

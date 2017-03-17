@@ -79,12 +79,6 @@ Action(PFNGLGENSAMPLERSPROC,                glGenSamplers) \
 Action(PFNGLBINDSAMPLERPROC,                glBindSampler) \
 Action(PFNGLSAMPLERPARAMETERIPROC,          glSamplerParameteri) \
 Action(PFNGLBINDBUFFERBASEPROC,             glBindBufferBase) \
-Action(PFNGLGENRENDERBUFFERSPROC,           glGenRenderbuffers) \
-Action(PFNGLBINDRENDERBUFFERPROC,           glBindRenderbuffer) \
-Action(PFNGLRENDERBUFFERSTORAGEPROC,        glRenderbufferStorage) \
-Action(PFNGLGENFRAMEBUFFERSPROC,            glGenFramebuffers) \
-Action(PFNGLBINDFRAMEBUFFERPROC,            glBindFramebuffer) \
-Action(PFNGLFRAMEBUFFERRENDERBUFFERPROC,    glFramebufferRenderbuffer) \
 Action(PFNGLDEBUGMESSAGECALLBACKPROC,       glDebugMessageCallback)
 
 G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);

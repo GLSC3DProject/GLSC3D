@@ -6,8 +6,6 @@
 #define INTV              (1)
 #define WINDOW_SIZE_X     (700)
 #define WINDOW_SIZE_Y     (700)
-#define WINDOW_POS_X      (50)
-#define WINDOW_POS_Y      (50)
 
 int main()
 {
