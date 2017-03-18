@@ -243,6 +243,7 @@ enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
 
 extern GLuint g_constant_program, g_lighting_program;
 extern GLuint g_marker_programs[G_NUM_MARKER_TYPES];
+extern GLuint g_line_program;
 extern GLuint g_texture_program;
 extern GLuint g_current_program;
 

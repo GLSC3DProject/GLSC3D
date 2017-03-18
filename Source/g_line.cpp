@@ -15,6 +15,7 @@ struct G_LINE_APPEARANCE
 };
 
 G_COLOR g_current_line_color(1, 1, 1, 1);
+float g_current_line_size = 1;
 
 G_LINE_APPEARANCE glsc3D_g_def_line[TotalDisplayNumber];
 
@@ -30,7 +31,9 @@ void g_line_color(float r, float g, float b, float a)
 
 void g_line_width(float size)
 {
-#ifndef G_USE_CORE_PROFILE
+#ifdef G_USE_CORE_PROFILE
+	g_current_line_size = size;
+#else
     glLineWidth(size);
 #endif
 }

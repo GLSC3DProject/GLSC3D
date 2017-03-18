@@ -148,7 +148,7 @@ void g_prepare_points()
 void g_prepare_lines()
 {
 	g_current_color = &g_current_line_color;
-	g_current_size = 0;
+	g_current_size = g_current_line_size;
 	g_use_program(g_constant_program);
 }
 

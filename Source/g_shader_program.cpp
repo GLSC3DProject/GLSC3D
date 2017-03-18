@@ -64,98 +64,124 @@
 // ----------------------------------------------------------------
 
 // Vertex shader for rendering markers
-#define MARKER_VERT_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 proj, view; float pixel_scale; };\n" \
-	"layout(location = 0) in vec4 in_position;\n" \
-	"layout(location = 1) in vec4 in_color;\n" \
-	"out vec4 vary_color;\n" \
-	"out vec3 vary_position;\n" \
-	"out float vary_radius;\n" \
-	"void main () {\n" \
-	"	vec4 view_pos = view * vec4(in_position.xyz, 1);\n" \
-	"	float size = in_position.w;\n" \
-	"	gl_Position = proj * view_pos;\n" \
-	"	gl_PointSize = size / gl_Position.w;\n" \
-	"	vary_color = in_color;\n" \
-	"	vary_position = view_pos.xyz;\n" \
-	"	vary_radius = size / pixel_scale;\n" \
-	"}"
+const char * const MARKER_VERT_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+uniform Matrices { mat4 proj, view; float pixel_scale; };
+layout(location = 0) in vec4 in_position;
+layout(location = 1) in vec4 in_color;
+out VS_TO_FS {
+	vec4 color;
+	vec3 position;
+	float radius;
+} output;
+void main () {
+	vec4 view_pos = view * vec4(in_position.xyz, 1);
+	float size = in_position.w;
+	gl_Position = proj * view_pos;
+	gl_PointSize = size;
+	output.color = in_color;
+	output.position = view_pos.xyz;
+	output.radius = size * gl_Position.w * pixel_scale;
+})";
 
 // Fragment shader for rendering markers as 2D squares
-#define MARKER_SQUARE_FRAG_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"in vec4 vary_color;\n" \
-	"out vec4 out_color;\n" \
-	"void main() { out_color = vary_color; }"
+const char * const MARKER_SQUARE_FRAG_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+in VS_TO_FS {
+	vec4 color;
+	vec3 position;
+	float radius;
+} input;
+out vec4 out_color;
+void main() {
+	out_color = input.color;
+})";
 
 // Fragment shader for rendering markers as 2D circles
-#define MARKER_CIRCLE_FRAG_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"layout(location = 0) in vec4 vary_color;\n" \
-	"out vec4 out_color;\n" \
-	"void main() {\n" \
-	"	vec2 coord = gl_PointCoord * 2 - 1;\n" \
-	"	float discriminant = 1 - dot(coord, coord);\n" \
-	"	if (discriminant <= 0) discard;\n" \
-	"	out_color = vary_color;\n" \
-	"}"
+const char * const MARKER_CIRCLE_FRAG_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(\
+in VS_TO_FS {
+	vec4 color;
+	vec3 position;
+	float radius;
+} input;
+out vec4 out_color;
+void main() {
+	vec2 coord = gl_PointCoord * 2 - 1;
+	float discriminant = 1 - dot(coord, coord);
+	if (discriminant <= 0) discard;
+	out_color = input.color;
+})";
 
 // Fragment shader for rendering markers as 3D spheres
-#define MARKER_SPHERE_FRAG_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 proj, view; float pixel_scale; };\n" \
-	"in vec4 vary_color;\n" \
-	"in vec3 vary_position;\n" \
-	"in float vary_radius;\n" \
-	"out vec4 out_color;\n" \
-	"void main() {\n" \
-	"	vec2 coord = gl_PointCoord * 2 - 1;\n" \
-	"	float discriminant = 1 - dot(coord, coord);\n" \
-	"	if (discriminant <= 0) discard;\n" \
-	"	vec3 normal = vec3(coord, sqrt(discriminant));\n" \
-	"	vec4 pos = proj * vec4(vary_position + normal * vary_radius, 1);\n" \
-	"	out_color = vec4(vary_color.rgb * normal.z, vary_color.a);\n" \
-	"	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;" \
-	"}"
+const char * const MARKER_SPHERE_FRAG_SHADER_SOURCE = \
+GLSL_VERSION_DECL R"(\
+uniform Matrices { mat4 proj, view; float pixel_scale; };
+in VS_TO_FS {
+	vec4 color;
+	vec3 position;
+	float radius;
+} input;
+out vec4 out_color;
+void main() {
+	vec2 coord = gl_PointCoord * 2 - 1;
+	float discriminant = 1 - dot(coord, coord);
+	if (discriminant <= 0) discard;
+	vec3 normal = vec3(coord, sqrt(discriminant));
+	vec4 pos = proj * vec4(input.position + normal * input.radius, 1);
+	out_color = vec4(input.color.rgb * normal.z, input.color.a);
+	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;
+})";
 
 // ----------------------------------------------------------------
 
-#define LINE_VERTEX_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 proj, view; float pixel_scale; };\n" \
-	"layout(location = 0) in vec4 in_position;\n" \
-	"layout(location = 1) in vec4 in_color;\n" \
-	"out vec4 vary_color;\n" \
-	"out vec3 vary_position;\n" \
-	"out float vary_size;\n" \
-	"void main () {\n" \
-	"	vec4 view_pos = view * vec4(in_position.xyz, 1);\n" \
-	"	float size = in_position.w;\n" \
-	"	gl_Position = proj * view_pos;\n" \
-	"	gl_PointSize = size * pixel_scale / gl_Position.w;\n" \
-	"	vary_color = in_color;\n" \
-	"	vary_position = view_pos.xyz;\n" \
-	"	vary_size = size;\n" \
-	"}"
+const char * const LINE_VERTEX_SHADER_SOURCE = \
+GLSL_VERSION_DECL R"(
+uniform Matrices { mat4 proj, view; float pixel_scale; };
+layout(location = 0) in vec4 in_position;
+layout(location = 1) in vec4 in_color;
+out VS_TO_GS {
+	vec4 color;
+//	vec3 position;
+	float size;
+} output;
+void main () {
+	vec4 view_pos = view * vec4(in_position.xyz, 1);
+	float size = in_position.w;
+	gl_Position = proj * view_pos;
+	gl_PointSize = size * pixel_scale / gl_Position.w;
+	output.color = in_color;
+//	output.position = view_pos.xyz;
+	output.size = size;
+})";
 
-#define LINE_GEOMETRY_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 proj, view; float pixel_scale; };\n" \
-	"layout(location = 0) in vec4 in_position;\n" \
-	"layout(location = 1) in vec4 in_color;\n" \
-	"out vec4 vary_color;\n" \
-	"out vec3 vary_position;\n" \
-	"out float vary_size;\n" \
-	"void main () {\n" \
-	"	vec4 view_pos = view * vec4(in_position.xyz, 1);\n" \
-	"	float size = in_position.w;\n" \
-	"	gl_Position = proj * view_pos;\n" \
-	"	gl_PointSize = size * pixel_scale / gl_Position.w;\n" \
-	"	vary_color = in_color;\n" \
-	"	vary_position = view_pos.xyz;\n" \
-	"	vary_size = size;\n" \
-	"}"
+const char * const LINE_GEOMETRY_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+uniform Matrices { mat4 proj, view; float pixel_scale; };
+layout(lines) in;
+layout(triangle_strip, max_vertices = 4) out;
+in VS_TO_GS {
+	vec4 color;
+//	vec3 position;
+	float size;
+};
+out vec4 vary_color;
+void main () {
+	vec4 u = gl_in[0].gl_Position;
+	vec4 v = gl_in[1].gl_Position;
+	vec2 p = u.xy / u.w;
+	vec2 q = v.xy / v.w;
+	vec4 r = normalize(vec4(p.y - q.y, q.x - p.x, 0, 0));
+	vary_color = color;
+	gl_Position = u + size * r;
+	EmitVertex();
+	gl_Position = u - size * r;
+	EmitVertex();
+	gl_Position = v + size * r;
+	EmitVertex();
+	gl_Position = v - size * r;
+	EmitVertex();
+})";
 
 //#define LINE_FRAGMENT_SHADER_SOURCE \
 //	GLSL_VERSION_DECL \
@@ -198,6 +224,7 @@
 
 GLuint g_constant_program, g_lighting_program;
 GLuint g_marker_programs[G_NUM_MARKER_TYPES];
+GLuint g_line_program;
 GLuint g_texture_program;
 GLuint g_current_program;
 
@@ -300,9 +327,17 @@ void g_shader_program_init()
 	g_lighting_program = g_create_program(LIGHTING_VERT_SHADER_SOURCE, LIGHTING_FRAG_SHADER_SOURCE);
 
 	GLuint marker_vert_shader = g_create_shader(GL_VERTEX_SHADER, MARKER_VERT_SHADER_SOURCE);
-	g_marker_programs[G_MARKER_SQUARE] = g_create_program(marker_vert_shader, MARKER_SQUARE_FRAG_SHADER_SOURCE);
-	g_marker_programs[G_MARKER_CIRCLE] = g_create_program(marker_vert_shader, MARKER_CIRCLE_FRAG_SHADER_SOURCE);
-	g_marker_programs[G_MARKER_SPHERE] = g_create_program(marker_vert_shader, MARKER_SPHERE_FRAG_SHADER_SOURCE);
+	g_marker_programs[0] = g_create_program(marker_vert_shader, MARKER_SQUARE_FRAG_SHADER_SOURCE);
+	g_marker_programs[1] = g_create_program(marker_vert_shader, MARKER_CIRCLE_FRAG_SHADER_SOURCE);
+	g_marker_programs[2] = g_create_program(marker_vert_shader, MARKER_SPHERE_FRAG_SHADER_SOURCE);
+
+//	g_line_program = g_create_program(LINE_VERTEX_SHADER_SOURCE, LINE_GEOMETRY_SHADER_SOURCE)
+//	printf("%s", MARKER_VERT_SHADER_SOURCE);
+	g_line_program = glCreateProgram();
+	glAttachShader(g_line_program, g_create_shader(GL_VERTEX_SHADER, LINE_VERTEX_SHADER_SOURCE));
+	glAttachShader(g_line_program, g_create_shader(GL_GEOMETRY_SHADER, LINE_GEOMETRY_SHADER_SOURCE));
+	glAttachShader(g_line_program, g_create_shader(GL_FRAGMENT_SHADER, CONSTANT_FRAG_SHADER_SOURCE));
+	glLinkProgram(g_line_program);
 
 	g_texture_program = g_create_program(TEXTURE_VERT_SHADER_SOURCE, TEXTURE_FRAG_SHADER_SOURCE);
 

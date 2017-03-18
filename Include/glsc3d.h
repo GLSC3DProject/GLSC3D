@@ -11,7 +11,7 @@
 extern "C"
 {
 #endif
-    
+
 /*typedef enum
 {
 	G_TRUE  = 1,
@@ -19,9 +19,11 @@ extern "C"
 } G_BOOL;
 */
 typedef int G_BOOL;
-#define G_TRUE  1
-#define G_FALSE 0
-	
+#define G_FALSE	0
+#define G_TRUE	1
+#define G_NO	0
+#define G_YES	1
+
 /*typedef enum
 {
     G_2D   = 0,
@@ -51,10 +53,10 @@ typedef int G_WIREFILL;
 }G_FONT_ID;
 */
 typedef int G_FONT_ID;
-#define G_IPA_GOTHIC              0
-#define G_IPA_GOTHIC_PROPORTIONAL 1
-#define G_IPA_MINCHO              2
-#define G_IPA_MINCHO_PROPORTIONAL 3
+//#define G_IPA_GOTHIC              0
+//#define G_IPA_GOTHIC_PROPORTIONAL 1
+//#define G_IPA_MINCHO              2
+//#define G_IPA_MINCHO_PROPORTIONAL 3
 
 
 #define G_OFF_SCREEN			NULL
@@ -73,9 +75,6 @@ extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
 #define DBG_WRITE(...)
 //#endif
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-extern int color2D_id;
-extern int color3D_id;
 
 // ---- g_init.cpp
 

@@ -7,15 +7,15 @@ G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
 void G_SCALE::select()
 {
-	GLint x = g_screen_scale_factor * screen.x;
-	GLint y = glsc3D_height - g_screen_scale_factor * (screen.height + screen.y);
-	GLsizei w = g_screen_scale_factor * screen.width;
-	GLsizei h = g_screen_scale_factor * screen.height;
+	int x = (int)(g_screen_scale_factor * screen.x);
+	int y = glsc3D_height - (int)(g_screen_scale_factor * (screen.height + screen.y));
+	int w = (int)(g_screen_scale_factor * screen.width);
+	int h = (int)(g_screen_scale_factor * screen.height);
 
 	glViewport(x, y, w, h);
 
 #ifdef G_USE_CORE_PROFILE
-	camera.pixel_scale = h * camera.proj.y.y;
+	camera.pixel_scale = 1 / (h * camera.proj.y.y);
 	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_CAMERA), &camera);
 #else
 	glMatrixMode(GL_PROJECTION);
