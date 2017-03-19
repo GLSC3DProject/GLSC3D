@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <vector>
 
-#define MANY_PARTICLES
+//#define MANY_PARTICLES
 
 #ifdef MANY_PARTICLES
 #define NUM_PARTICLES	262144
