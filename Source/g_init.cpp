@@ -32,7 +32,7 @@ void g_init_core(
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
-	glEnable(GL_LINE_SMOOTH);
+	//glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_CULL_FACE);
 
 	//int range[2];

@@ -142,16 +142,16 @@ layout(location = 0) in vec4 in_position;
 layout(location = 1) in vec4 in_color;
 out VS_TO_GS {
 	vec4 color;
-//	vec3 position;
-	float size;
+	vec3 position;
+	float half_width;
 } Output;
 void main () {
 	vec4 view_pos = view * vec4(in_position.xyz, 1);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
 	Output.color = in_color;
-//	Output.position = view_pos.xyz;
-	Output.size = size * gl_Position.w * pixel_scale;
+	Output.position = view_pos.xyz;
+	Output.half_width = size * gl_Position.w * pixel_scale;
 })";
 
 const char * const LINE_GEOMETRY_SHADER_SOURCE =
@@ -161,27 +161,26 @@ layout(lines) in;
 layout(triangle_strip, max_vertices = 4) out;
 in VS_TO_GS {
 	vec4 color;
-//	vec3 position;
-	float size;
+	vec3 position;
+	float half_width;
 } Input[2];
 layout(location = 0) out vec4 vary_color;
+
+void emit_vertex(uint id, vec4 r) {
+	vary_color = Input[id].color;
+	vec4 center = gl_in[id].gl_Position;
+	vec4 offset = Input[id].half_width * r;
+	gl_Position = center + proj * offset;
+	EmitVertex();
+}
 void main () {
-	vec4 u = gl_in[0].gl_Position;
-	vec4 v = gl_in[1].gl_Position;
-	vec2 p = u.xy / u.w;
-	vec2 q = v.xy / v.w;
-	vec2 r = normalize(vec2(p.y - q.y, q.x - p.x));
-	vary_color = Input[0].color;
-	float size = Input[0].size;
-	gl_Position.zw = vec2(0, 1);
-	gl_Position.xy = p + size * r;
-	EmitVertex();
-	gl_Position.xy = p - size * r;
-	EmitVertex();
-	gl_Position.xy = q + size * r;
-	EmitVertex();
-	gl_Position.xy = q - size * r;
-	EmitVertex();
+	vec3 u = Input[0].position;
+	vec3 v = Input[1].position;
+	vec4 r = normalize(vec4(u.y - v.y, v.x - u.x, 0, 0));
+	emit_vertex(0, +r);
+	emit_vertex(0, -r);
+	emit_vertex(1, +r);
+	emit_vertex(1, -r);
 })";
 
 // ----------------------------------------------------------------
@@ -322,7 +321,7 @@ void g_shader_program_init()
 	glAttachShader(g_line_program, g_create_shader(GL_VERTEX_SHADER, LINE_VERTEX_SHADER_SOURCE));
 	glAttachShader(g_line_program, g_create_shader(GL_GEOMETRY_SHADER, LINE_GEOMETRY_SHADER_SOURCE));
 	glAttachShader(g_line_program, g_create_shader(GL_FRAGMENT_SHADER, CONSTANT_FRAG_SHADER_SOURCE));
-	glLinkProgram(g_line_program);
+	g_link_program(g_line_program);
 
 	g_texture_program = g_create_program(TEXTURE_VERT_SHADER_SOURCE, TEXTURE_FRAG_SHADER_SOURCE);
 

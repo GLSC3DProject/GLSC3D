@@ -89,6 +89,7 @@ int main()
 		}
 
 		g_sel_scale_3D(0);
+		g_line_width(2);
 
 		if (rotation_mode) {
 			for (Particle &p : particles) {
