@@ -72,7 +72,7 @@ void g_text_init()
 	glGenBuffers(1, &g_quad_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
 
-	float vertices[] = {0, 0,  1, 0,  0, 1,  1, 1};
+	float vertices[] = {-1, -1,  +1, -1,  -1, +1,  +1, +1};
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
@@ -154,7 +154,7 @@ static void g_text_render(double x, double y, const char *str)
 	glsc3D_inner_scale[get_scale_id_number].select();
 }
 
-void g_text_standard_va(double x, double y, const char *format, va_list args)
+void g_text_standard_v(double x, double y, const char *format, va_list args)
 {
 	char buf[256];
 	vsnprintf(buf, sizeof(buf), format, args);
@@ -162,7 +162,7 @@ void g_text_standard_va(double x, double y, const char *format, va_list args)
 	g_text_render(x, y, buf);
 }
 
-void g_text_3D_virtual_va(double x, double y, double z, const char *format, va_list args)
+void g_text_3D_virtual_v(double x, double y, double z, const char *format, va_list args)
 {
 	G_SCALE& scale = glsc3D_inner_scale[get_scale_id_number];
 
@@ -170,7 +170,7 @@ void g_text_3D_virtual_va(double x, double y, double z, const char *format, va_l
 	float std_x = scale.screen.x + 0.5f * (1 + p.x / p.w) * scale.screen.width;
 	float std_y = scale.screen.y + 0.5f * (1 - p.y / p.w) * scale.screen.height;
 
-	g_text_standard_va(std_x, std_y, format, args);
+	g_text_standard_v(std_x, std_y, format, args);
 }
 
 void g_text_standard(double x, double y, const char *format, ...)
@@ -178,7 +178,7 @@ void g_text_standard(double x, double y, const char *format, ...)
 	va_list args;
 	va_start(args, format);
 
-	g_text_standard_va(x, y, format, args);
+	g_text_standard_v(x, y, format, args);
 
 	va_end(args);
 }
@@ -188,7 +188,7 @@ void g_text_3D_virtual(double x, double y, double z, const char *format, ...)
 	va_list args;
 	va_start(args, format);
 
-	g_text_3D_virtual_va(x, y, z, format, args);
+	g_text_3D_virtual_v(x, y, z, format, args);
 
 	va_end(args);
 }
@@ -198,7 +198,7 @@ void g_text_2D_virtual(double x, double y, const char *format, ...)
 	va_list args;
 	va_start(args, format);
 
-	g_text_3D_virtual_va(x, y, 0, format, args);
+	g_text_3D_virtual_v(x, y, 0, format, args);
 
 	va_end(args);
 }

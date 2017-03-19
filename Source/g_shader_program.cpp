@@ -3,63 +3,63 @@
 
 #ifdef G_USE_CORE_PROFILE
 
-#define GLSL_VERSION_DECL "#version 410 core\n"
+#define GLSL_VERSION_DECL "#version 410 core"
 
 // Vertex shader for rendering lines and 2D triangles
-#define CONSTANT_VERT_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 proj, view; };\n" \
-	"layout(location = 0) in vec3 in_position;\n" \
-	"layout(location = 1) in vec4 in_color;\n" \
-	"layout(location = 0) out vec4 vary_color;\n" \
-	"void main() {\n" \
-	"	gl_Position = proj * (view * vec4(in_position, 1));\n" \
-	"	vary_color = in_color;\n" \
-	"}"
+const char * const CONSTANT_VERT_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+uniform Matrices { mat4 proj, view; };
+layout(location = 0) in vec3 in_position;
+layout(location = 1) in vec4 in_color;
+layout(location = 0) out vec4 vary_color;
+void main() {
+	gl_Position = proj * (view * vec4(in_position, 1));
+	vary_color = in_color;
+})";
 
 // Fragment shader for rendering lines and 2D triangles
-#define CONSTANT_FRAG_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"layout(location = 0) in vec4 vary_color;\n" \
-	"out vec4 out_color;\n" \
-	"void main() { out_color = vary_color; }"
+const char * const CONSTANT_FRAG_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+layout(location = 0) in vec4 vary_color;
+out vec4 out_color;
+void main() { out_color = vary_color; })";
 
 // ----------------------------------------------------------------
 
 // Vertex shader for rendering 3D triangles
-#define LIGHTING_VERT_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"uniform Matrices { mat4 proj, view; };\n" \
-	"layout(location = 0) in vec3 in_position;\n" \
-	"layout(location = 1) in vec4 in_color;\n" \
-	"layout(location = 2) in vec4 in_normal;\n" \
-	"layout(location = 0) out vec4 vary_color;\n" \
-	"layout(location = 1) out vec4 vary_normal;\n" \
-	"layout(location = 2) out vec4 vary_position;\n" \
-	"void main() {\n" \
-	"	vec4 view_pos = view * vec4(in_position, 1);\n" \
-	"	gl_Position = proj * view_pos;\n" \
-	"	vary_color = in_color;\n" \
-	"	vary_normal = view * vec4(in_normal.xyz, 0);\n" \
-	"	vary_position = view_pos;\n" \
-	"}"
+const char * const LIGHTING_VERT_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+uniform Matrices { mat4 proj, view; };
+layout(location = 0) in vec3 in_position;
+layout(location = 1) in vec4 in_color;
+layout(location = 2) in vec4 in_normal;
+layout(location = 0) out vec4 vary_color;
+layout(location = 1) out vec4 vary_normal;
+layout(location = 2) out vec4 vary_position;
+void main() {
+	vec4 view_pos = view * vec4(in_position, 1);
+	gl_Position = proj * view_pos;
+	vary_color = in_color;
+	vary_normal = view * vec4(in_normal.xyz, 0);
+	vary_position = view_pos;
+})";
 
 // Fragment shader for rendering 3D triangles
-#define LIGHTING_FRAG_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"uniform Lights { vec4 direction; float ambient, diffuse, specular, shininess; } light;\n" \
-	"layout(location = 0) in vec4 vary_color;\n" \
-	"layout(location = 1) in vec4 vary_normal;\n" \
-	"layout(location = 2) in vec4 vary_position;\n" \
-	"out vec4 out_color;\n" \
-	"void main() {\n" \
-	"	vec3 half_vec = normalize(light.direction.xyz - normalize(vary_position.xyz));\n" \
-	"	vec3 normal = normalize(vary_normal.xyz);\n" \
-	"	normal *= gl_FrontFacing ? 1.0 : -1.0;\n" \
-	"	float amb_dif = light.ambient + light.diffuse * max(dot(light.direction.xyz, normal), 0);\n" \
-	"	float spec = light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);\n" \
-	"	out_color = vec4(amb_dif * vary_color.rgb + spec, vary_color.a);\n" \
-	"}"
+const char * const LIGHTING_FRAG_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+uniform Lights { vec4 direction; float ambient, diffuse, specular, shininess; } light;
+layout(location = 0) in vec4 vary_color;
+layout(location = 1) in vec4 vary_normal;
+layout(location = 2) in vec4 vary_position;
+out vec4 out_color;
+void main() {
+	vec3 half_vec = normalize(light.direction.xyz - normalize(vary_position.xyz));
+	vec3 normal = normalize(vary_normal.xyz);
+	normal *= gl_FrontFacing ? 1.0 : -1.0;
+	float amb_dif = light.ambient + light.diffuse * max(dot(light.direction.xyz, normal), 0);
+	float spec = light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);
+	out_color = vec4(amb_dif * vary_color.rgb + spec, vary_color.a);
+})";
 
 // ----------------------------------------------------------------
 
@@ -73,15 +73,15 @@ out VS_TO_FS {
 	vec4 color;
 	vec3 position;
 	float radius;
-} output;
+} Output;
 void main () {
 	vec4 view_pos = view * vec4(in_position.xyz, 1);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
 	gl_PointSize = size;
-	output.color = in_color;
-	output.position = view_pos.xyz;
-	output.radius = size * gl_Position.w * pixel_scale;
+	Output.color = in_color;
+	Output.position = view_pos.xyz;
+	Output.radius = size * gl_Position.w * pixel_scale;
 })";
 
 // Fragment shader for rendering markers as 2D squares
@@ -91,51 +91,51 @@ in VS_TO_FS {
 	vec4 color;
 	vec3 position;
 	float radius;
-} input;
+} Input;
 out vec4 out_color;
 void main() {
-	out_color = input.color;
+	out_color = Input.color;
 })";
 
 // Fragment shader for rendering markers as 2D circles
 const char * const MARKER_CIRCLE_FRAG_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(\
+GLSL_VERSION_DECL R"(
 in VS_TO_FS {
 	vec4 color;
 	vec3 position;
 	float radius;
-} input;
+} Input;
 out vec4 out_color;
 void main() {
 	vec2 coord = gl_PointCoord * 2 - 1;
 	float discriminant = 1 - dot(coord, coord);
 	if (discriminant <= 0) discard;
-	out_color = input.color;
+	out_color = Input.color;
 })";
 
 // Fragment shader for rendering markers as 3D spheres
-const char * const MARKER_SPHERE_FRAG_SHADER_SOURCE = \
-GLSL_VERSION_DECL R"(\
+const char * const MARKER_SPHERE_FRAG_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
 uniform Matrices { mat4 proj, view; float pixel_scale; };
 in VS_TO_FS {
 	vec4 color;
 	vec3 position;
 	float radius;
-} input;
+} Input;
 out vec4 out_color;
 void main() {
 	vec2 coord = gl_PointCoord * 2 - 1;
 	float discriminant = 1 - dot(coord, coord);
 	if (discriminant <= 0) discard;
 	vec3 normal = vec3(coord, sqrt(discriminant));
-	vec4 pos = proj * vec4(input.position + normal * input.radius, 1);
-	out_color = vec4(input.color.rgb * normal.z, input.color.a);
+	vec4 pos = proj * vec4(Input.position + normal * Input.radius, 1);
+	out_color = vec4(Input.color.rgb * normal.z, Input.color.a);
 	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;
 })";
 
 // ----------------------------------------------------------------
 
-const char * const LINE_VERTEX_SHADER_SOURCE = \
+const char * const LINE_VERTEX_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
 uniform Matrices { mat4 proj, view; float pixel_scale; };
 layout(location = 0) in vec4 in_position;
@@ -144,15 +144,14 @@ out VS_TO_GS {
 	vec4 color;
 //	vec3 position;
 	float size;
-} output;
+} Output;
 void main () {
 	vec4 view_pos = view * vec4(in_position.xyz, 1);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
-	gl_PointSize = size * pixel_scale / gl_Position.w;
-	output.color = in_color;
-//	output.position = view_pos.xyz;
-	output.size = size;
+	Output.color = in_color;
+//	Output.position = view_pos.xyz;
+	Output.size = size * gl_Position.w * pixel_scale;
 })";
 
 const char * const LINE_GEOMETRY_SHADER_SOURCE =
@@ -164,63 +163,49 @@ in VS_TO_GS {
 	vec4 color;
 //	vec3 position;
 	float size;
-};
-out vec4 vary_color;
+} Input[2];
+layout(location = 0) out vec4 vary_color;
 void main () {
 	vec4 u = gl_in[0].gl_Position;
 	vec4 v = gl_in[1].gl_Position;
 	vec2 p = u.xy / u.w;
 	vec2 q = v.xy / v.w;
-	vec4 r = normalize(vec4(p.y - q.y, q.x - p.x, 0, 0));
-	vary_color = color;
-	gl_Position = u + size * r;
+	vec2 r = normalize(vec2(p.y - q.y, q.x - p.x));
+	vary_color = Input[0].color;
+	float size = Input[0].size;
+	gl_Position.zw = vec2(0, 1);
+	gl_Position.xy = p + size * r;
 	EmitVertex();
-	gl_Position = u - size * r;
+	gl_Position.xy = p - size * r;
 	EmitVertex();
-	gl_Position = v + size * r;
+	gl_Position.xy = q + size * r;
 	EmitVertex();
-	gl_Position = v - size * r;
+	gl_Position.xy = q - size * r;
 	EmitVertex();
 })";
-
-//#define LINE_FRAGMENT_SHADER_SOURCE \
-//	GLSL_VERSION_DECL \
-//	"in vec4 vary_color;\n" \
-//	"in vec3 vary_position;\n" \
-//	"in float vary_size;\n" \
-//	"out vec4 out_color;\n" \
-//	"void main() {\n" \
-//	"	vec2 coord = gl_PointCoord * 2 - 1;\n" \
-//	"	float discriminant = 1 - dot(coord, coord);\n" \
-//	"	if (discriminant <= 0) discard;\n" \
-//	"	vec3 normal = vec3(coord, sqrt(discriminant));\n" \
-//	"	vec4 pos = proj * vec4(vary_position + normal * vary_size, 1);\n" \
-//	"	out_color = vec4(vary_color.rgb * normal.z, vary_color.a);\n" \
-//	"	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;" \
-//	"}"
 
 // ----------------------------------------------------------------
 
 // Vertex shader for rendering text
-#define TEXTURE_VERT_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"layout(location = 0) in vec2 in_texcoord;\n" \
-	"layout(location = 0) out vec2 vary_texcoord;\n" \
-	"void main() {\n" \
-	"	gl_Position = vec4(in_texcoord.x * 2 - 1, in_texcoord.y * -2 + 1, 0, 1);\n" \
-	"	vary_texcoord = in_texcoord;\n" \
-	"}"
+const char * const TEXTURE_VERT_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+layout(location = 0) in vec2 in_position;
+layout(location = 0) out vec2 vary_texcoord;
+void main() {
+	gl_Position = vec4(in_position.xy, 0, 1);
+	vary_texcoord = in_position * vec2(0.5, -0.5) + 0.5;
+})";
 
 // Fragment shader for rendering text
-#define TEXTURE_FRAG_SHADER_SOURCE \
-	GLSL_VERSION_DECL \
-	"uniform sampler2D tex;\n" \
-	"uniform vec4 color;\n" \
-	"layout(location = 0) in vec2 vary_texcoord;\n" \
-	"out vec4 out_color;\n" \
-	"void main() {\n" \
-	"	out_color = vec4(color.rgb, color.a * texture(tex, vary_texcoord).r);\n" \
-	"}"
+const char * const TEXTURE_FRAG_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+uniform sampler2D tex;
+uniform vec4 color;
+layout(location = 0) in vec2 vary_texcoord;
+out vec4 out_color;
+void main() {
+	out_color = vec4(color.rgb, color.a * texture(tex, vary_texcoord).r);
+})";
 
 GLuint g_constant_program, g_lighting_program;
 GLuint g_marker_programs[G_NUM_MARKER_TYPES];
@@ -285,7 +270,7 @@ void g_link_program(GLuint program)
 		std::vector<char> info_log((size_t)info_log_length);
 		
 		glGetProgramInfoLog(program, GL_INFO_LOG_LENGTH, NULL, info_log.data());
-		printf("%s", info_log.data());
+		printf("%s\n", info_log.data());
 
 		if (g_get_program_info(program, GL_LINK_STATUS) == GL_FALSE)
 			printf("Link Failed.\n");
@@ -332,7 +317,7 @@ void g_shader_program_init()
 	g_marker_programs[2] = g_create_program(marker_vert_shader, MARKER_SPHERE_FRAG_SHADER_SOURCE);
 
 //	g_line_program = g_create_program(LINE_VERTEX_SHADER_SOURCE, LINE_GEOMETRY_SHADER_SOURCE)
-//	printf("%s", MARKER_VERT_SHADER_SOURCE);
+	//printf("%s", MARKER_VERT_SHADER_SOURCE);
 	g_line_program = glCreateProgram();
 	glAttachShader(g_line_program, g_create_shader(GL_VERTEX_SHADER, LINE_VERTEX_SHADER_SOURCE));
 	glAttachShader(g_line_program, g_create_shader(GL_GEOMETRY_SHADER, LINE_GEOMETRY_SHADER_SOURCE));
