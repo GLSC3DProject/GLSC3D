@@ -1,6 +1,6 @@
 #include "glsc3d.h"
 
-#define WIRE_OR_FILL G_FILL
+#define WIRE_OR_FILL G_WIRE
 
 int main()
 {
