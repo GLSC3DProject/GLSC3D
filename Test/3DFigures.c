@@ -4,7 +4,7 @@
 #include <SDL2/SDL_main.h>
 #endif
 
-#define WIRE_OR_FILL G_WIRE
+#define WIRE_OR_FILL G_FILL
 
 int main(int argc, char *argv[])
 {
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	g_init("GLSC3D", Width * CountX, Height * CountY);
 
 //	g_init_light(0, 0, 1, 2);
-	//g_init_light(0, 1, -1, 1);
+	g_init_light(0, 1, -1, 1);
 
 //	g_scr_color(1, 1, 1);
 	g_scr_color(0.5, 0.5, 0.5);

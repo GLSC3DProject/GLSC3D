@@ -18,8 +18,8 @@ typedef unsigned int G_UINT;
 {
 	G_TRUE  = 1,
 	G_FALSE = 0
-} G_BOOL;
-*/
+} G_BOOL; */
+
 typedef int G_BOOL;
 #define G_FALSE	0
 #define G_TRUE	1
@@ -30,8 +30,8 @@ typedef int G_BOOL;
 {
     G_2D   = 0,
     G_3D   = 1,
-} G_DIMENSION;
-*/
+} G_DIMENSION; */
+
 typedef int G_DIMENSION;
 #define G_2D 0
 #define G_3D 1
@@ -40,8 +40,8 @@ typedef int G_DIMENSION;
 {
     G_WIRE   = 0,
     G_FILL   = 1,
-} G_WIREFILL;
-*/
+} G_WIREFILL; */
+
 typedef int G_WIREFILL;
 #define G_WIRE 0
 #define G_FILL 1
@@ -52,8 +52,8 @@ typedef int G_WIREFILL;
 	G_IPA_GOTHIC_PROPORTIONAL = 1,
 	G_IPA_MINCHO = 2,
 	G_IPA_MINCHO_PROPORTIONAL = 3,
-}G_FONT_ID;
-*/
+}G_FONT_ID; */
+
 typedef int G_FONT_ID;
 //#define G_IPA_GOTHIC              0
 //#define G_IPA_GOTHIC_PROPORTIONAL 1
