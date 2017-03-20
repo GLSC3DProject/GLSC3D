@@ -17,9 +17,8 @@ void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int 
 	}else{
 		G_TRIANGLE t0;
 		G_VERTEX   v0, v1, v2;
-		G_POSITION n;
 
-		n = g_calc_normal(r0, r1, r2);
+		G_VECTOR n = g_calc_normal(r0, r1, r2);
 
 		v0 = g_make_vertex(r0, n);
 		v1 = g_make_vertex(r1, n);

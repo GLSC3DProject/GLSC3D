@@ -4,7 +4,7 @@ struct G_MARKER_APPEARANCE
 {
 	G_COLOR color;
 	float size;
-	int type;
+	G_UINT type;
 
 	void select()
 	{
@@ -18,14 +18,14 @@ G_MARKER_APPEARANCE glsc3D_g_def_marker[TotalDisplayNumber];
 
 G_COLOR	g_current_marker_color(1, 1, 1, 1);
 float	g_current_marker_size = 1;
-int		g_current_marker_type;
+G_UINT	g_current_marker_type;
 
 void g_marker_color_s(G_COLOR color)
 {
 	g_current_marker_color = color;
 }
 
-void g_marker_color(float r,float g,float b,float a)
+void g_marker_color(float r, float g, float b, float a)
 {
 	g_current_marker_color = G_COLOR(r, g, b, a);
 }
@@ -39,10 +39,10 @@ void g_marker_size(float size)
 #endif
 }
 
-void g_marker_type(int type)
+void g_marker_type(G_UINT type)
 {
 #ifdef G_USE_CORE_PROFILE
-	if (type < 0 || type >= G_NUM_MARKER_TYPES) {
+	if (type >= G_NUM_MARKER_TYPES) {
 		printf("Invalid marker type.\n");
 	}
 
@@ -75,7 +75,7 @@ void g_marker_2D(double x,double y)
 	g_marker_s(G_VECTOR(x, y));
 }
 
-void g_def_marker(int id, float r, float g, float b, float a, int type, float size)
+void g_def_marker(int id, float r, float g, float b, float a, G_UINT type, float size)
 {
 	glsc3D_g_def_marker[id].color = G_COLOR(r, g, b, a);
 	glsc3D_g_def_marker[id].type = type;

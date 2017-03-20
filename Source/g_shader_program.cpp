@@ -315,8 +315,6 @@ void g_shader_program_init()
 	g_marker_programs[1] = g_create_program(marker_vert_shader, MARKER_CIRCLE_FRAG_SHADER_SOURCE);
 	g_marker_programs[2] = g_create_program(marker_vert_shader, MARKER_SPHERE_FRAG_SHADER_SOURCE);
 
-//	g_line_program = g_create_program(LINE_VERTEX_SHADER_SOURCE, LINE_GEOMETRY_SHADER_SOURCE)
-	//printf("%s", MARKER_VERT_SHADER_SOURCE);
 	g_line_program = glCreateProgram();
 	glAttachShader(g_line_program, g_create_shader(GL_VERTEX_SHADER, LINE_VERTEX_SHADER_SOURCE));
 	glAttachShader(g_line_program, g_create_shader(GL_GEOMETRY_SHADER, LINE_GEOMETRY_SHADER_SOURCE));
@@ -341,7 +339,7 @@ void g_shader_program_init()
 	g_bind_uniform_block(g_lighting_program, "Lights", G_UNIFORM_LIGHTS);
 }
 
-void g_update_uniform(GLuint index, GLsizei size, GLvoid *data)
+void g_update_uniform(GLuint index, GLsizei size, const void *data)
 {
 	glBindBufferBase(GL_UNIFORM_BUFFER, index, g_uniforms[index]);
 	glBufferData(GL_UNIFORM_BUFFER, size, data, GL_DYNAMIC_DRAW);

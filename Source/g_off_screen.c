@@ -1,9 +1,11 @@
 #include "glsc3d_private.h"
 
-#if 0
+#ifdef __linux__
 
 static GLuint frame_buffer;
 static GLuint color_buffer, depth_buffer;
+
+#define G_DECL_INIT_GLEXT(Type, Name) Type Name = (Type)glXGetProcAddress((const GLubyte *)#Name)
 
 void g_init_off_screen_rendering()
 {
@@ -17,6 +19,13 @@ void g_init_off_screen_rendering()
 
 	if(major_version < 3 || (major_version == 3 && minor_version < 3))
 		fprintf(stderr, "GLSC3D : Sorry, your environment may be not able to use off-screen rendering,\nyour OpenGL implementation is : %s\n", glGetString(GL_VERSION));
+
+	G_DECL_INIT_GLEXT(PFNGLGENRENDERBUFFERSPROC, glGenRenderbuffers);
+	G_DECL_INIT_GLEXT(PFNGLBINDRENDERBUFFERPROC, glBindRenderbuffer);
+	G_DECL_INIT_GLEXT(PFNGLRENDERBUFFERSTORAGEPROC, glRenderbufferStorage);
+	G_DECL_INIT_GLEXT(PFNGLGENFRAMEBUFFERSPROC, glGenFramebuffers);
+	G_DECL_INIT_GLEXT(PFNGLBINDFRAMEBUFFERPROC, glBindFramebuffer);
+	G_DECL_INIT_GLEXT(PFNGLFRAMEBUFFERRENDERBUFFERPROC, glFramebufferRenderbuffer);
 
 	//initialize
     glGenRenderbuffers(1, &color_buffer);
@@ -33,17 +42,23 @@ void g_init_off_screen_rendering()
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, color_buffer);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth_buffer);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void g_begin_off_screen_rendering()
-{
-	glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer);
-}
+//void g_begin_off_screen_rendering()
+//{
+//	glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer);
+//}
+//
+//void g_end_off_screen_rendering()
+//{
+//	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//}
 
-void g_end_off_screen_rendering()
+#else
+
+void g_init_off_screen_rendering()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 #endif

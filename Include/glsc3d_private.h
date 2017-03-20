@@ -193,7 +193,7 @@ extern int				glsc3D_height;
 extern float			g_screen_scale_factor;
 extern float			g_retina_scale_factor;
 
-extern int				get_scale_id_number;
+extern int				g_current_scale_id;
 extern G_DIMENSION		g_scale_dim_flag;
 
 // ---- g_input.c
@@ -207,12 +207,16 @@ void update_input_key_state(void);
 
 extern G_COLOR	g_current_marker_color;
 extern float	g_current_marker_size;
-extern int		g_current_marker_type;
+extern G_UINT	g_current_marker_type;
 
 // ---- g_move_plot.c
 
 void g_move_s(G_VECTOR u);
 void g_plot_s(G_VECTOR u);
+
+// ---- g_off_screen.c
+
+void g_init_off_screen_rendering();
 
 // ---- g_triangle_buffer.c
 
@@ -250,7 +254,7 @@ extern GLuint g_current_program;
 extern GLint g_texture_sampler_location, g_texture_color_location;
 
 void g_shader_program_init();
-void g_update_uniform(GLuint index, GLsizei size, GLvoid *data);
+void g_update_uniform(GLuint index, GLsizei size, const void *data);
 void g_use_program(GLuint program);
 
 #else

@@ -1,6 +1,6 @@
 #include "glsc3d_private.h"
 
-int             get_scale_id_number;
+int             g_current_scale_id;
 G_DIMENSION     g_scale_dim_flag;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
@@ -26,12 +26,6 @@ void G_SCALE::select()
 #endif
 }
 
-int g_get_scale_id(G_DIMENSION *g_dim)
-{
-	*g_dim = g_scale_dim_flag;
-	return get_scale_id_number;
-}
-
 void g_def_scale_2D(int id,                                                       //id
 					double x_left, double x_right, double y_bottom, double y_top, //仮想座標系
 					double x_left_std, double y_top_std,                            //ウィンドウの位置
@@ -53,7 +47,7 @@ void g_sel_scale_2D(int id)
 	glDisable(GL_DEPTH_TEST);
 	
 	g_scale_dim_flag = G_2D;
-	get_scale_id_number = id;
+	g_current_scale_id = id;
 
 	glsc3D_inner_scale[id].select();
 }
@@ -99,7 +93,7 @@ void g_sel_scale_3D(int id)
 	glEnable(GL_DEPTH_TEST);
 	
 	g_scale_dim_flag = G_3D;
-	get_scale_id_number = id;
+	g_current_scale_id = id;
 	
 	glsc3D_inner_scale[id].select();
 }

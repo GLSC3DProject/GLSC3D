@@ -71,12 +71,10 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	g_update_drawable_size();
 	g_retina_scale_factor = g_screen_scale_factor;
 
-#ifdef G_USE_CORE_PROFILE
-//	if (WindowName == G_OFF_SCREEN) {
-//		g_init_off_screen_rendering();
+	if (WindowName == G_OFF_SCREEN) {
+		g_init_off_screen_rendering();
 //		g_begin_off_screen_rendering();
-//	}
-#endif
+	}
 }
 
 void g_swap_buffers()

@@ -19,7 +19,7 @@
 
 #define WINDOW_SIZE		1024
 
-// return rand between 0 and 1
+// returns rand between 0 and 1
 float frand() { return (float)rand() / RAND_MAX; }
 
 class Particle
