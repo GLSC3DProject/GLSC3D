@@ -129,7 +129,7 @@ void g_triangle_buffer_append(G_TRIANGLE t)
 		exit(0);
 	}
 	
-	if(!(temp_index < TEMPORARY_TRIANGLE_BUFFER_SIZE))
+	if(temp_index >= TEMPORARY_TRIANGLE_BUFFER_SIZE)
 		g_triangle_buffer_flush();
 	
 	G_CAMERA c = glsc3D_inner_scale[g_current_scale_id].camera;
@@ -231,7 +231,7 @@ void g_triangle_buffer_draw()
         g_triangle_buffer_merge();
 
         int current_camera_id = -1;
-        for(int i = 0; i < final_index_index; ++i)
+        for(unsigned int i = 0; i < final_index_index; ++i)
         {
             unsigned int id = final_index_index - 1 - i;
             if(current_camera_id != camera_id[id])
@@ -289,14 +289,14 @@ void g_triangle_buffer_merge()
         DBG_WRITE("display id : %d", i);
         if(current_index[i] != -1)
         {
-            int merge_buffer_length = 0;
+			unsigned int merge_buffer_length = 0;
             for(int j = 0; j < aligned_index_index; ++j)
             {
                 DBG_WRITE("aligned_index_index:%d j:%d", aligned_index_index, j);
                 if(aligned_index[j] == -1)
                 {
                     DBG_WRITE("aligned_index : %d", aligned_index[j]);
-                    int length = 0;
+					unsigned int length = 0;
                     while(aligned_index[j + ++length] != -1)
                         if(aligned_index[j + length] == -2)
                             break;
