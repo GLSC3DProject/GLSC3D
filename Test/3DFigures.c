@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 		double c = cos(t), s = sin(t);
 
 		g_cls();
-		g_line_width(1);
+		g_line_width(8);
 
 		g_sel_scale_3D(0);
 		g_pyramid_3D_core (0, 0,-1, 0, 0, 1, 1, 2, t, 6, 0, WIRE_OR_FILL);

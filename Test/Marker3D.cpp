@@ -3,10 +3,10 @@
 #include <cstdlib>
 #include <vector>
 
-//#define MANY_PARTICLES
+#define MANY_PARTICLES
 
 #ifdef MANY_PARTICLES
-#define NUM_PARTICLES	262144
+#define NUM_PARTICLES	65536
 #define MIN_PARTICLE_SIZE	2
 #define MAX_PARTICLE_SIZE	4
 #else
@@ -46,9 +46,11 @@ public:
 
 	void Render()
 	{
-		g_marker_size(size);
-		g_marker_color_s(color);
-		g_marker_s(position);
+//		g_marker_size(size);
+//		g_marker_color_s(color);
+//		g_marker_s(position);
+		g_area_color_3D_s(color);
+		g_sphere_3D_core(position.x, position.y, position.z, 1./64, 1, 0, G_FILL);
 	}
 };
 
