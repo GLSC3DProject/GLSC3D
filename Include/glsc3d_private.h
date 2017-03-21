@@ -217,11 +217,6 @@ extern G_COLOR	g_current_marker_color;
 extern float	g_current_marker_size;
 extern G_UINT	g_current_marker_type;
 
-// ---- g_move_plot.c
-
-void g_move_s(G_VECTOR u);
-void g_plot_s(G_VECTOR u);
-
 // ---- g_off_screen.c
 
 void g_init_off_screen_rendering();
