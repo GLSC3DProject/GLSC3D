@@ -32,12 +32,12 @@ void g_init_core(
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
-	//glEnable(GL_LINE_SMOOTH);
-	glEnable(GL_CULL_FACE);
+//	glEnable(GL_LINE_SMOOTH);
+//	glEnable(GL_CULL_FACE);
 
-	//int range[2];
-	//glGetIntegerv(GL_POINT_SIZE_RANGE, range);
-	//printf("Supported point size range : [%d, %d]\n", range[0], range[1]);
+//	int range[2];
+//	glGetIntegerv(GL_POINT_SIZE_RANGE, range);
+//	printf("Supported point size range : [%d, %d]\n", range[0], range[1]);
 
 	g_vertex_buffer_init();
 

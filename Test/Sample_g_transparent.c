@@ -1,11 +1,8 @@
 #include <glsc3d.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #define PI M_PI
 #define G_REAL double
-#define g_bird_view_3D(x_left,x_right,y_bottom,y_top,z_near,z_far,N_x,N_z,data,fill)\
-	(g_bird_view_3D((x_left),(x_right),(y_bottom),(y_top),(z_near),(z_far),(N_x),(N_z),(double(*)[N_z])(data),fill))
 
 int main()
 {

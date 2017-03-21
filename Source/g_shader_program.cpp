@@ -166,21 +166,23 @@ in VS_TO_GS {
 } Input[2];
 layout(location = 0) out vec4 vary_color;
 
-void emit_vertex(uint id, vec4 r) {
+void emit_vertices(uint id, vec4 r) {
 	vary_color = Input[id].color;
 	vec4 center = gl_in[id].gl_Position;
-	vec4 offset = Input[id].half_width * r;
-	gl_Position = center + proj * offset;
+	vec4 offset = proj * (Input[id].half_width * r);
+
+	gl_Position = center + offset;
+	EmitVertex();
+
+	gl_Position = center - offset;
 	EmitVertex();
 }
 void main () {
-	vec3 u = Input[0].position;
-	vec3 v = Input[1].position;
-	vec4 r = normalize(vec4(u.y - v.y, v.x - u.x, 0, 0));
-	emit_vertex(0, +r);
-	emit_vertex(0, -r);
-	emit_vertex(1, +r);
-	emit_vertex(1, -r);
+	vec3 p = Input[0].position;
+	vec3 q = Input[1].position;
+	vec4 r = normalize(vec4(p.y - q.y, q.x - p.x, 0, 0));
+	emit_vertices(0, r);
+	emit_vertices(1, r);
 })";
 
 // ----------------------------------------------------------------

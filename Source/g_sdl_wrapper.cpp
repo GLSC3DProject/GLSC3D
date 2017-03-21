@@ -49,7 +49,7 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 #endif
 	);
 #endif
-	
+
 	Uint32 flags;
 	if (WindowName != G_OFF_SCREEN) {
 		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
@@ -57,7 +57,7 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN;
 	}
 	g_window = SDL_CreateWindow(WindowName, pos_x, pos_y, width, height, flags);
-	
+
 	g_window_width = width, g_window_height = height;
 
 	g_context = SDL_GL_CreateContext(g_window);
