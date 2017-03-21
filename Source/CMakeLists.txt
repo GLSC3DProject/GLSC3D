@@ -1,25 +1,23 @@
 find_package(OpenGL)
-find_package(freetype)
-#find_library(FREETYPE_LIBRARIES freetype)
-find_package(png)
 
 if (MSVC)
 	list(APPEND CMAKE_C_FLAGS	" /MP")
 	list(APPEND CMAKE_CXX_FLAGS	" /MP")
 	set(SDL_LIBRARY SDL2.lib SDL2main.lib)
-	set(FREETYPE_LIBRARIES freetype271.lib)
 	set(PNG_LIBRARY libpng16.lib zlib.lib)
+	set(FREETYPE_LIBRARIES freetype271.lib)
 #elseif (MINGW)
 #	set(SDL_LIBRARY SDL2.a SDL2.dll.a SDL2main.a)
 elseif (APPLE)
 	include_directories(/opt/local/include)
 	include_directories(/opt/local/include/freetype2)
 	set(SDL_LIBRARY /opt/local/lib/libSDL2.dylib)
-#	set(FREETYPE_LIBRARIES libfreetype.dylib)
+	find_package(png)
+	find_package(freetype)
 elseif (UNIX)
-	set(SDL_LIBRARY			libSDL2.so)
-	set(FREETYPE_LIBRARIES	/usr/lib/x86_64-linux-gnu/libfreetype.so.6)
-	set(PNG_LIBRARY			/usr/lib/x86_64-linux-gnu/libpng12.so)
+	set(SDL_LIBRARY SDL2)
+	set(PNG_LIBRARY png)
+	set(FREETYPE_LIBRARIES /usr/lib/x86_64-linux-gnu/libfreetype.so.6)
 endif ()
 
 message(CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME})
@@ -27,11 +25,8 @@ message(CMAKE_C_FLAGS: ${CMAKE_C_FLAGS})
 message(CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS})
 message(OPENGL_gl_LIBRARY: ${OPENGL_gl_LIBRARY})
 message(SDL_LIBRARY: ${SDL_LIBRARY})
-message(SDL_INCLUDE_DIR: ${SDL_INCLUDE_DIR})
 message(FREETYPE_LIBRARIES: ${FREETYPE_LIBRARIES})
-message(FREETYPE_INCLUDE_DIRS: ${FREETYPE_INCLUDE_DIRS})
 message(PNG_LIBRARY: ${PNG_LIBRARY})
-message(PNG_INCLUDE_DIR: ${PNG_INCLUDE_DIR})
 
 add_library(GLSC3D
 	g_area.cpp
@@ -76,4 +71,9 @@ add_library(GLSC3D
 	../Include/glsc3d_private.h
 )
 
-target_link_libraries(GLSC3D ${OPENGL_gl_LIBRARY} ${SDL_LIBRARY} ${FREETYPE_LIBRARIES} ${PNG_LIBRARY})
+target_link_libraries(GLSC3D
+	${OPENGL_gl_LIBRARY}
+	${SDL_LIBRARY}
+	${PNG_LIBRARY}
+	${FREETYPE_LIBRARIES}
+)
