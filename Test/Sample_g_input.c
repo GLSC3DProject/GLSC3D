@@ -22,7 +22,7 @@ int main()
 		g_circle_2D(down_x, down_y, 20, 1);
 		g_circle_2D(up_x, up_y, 20, 1);
 		g_sel_text(1);
-//		g_text_font_core(NULL, 24);
+		g_text_size(24);
 		g_area_color_2D(1, 1, 1, 1);
 		g_box_2D(545, 75, 150, 90, 1);
 		g_text_2D_virtual(500, 68, "Exit");

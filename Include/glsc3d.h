@@ -193,12 +193,8 @@ void g_text_2D_virtual(double x, double y, const char *format, ...);
 
 void g_text_color_s(G_COLOR color);
 void g_text_color(float r, float g, float b, float a);
-void g_text_font(G_FONT_ID id, float font_size);
-void g_text_font_core(const char *font_type, float font_size);
-
-void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size);
-void g_def_text(int id, float r, float g, float b, float a, int font, float font_size);
-void g_sel_text(int id);
+void g_text_font_core(const char *font_file);
+void g_text_size(float font_size);
 
 // ----------------
 

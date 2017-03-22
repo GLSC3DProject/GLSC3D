@@ -57,6 +57,9 @@ void g_init_core(
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 128);
 #endif
 
+	g_marker_size(1);
+	g_line_width(1);
+
 	g_init_light(0, 1, 1, 1);
 
 	g_enable_transparent = g_enable_transparent_out;

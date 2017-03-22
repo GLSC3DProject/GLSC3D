@@ -11,8 +11,6 @@
 #define WINDOW_SIZE_X     (320)
 #define WINDOW_SIZE_Y     (320)
 
-//void g_text_render(double x, double y, const char *str);
-
 int main()
 {
 	g_init("GRAPH",WINDOW_SIZE_X,WINDOW_SIZE_Y);
@@ -34,7 +32,7 @@ int main()
 		strftime(TEXT2, sizeof(TEXT2), "%Y/%m/%d %H:%M:%S", localtime(&time_val));
 
 		int x = 20, y = 0, dy = 25;
-		g_text_font_core(NULL, 24);
+		g_text_size(24);
 
 		// 1-byte characters
 		g_text_standard(x, y += dy, "Hello, World!");
@@ -51,19 +49,19 @@ int main()
 
 		y += dy;
 
-		g_text_font_core(NULL, 12);
+		g_text_size(12);
 		g_text_standard(x, y += 12, "12pt");
 
-		g_text_font_core(NULL, 18);
+		g_text_size(18);
 		g_text_standard(x, y += 18, "18pt");
 
-		g_text_font_core(NULL, 24);
+		g_text_size(24);
 		g_text_standard(x, y += 24, "24pt");
 
-		g_text_font_core(NULL, 32);
+		g_text_size(32);
 		g_text_standard(x, y += 32, "32pt");
 
-		g_text_font_core(NULL, 48);
+		g_text_size(48);
 		g_text_standard(x, y += 48, "48pt");
 
 //		y += dy;

@@ -8,25 +8,26 @@
 GLuint g_texture, g_sampler, g_quad_vao, g_quad_vbo;
 
 G_COLOR g_current_text_color(1, 1, 1, 1);
-int g_current_text_size;
+int g_current_text_size = 0;
 
 static FT_Library library;
 static FT_Face face = 0;
 
-struct G_TEXT_APPEARANCE
-{
-	G_COLOR color;
-	const char *font_type;
-	float font_size;
-
-	void select()
-	{
-		g_text_color_s(color);
-		g_text_font_core(font_type, font_size);
-	}
-};
-
-G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
+//struct G_TEXT_APPEARANCE
+//{
+//	G_COLOR color;
+//	const char *font_type;
+//	float font_size;
+//
+//	void select()
+//	{
+//		g_text_color_s(color);
+//		g_text_font_core(font_type);
+//		g_text_size(font_size);
+//	}
+//};
+//
+//G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
 //const struct
 //{
@@ -81,7 +82,8 @@ void g_text_init()
 		g_quit();
 	}
 
-	g_text_font_core(DEFAULT_FONT_FILE, 24);
+	g_text_font_core(DEFAULT_FONT_FILE);
+	g_text_size(24);
 }
 
 static void g_text_render(double x, double y, const char *str)
@@ -93,11 +95,6 @@ static void g_text_render(double x, double y, const char *str)
 
 	glUniform1i(g_texture_sampler_location, 0);
 	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
-	int font_size = (int)(g_current_text_size * g_screen_scale_factor);
-
-	if (FT_Error error = FT_Set_Char_Size(face, 0, font_size * 64, 0, 0)) {
-		printf("Unable to set font size.\nError: %d\n", error);
-	}
 
 	int physical_x = (int)(x * g_screen_scale_factor);
 	int physical_y = (int)(y * g_screen_scale_factor);
@@ -213,47 +210,55 @@ void g_text_color(float r, float g, float b, float a)
 	g_current_text_color = G_COLOR(r, g, b, a);
 }
 
-void g_text_font(G_FONT_ID id, float font_size)
+void g_text_font_core(const char *font_file)
 {
-	g_text_font_core(NULL, font_size);
-}
+	if (font_file == NULL) return;
 
-void g_text_font_core(const char *font_type, float font_size)
-{
-	//current_font.color = g_current_text_color;
-
-	//current_font.font_type = font_type;
-	//current_font.font_size = font_size;
-
-	if (font_type != NULL) {
-		if (face != NULL) {
-			if (FT_Error error = FT_Done_Face(face)) {
-				fprintf(stderr, "Unable to destroy previous face object.\nError: %d\n", error);
-			}
-			face = NULL;
+	if (face != NULL) {
+		if (FT_Error error = FT_Done_Face(face)) {
+			fprintf(stderr, "Unable to destroy previous face object.\nError: %d\n", error);
 		}
-		if (FT_Error error = FT_New_Face(library, font_type, 0, &face)){
-			fprintf(stderr, "Unable to load font'%s'.\nError: %d\n", font_type, error);
-		}
+		face = NULL;
 	}
+	if (FT_Error error = FT_New_Face(library, font_file, 0, &face)) {
+		fprintf(stderr, "Unable to load font'%s'.\nError: %d\n", font_file, error);
+	}
+
+	if (g_current_text_size == 0) return;
+
+	if (FT_Error error = FT_Set_Char_Size(face, 0, g_current_text_size * 64, 0, 0)) {
+		printf("Unable to set font size.\nError: %d\n", error);
+	}
+}
+
+void g_text_size(float size)
+{
+	int font_size = (int)(size * g_screen_scale_factor);
+
+	if (font_size == g_current_text_size) return;
+
 	g_current_text_size = font_size;
+
+	if (FT_Error error = FT_Set_Char_Size(face, 0, font_size * 64, 0, 0)) {
+		printf("Unable to set font size.\nError: %d\n", error);
+	}
 }
 
-void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size)
-{
-	glsc3D_g_def_text[id].color = G_COLOR(r, g, b, a);
-	glsc3D_g_def_text[id].font_type = font_type;
-	glsc3D_g_def_text[id].font_size = font_size;
-}
-
-void g_def_text(int id, float r, float g, float b, float a, int font, float font_size)
-{
-	g_def_text_core(id, r, g, b, a, NULL, font_size);
-}
-
-void g_sel_text(int id)
-{
-	glsc3D_g_def_text[id].select();
-}
+//void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size)
+//{
+//	glsc3D_g_def_text[id].color = G_COLOR(r, g, b, a);
+//	glsc3D_g_def_text[id].font_type = font_type;
+//	glsc3D_g_def_text[id].font_size = font_size;
+//}
+//
+//void g_def_text(int id, float r, float g, float b, float a, int font, float font_size)
+//{
+//	g_def_text_core(id, r, g, b, a, NULL, font_size);
+//}
+//
+//void g_sel_text(int id)
+//{
+//	glsc3D_g_def_text[id].select();
+//}
 
 #endif
