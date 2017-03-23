@@ -24,6 +24,7 @@ int main()
         g_cls();
         
         g_sel_scale_2D(1);
+		g_line_width(1);
 		
         g_line_color(1, 0, 0, 1);
         g_triangle_2D(-0.5,-1.5,-1.5,1.5,-1.5,-1.5,G_WIRE);

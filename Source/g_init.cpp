@@ -8,13 +8,13 @@ float			g_retina_scale_factor;
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
 void g_init_core(
-					const char *WindowName,int width,int height,
-					int pos_x,int pos_y,
-					float r,float g,float b,
-					int g_enable_transparent_out,
-					int TEMPORARY_TRIANGLE_BUFFER_SIZE_out,
-					int TRIANGLE_BUFFER_SIZE_out
-				)
+	const char *WindowName, int width, int height,
+	int pos_x, int pos_y,
+	float r, float g, float b,
+	int enable_transparent,
+	int temporary_triangle_buffer_size,
+	int triangle_buffer_size
+)
 {
 #if defined(_WIN32) && !defined(__MINGW32_VERSION)
 	SetProcessDPIAware();
@@ -62,25 +62,25 @@ void g_init_core(
 
 	g_init_light(0, 1, 1, 1);
 
-	g_enable_transparent = g_enable_transparent_out;
+	g_enable_transparent = enable_transparent;
 
 	if(g_enable_transparent)
 	{
-		if(TEMPORARY_TRIANGLE_BUFFER_SIZE_out == 0)
+		if(temporary_triangle_buffer_size == 0)
 		{
 			TEMPORARY_TRIANGLE_BUFFER_SIZE = 1 << 10;
 		}
 		else
 		{
-			TEMPORARY_TRIANGLE_BUFFER_SIZE = TEMPORARY_TRIANGLE_BUFFER_SIZE_out;
+			TEMPORARY_TRIANGLE_BUFFER_SIZE = temporary_triangle_buffer_size;
 		}
-		if(TRIANGLE_BUFFER_SIZE_out == 0)
+		if(triangle_buffer_size == 0)
 		{
 			TRIANGLE_BUFFER_SIZE = 1 << 20;
 		}
 		else
 		{
-			TRIANGLE_BUFFER_SIZE = TRIANGLE_BUFFER_SIZE_out;
+			TRIANGLE_BUFFER_SIZE = triangle_buffer_size;
 		}
 
 		g_triangle_buffer_init();
@@ -92,7 +92,7 @@ void g_init_core(
 //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void g_init (const char *WindowName,int width,int height)
+void g_init(const char *WindowName, int width, int height)
 {
-	g_init_core(WindowName,width,height,G_WINDOWPOS_CENTERED,G_WINDOWPOS_CENTERED,0,0,0,0,0,0);
+	g_init_core(WindowName, width, height, G_WINDOW_CENTERED, G_WINDOW_CENTERED, 0, 0, 0, 0, 0, 0);
 }

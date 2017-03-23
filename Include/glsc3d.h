@@ -23,8 +23,8 @@ typedef unsigned int G_UINT;
 typedef int G_BOOL;
 #define G_FALSE	0
 #define G_TRUE	1
-#define G_NO	0
-#define G_YES	1
+//#define G_NO	0
+//#define G_YES	1
 
 /*typedef enum
 {
@@ -46,24 +46,9 @@ typedef int G_WIREFILL;
 #define G_WIRE 0
 #define G_FILL 1
 
-/*typedef enum
-{
-	G_IPA_GOTHIC = 0,
-	G_IPA_GOTHIC_PROPORTIONAL = 1,
-	G_IPA_MINCHO = 2,
-	G_IPA_MINCHO_PROPORTIONAL = 3,
-}G_FONT_ID; */
-
-typedef int G_FONT_ID;
-//#define G_IPA_GOTHIC              0
-//#define G_IPA_GOTHIC_PROPORTIONAL 1
-//#define G_IPA_MINCHO              2
-//#define G_IPA_MINCHO_PROPORTIONAL 3
-
-
 #define G_OFF_SCREEN			NULL
 
-#define G_WINDOWPOS_CENTERED	0x2FFF0000
+#define G_WINDOW_CENTERED	0x2FFF0000
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 extern int g_enable_transparent;
@@ -85,16 +70,16 @@ void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit
 void g_init_light(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z);
 
 void g_init_core (
-                      const char *WindowName,int width,int height,
-                      int pos_x,int pos_y,
-                      float r,float g,float b,
-                      int g_enable_transparent_out,
-                      int TEMPORARY_TRIANGLE_BUFFER_SIZE_out,
-                      int TRIANGLE_BUFFER_SIZE_out
-                      );
+	const char *WindowName, int width, int height,
+	int pos_x, int pos_y,
+	float r, float g, float b,
+	int enable_transparent,
+	int temporary_triangle_buffer_size,
+	int triangle_buffer_size
+);
 
 
-void g_init (const char *WindowName,int width,int height);
+void g_init(const char *WindowName, int width, int height);
 
 // ----g_area.c
 
@@ -194,7 +179,7 @@ void g_text_2D_virtual(double x, double y, const char *format, ...);
 void g_text_color_s(G_COLOR color);
 void g_text_color(float r, float g, float b, float a);
 void g_text_font_core(const char *font_file);
-void g_text_size(float font_size);
+void g_text_size(float size);
 
 // ----------------
 
