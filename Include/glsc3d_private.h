@@ -43,7 +43,7 @@ extern "C"
 {
 #endif
 
-// In Windows and Linux, it is required to get address of OpenGL 1.2+ functions.
+// On Windows and Linux, it is required to get address of OpenGL 1.2+ functions.
 #if defined(G_USE_CORE_PROFILE) && (defined(_WIN32) || defined(__linux__))
 
 #define G_NEED_GET_GLEXT_PROC_ADDRESS

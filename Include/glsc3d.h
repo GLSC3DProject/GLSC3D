@@ -149,8 +149,9 @@ enum G_MARKER_TYPE { G_MARKER_SQUARE, G_MARKER_CIRCLE, G_MARKER_SPHERE, G_NUM_MA
 
 void g_marker_color_s(G_COLOR color);
 void g_marker_color(float r, float g, float b, float a);
-void g_marker_type(G_UINT type);
 void g_marker_size(float size);
+void g_marker_radius_virtual(float size);
+void g_marker_type(G_UINT type);
 
 void g_marker_s(G_VECTOR position);
 void g_marker_3D(double x, double y, double z);

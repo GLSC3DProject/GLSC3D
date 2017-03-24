@@ -39,11 +39,20 @@ void g_marker_size(float size)
 #endif
 }
 
+void g_marker_radius_virtual(float size)
+{
+#ifdef G_USE_CORE_PROFILE
+	g_current_marker_size = size;
+
+#endif
+}
+
 void g_marker_type(G_UINT type)
 {
 #ifdef G_USE_CORE_PROFILE
 	if (type >= G_NUM_MARKER_TYPES) {
 		printf("Invalid marker type.\n");
+		return;
 	}
 
 	g_current_marker_type = type;

@@ -22,22 +22,16 @@ GLuint g_vertex_array_id, g_vertex_buffer_id;
 
 #endif
 
-void* g_malloc(size_t size)
+void g_vertex_buffer_init()
 {
-	void* ptr = malloc(size);
-	
-	if (!ptr) {
+	g_vertex_data = (G_VERTEX *)malloc(VERTEX_BUFFER_SIZE * sizeof(G_VERTEX));
+
+	if (g_vertex_data == nullptr) {
 		fprintf(stderr, "failed to allocate memory\a\n");
 		fprintf(stderr, "GLSC3D will abort\n");
 		g_quit();
 	}
-	
-	return ptr;
-}
 
-void g_vertex_buffer_init()
-{
-	g_vertex_data = (G_VERTEX *)g_malloc(VERTEX_BUFFER_SIZE * sizeof(G_VERTEX));
 	g_vertex_data_count = 0;
 
 #ifdef G_USE_CORE_PROFILE

@@ -64,7 +64,28 @@ void main() {
 // ----------------------------------------------------------------
 
 // Vertex shader for rendering markers
-const char * const MARKER_VERT_SHADER_SOURCE =
+const char * const MARKER_STANDARD_VERT_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+uniform Matrices { mat4 proj, view; float pixel_scale; };
+layout(location = 0) in vec4 in_position;
+layout(location = 1) in vec4 in_color;
+out VS_TO_FS {
+	vec4 color;
+	vec3 position;
+	float radius;
+} Output;
+void main () {
+	vec4 view_pos = view * vec4(in_position.xyz, 1);
+	float size = in_position.w;
+	gl_Position = proj * view_pos;
+	gl_PointSize = size;
+	Output.color = in_color;
+	Output.position = view_pos.xyz;
+	Output.radius = size * gl_Position.w * pixel_scale;
+})";
+
+// Vertex shader for rendering markers
+const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
 uniform Matrices { mat4 proj, view; float pixel_scale; };
 layout(location = 0) in vec4 in_position;
@@ -209,7 +230,7 @@ void main() {
 })";
 
 GLuint g_constant_program, g_lighting_program;
-GLuint g_marker_programs[G_NUM_MARKER_TYPES];
+GLuint g_marker_programs[2][G_NUM_MARKER_TYPES];
 GLuint g_line_program;
 GLuint g_texture_program;
 GLuint g_current_program;
@@ -312,7 +333,10 @@ void g_shader_program_init()
 
 	g_lighting_program = g_create_program(LIGHTING_VERT_SHADER_SOURCE, LIGHTING_FRAG_SHADER_SOURCE);
 
-	GLuint marker_vert_shader = g_create_shader(GL_VERTEX_SHADER, MARKER_VERT_SHADER_SOURCE);
+	GLuint marker_vert_shaders[] = {
+		g_create_shader(GL_VERTEX_SHADER, MARKER_STANDARD_VERT_SHADER_SOURCE),
+		g_create_shader(GL_VERTEX_SHADER, MARKER_VIRTUAL_VERT_SHADER_SOURCE),
+	};
 	g_marker_programs[0] = g_create_program(marker_vert_shader, MARKER_SQUARE_FRAG_SHADER_SOURCE);
 	g_marker_programs[1] = g_create_program(marker_vert_shader, MARKER_CIRCLE_FRAG_SHADER_SOURCE);
 	g_marker_programs[2] = g_create_program(marker_vert_shader, MARKER_SPHERE_FRAG_SHADER_SOURCE);
