@@ -378,7 +378,7 @@ Apple Retina Display では，このスケールファクターの初期値は2�
 球マーカーは3次元で小さな球を大量に描画する目的に最適化されており高速に動作します．
 そのような目的では\verb|g_sphere_3D(_core)|を使用しないでください．
 
-どの種類のマーカーでも，サイズは\verb|g_marker_size|によりピクセル単位の直径を指定できるほか，\verb|g_marker_radius_virtual|により仮想座標系での半径を指定することができます．
+どの種類のマーカーでも，サイズは\verb|g_marker_size|によりピクセル単位の直径を指定できるほか，\verb|g_marker_radius|により仮想座標系での半径を指定することができます．
 
 \subsubsection{ウインドウの初期化関連}
 \verb|g_init_core|に指定するウインドウの位置として，画面の中央に表示することを意味する\verb|G_WINDOW_CENTERED|を指定できるようにしました．
@@ -1154,14 +1154,31 @@ void g_marker_color(
         float size);
 	\end{verbatim}
 	%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-	\verb|size| ; マーカーの大きさ\\
+	\verb|size| ; マーカーの大きさ(ピクセル単位)\\
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_marker\_size}関数の説明}
-	マーカーの大きさを変更する．
+	マーカーの大きさを変更する．ピクセル単位の直径を指定する．
 \end{itembox}
 
+%%%%%%%%%%%%%%%%%%%%%g_marker_radius%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_marker\_radius}}
+
+\begin{itembox}[l]{\texttt{g\_marker\_radius}関数}
+	%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+	\begin{verbatim}
+	void g_marker_radius
+        float size);
+	\end{verbatim}
+	%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+	\verb|size| ; マーカーの大きさ(仮想座標系での半径)\\
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_marker\_radius}関数の説明}
+	マーカーの大きさを変更する．仮想座標系での半径を指定する．
+\end{itembox}
 
 %%%%%%%%%%%%%%%%%%%%%g_marker_type%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage

@@ -19,6 +19,7 @@ G_MARKER_APPEARANCE glsc3D_g_def_marker[TotalDisplayNumber];
 G_COLOR	g_current_marker_color(1, 1, 1, 1);
 float	g_current_marker_size;
 G_UINT	g_current_marker_type;
+G_UINT	g_current_marker_size_type;
 
 void g_marker_color_s(G_COLOR color)
 {
@@ -32,19 +33,14 @@ void g_marker_color(float r, float g, float b, float a)
 
 void g_marker_size(float size)
 {
-#ifdef G_USE_CORE_PROFILE
 	g_current_marker_size = size * g_screen_scale_factor;
-#else
-    glPointSize(size);
-#endif
+	g_current_marker_size_type = G_MARKER_SIZE_STANDARD;
 }
 
-void g_marker_radius_virtual(float size)
+void g_marker_radius(float size)
 {
-#ifdef G_USE_CORE_PROFILE
 	g_current_marker_size = size;
-
-#endif
+	g_current_marker_size_type = G_MARKER_SIZE_VIRTUAL;
 }
 
 void g_marker_type(G_UINT type)

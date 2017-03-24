@@ -136,7 +136,7 @@ void g_prepare_points()
 {
 	g_current_color = &g_current_marker_color;
 	g_current_size = g_current_marker_size;
-	g_use_program(g_marker_programs[g_current_marker_type]);
+	g_use_program(g_marker_programs[g_current_marker_size_type][g_current_marker_type]);
 }
 
 void g_prepare_lines()

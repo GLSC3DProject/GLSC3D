@@ -210,12 +210,12 @@ void update_input_key_state(void);
 extern G_COLOR g_current_line_color;
 extern float g_current_line_size;
 
-
 // ---- g_marker.cpp
 
 extern G_COLOR	g_current_marker_color;
 extern float	g_current_marker_size;
 extern G_UINT	g_current_marker_type;
+extern G_UINT	g_current_marker_size_type;
 
 // ---- g_off_screen.c
 
@@ -252,10 +252,11 @@ void g_quit(void);
 
 #ifdef G_USE_CORE_PROFILE
 
-enum { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
+enum G_UNIFORM_BINDING { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
+enum G_MARKER_SIZE_TYPE { G_MARKER_SIZE_STANDARD, G_MARKER_SIZE_VIRTUAL, G_NUM_MARKER_SIZE_TYPES };
 
 extern GLuint g_constant_program, g_lighting_program;
-extern GLuint g_marker_programs[G_NUM_MARKER_TYPES];
+extern GLuint g_marker_programs[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
 extern GLuint g_line_program;
 extern GLuint g_texture_program;
 extern GLuint g_current_program;
