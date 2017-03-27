@@ -45,7 +45,7 @@ int main()
 
 		g_text_standard(x, y += dy, TEXT2);
 
-		g_text_standard(x, y += dy, "i_time = %d", i_time);
+		g_text_standard(x, y += dy, "Elapsed time = %d", i_time / 16);
 
 		y += dy;
 
@@ -96,7 +96,7 @@ int main()
 //		g_text_font(0, 50);
 //		g_text_standard(10, y, "!\"#$%&'()`@;:+*<>,.{}[]\\");
 		
-		g_sleep(1);
+		g_sleep(1./16);
 		g_finish();
  	}
 	return 0;

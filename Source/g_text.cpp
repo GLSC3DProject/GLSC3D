@@ -5,7 +5,7 @@
 
 #ifdef G_USE_CORE_PROFILE
 
-GLuint g_texture, g_sampler, g_quad_vao, g_quad_vbo;
+GLuint g_texture, g_sampler, g_quad_vao;
 
 G_COLOR g_current_text_color(1, 1, 1, 1);
 int g_current_text_size = 0;
@@ -13,33 +13,21 @@ int g_current_text_size = 0;
 static FT_Library library;
 static FT_Face face = 0;
 
-//struct G_TEXT_APPEARANCE
-//{
-//	G_COLOR color;
-//	const char *font_type;
-//	float font_size;
-//
-//	void select()
-//	{
-//		g_text_color_s(color);
-//		g_text_font_core(font_type);
-//		g_text_size(font_size);
-//	}
-//};
-//
-//G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
+struct G_TEXT_APPEARANCE
+{
+	G_COLOR color;
+	const char *font_type;
+	float font_size;
 
-//const struct
-//{
-//	G_FONT_ID id;
-//	const unsigned long long *memory;
-//	const unsigned size;
-//}glsc3D_g_embedded_text[] = {
-//	{G_IPA_GOTHIC, g_font_ipag_data, g_font_ipag_size},
-//	{G_IPA_GOTHIC_PROPORTIONAL, g_font_ipagp_data, g_font_ipagp_size},
-//	{G_IPA_MINCHO, g_font_ipam_data, g_font_ipam_size},
-//	{G_IPA_MINCHO_PROPORTIONAL, g_font_ipamp_data, g_font_ipamp_size}
-//};
+	void select()
+	{
+		g_text_color_s(color);
+		g_text_font_core(font_type);
+		g_text_size(font_size);
+	}
+};
+
+G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
 #ifdef __APPLE__
 #define DEFAULT_FONT_FILE "/System/Library/Fonts/ヒラギノ角ゴシック W4.ttc"
@@ -70,6 +58,7 @@ void g_text_init()
 
 	glEnableVertexAttribArray(0);
 
+	GLuint g_quad_vbo;
 	glGenBuffers(1, &g_quad_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
 
@@ -138,7 +127,6 @@ static void g_text_render(double x, double y, const char *str)
 		int bottom = glsc3D_height + glyph->bitmap_top - bitmap.rows - physical_y;
 
 		glViewport(left, bottom, bitmap.width, bitmap.rows);
-		glBindVertexArray(g_quad_vao);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, bitmap.width, bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, bitmap.buffer);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
@@ -148,7 +136,7 @@ static void g_text_render(double x, double y, const char *str)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glsc3D_inner_scale[g_current_scale_id].select();
+	glsc3D_inner_scale[g_current_scale_id].select(false);
 }
 
 void g_text_standard_v(double x, double y, const char *format, va_list args)
@@ -210,9 +198,9 @@ void g_text_color(float r, float g, float b, float a)
 	g_current_text_color = G_COLOR(r, g, b, a);
 }
 
-void g_text_font_core(const char *font_file)
+void g_text_font_core(const char *font_type)
 {
-	if (font_file == NULL) return;
+	if (font_type == NULL) return;
 
 	if (face != NULL) {
 		if (FT_Error error = FT_Done_Face(face)) {
@@ -220,8 +208,8 @@ void g_text_font_core(const char *font_file)
 		}
 		face = NULL;
 	}
-	if (FT_Error error = FT_New_Face(library, font_file, 0, &face)) {
-		fprintf(stderr, "Unable to load font'%s'.\nError: %d\n", font_file, error);
+	if (FT_Error error = FT_New_Face(library, font_type, 0, &face)) {
+		fprintf(stderr, "Unable to load font'%s'.\nError: %d\n", font_type, error);
 	}
 
 	if (g_current_text_size == 0) return;
@@ -244,21 +232,21 @@ void g_text_size(float size)
 	}
 }
 
-//void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size)
-//{
-//	glsc3D_g_def_text[id].color = G_COLOR(r, g, b, a);
-//	glsc3D_g_def_text[id].font_type = font_type;
-//	glsc3D_g_def_text[id].font_size = font_size;
-//}
-//
-//void g_def_text(int id, float r, float g, float b, float a, int font, float font_size)
-//{
-//	g_def_text_core(id, r, g, b, a, NULL, font_size);
-//}
-//
-//void g_sel_text(int id)
-//{
-//	glsc3D_g_def_text[id].select();
-//}
+void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size)
+{
+	glsc3D_g_def_text[id].color = G_COLOR(r, g, b, a);
+	glsc3D_g_def_text[id].font_type = font_type;
+	glsc3D_g_def_text[id].font_size = font_size;
+}
+
+void g_def_text(int id, float r, float g, float b, float a, int font, float font_size)
+{
+	g_def_text_core(id, r, g, b, a, NULL, font_size);
+}
+
+void g_sel_text(int id)
+{
+	glsc3D_g_def_text[id].select();
+}
 
 #endif

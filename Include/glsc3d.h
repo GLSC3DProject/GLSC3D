@@ -46,7 +46,7 @@ typedef int G_WIREFILL;
 #define G_WIRE 0
 #define G_FILL 1
 
-#define G_OFF_SCREEN			NULL
+#define G_OFF_SCREEN		NULL
 
 #define G_WINDOW_CENTERED	0x2FFF0000
 
@@ -77,7 +77,6 @@ void g_init_core (
 	int temporary_triangle_buffer_size,
 	int triangle_buffer_size
 );
-
 
 void g_init(const char *WindowName, int width, int height);
 
@@ -114,8 +113,6 @@ void g_def_scale_2D(int id,
                     double x_left_std, double y_top_std,
                     double width_std, double height_std);
 
-void g_sel_scale_2D(int id);
-
 void g_def_scale_3D_core(int id,
                          double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
                          double x_left_std, double y_top_std,
@@ -131,7 +128,10 @@ void g_def_scale_3D(int id,
                     double direction_x, double direction_y, double direction_z,
                     double r);
 
+void g_sel_scale_2D(int id);
 void g_sel_scale_3D(int id);
+
+void g_region_boundary();
 
 // ---- g_move_plot.c
 
@@ -181,6 +181,10 @@ void g_text_color_s(G_COLOR color);
 void g_text_color(float r, float g, float b, float a);
 void g_text_font_core(const char *font_file);
 void g_text_size(float size);
+
+void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size);
+void g_def_text(int id, float r, float g, float b, float a, int font, float font_size);
+void g_sel_text(int id);
 
 // ----------------
 

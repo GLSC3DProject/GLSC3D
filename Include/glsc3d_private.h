@@ -127,7 +127,7 @@ struct G_SCALE
 	G_SCREEN screen;
 	G_CAMERA camera;
 
-	void select();
+	void select(bool boundary);
 };
 
 // ---- g_camera.cpp
@@ -277,8 +277,6 @@ void g_disable_lighting(void);
 #endif
 
 // ---- g_vertex_buffer.c
-
-extern GLenum g_primitive_mode;
 
 void g_vertex_buffer_init();
 void g_vertex_buffer_append(G_VERTEX vertex);

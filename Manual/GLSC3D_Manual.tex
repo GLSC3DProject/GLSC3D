@@ -348,7 +348,7 @@ GLSC3D 3.0ではデフォルトのフォントを
 また，\verb|Source/g_text.cpp|内の\verb|DEFAULT_FONT_FILE|を書き換えてコンパイルし直せばデフォルトのフォントを変更することもできます．
 
 埋め込みフォントを指定する関数\verb|g_text_font|を廃止しました．また，テキストのフォント指定\verb|g_text_font_core|とサイズ指定\verb|g_text_size|を分離しました．
-また，\verb|g_def_text, g_def_text_core，g_sel_text|を廃止しました．
+また，\verb|g_def_text|関数の\verb|font|引数は無視されます．
 
 日本語や数学記号などのUnicode文字に対応しました．これを用いる場合文字列のエンコードは必ずUTF-8にしてください．
 gccでは文字列リテラルのエンコードはデフォルトでUTF-8になります．お使いのコンパイラーのデフォルトがUTF-8でない場合，

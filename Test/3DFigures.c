@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
 	g_area_color_3D(0.5, 0.75, 0.5, 1);
 
 	g_text_color(1, 1, 0, 1);
-	g_text_font_core(0, 24);
 
 	int id = 0;
 	for (int i = 0; i < CountX; i++)
@@ -32,15 +31,19 @@ int main(int argc, char *argv[])
 		g_line_width(2);
 
 		g_sel_scale_3D(0);
+		//g_region_boundary();
 		g_pyramid_3D_core (0, 0,-1, 0, 0, 1, 1, 2, t, 6, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D(1);
+		//g_region_boundary();
 		g_cone_3D_core    (0, 0,-1, 0, 0, 1, 1, 2,24, 6, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D(2);
+		//g_region_boundary();
 		g_prism_3D_core   (0, 0, 0, 0, 0, 1, 1, 2, t, 6, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D(3);
+		//g_region_boundary();
 		g_cylinder_3D_core(0, 0, 0, 0, 0, 1, 1, 2, t,24, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D(4);
@@ -56,6 +59,7 @@ int main(int argc, char *argv[])
 		g_rectangle_3D_core(0, 0, 0, c, s, 0, 3, 2, 0, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D(8);
+		g_text_size(24);
 		g_arrow_3D_core(0, 0, 0, c, s, 0, 1, 0.25, 16, 1, 0, WIRE_OR_FILL);
 		g_arrow_3D_core(0, 0, 0,-s, c, 0, 1, 0.25, 16, 1, 0, WIRE_OR_FILL);
 		g_arrow_3D_core(0, 0, 0, 0, 0, 1, 1, 0.25, 16, 1, 0, WIRE_OR_FILL);

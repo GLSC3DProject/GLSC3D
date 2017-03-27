@@ -42,18 +42,16 @@ int main()
 		if (500 <= up_x && up_x <= 620 && 20 <= up_y && up_y <= 140)
 			break;
 
-//		printf("b");
 		g_sel_text(0);
 		text_y = 40;
 		if (count++ / 32 % 2 == 0)
 			g_text_2D_virtual(text_x, text_y, "Please input any key or click");
 		else
 			g_text_2D_virtual(text_x, text_y, "Please input any key or click:");
-//		printf("c");
 
 		g_text_2D_virtual(text_x, text_y += text_height, "Input character  %s", g_key_code_string[key]);
-		g_text_2D_virtual(text_x, text_y += text_height, "Mouse down x:%d y:%d\n", down_x, down_y);
-		g_text_2D_virtual(text_x, text_y += text_height, "Mouse up   x:%d y:%d\n", up_x, up_y);
+		g_text_2D_virtual(text_x, text_y += text_height, "Mouse down x:%d y:%d", down_x, down_y);
+		g_text_2D_virtual(text_x, text_y += text_height, "Mouse up   x:%d y:%d", up_x, up_y);
 		g_finish();
 		fflush(stdout);
 	}
