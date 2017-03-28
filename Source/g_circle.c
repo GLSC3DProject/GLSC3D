@@ -2,7 +2,7 @@
 void g_circle_2D(double center_x, double center_y,
 		double radius, G_WIREFILL WireFill)
 {
-	int i,STEP=100;
+	int i,STEP=64;
 	double dtheta=2*PI/STEP;
 
 	if(WireFill == 1)
@@ -63,6 +63,6 @@ void g_circle_3D(double center_x, double center_y, double center_z,
 		double theta, double phi,
 		G_WIREFILL WireFill)
 {
-	g_circle_3D_core(center_x, center_y, center_z, radius, theta, phi, 100, 0, WireFill);
+	g_circle_3D_core(center_x, center_y, center_z, radius, theta, phi, 64, 0, WireFill);
 }
 

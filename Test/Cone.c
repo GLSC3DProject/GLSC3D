@@ -38,7 +38,7 @@ int main()
 		g_cls();
 		
 		g_sel_scale_3D(0);
-		g_line_width(1);
+		g_line_width(2);
 		
 		g_area_color_3D(0.5, 0.5, 0.75, 1);
 		g_rectangle_3D(0, h, 0, 1, 0, 0, 5, 4, 0, WIRE_OR_FILL);

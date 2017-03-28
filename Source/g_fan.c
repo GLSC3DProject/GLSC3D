@@ -5,7 +5,7 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 		double angle,                           //開く角度
 		G_WIREFILL WireFill)
 {
-	int i,STEP=100;
+	int i,STEP=8;
 	double dtheta;
 	G_VECTOR direction = g_vector2(direction_x, direction_y);
 	direction = g_normalize(direction);
