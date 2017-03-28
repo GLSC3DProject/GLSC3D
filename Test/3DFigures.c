@@ -12,12 +12,13 @@ int main(int argc, char *argv[])
 //	g_init_light(0, 0, 1, 2);
 	g_init_light(0, 1, -1, 1);
 
-//	g_scr_color(1, 1, 1);
-	g_scr_color(0.5, 0.5, 0.5);
+	g_scr_color(1, 1, 1);
+	//g_scr_color(0.5, 0.5, 0.5);
 
 	g_area_color_3D(0.5, 0.75, 0.5, 1);
+	g_line_color(0, 0, 0, 1);
 
-	g_text_color(1, 1, 0, 1);
+	g_text_color(0.5f, 0.5f, 0, 1);
 
 	int id = 0;
 	for (int i = 0; i < CountX; i++)
@@ -30,11 +31,11 @@ int main(int argc, char *argv[])
 		g_cls();
 		g_line_width(2);
 
-		g_sel_scale_3D(0);
+		g_sel_scale_3D_boundary(0);
 		//g_region_boundary();
 		g_pyramid_3D_core (0, 0,-1, 0, 0, 1, 1, 2, t, 6, 0, WIRE_OR_FILL);
 
-		g_sel_scale_3D(1);
+		g_sel_scale_3D_boundary(1);
 		//g_region_boundary();
 		g_cone_3D_core    (0, 0,-1, 0, 0, 1, 1, 2,24, 6, 0, WIRE_OR_FILL);
 

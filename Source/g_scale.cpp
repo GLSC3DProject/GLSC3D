@@ -13,11 +13,11 @@ void G_SCALE::select(bool boundary)
 	int h = (int)(g_screen_scale_factor * screen.height);
 
 	if (boundary) {
-		int r = x + 8, t = y + 8;
+		int r = x + w, t = y + h;
 
 		glViewport(0, 0, glsc3D_width, glsc3D_height);
 
-		G_CAMERA whole_camera = g_make_camera_2D(0, 0, glsc3D_width, glsc3D_height);
+		G_CAMERA whole_camera = g_make_camera_2D(0, glsc3D_width, 0, glsc3D_height);
 		//G_SCREEN whole_screen = g_make_screen(0, 0, glsc3D_width, glsc3D_height);
 		whole_camera.pixel_scale = 0.5f;
 		g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_CAMERA), &whole_camera);
@@ -109,30 +109,20 @@ void g_sel_scale_private(int id, G_DIMENSION dimension, bool boundary)
 
 void g_sel_scale_2D(int id)
 {
-	g_sel_scale_private(id, G_2D, true);
+	g_sel_scale_private(id, G_2D, false);
 }
 
 void g_sel_scale_3D(int id)
 {
-	g_sel_scale_private(id, G_3D, true);
+	g_sel_scale_private(id, G_3D, false);
 }
 
-//void g_region_boundary()
-//{
-//	G_CAMERA camera;
-//	camera.proj = G_MATRIX::Identity();
-//	camera.view = G_MATRIX::Identity();
-//	camera.pixel_scale = glsc3D_inner_scale[g_current_scale_id].camera.pixel_scale * 4;
-//
-//	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_CAMERA), &camera);
-//
-//	g_move_2D(-1, -1);
-//	g_plot_2D(+1, -1);
-//	g_plot_2D(+1, +1);
-//	g_plot_2D(-1, +1);
-//	g_plot_2D(-1, -1);
-//
-//	g_vertex_buffer_flush();
-//
-//	glsc3D_inner_scale[g_current_scale_id].select();
-//}
+void g_sel_scale_2D_boundary(int id)
+{
+	g_sel_scale_private(id, G_2D, true);
+}
+
+void g_sel_scale_3D_boundary(int id)
+{
+	g_sel_scale_private(id, G_3D, true);
+}

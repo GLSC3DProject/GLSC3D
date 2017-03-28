@@ -131,7 +131,8 @@ void g_def_scale_3D(int id,
 void g_sel_scale_2D(int id);
 void g_sel_scale_3D(int id);
 
-void g_region_boundary();
+void g_sel_scale_2D_boundary(int id);
+void g_sel_scale_3D_boundary(int id);
 
 // ---- g_move_plot.c
 
