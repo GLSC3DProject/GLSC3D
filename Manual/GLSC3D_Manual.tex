@@ -702,7 +702,7 @@ int main()
 \begin{verbatim}
 void g_init(
         const char *WindowName,
-        int width,int height);
+        int width, int height);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|WindowName| ; ウィンドウの名前，又は\verb|G_OFF_SCREEN|を設定します．\verb|G_OFF_SCREEN|では画面は表示されません\\
@@ -926,8 +926,18 @@ void g_capture();
 \clearpage
 \subsection{補助関数}
 
-%%%%%%%%%%%%%%%%%%%%g_input_state%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_input\_state}}
+%%%%%%%%%%%%%%%%%%%%g_input_state, g_key_state%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_key\_state, g\_input\_state}}
+
+\begin{itembox}[l]{\texttt{g\_key\_state}関数}
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+G_INPUT_STATE g_key_state(
+        G_KEY_CODE code);
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|code| ; 取得する入力のコード
+\end{itembox}
 
 \begin{itembox}[l]{\texttt{g\_input\_state}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
@@ -937,16 +947,17 @@ G_INPUT_STATE g_input_state(
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|code| ; 取得する入力のコード\\
-\verb|x,y| ; 最後にクリックされた位置（標準座標系）を格納する変数へのポインタ（ヌルポインタを許容します．）\\
+\verb|x,y| ; 最後にクリックされた位置（標準座標系）を格納する変数へのポインタ（ヌルポインタを許容します．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_input\_state}関数の説明}
+\begin{itembox}[l]{\texttt{g\_key\_state, g\_input\_state}関数の説明}
 \verb|code|で指定された入力を取得します．
 \verb|code|には\verb|char|型のリテラル（'\verb|a|', '\verb|@|', '\verb|/|'等）か，\verb|G_KEY_F1, G_KEY_LEFT, G_MOUSE_LEFT|等の定数を指定します．
 各入力の状態は，\verb|g_finish|が呼ばれた時点で更新されます．
 \verb|G_KEY**|定数，および\verb|G_INPUT_STATE|の詳細は事項以降を見てください．
 \end{itembox}
+
 \begin{itembox}[l]{\texttt{G\_KEY**}定数}
 \begin{verbatim}
 G_MOUSE_LEFT,     G_KEY_INVALID,     G_KEY_INSERT,   G_KEY_F1, 	G_KEY_F7,
@@ -958,26 +969,27 @@ G_MOUSE_LEFT,     G_KEY_PAGE_DOWN,   G_KEY_UP,       G_KEY_F3, 	G_KEY_F9,
  \end{verbatim}
 \end{itembox}
 \begin{itembox}[l]{\texttt{G\_input\_state}詳細}
-\verb|G_NONE| ; キーは押されていない
-\verb|G_DOWN| ; キーが押された
-\verb|G_UP| ; キーが解放された
+\verb|G_NONE| ; キーは押されていない\\
+\verb|G_DOWN| ; キーが押された\\
+\verb|G_UP| ; キーが解放された\\
 \verb|G_REPEAT| ; キーが押しっぱなし
 \begin{verbatim}
-if(g_input_state(‘a’, NULL, NULL) == G_DOWN)
+if(g_key_state('a') == G_DOWN)
 {
-	//a が入力された時の動作
+    //a が入力された時の動作
 }
 int x, y;
 if(g_input_state(G_MOUSE_LEFT, &x, &y) == G_DOWN)
 {
-	//左クリックされた時の動作
-	printf(“x : %d\n” ”y : %d\n”, x, y);
+    //左クリックされた時の動作
+    printf(“x : %d\n” ”y : %d\n”, x, y);
 }
 if(g_input_state(G_MOUSE_LEFT, NULL, NULL) == G_DOWN)
 {
-	//座標が必要無ければこれでも呼び出せます．
+    //座標が必要無ければこれでも呼び出せます．
+    //x座標とy座標両方にNULLを指定するのはg_key_stateを使うのと等価です．
 }
- \end{verbatim}
+\end{verbatim}
 \end{itembox}
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -994,9 +1006,9 @@ if(g_input_state(G_MOUSE_LEFT, NULL, NULL) == G_DOWN)
 void g_def_scale_2D(
         int id,
         double x_left, double x_right,
-        double y_bottom,double y_top,
-        double x_left_std,double y_top_std,
-        double width_std,double height_std);
+        double y_bottom, double y_top,
+        double x_left_std, double y_top_std,
+        double width_std, double height_std);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; スケール番号\\
@@ -1034,11 +1046,11 @@ void g_def_scale_2D(
 void g_def_scale_3D(
         int id,
         double x_left, double x_right,
-        double y_bottom,double y_top,
-        double z_near,double z_far,
-        double x_left_std,double y_top_std,
-        double width_std,double height_std,
-        double direction_x,double direction_y,double direction_z
+        double y_bottom, double y_top,
+        double z_near, double z_far,
+        double x_left_std, double y_top_std,
+        double width_std, double height_std,
+        double direction_x, double direction_y, double direction_z
         double r);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1076,12 +1088,12 @@ void g_def_scale_3D(
 void g_def_scale_3D_core(
         int id,
         double x_left, double x_right,
-        double y_bottom,double y_top,
-        double z_near,double z_far,
-        double x_left_std,double y_top_std,
-        double width_std,double height_std,
-        double direction_x,double direction_y,double direction_z,
-        double r,double up_x, double up_y, double up_z);
+        double y_bottom, double y_top,
+        double z_near, double z_far,
+        double x_left_std, double y_top_std,
+        double width_std, double height_std,
+        double direction_x, double direction_y, double direction_z,
+        double r, double up_x, double up_y, double up_z);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; スケール番号\\
@@ -1133,7 +1145,7 @@ void g_sel_scale_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_marker_color(
-        float r,float g,float b,float a);
+        float r, float g, float b, float a);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
@@ -1148,13 +1160,13 @@ void g_marker_color(
 \subsubsection{\texttt{g\_marker\_size}}
 
 \begin{itembox}[l]{\texttt{g\_marker\_size}関数}
-	%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
-	\begin{verbatim}
-	void g_marker_size(
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_marker_size(
         float size);
-	\end{verbatim}
-	%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-	\verb|size| ; マーカーの大きさ(ピクセル単位)\\
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|size| ; マーカーの大きさ(ピクセル単位)\\
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1166,13 +1178,13 @@ void g_marker_color(
 \subsubsection{\texttt{g\_marker\_radius}}
 
 \begin{itembox}[l]{\texttt{g\_marker\_radius}関数}
-	%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
-	\begin{verbatim}
-	void g_marker_radius
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_marker_radius
         float size);
-	\end{verbatim}
-	%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-	\verb|size| ; マーカーの大きさ(仮想座標系での半径)\\
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|size| ; マーカーの大きさ(仮想座標系での半径)\\
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1211,7 +1223,12 @@ void g_marker_type(
 	\hline 
 \end{tabular}
 \end{center}
+\end{itembox}
+
+\begin{itembox}[l]{マーカーに関するパフォーマンス上の注意}
 マーカータイプの変更はシェーダーの切り替えを伴うため，できるだけ同じ種類のマーカーをまとめて描画するようにすること．
+
+また，マーカーサイズの変更は問題ないが，マーカーサイズの座標系(\verb|g_marker_size|または\verb|g_marker_radius|)の変更もシェーダーの切り替えを伴うため，できるだけ同じ座標系のマーカーサイズをまとめて使用すること．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%%%g_def_marker%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1229,7 +1246,7 @@ void g_def_marker(
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; マーカーの属性番号\\
 \verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
-\verb|type| ; マーカーの種類（$0=$, $1=$）\\
+\verb|type| ; マーカーの種類（\verb|g_marker_type|の説明を参照）\\
 \verb|size| ; マーカーの大きさ\\
 \end{itembox}
 
@@ -1463,7 +1480,7 @@ void g_sel_area_3D(
 \begin{itembox}[l]{\texttt{g\_text\_color}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
-void g_line_color(
+void g_text_color(
         float r, float g, float b, float a);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1514,7 +1531,7 @@ void g_text_font_core(
 
 %%%%%%%%%%%%%%%%%%%%%g_def_text%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\subsubsection{\texttt{g\_def\_text}}
+\subsubsection{\texttt{g\_def\_text, g\_def\_text\_core, g\_sel\_text}}
 
 \begin{itembox}[l]{\texttt{g\_def\_text}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
@@ -1527,17 +1544,37 @@ void g_def_text(
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; テキストの属性番号\\
 \verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
-\verb|font| ; テキストのフォント（0〜3）\\
-\verb|font_size| ; テキストのサイズ（自然数）\\
+\verb|font| ; 使用されません\\
+\verb|font_size| ; テキストのサイズ（自然数）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_def\_text}関数の説明}
-テキストの属性セットを定義する．
+テキストの属性セットを定義する．\verb|font|引数は無視される．
 \end{itembox}
 
-%%%%%%%%%%%%%%%%%%%%%g_sel_text%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_sel\_text}}
+%%%%%%%%%%%%%%%%%%%%%g_def_text_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{itembox}[l]{\texttt{g\_def\_text\_core}関数}
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_def_text_core(
+        int id,
+        float r, float g, float b, float a,
+        const char *font_type, unsigned int font_size);
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|id| ; テキストの属性番号\\
+\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
+\verb|font_type| ; フォントファイル名，または\verb|NULL|\\
+\verb|font_size| ; テキストのサイズ（自然数）
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_def\_text}関数の説明}
+	テキストの属性セットを定義する．\verb|font_type==NULL|のとき，色とサイズのみ使用される．
+\end{itembox}
 
 \begin{itembox}[l]{\texttt{g\_sel\_text}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
@@ -1546,7 +1583,7 @@ void g_sel_text(
         int id);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|id| ; 線の属性番号\\
+\verb|id| ; 線の属性番号
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1567,9 +1604,9 @@ void g_sel_text(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_marker_2D(
-        double x,double y);
+        double x, double y);
 void g_marker_3D(
-        double x,double y,double z);	
+        double x, double y, double z);	
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; マーカーの中心座標\\
@@ -1648,9 +1685,9 @@ void g_text_3D_virtual(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_move_2D(
-        double x,double y);
+        double x, double y);
 void g_move_3D(
-        double x,double y,double z);     
+        double x, double y, double z);     
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 線の始点の座標\\
@@ -1668,9 +1705,9 @@ void g_move_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_plot_2D(
-        double x,double y);
+        double x, double y);
 void g_plot_3D(
-        double x,double y,double z);     
+        double x, double y, double z);     
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 線の始点の座標\\
@@ -1698,8 +1735,8 @@ void g_plot_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_box_2D(
-        double x,double y,
-        double width,double height,
+        double x, double y,
+        double width, double height,
         G_WIREFILL WireFill);    
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1721,8 +1758,8 @@ void g_box_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_box_3D(
-        double x,double y,double z,
-        double width,double height,double depth);   
+        double x, double y, double z,
+        double width, double height, double depth);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 重心の座標\\
@@ -1775,7 +1812,7 @@ void g_box_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_sphere_3D(
-        double x,double y,double z,
+        double x, double y, double z,
         double radius);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1799,7 +1836,7 @@ Ver 3.0以降: この関数を小さな球を大量に表示する目的には�
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_sphere_3D_core(
-        double x,double y,double z,
+        double x, double y, double z,
         double radius,
         int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);   
 \end{verbatim}
@@ -1834,10 +1871,9 @@ Ver 3.0以降: この関数を小さな球を大量に表示する目的には�
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_ellipse_3D(
-        double x,double y,double z,
-        double Sx,double Sy,double Sz,
-        double direction_x, double direction_y, double direction_z,
-         int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);   
+        double x, double y, double z,
+        double Sx, double Sy, double Sz,
+        double direction_x, double direction_y, double direction_z);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 重心の座標\\
@@ -1861,10 +1897,11 @@ void g_ellipse_3D(
 \begin{itembox}[l]{\texttt{g\_ellipse\_3D\_core}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
-void g_ellipse_3D(
-        double x,double y,double z,
-        double Sx,double Sy,double Sz,
-        double direction_x, double direction_y, double direction_z);   
+void g_ellipse_3D_core(
+        double x, double y, double z,
+        double Sx, double Sy, double Sz,
+        double direction_x, double direction_y, double direction_z,
+        int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 重心の座標\\
@@ -1896,9 +1933,9 @@ void g_ellipse_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_prism_3D(
-        double center_x,double center_ y,double center_ z,
-        double direction_x,double direction_ y,double direction_ z,
-        double radius,double height,double psi,int N);
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double height, double psi, int N);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -1927,9 +1964,9 @@ void g_prism_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_prism_3D_core(
-        double center_x,double center_ y,double center_ z,
-        double direction_x,double direction_ y,double direction_ z,
-        double radius,double height,double psi,int N,
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double height, double psi, int N,
         int DivideLevel, G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1964,9 +2001,9 @@ void g_prism_3D_core(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_cylinder_3D(
-        double center_x,double center_ y,double center_ z,
-        double direction_x,double direction_ y,double direction_ z,
-        double radius,double height,double psi);
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double height, double psi);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -1993,9 +2030,9 @@ void g_cylinder_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_cylinder_3D_core(
-        double center_x,double center_ y,double center_ z,
-        double direction_x,double direction_ y,double direction_ z,
-        double radius,double height,double psi,
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double height, double psi,
         int N, int DivideLevel, G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2031,9 +2068,9 @@ void g_cylinder_3D_core(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_cone_2D(
-        double center_x,double center_ y,
-        double direction_x,double direction_ y,
-        double radius,double head_size,int type);
+        double center_x, double center_y,
+        double direction_x, double direction_y,
+        double radius, double head_size, int type);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2064,9 +2101,9 @@ void g_cone_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_cone_3D(
-        double center_x,double center_ y, double center_ z,
-        double direction_x,double direction_ y, double direction_ z,
-        double radius,double head_size);
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double head_size);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2095,10 +2132,11 @@ void g_cone_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_cone_3D_core(
-        double center_x,double center_ y, double center_ z,
-        double direction_x,double direction_ y, double direction_ z,
-        double radius,double head_size,
-        int FaceNumberLevel_X, int FaceNumberLevel_Y, int DivideLevel, G_WIREFILL WireFill);
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double head_size,
+        int FaceNumberLevel_X, int FaceNumberLevel_Y,
+        int DivideLevel, G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2134,9 +2172,9 @@ void g_cone_3D_core(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_pyramid_3D(
-        double center_x,double center_ y, double center_ z,
-        double direction_x,double direction_ y, double direction_ z,
-        double radius,double head_size,double psi,int N);
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double head_size, double psi, int N);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2164,9 +2202,9 @@ void g_pyramid_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_pyramid_3D_core(
-        double center_x,double center_ y, double center_ z,
-        double direction_x,double direction_ y, double direction_ z,
-        double radius,double head_size,double psi,int N,
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double head_size, double psi, int N,
         int DivideLevel, G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2201,9 +2239,9 @@ void g_pyramid_3D_core(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_arrow_2D(
-        double base_x,double base_ y
-        double direction_x,double direction_ y
-        double arrow_size,double head_size,int type);
+        double base_x, double base_y
+        double direction_x, double direction_y
+        double arrow_size, double head_size, int type);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|base| ; 根元の座標\\
@@ -2234,9 +2272,9 @@ void g_arrow_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_arrow_3D(
-        double base_x,double base_ y,double base_ z,
-        double direction_x,double direction_ y,double direction_ z,
-        double arrow_size,double head_size);
+        double base_x, double base_y, double base_z,
+        double direction_x, double direction_y, double direction_z,
+        double arrow_size, double head_size);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|base| ; 根元の座標\\
@@ -2265,9 +2303,9 @@ void g_arrow_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_arrow_3D_core(
-        double base_x,double base_ y,double base_ z,
-        double direction_x,double direction_ y,double direction_ z,
-        double arrow_size,double head_size, 
+        double base_x, double base_y, double base_z,
+        double direction_x, double direction_y, double direction_z,
+        double arrow_size, double head_size, 
         int FaceNumberLevel_X, int FaceNumberLevel_Y,
         int DivideLevel, G_WIREFILL WireFill);
 \end{verbatim}
@@ -2306,9 +2344,9 @@ void g_arrow_3D_core(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_triangle_2D(        
-        double x0,double y0,
-        double x1,double y1,
-        double x2,double y2,
+        double x0, double y0,
+        double x1, double y1,
+        double x2, double y2,
         G_WIREFILL WireFill);    
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2337,9 +2375,9 @@ void g_triangle_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_triangle_3D(
-        double x0,double y0,double z0,
-        double x1,double y1,double z1,
-        double x2,double y2,double z2,
+        double x0, double y0, double z0,
+        double x1, double y1, double z1,
+        double x2, double y2, double z2,
         G_WIREFILL WireFill);    
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2364,9 +2402,9 @@ void g_triangle_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_triangle_3D_core(
-        double x0,double y0,double z0,
-        double x1,double y1,double z1,
-        double x2,double y2,double z2,
+        double x0, double y0, double z0,
+        double x1, double y1, double z1,
+        double x2, double y2, double z2,
         int DivideLevel, G_WIREFILL WireFill);    
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2396,9 +2434,9 @@ void g_triangle_3D_core(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_fan_2D(
-        double center_x,double center_ y,
-        double direction_x,double direction_ y,
-        double radius,double angle,
+        double center_x, double center_y,
+        double direction_x, double direction_y,
+        double radius, double angle,
         G_WIREFILL WireFill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2430,9 +2468,9 @@ void g_fan_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_fan_3D(
-        double center_x,double center_ y, double center_ z,
-        double direction_x,double direction_ y, double direction_ z,
-        double radius,double angle,double psi,
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double angle, double psi,
         G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2464,9 +2502,9 @@ void g_fan_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_fan_3D_core(
-        double center_x,double center_ y, double center_ z,
-        double direction_x,double direction_ y, double direction_ z,
-        double radius,double angle,double psi,
+        double center_x, double center_y, double center_z,
+        double direction_x, double direction_y, double direction_z,
+        double radius, double angle, double psi,
         int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2505,7 +2543,7 @@ void g_fan_3D_core(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_circle_2D(
-        double center_x,double center_ y,
+        double center_x, double center_y,
         double radius,G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2533,8 +2571,8 @@ void g_circle_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_circle_3D(
-        double center_x,double center_ y,
-        double radius,double theta,double phi);
+        double center_x, double center_y,
+        double radius, double theta, double phi);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 中心の座標\\
@@ -2563,8 +2601,8 @@ void g_circle_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_circle_3D_core(
-        double center_x,double center_ y,
-        double radius,double theta,double phi,        
+        double center_x, double center_y,
+        double radius, double theta, double phi,        
         int N, int DivideLevel, G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2602,7 +2640,7 @@ void g_circle_3D_core(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_polygon_2D(
-        double *xx,double *yy,
+        double *xx, double *yy,
         int n,G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2633,7 +2671,7 @@ void g_polygon_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_polyline_2D(
-        double *xx,double *yy,
+        double *xx, double *yy,
         int n);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2659,7 +2697,7 @@ void g_polyline_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_polyline_3D(
-        double *xx,double *yy, double *zz,
+        double *xx, double *yy, double *zz,
         int n);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2690,7 +2728,7 @@ void g_polyline_3D(
 void g_rectangle_3D(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
-        double width,double depth,double psi);
+        double width, double depth, double psi);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2717,7 +2755,7 @@ void g_rectangle_3D(
 void g_rectangle_3D_core(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
-        double width,double depth,double psi,
+        double width, double depth, double psi,
         int DivideLevel, G_WIREFILL WireFill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2750,8 +2788,8 @@ void g_rectangle_3D_core(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_data_plot_2D(
-        double x0,double x1,
-        double y0,double y1,
+        double x0, double x1,
+        double y0, double y1,
         int number_x,
         double u[number_x]);
 \end{verbatim}
@@ -2780,10 +2818,10 @@ void g_data_plot_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_data_plot_3D(
-        double x0,double x1,
-        double y0,double y1,
-        double z0,double z1,
-        int number_x,int number_y,
+        double x0, double x1,
+        double y0, double y1,
+        double z0, double z1,
+        int number_x, int number_y,
         double u[number_x][number_y]);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2813,10 +2851,10 @@ void g_data_plot_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_data_plot_f_3D(
-        double x0,double x1,
-        double y0,double y1,
-        double z0,double z1,
-        int number_x,int number_y,
+        double x0, double x1,
+        double y0, double y1,
+        double z0, double z1,
+        int number_x, int number_y,
         double *u);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2918,9 +2956,9 @@ void g_contln_f_2D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_bird_view_3D(
-        double x_left,double x_right, 
-        double y_bottom,double y_top,
-        int number_x,int number_y,
+        double x_left, double x_right, 
+        double y_bottom, double y_top,
+        int number_x, int number_y,
         double u[number_x][number_y],
         G_WIREFILL WireFill);
 \end{verbatim}
@@ -2950,9 +2988,9 @@ void g_bird_view_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_bird_view_f_3D(
-        double x_left,double x_right, 
-        double y_bottom,double y_top,
-        int number_x,int number_y,
+        double x_left, double x_right, 
+        double y_bottom, double y_top,
+        int number_x, int number_y,
         double *u,
         G_WIREFILL WireFill);
 \end{verbatim}
@@ -2985,10 +3023,10 @@ void g_bird_view_f_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_isosurface_3D(
-        double x0,double x1,
-        double y0,double y1,        
-        double z0,double z1,
-        int number_x,int number_y,int number_z,
+        double x0, double x1,
+        double y0, double y1,        
+        double z0, double z1,
+        int number_x, int number_y, int number_z,
         double u[number_x][number_y][number_z],
         double height);
 \end{verbatim}
@@ -3020,10 +3058,10 @@ void g_isosurface_3D(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_isosurface_f_3D(
-        double x0,double x1,
-        double y0,double y1,
-        double z0,double z1,
-        int number_x,int number_y,int number_z,
+        double x0, double x1,
+        double y0, double y1,
+        double z0, double z1,
+        int number_x, int number_y, int number_z,
         double *u,
         double height);
 \end{verbatim}
