@@ -185,12 +185,16 @@ in VS_TO_GS {
 	vec3 position;
 	float half_width;
 } Input[2];
-layout(location = 0) out vec4 vary_color;
+out GS_TO_FS {
+	vec4 color;
+	noperspective float coord;
+} Output;
 
-void emit_vertices(uint id, vec4 r) {
-	vary_color = Input[id].color;
+void emit_vertices(uint id, vec4 r, float coord) {
+	Output.color = Input[id].color;
 	vec4 center = gl_in[id].gl_Position;
 	vec4 offset = proj * (Input[id].half_width * r);
+	Output.coord = coord;// / (center.w * pixel_scale);
 
 	gl_Position = center + offset;
 	EmitVertex();
@@ -201,9 +205,22 @@ void emit_vertices(uint id, vec4 r) {
 void main () {
 	vec3 p = Input[0].position;
 	vec3 q = Input[1].position;
-	vec4 r = normalize(vec4(p.y - q.y, q.x - p.x, 0, 0));
-	emit_vertices(0, r);
-	emit_vertices(1, r);
+	vec4 v = vec4(p.y - q.y, q.x - p.x, 0, 0);
+	vec4 r = normalize(v);
+	//float c = length(v) / 2;
+	emit_vertices(0, r, 0);
+	emit_vertices(1, r, +1);
+})";
+
+const char * const LINE_FRAGMENT_SHADER_SOURCE =
+GLSL_VERSION_DECL R"(
+in GS_TO_FS {
+	vec4 color;
+	noperspective float coord;
+} Input;
+out vec4 out_color;
+void main() {
+	out_color = vec4(Input.color.rgb, Input.color.a * round(fract(Input.coord * 2)));
 })";
 
 // ----------------------------------------------------------------
@@ -358,7 +375,7 @@ void g_shader_program_init()
 	g_line_program = glCreateProgram();
 	glAttachShader(g_line_program, g_create_shader(GL_VERTEX_SHADER, LINE_VERTEX_SHADER_SOURCE));
 	glAttachShader(g_line_program, g_create_shader(GL_GEOMETRY_SHADER, LINE_GEOMETRY_SHADER_SOURCE));
-	glAttachShader(g_line_program, g_create_shader(GL_FRAGMENT_SHADER, CONSTANT_FRAG_SHADER_SOURCE));
+	glAttachShader(g_line_program, g_create_shader(GL_FRAGMENT_SHADER, LINE_FRAGMENT_SHADER_SOURCE));
 	g_link_program(g_line_program);
 	g_bind_uniform_block(g_line_program, "Matrices", G_UNIFORM_MATRICES);
 
