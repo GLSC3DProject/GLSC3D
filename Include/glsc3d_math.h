@@ -240,7 +240,7 @@ struct G_MATRIX
 
 	static G_MATRIX LookAt(G_VECTOR eye, G_VECTOR center, G_VECTOR up)
 	{
-		G_VECTOR Z = g_normalize(g_minus(eye, center));
+		G_VECTOR Z = g_normalize(eye - center);
 		G_VECTOR X = g_normalize(g_cross(up, Z));
 		G_VECTOR Y = g_normalize(g_cross(Z, X));
 
@@ -294,11 +294,6 @@ inline G_MATRIX operator *(const G_MATRIX &A, const G_MATRIX &B)
 		A.w.x * B.x + A.w.y * B.y + A.w.z * B.z + A.w.w * B.w
 	);
 }
-
-//inline void operator *=(G_VECTOR4 &v, const G_MATRIX &m)
-//{
-//	v = v * m;
-//}
 
 #else
 

@@ -85,6 +85,12 @@ static void g_text_render(double x, double y, const char *str)
 	glUniform1i(g_texture_sampler_location, 0);
 	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
 
+	int font_size = (int)(g_current_text_size * g_screen_scale_factor);
+
+	if (FT_Error error = FT_Set_Char_Size(face, 0, font_size * 64, 0, 0)) {
+		printf("Unable to set font size.\nError: %d\n", error);
+	}
+
 	int physical_x = (int)(x * g_screen_scale_factor);
 	int physical_y = (int)(y * g_screen_scale_factor);
 
@@ -103,12 +109,12 @@ static void g_text_render(double x, double y, const char *str)
 		}
 		else if (c < 0xE0) {
 			// 2-byte, 11-bit character
-			char_code = ((c & 0x1F) << 6) | (str[1] & 0x3F);
+			char_code = (c & 0x1F) << 6 | (str[1] & 0x3F);
 			str += 2;
 		}
 		else if (c < 0xF0) {
 			// 3-byte, 16-bit character
-			char_code = ((c & 0x1F) << 12) | (str[1] & 0x3F) << 6 | (str[2] & 0x3F);
+			char_code = (c & 0x1F) << 12 | (str[1] & 0x3F) << 6 | (str[2] & 0x3F);
 			str += 3;
 		}
 		else {
@@ -136,7 +142,7 @@ static void g_text_render(double x, double y, const char *str)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glsc3D_inner_scale[g_current_scale_id].select(false);
+	glsc3D_inner_scale[g_current_scale_id].select();
 }
 
 void g_text_standard_v(double x, double y, const char *format, va_list args)
@@ -211,25 +217,11 @@ void g_text_font_core(const char *font_type)
 	if (FT_Error error = FT_New_Face(library, font_type, 0, &face)) {
 		fprintf(stderr, "Unable to load font'%s'.\nError: %d\n", font_type, error);
 	}
-
-	if (g_current_text_size == 0) return;
-
-	if (FT_Error error = FT_Set_Char_Size(face, 0, g_current_text_size * 64, 0, 0)) {
-		printf("Unable to set font size.\nError: %d\n", error);
-	}
 }
 
 void g_text_size(float size)
 {
-	int font_size = (int)(size * g_screen_scale_factor);
-
-	if (font_size == g_current_text_size) return;
-
-	g_current_text_size = font_size;
-
-	if (FT_Error error = FT_Set_Char_Size(face, 0, font_size * 64, 0, 0)) {
-		printf("Unable to set font size.\nError: %d\n", error);
-	}
+	g_current_text_size = size;
 }
 
 void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size)

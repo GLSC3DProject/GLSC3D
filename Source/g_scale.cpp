@@ -4,38 +4,32 @@ int             g_current_scale_id;
 G_DIMENSION     g_scale_dim_flag;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
+G_SCALE glsc3D_whole_scale;
 
-void G_SCALE::select(bool boundary)
+struct G_TRANSFORM
+{
+	G_CAMERA camera;
+	float pixel_scale, screen_scale, width, height;
+};
+
+void G_SCALE::select()
 {
 	int x = (int)(g_screen_scale_factor * screen.x);
 	int y = glsc3D_height - (int)(g_screen_scale_factor * (screen.height + screen.y));
 	int w = (int)(g_screen_scale_factor * screen.width);
 	int h = (int)(g_screen_scale_factor * screen.height);
 
-	if (boundary) {
-		int r = x + w, t = y + h;
-
-		glViewport(0, 0, glsc3D_width, glsc3D_height);
-
-		G_CAMERA whole_camera = g_make_camera_2D(0, glsc3D_width, 0, glsc3D_height);
-		//G_SCREEN whole_screen = g_make_screen(0, 0, glsc3D_width, glsc3D_height);
-		whole_camera.pixel_scale = 0.5f;
-		g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_CAMERA), &whole_camera);
-
-		g_move_2D(x, y);
-		g_plot_2D(r, y);
-		g_plot_2D(r, t);
-		g_plot_2D(x, t);
-		g_plot_2D(x, y);
-
-		g_vertex_buffer_flush();
-	}
-
 	glViewport(x, y, w, h);
 
 #ifdef G_USE_CORE_PROFILE
-	camera.pixel_scale = 1 / (h * camera.proj.y.y);
-	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_CAMERA), &camera);
+	G_TRANSFORM transform;
+	transform.camera = camera;
+	transform.pixel_scale = screen.height * camera.proj.y.y;
+	transform.screen_scale = g_screen_scale_factor;
+	transform.width = screen.width;
+	transform.height = screen.height;
+
+	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
 #else
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf((float *)&camera.proj);
@@ -96,7 +90,31 @@ void g_sel_scale_private(int id, G_DIMENSION dimension, bool boundary)
 	g_vertex_buffer_flush();
 	g_triangle_buffer_flush();
 
-	glsc3D_inner_scale[id].select(boundary);
+	if (boundary) {
+		G_SCREEN &screen = glsc3D_inner_scale[id].screen;
+		int x = screen.x;
+		int y = screen.y;
+		int r = x + screen.width;
+		int t = y + screen.height;
+
+		//glViewport(0, 0, glsc3D_width, glsc3D_height);
+
+		//G_CAMERA whole_camera = g_make_camera_2D(0, glsc3D_width, 0, glsc3D_height);
+		//G_SCREEN whole_screen = g_make_screen(0, 0, glsc3D_width, glsc3D_height);
+		//whole_camera.pixel_scale = 0.5f;
+		//g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_CAMERA), &whole_camera);
+		glsc3D_whole_scale.select();
+
+		g_move_2D(x, y);
+		g_plot_2D(r, y);
+		g_plot_2D(r, t);
+		g_plot_2D(x, t);
+		g_plot_2D(x, y);
+
+		g_vertex_buffer_flush();
+	}
+
+	glsc3D_inner_scale[id].select();
 
 	if (dimension == G_3D)
 		glEnable(GL_DEPTH_TEST);

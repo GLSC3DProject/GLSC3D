@@ -6,13 +6,13 @@ void g_triangle_buffer_reset();
 
 void g_set_triangle(G_TRIANGLE t);
 
-void g_triangle_quick(int *index, double *u, int start, int end);
-void g_triangle_merge(int *index_s0, int *index_s1, int *index_d, double *u, unsigned int length0, unsigned int length1);
+void g_triangle_quick(int *index, float *u, int start, int end);
+void g_triangle_merge(int *index_s0, int *index_s1, int *index_d, float *u, unsigned int length0, unsigned int length1);
 
 void g_triangle_buffer_merge();
 
 G_TRIANGLE *triangle_buffer;
-double *triangle_r;
+float *triangle_r;
 int *camera_id;
 
 int *aligned_index;
@@ -57,7 +57,7 @@ void g_triangle_buffer_init()
             abort();
         }
         
-        if(!(triangle_r = (double *)malloc(TRIANGLE_BUFFER_SIZE*sizeof(double))))
+        if(!(triangle_r = (float *)malloc(TRIANGLE_BUFFER_SIZE*sizeof(float))))
         {
             fprintf(stderr, "failed to allocate memory\a\n");
             fprintf(stderr, "GLSC3D will abort\n");
@@ -132,15 +132,14 @@ void g_triangle_buffer_append(G_TRIANGLE t)
 	if(temp_index >= TEMPORARY_TRIANGLE_BUFFER_SIZE)
 		g_triangle_buffer_flush();
 	
-	G_CAMERA c = glsc3D_inner_scale[g_current_scale_id].camera;
-	G_POSITION eye = c.eye;
-	G_POSITION g   = g_multi(1/3., g_plus(g_plus(t.vertex[0].position, t.vertex[1].position), t.vertex[2].position));
+	G_MATRIX c = glsc3D_inner_scale[g_current_scale_id].camera.view;
+	G_VECTOR g = (t.vertex[0].position + t.vertex[1].position + t.vertex[2].position) / 3;
 	
-	double r = g_norm(g_minus(eye, g));
+	float z = g.x * c.x.z + g.y * c.y.z + g.z * c.z.z;
 	
 	triangle_buffer[buffer_index] = t;
 	
-	triangle_r[buffer_index] = r;
+	triangle_r[buffer_index] = -z;
 	
 	camera_id[buffer_index] = g_current_scale_id;
 	
@@ -173,7 +172,7 @@ void g_triangle_buffer_flush()
     }
 }
 
-void g_triangle_quick(int *index, double *u, int start, int end)
+void g_triangle_quick(int *index, float *u, int start, int end)
 {
     double          key;
     int wk;
@@ -201,7 +200,7 @@ void g_triangle_quick(int *index, double *u, int start, int end)
         g_triangle_quick(index, u, j + 1, end);
 }
 
-void g_triangle_merge(int *index_s0, int *index_s1, int *index_d, double *u, unsigned int length0, unsigned int length1)
+void g_triangle_merge(int *index_s0, int *index_s1, int *index_d, float *u, unsigned int length0, unsigned int length1)
 {
     if(length0 == 0 && length1 == 0)
         return;

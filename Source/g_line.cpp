@@ -32,7 +32,7 @@ void g_line_color(float r, float g, float b, float a)
 void g_line_width(float size)
 {
 #ifdef G_USE_CORE_PROFILE
-	g_current_line_size = size * g_screen_scale_factor;
+	g_current_line_size = size;
 #else
     glLineWidth(size);
 #endif

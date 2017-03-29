@@ -5,6 +5,13 @@
 
 #define GLSL_VERSION_DECL "#version 410 core"
 
+#define MATRICES_UNIFORM_DECL R"(
+uniform Matrices {
+	mat4 proj, view;
+	float pixel_scale, screen_scale;
+	vec2 screen_size;
+};)"
+
 // Vertex shader for rendering lines and 2D triangles
 const char * const CONSTANT_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
@@ -65,8 +72,7 @@ void main() {
 
 // Vertex shader for rendering markers (size = diameter in standard coordinates)
 const char * const MARKER_STANDARD_VERT_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(
-uniform Matrices { mat4 proj, view; float pixel_scale; };
+GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
 layout(location = 0) in vec4 in_position;
 layout(location = 1) in vec4 in_color;
 out VS_TO_FS {
@@ -78,16 +84,15 @@ void main () {
 	vec4 view_pos = view * vec4(in_position.xyz, 1);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
-	gl_PointSize = size;
+	gl_PointSize = size * screen_scale;
 	Output.color = in_color;
 	Output.position = view_pos.xyz;
-	Output.radius = size * gl_Position.w * pixel_scale;
+	Output.radius = size * gl_Position.w / pixel_scale;
 })";
 
 // Vertex shader for rendering markers (size = radius in virtual coordinates)
 const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(
-uniform Matrices { mat4 proj, view; float pixel_scale; };
+GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
 layout(location = 0) in vec4 in_position;
 layout(location = 1) in vec4 in_color;
 out VS_TO_FS {
@@ -99,7 +104,7 @@ void main () {
 	vec4 view_pos = view * vec4(in_position.xyz, 1);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
-	gl_PointSize = size / (gl_Position.w * pixel_scale);
+	gl_PointSize = size * pixel_scale * screen_scale / gl_Position.w;
 	Output.color = in_color;
 	Output.position = view_pos.xyz;
 	Output.radius = size;
@@ -136,8 +141,7 @@ void main() {
 
 // Fragment shader for rendering markers as 3D spheres
 const char * const MARKER_SPHERE_FRAG_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(
-uniform Matrices { mat4 proj, view; float pixel_scale; };
+GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
 in VS_TO_FS {
 	vec4 color;
 	vec3 position;
@@ -157,8 +161,7 @@ void main() {
 // ----------------------------------------------------------------
 
 const char * const LINE_VERTEX_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(
-uniform Matrices { mat4 proj, view; float pixel_scale; };
+GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
 layout(location = 0) in vec4 in_position;
 layout(location = 1) in vec4 in_color;
 out VS_TO_GS {
@@ -172,12 +175,11 @@ void main () {
 	gl_Position = proj * view_pos;
 	Output.color = in_color;
 	Output.position = view_pos.xyz;
-	Output.half_width = size * gl_Position.w * pixel_scale;
+	Output.half_width = size * gl_Position.w / pixel_scale;
 })";
 
 const char * const LINE_GEOMETRY_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(
-uniform Matrices { mat4 proj, view; float pixel_scale; };
+GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
 layout(lines) in;
 layout(triangle_strip, max_vertices = 4) out;
 in VS_TO_GS {
@@ -207,9 +209,13 @@ void main () {
 	vec3 q = Input[1].position;
 	vec4 v = vec4(p.y - q.y, q.x - p.x, 0, 0);
 	vec4 r = normalize(v);
-	//float c = length(v) / 2;
-	emit_vertices(0, r, 0);
-	emit_vertices(1, r, +1);
+	vec4 clip_p = gl_in[0].gl_Position;
+	vec4 clip_q = gl_in[1].gl_Position;
+	vec2 std_p = (clip_p.xy / clip_p.w + 1) * 0.5 * screen_size;
+	vec2 std_q = (clip_q.xy / clip_q.w + 1) * 0.5 * screen_size;
+	float c = length(std_p - std_q);
+	emit_vertices(0, r, -c);
+	emit_vertices(1, r, +c);
 })";
 
 const char * const LINE_FRAGMENT_SHADER_SOURCE =
@@ -220,7 +226,7 @@ in GS_TO_FS {
 } Input;
 out vec4 out_color;
 void main() {
-	out_color = vec4(Input.color.rgb, Input.color.a * round(fract(Input.coord * 2)));
+	out_color = vec4(Input.color.rgb, Input.color.a * round(fract(Input.coord)));
 })";
 
 // ----------------------------------------------------------------

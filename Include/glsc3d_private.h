@@ -118,8 +118,6 @@ struct G_SCREEN
 struct G_CAMERA
 {
 	G_MATRIX proj, view;
-	float pixel_scale;
-	G_VECTOR eye;
 };
 
 struct G_SCALE
@@ -127,7 +125,7 @@ struct G_SCALE
 	G_SCREEN screen;
 	G_CAMERA camera;
 
-	void select(bool boundary);
+	void select();
 };
 
 // ---- g_camera.cpp
@@ -140,6 +138,7 @@ G_CAMERA g_make_camera_2D(float x_left, float x_right, float y_bottom, float y_t
 // ---- g_screen.cpp
 
 extern G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
+extern G_SCALE glsc3D_whole_scale;
 
 #endif
 

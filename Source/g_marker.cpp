@@ -33,7 +33,7 @@ void g_marker_color(float r, float g, float b, float a)
 
 void g_marker_size(float size)
 {
-	g_current_marker_size = size * g_screen_scale_factor;
+	g_current_marker_size = size;
 	g_current_marker_size_type = G_MARKER_SIZE_STANDARD;
 }
 
