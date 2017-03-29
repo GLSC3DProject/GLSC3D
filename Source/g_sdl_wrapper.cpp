@@ -1,8 +1,5 @@
 #include "glsc3d_private.h"
 
-// Not to include iconv.c
-#define _LIBICONV_H
-
 #include <SDL2/SDL.h>
 
 #ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
@@ -180,6 +177,38 @@ G_KEY_CODE g_scancode_map(SDL_Scancode code)
 			return G_KEY_END;
 		case SDL_SCANCODE_INSERT:
 			return G_KEY_INSERT;
+		case SDL_SCANCODE_KP_DIVIDE:
+			return '/';
+		case SDL_SCANCODE_KP_MULTIPLY:
+			return '*';
+		case SDL_SCANCODE_KP_MINUS:
+			return '-';
+		case SDL_SCANCODE_KP_PLUS:
+			return '+';
+		case SDL_SCANCODE_KP_PERIOD:
+			return '.';
+		case SDL_SCANCODE_KP_ENTER:
+			return '\r';
+		case SDL_SCANCODE_KP_0:
+			return '0';
+		case SDL_SCANCODE_KP_1:
+			return '1';
+		case SDL_SCANCODE_KP_2:
+			return '2';
+		case SDL_SCANCODE_KP_3:
+			return '3';
+		case SDL_SCANCODE_KP_4:
+			return '4';
+		case SDL_SCANCODE_KP_5:
+			return '5';
+		case SDL_SCANCODE_KP_6:
+			return '6';
+		case SDL_SCANCODE_KP_7:
+			return '7';
+		case SDL_SCANCODE_KP_8:
+			return '8';
+		case SDL_SCANCODE_KP_9:
+			return '9';
 		default:
 			return G_KEY_INVALID;
 	}
