@@ -11,11 +11,12 @@ struct { int x, y; } click_pos;
 
 void g_keyboard_func(G_KEY_CODE key, G_INPUT_STATE state)
 {
-//	if (state == G_DOWN)
-//		input_key[key] |= 1;
-//	if (state == G_UP)
-//		input_key[key] &= ~2;
-	input_key[key] = state;
+	if (state == G_DOWN)
+		input_key[key] |= 1;
+	//if (state == G_UP)
+	//	input_key[key] &= ~2;
+	else
+		input_key[key] = state;
 }
 
 void g_mouse_func(G_KEY_CODE button, G_INPUT_STATE state, int x, int y)
@@ -26,17 +27,18 @@ void g_mouse_func(G_KEY_CODE button, G_INPUT_STATE state, int x, int y)
 	click_pos.x = (int)(x * g_retina_scale_factor / g_screen_scale_factor);
 	click_pos.y = (int)(y * g_retina_scale_factor / g_screen_scale_factor);
 
-//	if (state == G_DOWN)
-//		input_key[button] |= 1;
-//	if (state == G_UP)
-//		input_key[button] &= ~2;
-	input_key[button] = state;
+	if (state == G_DOWN)
+		input_key[button] |= 1;
+	//if (state == G_UP)
+	//	input_key[button] &= ~2;
+	else
+		input_key[button] = state;
 }
 
 void update_input_key_state()
 {
 	for(int i = 0; i < INPUT_KEY_MAX; ++i)
-		input_key[i] = G_NONE;
+		input_key[i] = input_key[i] & G_DOWN ? G_REPEAT : G_NONE;
 }
 
 G_INPUT_STATE g_key_state(G_KEY_CODE key)

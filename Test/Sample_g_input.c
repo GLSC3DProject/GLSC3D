@@ -7,6 +7,7 @@ int main()
 	int key = 0;
 	int text_y = 20, text_x = 20, text_height = 25;
 	int count = 0;
+	const char* state_string[] = { "G_NONE", "G_DOWN", "G_UP", "G_REPEAT" };
 
 	g_init("Sample_g_input", 640, 480);
 
@@ -29,7 +30,7 @@ int main()
 		g_text_2D_virtual(500, 93, "Program");
 
 		for (int i = 0; i < 128; ++i)
-			if(g_input_state(i, 0, 0) == G_DOWN)
+			if (g_input_state(i, 0, 0) == G_DOWN)
 				key = i;
 
 		G_INPUT_STATE mouse_state = g_input_state(G_MOUSE_LEFT, &x, &y);
@@ -50,8 +51,11 @@ int main()
 			g_text_2D_virtual(text_x, text_y, "Please input any key or click:");
 
 		g_text_2D_virtual(text_x, text_y += text_height, "Input character  %s", g_key_code_string[key]);
+		g_text_2D_virtual(text_x, text_y += text_height, "Key state : %s", state_string[g_key_state(key)]);
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse down x:%d y:%d", down_x, down_y);
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse up   x:%d y:%d", up_x, up_y);
+		g_text_2D_virtual(text_x, text_y += text_height, "Mouse state : %s", state_string[mouse_state]);
+		g_sleep(0.1);
 		g_finish();
 		fflush(stdout);
 	}
