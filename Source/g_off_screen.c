@@ -1,6 +1,6 @@
-#include "glsc3d_private.h"
-
 #ifdef __linux__
+
+#include "glsc3d_private.h"
 
 static GLuint frame_buffer;
 static GLuint color_buffer, depth_buffer;
@@ -41,24 +41,6 @@ void g_init_off_screen_rendering()
 
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, color_buffer);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth_buffer);
-
-//	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-//void g_begin_off_screen_rendering()
-//{
-//	glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer);
-//}
-//
-//void g_end_off_screen_rendering()
-//{
-//	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//}
-
-#else
-
-void g_init_off_screen_rendering()
-{
 }
 
 #endif

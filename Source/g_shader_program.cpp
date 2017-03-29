@@ -10,8 +10,7 @@
 
 // Vertex shader for rendering lines and 2D triangles
 const char * const CONSTANT_VERT_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(
-uniform Matrices { mat4 proj, view; };
+GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
 layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec4 in_color;
 layout(location = 0) out vec4 vary_color;
@@ -31,8 +30,7 @@ void main() { out_color = vary_color; })";
 
 // Vertex shader for rendering 3D triangles
 const char * const LIGHTING_VERT_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(
-uniform Matrices { mat4 proj, view; };
+GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
 layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec4 in_color;
 layout(location = 2) in vec4 in_normal;
@@ -100,7 +98,7 @@ void main () {
 	vec4 view_pos = view * vec4(in_position.xyz, 1);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
-	gl_PointSize = size * pixel_scale * screen_scale / gl_Position.w;
+	gl_PointSize = size * screen_scale * pixel_scale / gl_Position.w;
 	Output.color = in_color;
 	Output.position = view_pos.xyz;
 	Output.radius = size;

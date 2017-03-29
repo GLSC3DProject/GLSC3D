@@ -32,6 +32,10 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 {
 	SDL_Init(SDL_INIT_VIDEO);
 
+	float ddpi, hdpi, vdpi;
+	SDL_GetDisplayDPI(0, &ddpi, &hdpi, &vdpi);
+	SDL_Log("ddpi: %f, hdpi: %f, vdpi: %f", ddpi, hdpi, vdpi);
+
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
@@ -74,10 +78,10 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	glsc3D_whole_scale.screen = g_make_screen(0, 0, g_window_width, g_window_height);
 	glsc3D_whole_scale.camera = g_make_camera_2D(0, g_window_width, 0, g_window_height);
 
-	if (WindowName == G_OFF_SCREEN) {
+#ifdef __linux__
+	if (WindowName == G_OFF_SCREEN)
 		g_init_off_screen_rendering();
-//		g_begin_off_screen_rendering();
-	}
+#endif
 }
 
 void g_swap_buffers()
