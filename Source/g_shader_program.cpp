@@ -3,14 +3,10 @@
 
 #ifdef G_USE_CORE_PROFILE
 
-#define GLSL_VERSION_DECL "#version 410 core"
+#define GLSL_VERSION_DECL "#version 410 core\n"
 
-#define MATRICES_UNIFORM_DECL R"(
-uniform Matrices {
-	mat4 proj, view;
-	float pixel_scale, screen_scale;
-	vec2 screen_size;
-};)"
+#define MATRICES_UNIFORM_DECL \
+"uniform Matrices { mat4 proj, view; float pixel_scale, screen_scale; vec2 screen_size; };"
 
 // Vertex shader for rendering lines and 2D triangles
 const char * const CONSTANT_VERT_SHADER_SOURCE =
@@ -213,9 +209,10 @@ void main () {
 	vec4 clip_q = gl_in[1].gl_Position;
 	vec2 std_p = (clip_p.xy / clip_p.w + 1) * 0.5 * screen_size;
 	vec2 std_q = (clip_q.xy / clip_q.w + 1) * 0.5 * screen_size;
-	float c = length(std_p - std_q);
-	emit_vertices(0, r, -c);
-	emit_vertices(1, r, +c);
+	float c = length(std_p - std_q) / 32;
+//	float c = length(p - q) * 4;
+	emit_vertices(0, r, 0);
+	emit_vertices(1, r, c);
 })";
 
 const char * const LINE_FRAGMENT_SHADER_SOURCE =

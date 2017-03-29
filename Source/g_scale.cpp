@@ -9,7 +9,7 @@ G_SCALE glsc3D_whole_scale;
 struct G_TRANSFORM
 {
 	G_CAMERA camera;
-	float pixel_scale, screen_scale, width, height;
+	float pixel_scale, screen_scale, screen_width, screen_height;
 };
 
 void G_SCALE::select()
@@ -26,8 +26,8 @@ void G_SCALE::select()
 	transform.camera = camera;
 	transform.pixel_scale = screen.height * camera.proj.y.y;
 	transform.screen_scale = g_screen_scale_factor;
-	transform.width = screen.width;
-	transform.height = screen.height;
+	transform.screen_width = screen.width;
+	transform.screen_height = screen.height;
 
 	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
 #else
@@ -91,19 +91,13 @@ void g_sel_scale_private(int id, G_DIMENSION dimension, bool boundary)
 	g_triangle_buffer_flush();
 
 	if (boundary) {
+		glsc3D_whole_scale.select();
+
 		G_SCREEN &screen = glsc3D_inner_scale[id].screen;
 		int x = screen.x;
 		int y = screen.y;
 		int r = x + screen.width;
 		int t = y + screen.height;
-
-		//glViewport(0, 0, glsc3D_width, glsc3D_height);
-
-		//G_CAMERA whole_camera = g_make_camera_2D(0, glsc3D_width, 0, glsc3D_height);
-		//G_SCREEN whole_screen = g_make_screen(0, 0, glsc3D_width, glsc3D_height);
-		//whole_camera.pixel_scale = 0.5f;
-		//g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_CAMERA), &whole_camera);
-		glsc3D_whole_scale.select();
 
 		g_move_2D(x, y);
 		g_plot_2D(r, y);
