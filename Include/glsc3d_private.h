@@ -238,7 +238,7 @@ void g_triangle_buffer_flush();
 void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int DivideLevel);
 
 void g_set_triangle(G_TRIANGLE t);
-void g_triangle_terminal(G_TRIANGLE t);
+void g_triangle_terminal(const G_TRIANGLE *t);
 
 // ---- g_sdl_wrapper.cpp
 
