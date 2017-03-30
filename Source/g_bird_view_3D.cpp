@@ -109,8 +109,8 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
 			//	0
             for (k=0; k<4; k++) {
                 n[k] = g_calc_normal(rc, r_corner[k], r_corner[(k+1)%4]);
-                rc_n += n[k]/4;
-                rc_n = rc_n/
+                //rc_n += n[k]/4;
+                //rc_n = rc_n/
             }
 
             
