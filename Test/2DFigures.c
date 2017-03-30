@@ -23,6 +23,8 @@ int main()
 
 	g_area_color_2D(0.5, 0.75, 0.5, 1);
 	g_line_color(1, 1, 1, 1);
+	g_line_width(2);
+	g_line_type(1);
 
 	//g_text_color(1, 1, 1, 1);
 
@@ -35,7 +37,6 @@ int main()
 		double c = cos(t), s = sin(t);
 
 		g_cls();
-		g_line_width(2);
 
 		g_sel_scale_2D_boundary(0);
 		//g_region_boundary();

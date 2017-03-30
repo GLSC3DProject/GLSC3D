@@ -4,7 +4,7 @@ struct G_LINE_APPEARANCE
 {
 	G_COLOR color;
 	float width;
-	int type;
+	G_UINT type;
 
 	void select()
 	{
@@ -29,7 +29,7 @@ GLint g_stipple_type[] = {
 G_COLOR	g_current_line_color(1, 1, 1, 1);
 float	g_current_line_size;
 int		g_current_line_stipple;
-bool	g_need_line_stipple_updated = true;
+bool	g_need_line_stipple_updated;
 
 G_LINE_APPEARANCE glsc3D_g_def_line[TotalDisplayNumber];
 

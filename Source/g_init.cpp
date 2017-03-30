@@ -16,7 +16,7 @@ void g_init_core(
 	int triangle_buffer_size
 )
 {
-#if defined(_WIN32) && !defined(__MINGW32_VERSION)
+#ifdef _WIN32
 	SetProcessDPIAware();
 #endif
 
@@ -25,7 +25,7 @@ void g_init_core(
 //	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-	glDebugMessageCallback(g_debug_callback, NULL);
+	//glDebugMessageCallback(g_debug_callback, NULL);
 #endif
 
 	glDepthFunc(GL_LEQUAL);

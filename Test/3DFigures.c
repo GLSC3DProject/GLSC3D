@@ -1,7 +1,7 @@
 #include "glsc3d.h"
 
 #define WIRE_OR_FILL G_FILL
-#define WIRE G_FALSE
+#define WIRE G_TRUE
 #define FILL G_TRUE
 
 int main(int argc, char *argv[])
@@ -20,7 +20,9 @@ int main(int argc, char *argv[])
 
 	g_area_color_3D(0.5, 0.75, 0.5, 1);
 	//g_line_color(0, 0, 0, 1);
-	g_line_type(3);
+
+	g_line_width(2);
+	g_line_type(1);
 
 	g_text_color(0.5f, 0.5f, 0, 1);
 
@@ -33,18 +35,17 @@ int main(int argc, char *argv[])
 		double c = cos(t), s = sin(t);
 
 		g_cls();
-		g_line_width(2);
 
 		g_sel_scale_3D_boundary(0);
 		g_pyramid_3D_core (0, 0,-1, 0, 0, 1, 1, 2, t, 6, 0, WIRE_OR_FILL);
 
-		g_sel_scale_3D_boundary(1);
+		g_sel_scale_3D(1);
 		g_cone_3D_core    (0, 0,-1, 0, 0, 1, 1, 2,24, 6, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D(2);
-		g_prism_3D_core   (0, 0, 0, 0, 0, 1, 1, 2, t, 6, 0, WIRE_OR_FILL);
+		g_prism_3D_core   (0, 0, 0, 0, 0, 1, 1, 2, t, 6, 0, WIRE, FILL);
 
-		g_sel_scale_3D(3);
+		g_sel_scale_3D_boundary(3);
 		g_cylinder_3D_core(0, 0, 0, 0, 0, 1, 1, 2, t,24, 0, WIRE, FILL);
 
 		g_sel_scale_3D(4);

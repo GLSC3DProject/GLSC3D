@@ -43,7 +43,6 @@ void update_input_key_state()
 
 G_INPUT_STATE g_key_state(G_KEY_CODE key)
 {
-//	return ((input_key[key] >> 1) & 3);
 	return input_key[key];
 }
 
