@@ -28,7 +28,7 @@ GLint g_stipple_type[] = {
 
 G_COLOR	g_current_line_color(1, 1, 1, 1);
 float	g_current_line_size;
-int		g_current_line_stipple = -1;
+int		g_current_line_stipple;
 bool	g_need_line_stipple_updated = true;
 
 G_LINE_APPEARANCE glsc3D_g_def_line[TotalDisplayNumber];
