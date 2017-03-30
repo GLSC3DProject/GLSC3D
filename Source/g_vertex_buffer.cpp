@@ -144,7 +144,11 @@ void g_prepare_lines()
 	g_current_color = &g_current_line_color;
 	g_current_size = g_current_line_size;
 	g_use_program(g_line_program);
-//	g_use_program(g_constant_program);
+
+	if (g_need_line_stipple_updated) {
+		g_vertex_buffer_flush();
+		glUniform1i(g_line_stipple_location, g_current_line_stipple);
+	}
 }
 
 void g_prepare_triangles()

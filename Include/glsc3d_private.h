@@ -207,8 +207,14 @@ void update_input_key_state(void);
 
 // ---- g_line.cpp
 
+#ifdef __cplusplus
+
 extern G_COLOR	g_current_line_color;
 extern float	g_current_line_size;
+extern int		g_current_line_stipple;
+extern bool		g_need_line_stipple_updated;
+
+#endif
 
 // ---- g_marker.cpp
 
