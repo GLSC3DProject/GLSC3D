@@ -138,7 +138,6 @@ G_CAMERA g_make_camera_2D(float x_left, float x_right, float y_bottom, float y_t
 // ---- g_screen.cpp
 
 extern G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
-extern G_SCALE glsc3D_whole_scale;
 
 #endif
 

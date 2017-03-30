@@ -100,9 +100,6 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	g_update_drawable_size();
 	g_retina_scale_factor = g_screen_scale_factor;
 
-	glsc3D_whole_scale.screen = g_make_screen(0, 0, g_window_width, g_window_height);
-	glsc3D_whole_scale.camera = g_make_camera_2D(0, g_window_width, 0, g_window_height);
-
 #ifdef __linux__
 	if (WindowName == G_OFF_SCREEN)
 		g_init_off_screen_rendering();
