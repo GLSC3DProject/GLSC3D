@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory>
 #include "glsc3d_private.h"
 
 void g_triangle_buffer_reset();
-
-void g_set_triangle(G_TRIANGLE t);
 
 void g_triangle_quick(int *index, float *u, int start, int end);
 void g_triangle_merge(int *index_s0, int *index_s1, int *index_d, float *u, unsigned int length0, unsigned int length1);
@@ -120,7 +119,7 @@ void g_triangle_buffer_reset()
     aligned_index[aligned_index_index++] = -1;
 }
 
-void g_triangle_buffer_append(G_TRIANGLE t)
+void g_triangle_buffer_append(const G_TRIANGLE t)
 {
 	if(buffer_index == TRIANGLE_BUFFER_SIZE)
 	{
@@ -133,11 +132,12 @@ void g_triangle_buffer_append(G_TRIANGLE t)
 		g_triangle_buffer_flush();
 	
 	G_MATRIX c = glsc3D_inner_scale[g_current_scale_id].camera.view;
-	G_VECTOR g = (t.vertex[0].position + t.vertex[1].position + t.vertex[2].position) / 3;
+	G_VECTOR g = (t[0].position + t[1].position + t[2].position) / 3;
 	
 	float z = g.x * c.x.z + g.y * c.y.z + g.z * c.z.z;
-	
-	triangle_buffer[buffer_index] = t;
+
+    memcpy(&triangle_buffer[buffer_index], t, sizeof(G_TRIANGLE));
+//	triangle_buffer[buffer_index] = t;
 	
 	triangle_r[buffer_index] = -z;
 	
@@ -239,7 +239,7 @@ void g_triangle_buffer_draw()
                 current_camera_id = camera_id[id];
                 g_sel_scale_3D(current_camera_id);
             }
-            g_triangle_terminal(&triangle_buffer[final_index[id]]);
+            g_triangle_terminal(triangle_buffer[final_index[id]]);
         }
 
 #ifdef OUTPUT_Length_FILE
