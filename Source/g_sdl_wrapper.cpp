@@ -18,6 +18,8 @@ SDL_GLContext	g_context;
 
 int g_window_width, g_window_height;
 
+bool g_highdpi_enabled;
+
 void g_update_drawable_size()
 {
 	SDL_GL_GetDrawableSize(g_window, &glsc3D_width, &glsc3D_height);
@@ -26,6 +28,16 @@ void g_update_drawable_size()
 	float sy = (float)glsc3D_height / g_window_height;
 	
 	g_screen_scale_factor = sx < sy ? sx : sy;
+}
+
+void g_enable_highdpi()
+{
+	if (SDL_WasInit(SDL_INIT_VIDEO)) {
+		printf("g_enable_highdpi must be called before g_init(_core)\n");
+		g_quit();
+	}
+
+	g_highdpi_enabled = true;
 }
 
 void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height)
@@ -50,15 +62,32 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	);
 #endif
 
+	g_window_width = width, g_window_height = height;
+
 	Uint32 flags;
 	if (WindowName != G_OFF_SCREEN) {
-		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
+		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
+
+		if (g_highdpi_enabled) {
+			flags |= SDL_WINDOW_ALLOW_HIGHDPI;
+
+#ifdef _WIN32
+			float dpi;
+			SDL_GetDisplayDPI(0, NULL, &dpi, NULL);
+			float scale = dpi / 96;
+
+			width *= scale;
+			height *= scale;
+
+			if (pos_x != G_WINDOW_CENTERED) pos_x *= scale;
+			if (pos_y != G_WINDOW_CENTERED) pos_y *= scale;
+#endif
+		}
+
 	} else {
 		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN;
 	}
 	g_window = SDL_CreateWindow(WindowName, pos_x, pos_y, width, height, flags);
-
-	g_window_width = width, g_window_height = height;
 
 	g_context = SDL_GL_CreateContext(g_window);
 

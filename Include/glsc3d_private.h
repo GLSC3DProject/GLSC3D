@@ -193,6 +193,10 @@ extern int				glsc3D_height;
 extern float			g_screen_scale_factor;
 extern float			g_retina_scale_factor;
 
+extern int g_enable_transparent;
+extern int TRIANGLE_BUFFER_SIZE;
+extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
+
 // ---- g_scale.cpp
 
 extern int				g_current_scale_id;

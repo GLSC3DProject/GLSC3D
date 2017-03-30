@@ -141,6 +141,9 @@ void g_prepare_points()
 
 void g_prepare_lines()
 {
+	if (g_current_program != g_line_program)
+		g_need_line_stipple_updated = true;
+
 	g_current_color = &g_current_line_color;
 	g_current_size = g_current_line_size;
 	g_use_program(g_line_program);
@@ -148,6 +151,7 @@ void g_prepare_lines()
 	if (g_need_line_stipple_updated) {
 		g_vertex_buffer_flush();
 		glUniform1i(g_line_stipple_location, g_current_line_stipple);
+		g_need_line_stipple_updated = false;
 	}
 }
 

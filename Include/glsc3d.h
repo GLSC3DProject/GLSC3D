@@ -50,24 +50,13 @@ typedef int G_WIREFILL;
 
 #define G_WINDOW_CENTERED	0x2FFF0000
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-extern int g_enable_transparent;
-
-extern int TRIANGLE_BUFFER_SIZE;
-extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
-
 //#ifndef NDEBUG
 //#define DBG_WRITE(...) fprintf(stderr, "%s:%d In function '%s'", __FILE__, __LINE__, __func__), fprintf(stderr, "  "  __VA_ARGS__), fprintf(stderr, "\n")
 //#else
 #define DBG_WRITE(...)
 //#endif
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 // ---- g_init.cpp
-
-void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z, float lit_pow);
-
-void g_init_light(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z);
 
 void g_init_core (
 	const char *WindowName, int width, int height,
@@ -79,6 +68,8 @@ void g_init_core (
 );
 
 void g_init(const char *WindowName, int width, int height);
+
+void g_enable_highdpi();
 
 // ----g_area.c
 
@@ -105,6 +96,12 @@ void g_sleep(double wait_time);
 
 int g_capture();
 int g_capture_set(const char *name);
+
+// ---- g_light.cpp
+
+void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z, float lit_pow);
+
+void g_init_light(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z);
 
 // ---- g_scale.cpp
 
@@ -330,10 +327,10 @@ void g_triangle_3D_core(double x0, double y0, double z0,
                         double x1, double y1, double z1,
                         double x2, double y2, double z2,
                         int DivideLevel, G_WIREFILL WireFill);
-void g_triangle_3D_core_smooth(
-	G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
-	G_VECTOR n0, G_VECTOR n1, G_VECTOR n2,
-	int DivideLevel);
+
+void g_triangle_3D_core_smooth(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
+                               G_VECTOR n0, G_VECTOR n1, G_VECTOR n2,
+                               int DivideLevel);
 
 void g_triangle_2D(double x0, double y0,
                    double x1, double y1,

@@ -9,16 +9,18 @@ int main(int argc, char *argv[])
 	const int Width = 240, Height = 240;
 	const int CountX = 5, CountY = 2;
 
+	g_enable_highdpi();
 	g_init("GLSC3D", Width * CountX, Height * CountY);
 
 //	g_init_light(0, 0, 1, 2);
 	g_init_light(0, 1, -1, 1);
 
-	g_scr_color(1, 1, 1);
+	//g_scr_color(1, 1, 1);
 	//g_scr_color(0.5, 0.5, 0.5);
 
 	g_area_color_3D(0.5, 0.75, 0.5, 1);
-	g_line_color(0, 0, 0, 1);
+	//g_line_color(0, 0, 0, 1);
+	g_line_type(3);
 
 	g_text_color(0.5f, 0.5f, 0, 1);
 
