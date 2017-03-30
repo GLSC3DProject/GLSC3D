@@ -38,12 +38,6 @@
 // returns rand between 0 and 1
 float frand() { return (float)rand() / RAND_MAX; }
 
-#ifdef USE_VIRTUAL_SIZE
-float frand_coord() { return frand() * (2 * MAX_PARTICLE_SIZE) - MAX_PARTICLE_SIZE; }
-#else
-float frand_coord() { return frand() * 2 - 1; }
-#endif
-
 class Particle
 {
 	G_VECTOR position, velocity;
@@ -93,6 +87,7 @@ int main()
 {
 	std::vector<Particle> particles(NUM_PARTICLES);
 
+	g_enable_highdpi();
 	g_init("GLSC3D", WINDOW_SIZE, WINDOW_SIZE);
 
 	//g_scr_color(1, 1, 1);
