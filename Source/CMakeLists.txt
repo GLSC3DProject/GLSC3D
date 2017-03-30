@@ -31,7 +31,7 @@ message(PNG_LIBRARY: ${PNG_LIBRARY})
 add_library(GLSC3D
 	g_area.cpp
 	g_arrow.c
-	g_bird_view_3D.c
+	g_bird_view_3D.cpp
 	g_box.c
 	g_camera.cpp
 	g_capture.c

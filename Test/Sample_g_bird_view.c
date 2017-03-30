@@ -3,8 +3,8 @@
 
 #include "glsc3d.h"
 
-//#define g_bird_view_3D(x_left,x_right,y_bottom,y_top,N_x,N_z,data,fill)\
-//(g_bird_view_3D((x_left),(x_right),(y_bottom),(y_top),(N_x),(N_z),(double(*)[N_z])(data),fill))
+#define g_bird_view_3D(x_left,x_right,y_bottom,y_top,N_x,N_z,data,fill)\
+(g_bird_view_f_3D((x_left),(x_right),(y_bottom),(y_top),(N_x),(N_z),(double(*)[N_z])(data),fill))
 
 #define INTV              (1)
 #define WINDOW_SIZE_X     (1024)

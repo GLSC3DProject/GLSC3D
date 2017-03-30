@@ -3,32 +3,16 @@
 #include <cstdlib>
 #include <vector>
 
-//#define MANY_PARTICLES
-
-#define USE_VIRTUAL_SIZE
+#define MANY_PARTICLES
 
 #ifdef MANY_PARTICLES
 #define NUM_PARTICLES	262144
-
-#ifdef USE_VIRTUAL_SIZE
-#define MIN_PARTICLE_SIZE	(1.f / 512)
-#define MAX_PARTICLE_SIZE	(1.f / 128)
-#else
 #define MIN_PARTICLE_SIZE	2
 #define MAX_PARTICLE_SIZE	4
-#endif
-
 #else
-
 #define NUM_PARTICLES	256
-#ifdef USE_VIRTUAL_SIZE
-#define MIN_PARTICLE_SIZE	(1.f / 32)
-#define MAX_PARTICLE_SIZE	(1.f / 8)
-#else
 #define MIN_PARTICLE_SIZE	32
 #define MAX_PARTICLE_SIZE	64
-#endif
-
 #endif
 
 #define TIME_STEP		(1.f / 512)
@@ -37,12 +21,6 @@
 
 // returns rand between 0 and 1
 float frand() { return (float)rand() / RAND_MAX; }
-
-#ifdef USE_VIRTUAL_SIZE
-float frand_coord() { return frand() * (2 * MAX_PARTICLE_SIZE) - MAX_PARTICLE_SIZE; }
-#else
-float frand_coord() { return frand() * 2 - 1; }
-#endif
 
 class Particle
 {
@@ -55,35 +33,20 @@ public:
 		position(frand() * 2 - 1, frand() * 2 - 1, frand() * 2 - 1),
 		velocity(frand() * 2 - 1, frand() * 2 - 1, frand() * 2 - 1),
 		color(frand(), frand(), frand(), 1),
-		size(frand() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE) + MIN_PARTICLE_SIZE)
-	{
-#ifdef USE_VIRTUAL_SIZE
-		position *= (1 - size);
-#endif
-	}
+		size(frand() * (MAX_PARTICLE_SIZE - MIN_PARTICLE_SIZE) + MIN_PARTICLE_SIZE) {}
 
 	void Update()
 	{
 		position += velocity * TIME_STEP;
 
-#ifdef USE_VIRTUAL_SIZE
-		if (fabs(position.x) + size >= 1) velocity.x *= -1;
-		if (fabs(position.y) + size >= 1) velocity.y *= -1;
-		if (fabs(position.z) + size >= 1) velocity.z *= -1;
-#else
-		if (fabs(position.x) >= 1) velocity.x *= -1;
-		if (fabs(position.y) >= 1) velocity.y *= -1;
-		if (fabs(position.z) >= 1) velocity.z *= -1;
-#endif
+		if (position.x >= 1 || position.x <= -1) velocity.x *= -1;
+		if (position.y >= 1 || position.y <= -1) velocity.y *= -1;
+		if (position.z >= 1 || position.z <= -1) velocity.z *= -1;
 	}
 
 	void Render()
 	{
-#ifdef USE_VIRTUAL_SIZE
-		g_marker_radius(size);
-#else
 		g_marker_size(size);
-#endif
 		g_marker_color_s(color);
 		g_marker_s(position);
 	}
