@@ -247,39 +247,38 @@ void g_box_2D(double x, double y,
 void g_box_3D_core(double x, double y, double z,
                    double width, double height, double depth,
                    int DivideLevel, G_WIREFILL WireFill);
-    
+
 void g_box_3D(double x, double y, double z,
               double width, double height, double depth);
 
 void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);
-    
+
 void g_sphere_3D(double x, double y, double z, double radius);
-    
+
 void g_ellipse_3D_core(double x, double y, double z,
                        double Sx, double Sy, double Sz,
                        double direction_x, double direction_y, double direction_z,
                        int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);
-    
+
 void g_ellipse_3D(double x, double y, double z,
                   double Sx, double Sy, double Sz,
                   double direction_x, double direction_y, double direction_z);
-    
+
 void g_prism_3D_core(double center_x, double center_y, double center_z,
                      double direction_x, double direction_y, double direction_z,
-                     double radius,double height, double psi, int N,
-                     int DivideLevel, G_WIREFILL WireFill);
-    
-void g_prism_3D(double center_x, double center_y, double center_z,
-                double direction_x, double direction_y, double direction_z,
-                double radius,double height, double psi, int N);
+                     double radius, double height, double psi, int N,
+                     int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+
+void g_prism_3D(double center_x, double center_y, double center_z, double direction_x, double direction_y,
+				double direction_z, double radius, double height, double psi, int N, G_BOOL Wire, G_BOOL Fill);
 
 void g_cylinder_3D_core(double center_x, double center_y, double center_z,
-                        double direction_x, double direction_y, double direction_z,
-                        double radius,double height, double psi,
-                        int N, int DivideLevel, G_BOOL wire, G_BOOL fill);
-    
+						double direction_x, double direction_y, double direction_z,
+						double radius, double height, double psi,
+						int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+
 void g_cylinder_3D(double center_x, double center_y, double center_z, double direction_x, double direction_y,
-				   double direction_z, double radius, double height, double psi, G_BOOL wire, G_BOOL fill);
+				   double direction_z, double radius, double height, double psi, G_BOOL Wire, G_BOOL Fill);
 
 void g_cone_2D(double center_x, double center_y,
                double direction_x, double direction_y,
@@ -290,7 +289,7 @@ void g_cone_3D_core(double center_x, double center_y, double center_z,
                     double direction_x, double direction_y, double direction_z,
                     double radius,double head_size,
                     int FaceNumberLevel_X, int FaceNumberLevel_Y, int DivideLevel, G_WIREFILL WireFill);
-    
+
 void g_cone_3D(double center_x, double center_y, double center_z,
                double direction_x, double direction_y, double direction_z,
                double radius,double head_size);
@@ -299,7 +298,7 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,
                        double direction_x, double direction_y, double direction_z,
                        double radius,double head_size, double psi,
                        int N, int DivideLevel, G_WIREFILL WireFill);
-    
+
 void g_pyramid_3D(double center_x, double center_y, double center_z,
                   double direction_x, double direction_y, double direction_z,
                   double radius,double head_size, double psi,
@@ -313,7 +312,7 @@ void g_arrow_2D(double base_x, double base_y,
 void g_arrow_3D_core(double base_x, double base_y, double base_z,
                      double direction_x, double direction_y, double direction_z,
                      double arrow_size, double head_size, int FaceNumberLevel_X, int FaceNumberLevel_Y, int DivideLevel, G_WIREFILL WireFill);
-    
+
 void g_arrow_3D(double base_x, double base_y, double base_z,
                 double direction_x, double direction_y, double direction_z,
                 double arrow_size, double head_size);

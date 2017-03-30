@@ -1,8 +1,10 @@
 #include "glsc3d_private.h"
-void g_prism_3D_core(double center_x, double center_y, double center_z,          //中心座標
-	double direction_x, double direction_y, double direction_z,    //向き
+
+void g_prism_3D_core(
+	double center_x, double center_y, double center_z,			//中心座標
+	double direction_x, double direction_y, double direction_z,	//向き
 	double radius, double height, double psi,
-	int N, int DivideLevel, G_WIREFILL WireFill)
+	int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill)
 {
 	G_VECTOR r0, r1, r2, r3;
 	float dth = 2 * (float)PI / N;
@@ -12,12 +14,12 @@ void g_prism_3D_core(double center_x, double center_y, double center_z,         
 
 	G_VECTOR center(center_x, center_y, center_z);
 	G_VECTOR top(0.5 * height, 0, 0);
-	G_VECTOR rn = G_VECTOR(0, 1, 0);
+	G_VECTOR rn(0, 1, 0);
 	G_VECTOR r = radius * rn;
 
 	G_MATRIX matrix = G_MATRIX::RotationX(psi) * G_MATRIX::RotationZ(phi) * G_MATRIX::RotationY(-theta) * G_MATRIX::Translation(center);
 
-	if (WireFill == 1)
+	if (Fill)
 	{
 		G_VECTOR p = -top * matrix;
 		G_VECTOR q = top * matrix;
@@ -51,7 +53,7 @@ void g_prism_3D_core(double center_x, double center_y, double center_z,         
 			g_triangle_3D_core_worker(q, r3, r1, DivideLevel);
 		}
 	}
-	else
+	if (Wire)
 	{
 		g_begin_lines();
 
@@ -71,9 +73,8 @@ void g_prism_3D_core(double center_x, double center_y, double center_z,         
 	}
 }
 
-void g_prism_3D(double center_x, double center_y, double center_z,          //中心座標
-	double direction_x, double direction_y, double direction_z,    //向き
-	double radius, double height, double psi, int N)                //半径、高さ、側面数
+void g_prism_3D(double center_x, double center_y, double center_z, double direction_x, double direction_y,
+				double direction_z, double radius, double height, double psi, int N, G_BOOL Wire, G_BOOL Fill)                //半径、高さ、側面数
 {
-	g_prism_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, height, psi, N, 0, 1);
+	g_prism_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, height, psi, N, 0, Wire, Fill);
 }
