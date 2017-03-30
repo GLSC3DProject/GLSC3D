@@ -101,6 +101,8 @@ int main()
 	g_def_scale_3D(0, -1, 1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE, 0, 0.75f, 1, 8);
 
 	g_marker_type(G_MARKER_SPHERE);
+	g_line_width(2);
+	g_line_type(7);
 
 	bool rotation_mode = false;
 	float theta = 0;
@@ -126,7 +128,6 @@ int main()
 		}
 
 		g_sel_scale_3D(0);
-		g_line_width(2);
 
 		if (rotation_mode) {
 			for (Particle &p : particles) {

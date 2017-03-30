@@ -14,19 +14,17 @@ int main()
     
     g_def_scale_2D(0,-2, 2, -2, 2,0, 0,WINDOW_SIZE_X, WINDOW_SIZE_Y);
     
-    g_def_line(0,1,0,0,1,1,0);
-    g_def_line(1,0,1,0,1,2,1);
-    g_def_line(2,0,0,1,1,3,2);
-    g_def_line(3,1,1,0,1,4,3);
-    g_def_line(4,1,0,1,1,5,4);
-    g_def_line(5,0,1,1,1,6,5);
-    g_def_line(6,1,1,1,1,7,6);
-    g_def_line(7,1,0,0,1,8,7);
-    g_def_line(8,0,1,0,1,9,8);
+	g_def_line(0, 1, 0, 0, 1, 4, 0);
+	g_def_line(1, 0, 1, 0, 1, 4, 1);
+	g_def_line(2, 0, 0, 1, 1, 4, 2);
+	g_def_line(3, 1, 1, 0, 1, 4, 3);
+	g_def_line(4, 1, 0, 1, 1, 4, 4);
+	g_def_line(5, 0, 1, 1, 1, 4, 5);
+	g_def_line(6, 1, 1, 1, 1, 4, 6);
+	g_def_line(7, 1, 0, 0, 1, 4, 7);
+	g_def_line(8, 0, 1, 0, 1, 4, 8);
     
-    
-    int i_time;
-    for(i_time = 0;;i_time++)
+    for(int i_time = 0;;i_time++)
     {
         if(i_time%INTV == 0)
         {
