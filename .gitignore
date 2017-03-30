@@ -2,4 +2,5 @@
 .idea/
 .vs/
 cmake-build-debug/
+Out/
 Manual/

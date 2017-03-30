@@ -157,17 +157,18 @@ extern G_SCALE glsc3D_whole_scale;
 
 typedef struct
 {
-	G_VECTOR position;
-	float size;
-	G_COLOR  color;
-	G_VECTOR normal;
-	float normal_w;
+	G_VECTOR	position;
+	float		size;
+	G_COLOR		color;
+	G_VECTOR	normal;
+	float		pad;	// for 16-byte alignment
 } G_VERTEX;
 
-typedef struct
-{
-	G_VERTEX vertex[3];
-} G_TRIANGLE;
+//typedef struct
+//{
+//	G_VERTEX vertex[3];
+//} G_TRIANGLE;
+typedef G_VERTEX G_TRIANGLE[3];
 
 // ---- g_area.cpp
 
@@ -179,11 +180,11 @@ static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal)
 	return v;
 }
 
-static inline G_TRIANGLE g_make_triangle_core(G_VERTEX v0, G_VERTEX v1, G_VERTEX v2)
-{
-	G_TRIANGLE t = {{v0, v1, v2}};
-	return t;
-}
+//static inline G_TRIANGLE g_make_triangle_core(G_VERTEX v0, G_VERTEX v1, G_VERTEX v2)
+//{
+//	G_TRIANGLE t = {v0, v1, v2};
+//	return t;
+//}
 
 // ---- g_init.cpp
 
@@ -229,7 +230,7 @@ void g_text_init();
 // ---- g_triangle_buffer.cpp
 
 void g_triangle_buffer_init();
-void g_triangle_buffer_append(G_TRIANGLE t);
+void g_triangle_buffer_append(const G_TRIANGLE t);
 void g_triangle_buffer_draw();
 void g_triangle_buffer_flush();
 
@@ -237,8 +238,8 @@ void g_triangle_buffer_flush();
 
 void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int DivideLevel);
 
-void g_set_triangle(G_TRIANGLE t);
-void g_triangle_terminal(const G_TRIANGLE *t);
+void g_set_triangle(const G_TRIANGLE t);
+void g_triangle_terminal(const G_TRIANGLE t);
 
 // ---- g_sdl_wrapper.cpp
 

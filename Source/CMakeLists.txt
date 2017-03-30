@@ -63,7 +63,7 @@ add_library(GLSC3D
 	g_shader_program.cpp
 	g_sphere_3D.c
 	g_text.cpp
-	g_triangle.c
+	g_triangle.cpp
 	g_triangle_buffer.cpp
 	g_vertex_buffer.cpp
 	../Include/glsc3d.h

@@ -32,10 +32,6 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 {
 	SDL_Init(SDL_INIT_VIDEO);
 
-	float ddpi, hdpi, vdpi;
-	SDL_GetDisplayDPI(0, &ddpi, &hdpi, &vdpi);
-	SDL_Log("ddpi: %f, hdpi: %f, vdpi: %f", ddpi, hdpi, vdpi);
-
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
