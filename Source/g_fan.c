@@ -1,4 +1,5 @@
 #include "glsc3d_private.h"
+//コメント
 void g_fan_2D(double center_x, double center_y,       //中心座標
 		double direction_x, double direction_y, //方向
 		double radius,                          //半径
