@@ -14,8 +14,15 @@ struct G_LINE_APPEARANCE
 	}
 };
 
-G_COLOR g_current_line_color(1, 1, 1, 1);
-float g_current_line_size;
+GLint g_stipple_type[] = {
+	0xFFFF,
+	0x0F0F, 0x00FF, 0x0C0F, 0x0C0F,
+	0xAAAA, 0xAAAA, 0xAAAA, 0xAAAA,
+};
+
+G_COLOR	g_current_line_color(1, 1, 1, 1);
+float	g_current_line_size;
+//GLint	g_current_line_stipple;
 
 G_LINE_APPEARANCE glsc3D_g_def_line[TotalDisplayNumber];
 
@@ -38,9 +45,18 @@ void g_line_width(float size)
 #endif
 }
 
-void g_line_type(int type)
+void g_line_type(G_UINT type)
 {
-#ifndef G_USE_CORE_PROFILE
+#ifdef G_USE_CORE_PROFILE
+	if (type > 8) {
+		printf("Invlid line type.\n");
+		return;
+	}
+
+	g_vertex_buffer_flush();
+	int stipple = g_stipple_type[type];
+	glUniform1i(g_line_stipple_location, stipple);
+#else
     if (type==0) {
         glDisable(GL_LINE_STIPPLE);
     }else if (type==1) {

@@ -166,7 +166,7 @@ void g_sel_marker(int id);
 void g_line_color_s(G_COLOR color);
 void g_line_color(float r, float g, float b, float a);
 void g_line_width(float size);
-void g_line_type(int type);
+void g_line_type(G_UINT type);
 
 void g_def_line(int id, float r, float g, float b, float a, float width, int type);
 void g_sel_line(int id);
@@ -330,6 +330,10 @@ void g_triangle_3D_core(double x0, double y0, double z0,
                         double x1, double y1, double z1,
                         double x2, double y2, double z2,
                         int DivideLevel, G_WIREFILL WireFill);
+void g_triangle_3D_core_smooth(
+	G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
+	G_VECTOR n0, G_VECTOR n1, G_VECTOR n2,
+	int DivideLevel);
 
 void g_triangle_2D(double x0, double y0,
                    double x1, double y1,

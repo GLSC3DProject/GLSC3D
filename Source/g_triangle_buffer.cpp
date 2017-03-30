@@ -137,7 +137,6 @@ void g_triangle_buffer_append(const G_TRIANGLE *t)
 	
 	float z = g.x * c.x.z + g.y * c.y.z + g.z * c.z.z;
 
-//    memcpy(&triangle_buffer[buffer_index], t, sizeof(G_TRIANGLE));
 	triangle_buffer[buffer_index] = *t;
 	
 	triangle_r[buffer_index] = -z;

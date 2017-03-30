@@ -161,7 +161,7 @@ typedef struct
 	float		size;
 	G_COLOR		color;
 	G_VECTOR	normal;
-	float		pad;	// for 16-byte alignment
+	int			stipple;
 } G_VERTEX;
 
 typedef struct
@@ -176,7 +176,7 @@ extern G_COLOR g_current_area_color_3D, g_current_area_color_2D;
 
 static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal)
 {
-	G_VERTEX v = {position, 1, g_current_area_color_3D, normal, 0};
+	G_VERTEX v = {position, 0, g_current_area_color_3D, normal, 0};
 	return v;
 }
 
@@ -207,8 +207,8 @@ void update_input_key_state(void);
 
 // ---- g_line.cpp
 
-extern G_COLOR g_current_line_color;
-extern float g_current_line_size;
+extern G_COLOR	g_current_line_color;
+extern float	g_current_line_size;
 
 // ---- g_marker.cpp
 
@@ -261,6 +261,7 @@ extern GLuint g_line_program;
 extern GLuint g_texture_program;
 extern GLuint g_current_program;
 
+extern GLint g_line_stipple_location;
 extern GLint g_texture_sampler_location, g_texture_color_location;
 
 void g_shader_program_init();

@@ -215,13 +215,16 @@ void main () {
 
 const char * const LINE_FRAGMENT_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
+uniform int stipple;
 in GS_TO_FS {
 	vec4 color;
 	noperspective float coord;
 } Input;
 out vec4 out_color;
 void main() {
-	out_color = vec4(Input.color.rgb, Input.color.a * step(fract(Input.coord*2), 0.5));
+	int i = int(fract(Input.coord * 0.125) * 16);
+	int a = (stipple >> i) & 1;
+	out_color = vec4(Input.color.rgb, Input.color.a * float(a));
 })";
 
 // ----------------------------------------------------------------
@@ -253,6 +256,7 @@ GLuint g_line_program;
 GLuint g_texture_program;
 GLuint g_current_program;
 
+GLint g_line_stipple_location;
 GLint g_texture_sampler_location, g_texture_color_location;
 
 GLuint g_uniforms[G_NUM_UNIFORMS];
@@ -379,6 +383,7 @@ void g_shader_program_init()
 	glAttachShader(g_line_program, g_create_shader(GL_FRAGMENT_SHADER, LINE_FRAGMENT_SHADER_SOURCE));
 	g_link_program(g_line_program);
 	g_bind_uniform_block(g_line_program, "Matrices", G_UNIFORM_MATRICES);
+	g_line_stipple_location = glGetUniformLocation(g_line_program, "stipple");
 
 	g_texture_program = g_create_program(TEXTURE_VERT_SHADER_SOURCE, TEXTURE_FRAG_SHADER_SOURCE);
 
