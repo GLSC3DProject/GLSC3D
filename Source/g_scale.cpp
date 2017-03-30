@@ -4,7 +4,6 @@ int             g_current_scale_id;
 G_DIMENSION     g_scale_dim_flag;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
-G_SCALE glsc3D_whole_scale;
 
 struct G_TRANSFORM
 {
@@ -91,21 +90,23 @@ void g_sel_scale_private(int id, G_DIMENSION dimension, bool boundary)
 	g_triangle_buffer_flush();
 
 	if (boundary) {
-		glsc3D_whole_scale.select();
+		G_SCALE scale;
+		scale.screen = glsc3D_inner_scale[id].screen;
+		scale.camera.proj = G_MATRIX::Identity();
+		scale.camera.view = G_MATRIX::Identity();
+		scale.select();
 
-		G_SCREEN &screen = glsc3D_inner_scale[id].screen;
-		int x = screen.x;
-		int y = screen.y;
-		int r = x + screen.width;
-		int t = y + screen.height;
+		float line_size = g_current_line_size;
+		g_line_width(line_size * 2);
 
-		g_move_2D(x, y);
-		g_plot_2D(r, y);
-		g_plot_2D(r, t);
-		g_plot_2D(x, t);
-		g_plot_2D(x, y);
+		g_move_2D(-1, -1);
+		g_plot_2D(+1, -1);
+		g_plot_2D(+1, +1);
+		g_plot_2D(-1, +1);
+		g_plot_2D(-1, -1);
 
 		g_vertex_buffer_flush();
+		g_line_width(line_size);
 	}
 
 	glsc3D_inner_scale[id].select();

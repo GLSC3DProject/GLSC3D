@@ -190,7 +190,7 @@ void emit_vertices(uint id, vec4 r, float coord) {
 	Output.color = Input[id].color;
 	vec4 center = gl_in[id].gl_Position;
 	vec4 offset = proj * (Input[id].half_width * r);
-	Output.coord = coord;// / (center.w * pixel_scale);
+	Output.coord = coord;
 
 	gl_Position = center + offset;
 	EmitVertex();
@@ -203,12 +203,7 @@ void main () {
 	vec3 q = Input[1].position;
 	vec4 v = vec4(p.y - q.y, q.x - p.x, 0, 0);
 	vec4 r = normalize(v);
-//	vec4 clip_p = gl_in[0].gl_Position;
-//	vec4 clip_q = gl_in[1].gl_Position;
-//	vec2 std_p = (clip_p.xy / clip_p.w + 1) * 0.5 * screen_size;
-//	vec2 std_q = (clip_q.xy / clip_q.w + 1) * 0.5 * screen_size;
-//	float c = length(std_p - std_q) / 32;
-	float c = length(p - q) * 16;
+	float c = length(p - q) * 4;
 	emit_vertices(0, r, 0);
 	emit_vertices(1, r, c);
 })";
@@ -222,7 +217,7 @@ in GS_TO_FS {
 } Input;
 out vec4 out_color;
 void main() {
-	int i = int(fract(Input.coord * 0.125) * 8);
+	int i = int(fract(Input.coord) * 8);
 	int a = (stipple >> i) & 1;
 	out_color = vec4(Input.color.rgb, Input.color.a * float(a));
 })";
