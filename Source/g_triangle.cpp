@@ -24,30 +24,9 @@ void g_triangle_3D_core_smooth(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2, G_VECTOR n
 
 void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int DivideLevel)
 {
-	G_POSITION r3, r4, r5;
+	G_VECTOR n = g_calc_normal(r0, r1, r2);
 
-	if(DivideLevel >= 1)
-	{
-		r3 = g_multi(0.5,g_plus(r0,r1));
-		r4 = g_multi(0.5,g_plus(r1,r2));
-		r5 = g_multi(0.5,g_plus(r2,r0));
-
-		g_triangle_3D_core_worker(r0, r3, r5, DivideLevel-1);
-		g_triangle_3D_core_worker(r1, r4, r3, DivideLevel-1);
-		g_triangle_3D_core_worker(r2, r5, r4, DivideLevel-1);
-		g_triangle_3D_core_worker(r3, r5, r4, DivideLevel-1);
-	}else{
-		G_TRIANGLE t0;
-		G_VERTEX   v0, v1, v2;
-
-		G_VECTOR n = g_calc_normal(r0, r1, r2);
-
-		v0 = g_make_vertex(r0, n);
-		v1 = g_make_vertex(r1, n);
-		v2 = g_make_vertex(r2, n);
-		t0 = g_make_triangle_core(v0, v1, v2);
-		g_set_triangle(t0);
-	}
+	g_triangle_3D_core_smooth(r0, r1, r2, n, n, n, DivideLevel);
 }
 
 void g_triangle_3D_core(double x0, double y0, double z0,
@@ -98,21 +77,21 @@ void g_set_triangle(const G_TRIANGLE t)
 {
 	if(g_enable_transparent)
 	{
-		g_triangle_buffer_append(t);
+		g_triangle_buffer_append(&t);
 	}
 	else
 	{
-		g_triangle_terminal(t);
+		g_triangle_terminal(&t);
 	}
 }
 
-void g_triangle_terminal(const G_TRIANGLE t)
+void g_triangle_terminal(const G_TRIANGLE *t)
 {
 	g_begin_triangles();
 	
-	g_vertex_buffer_append(t[0]);
-	g_vertex_buffer_append(t[1]);
-	g_vertex_buffer_append(t[2]);
+	g_vertex_buffer_append(t->vertex[0]);
+	g_vertex_buffer_append(t->vertex[1]);
+	g_vertex_buffer_append(t->vertex[2]);
 }
 
 void g_triangle_2D(double x0, double y0,

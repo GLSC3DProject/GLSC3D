@@ -1,7 +1,7 @@
 #include "glsc3d.h"
 
-#define WIRE_OR_FILL G_WIRE
-#define WIRE G_TRUE
+#define WIRE_OR_FILL G_FILL
+#define WIRE G_FALSE
 #define FILL G_TRUE
 
 int main(int argc, char *argv[])
