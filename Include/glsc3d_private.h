@@ -161,7 +161,7 @@ typedef struct
 	float		size;
 	G_COLOR		color;
 	G_VECTOR	normal;
-	int			stipple;
+	float		pad;	// for 16-byte alignment
 } G_VERTEX;
 
 typedef struct

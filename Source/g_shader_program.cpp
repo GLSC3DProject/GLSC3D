@@ -208,7 +208,7 @@ void main () {
 //	vec2 std_p = (clip_p.xy / clip_p.w + 1) * 0.5 * screen_size;
 //	vec2 std_q = (clip_q.xy / clip_q.w + 1) * 0.5 * screen_size;
 //	float c = length(std_p - std_q) / 32;
-	float c = length(p - q) * 4;
+	float c = length(p - q) * 16;
 	emit_vertices(0, r, 0);
 	emit_vertices(1, r, c);
 })";
@@ -222,7 +222,7 @@ in GS_TO_FS {
 } Input;
 out vec4 out_color;
 void main() {
-	int i = int(fract(Input.coord * 0.125) * 16);
+	int i = int(fract(Input.coord * 0.125) * 8);
 	int a = (stipple >> i) & 1;
 	out_color = vec4(Input.color.rgb, Input.color.a * float(a));
 })";

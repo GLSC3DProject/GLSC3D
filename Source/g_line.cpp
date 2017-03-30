@@ -15,14 +15,20 @@ struct G_LINE_APPEARANCE
 };
 
 GLint g_stipple_type[] = {
-	0xFFFF,
-	0x0F0F, 0x00FF, 0x0C0F, 0x0C0F,
-	0xAAAA, 0xAAAA, 0xAAAA, 0xAAAA,
+	0b11111111,
+	0b01010101,
+	0b01110111,
+	0b00001111,
+	0b00010001,
+	0b01011111,
+	0b01010111,
+	0b00110011,
+	0b01100110,
 };
 
 G_COLOR	g_current_line_color(1, 1, 1, 1);
 float	g_current_line_size;
-//GLint	g_current_line_stipple;
+GLint	g_current_line_stipple = -1;
 
 G_LINE_APPEARANCE glsc3D_g_def_line[TotalDisplayNumber];
 
@@ -53,9 +59,14 @@ void g_line_type(G_UINT type)
 		return;
 	}
 
-	g_vertex_buffer_flush();
 	int stipple = g_stipple_type[type];
-	glUniform1i(g_line_stipple_location, stipple);
+
+	if (g_current_line_stipple != stipple) {
+		g_vertex_buffer_flush();
+		g_begin_lines();
+		g_current_line_stipple = stipple;
+		glUniform1i(g_line_stipple_location, stipple);
+	}
 #else
     if (type==0) {
         glDisable(GL_LINE_STIPPLE);
