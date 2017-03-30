@@ -239,7 +239,7 @@ void g_triangle_buffer_draw()
                 current_camera_id = camera_id[id];
                 g_sel_scale_3D(current_camera_id);
             }
-            g_triangle_terminal(triangle_buffer[final_index[id]]);
+            g_triangle_terminal(&triangle_buffer[final_index[id]]);
         }
 
 #ifdef OUTPUT_Length_FILE

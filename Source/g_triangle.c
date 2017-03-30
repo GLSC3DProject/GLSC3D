@@ -28,6 +28,11 @@ void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int 
 	}
 }
 
+void g_triangle_3D_core_s(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2)
+{
+
+}
+
 void g_triangle_3D_core(double x0, double y0, double z0,
 		double x1, double y1, double z1,
 		double x2, double y2, double z2,
@@ -80,17 +85,17 @@ void g_set_triangle(G_TRIANGLE t)
 	}
 	else
 	{
-		g_triangle_terminal(t);
+		g_triangle_terminal(&t);
 	}
 }
 
-void g_triangle_terminal(G_TRIANGLE t)
+void g_triangle_terminal(const G_TRIANGLE *t)
 {
 	g_begin_triangles();
 	
-	g_vertex_buffer_append(t.vertex[0]);
-	g_vertex_buffer_append(t.vertex[1]);
-	g_vertex_buffer_append(t.vertex[2]);
+	g_vertex_buffer_append(t->vertex[0]);
+	g_vertex_buffer_append(t->vertex[1]);
+	g_vertex_buffer_append(t->vertex[2]);
 }
 
 void g_triangle_2D(double x0, double y0,
