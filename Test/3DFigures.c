@@ -1,6 +1,8 @@
 #include "glsc3d.h"
 
 #define WIRE_OR_FILL G_WIRE
+#define WIRE G_TRUE
+#define FILL G_TRUE
 
 int main(int argc, char *argv[])
 {
@@ -32,20 +34,16 @@ int main(int argc, char *argv[])
 		g_line_width(2);
 
 		g_sel_scale_3D_boundary(0);
-		//g_region_boundary();
 		g_pyramid_3D_core (0, 0,-1, 0, 0, 1, 1, 2, t, 6, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D_boundary(1);
-		//g_region_boundary();
 		g_cone_3D_core    (0, 0,-1, 0, 0, 1, 1, 2,24, 6, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D(2);
-		//g_region_boundary();
 		g_prism_3D_core   (0, 0, 0, 0, 0, 1, 1, 2, t, 6, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D(3);
-		//g_region_boundary();
-		g_cylinder_3D_core(0, 0, 0, 0, 0, 1, 1, 2, t,24, 0, WIRE_OR_FILL);
+		g_cylinder_3D_core(0, 0, 0, 0, 0, 1, 1, 2, t,24, 0, WIRE, FILL);
 
 		g_sel_scale_3D(4);
 		g_ellipse_3D_core(0, 0, 0, 1.5, 1, 0.75, c, s, 0, 8, 0, WIRE_OR_FILL);

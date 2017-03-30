@@ -279,11 +279,10 @@ void g_prism_3D(double center_x, double center_y, double center_z,
 void g_cylinder_3D_core(double center_x, double center_y, double center_z,
                         double direction_x, double direction_y, double direction_z,
                         double radius,double height, double psi,
-                        int N, int DivideLevel, G_WIREFILL WireFill);
+                        int N, int DivideLevel, G_BOOL wire, G_BOOL fill);
     
-void g_cylinder_3D(double center_x, double center_y, double center_z,
-                   double direction_x, double direction_y, double direction_z,
-                   double radius,double height, double psi);
+void g_cylinder_3D(double center_x, double center_y, double center_z, double direction_x, double direction_y,
+				   double direction_z, double radius, double height, double psi, G_BOOL wire, G_BOOL fill);
 
 void g_cone_2D(double center_x, double center_y,
                double direction_x, double direction_y,

@@ -203,12 +203,12 @@ void main () {
 	vec3 q = Input[1].position;
 	vec4 v = vec4(p.y - q.y, q.x - p.x, 0, 0);
 	vec4 r = normalize(v);
-	vec4 clip_p = gl_in[0].gl_Position;
-	vec4 clip_q = gl_in[1].gl_Position;
-	vec2 std_p = (clip_p.xy / clip_p.w + 1) * 0.5 * screen_size;
-	vec2 std_q = (clip_q.xy / clip_q.w + 1) * 0.5 * screen_size;
-	float c = length(std_p - std_q) / 32;
-//	float c = length(p - q) * 4;
+//	vec4 clip_p = gl_in[0].gl_Position;
+//	vec4 clip_q = gl_in[1].gl_Position;
+//	vec2 std_p = (clip_p.xy / clip_p.w + 1) * 0.5 * screen_size;
+//	vec2 std_q = (clip_q.xy / clip_q.w + 1) * 0.5 * screen_size;
+//	float c = length(std_p - std_q) / 32;
+	float c = length(p - q) * 4;
 	emit_vertices(0, r, 0);
 	emit_vertices(1, r, c);
 })";
@@ -221,7 +221,7 @@ in GS_TO_FS {
 } Input;
 out vec4 out_color;
 void main() {
-	out_color = vec4(Input.color.rgb, Input.color.a * round(fract(Input.coord)));
+	out_color = vec4(Input.color.rgb, Input.color.a * step(fract(Input.coord*2), 0.5));
 })";
 
 // ----------------------------------------------------------------

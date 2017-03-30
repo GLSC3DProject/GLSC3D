@@ -20,7 +20,7 @@ int main()
         g_cls();
         g_sel_scale_3D(0);
         g_area_color_3D(1, 0, 0, 1);
-        g_cylinder_3D(0,0,0,0,1,0,1.5,3,0);
+        g_cylinder_3D(0, 0, 0, 0, 1, 0, 1.5, 3, 0, 0, 0);
         
         g_finish();
     }
