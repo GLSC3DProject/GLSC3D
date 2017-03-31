@@ -3,7 +3,8 @@
 size_t GLSC3D_Data_Buffer_Size = 1 << 20;
 void *GLSC3D_Data_Buffer;
 
-void *GLSC3D_Array_Buffer(int Array_Size) {
+void *GLSC3D_Array_Buffer(int Array_Size)
+{
 	while (Array_Size > GLSC3D_Data_Buffer_Size)
 		GLSC3D_Data_Buffer_Size *= 2;
 
@@ -111,10 +112,12 @@ G_VECTOR Rx2D(G_VECTOR u, G_REAL theta)//二次元平面上でuをtheta回転さ
 }
 
 /***************************direction********************************************************/
-G_REAL g_direction_phi(G_VECTOR v) {
+G_REAL g_direction_phi(G_VECTOR v)
+{
 	return atan2(v.y, sqrt(v.x * v.x + v.z * v.z));
 }
 
-G_REAL g_direction_theta(G_VECTOR v) {
+G_REAL g_direction_theta(G_VECTOR v)
+{
 	return atan2(v.z, v.x);
 }
