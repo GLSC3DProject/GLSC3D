@@ -17,9 +17,8 @@ int main()
                 
         g_area_color_3D(1, 0, 0, 1);
         
-//        g_sphere_3D(0, 0, 0, scale);
-        g_sphere_3D_core(0, 0, 0, scale, 1000, 1000, 1);
-                
+        g_sphere_3D(0, 0, 0, scale);
+
         g_finish();
     }
 }
