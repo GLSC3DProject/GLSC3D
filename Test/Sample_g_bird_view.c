@@ -2,6 +2,7 @@
 #include<stdio.h>
 
 #include "glsc3d.h"
+#include <time.h>
 
 #define g_bird_view_3D(x_left,x_right,y_bottom,y_top,N_x,N_z,data,fill)\
 (g_bird_view_f_3D((x_left),(x_right),(y_bottom),(y_top),(N_x),(N_z),(double(*)[N_z])(data),fill))
@@ -14,11 +15,11 @@
 
 #define LEN         (2.0)
 
-#define SIZE        (30)
+#define SIZE        (64)
 #define Imax        (2 * SIZE)
 #define Jmax        (SIZE)
 
-int main()
+int main(void)
 {
 	g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
@@ -33,10 +34,24 @@ int main()
 	double dt = 0.03;
 	int i,j;
 	double xx,yy,dx=LEN/Imax,dy=LEN/Jmax;
-	double array[Imax*Jmax];
-	double array2[Imax][Jmax];
-
-	for(i_time = 0;;i_time = (i_time + 1) % (int)(2*M_PI/dt))
+    
+//	double **array2;
+//    array2=(double **)malloc(sizeof(double *) * Imax);
+//    for (i=0; i<=Imax; i++){
+//        array2[i]=(double *)malloc(sizeof(double ) * Jmax);
+//    }
+    
+	double *array;
+    array=(double *)malloc(sizeof(double ) * Imax*Jmax);
+    
+//    double array2[Imax][Jmax];
+//    double array[Imax*Jmax];
+    
+    /* time.h */
+    clock_t start, end;
+    start = clock();
+    
+	for(i_time = 0; i_time < 1000; i_time = (i_time + 1) % (int)(2*M_PI/dt))
 	{
 		double t = dt*i_time;
 
@@ -49,21 +64,21 @@ int main()
 				array[j*Imax + i] = sin(2*xx - t) * cos(3*yy - t) ;
 			}
 		}
-		for (i = 0; i < Imax; i++)
-		{
-			xx = dx * (i + 0.5) - LEN/2.0;
-			for (j = 0; j < Jmax; j++)
-			{
-				yy = dy * (j + 0.5) - LEN/2.0;
-				array2[i][j] = sin(2*xx - t) * cos(3*yy - t) ;
-			}
-		}
+//		for (i = 0; i < Imax; i++)
+//		{
+//			xx = dx * (i + 0.5) - LEN/2.0;
+//			for (j = 0; j < Jmax; j++)
+//			{
+//				yy = dy * (j + 0.5) - LEN/2.0;
+//				array2[i][j] = sin(2*xx - t) * cos(3*yy - t) ;
+//			}
+//		}
 		g_cls();
 		
-		g_sel_scale_3D(0);
-		g_area_color_3D(1, 0, 0, 1);
-		g_line_color(1, 0, 0, 1);
-		g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, 0);
+//		g_sel_scale_3D(0);
+//		g_area_color_3D(1, 0, 0, 1);
+//		g_line_color(1, 0, 0, 1);
+//		g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, 0);
 		
 		
 		g_sel_scale_3D(1);
@@ -72,6 +87,18 @@ int main()
 		
 		g_finish();
 		//g_capture();
-	}
+    }
+    
+    end = clock();
+    double result = (double)(end-start)/CLOCKS_PER_SEC;
+    printf("time = %.15f\n",result);
+    
+    free(array);
+
+//    for (i=0; i<=Jmax; i++){
+//        free(array2[i]);
+//    }
+//    free(array2);
+    
 	return 0;
 }

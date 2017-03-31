@@ -1,4 +1,5 @@
 #include "glsc3d_private.h"
+
 void g_box_2D(double x, double y,
 		double width, double height,
 		G_WIREFILL WireFill)
