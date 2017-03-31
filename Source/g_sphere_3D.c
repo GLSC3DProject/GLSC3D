@@ -27,6 +27,7 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 			r1 = g_position(radius * P * c, radius * P * d, radius * Q);
 			r2 = g_position(radius * b * R, radius * b * S, radius * a);
 			r3 = g_position(radius * P * R, radius * P * S, radius * Q);
+			
 #ifdef USE_g_triangle_3D_core
 			r0 = g_plus(r0, X);            r1 = g_plus(r1, X);
 			r2 = g_plus(r2, X);            r3 = g_plus(r3, X);
