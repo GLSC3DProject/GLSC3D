@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+﻿#include "glsc3d_private.h"
 
 int             glsc3D_width;
 int             glsc3D_height;
@@ -106,5 +106,5 @@ void g_init_core(
 void g_init(const char *WindowName, int width, int height)
 {
 	//g_init_core(WindowName, width, height, G_WINDOW_CENTERED, G_WINDOW_CENTERED, 0, 0, 0, 0, 0, 0);
-	g_init_core(WindowName, width, height, 0, 0, 0, 0, 0, 0, 0, 0);
+	g_init_core(WindowName, width, height, 0, 60, 0, 0, 0, 0, 0, 0);
 }
