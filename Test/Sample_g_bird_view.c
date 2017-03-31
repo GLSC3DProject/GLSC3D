@@ -77,7 +77,7 @@ int main(void)
     clock_t start, end;
     start = clock();
     
-	for(i_time = 0; i_time < 100; i_time = (i_time + 1) % (int)(2*M_PI/dt))
+	for(i_time = 0; i_time < 1000; i_time = (i_time + 1) % (int)(2*M_PI/dt))
 	{
 		double t = dt*i_time;
 

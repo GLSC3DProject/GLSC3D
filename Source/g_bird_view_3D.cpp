@@ -17,11 +17,11 @@
 
 #define     data(i, j)      data[(j)*N_x+(i)]
 
-#define		U2(i,j)     u2[(j) * (imax) + (i)]
-#define		U2_EXT(i,j) u2_ext[(j) * ((imax) + 2) + (i)]
-
 #define     data_ext(i, j)  data_ext[(j)*(N_x+2)+(i)]
 #define     normal(i, j)    normal[(j)*N_x+(i)]
+
+#define		U2(i,j)     u2[(j) * (imax) + (i)]
+#define		U2_EXT(i,j) u2_ext[(j) * ((imax) + 2) + (i)]
 
 // Bird_view用に境界条件を設定しているバルク部分はコピー, 境界部分は片側差分
 void
@@ -59,26 +59,16 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
     G_VECTOR rc;
     G_VECTOR r_corner[4];
     G_VECTOR rc_normal;
+    G_VECTOR normal_k[4];
     
     int Data_Size_normal = (N_x * N_y);
     int Data_Size_ext = (N_x + 2) * (N_y + 2);
-    int Data_Size = Data_Size_ext + Data_Size_normal;
+    int Data_Size = Data_Size_ext * sizeof(double) + Data_Size_normal * sizeof(G_VECTOR);
     
-    GLSC3D_Data_Buffer = GLSC3D_Array_Buffer(Data_Size*sizeof(G_VECTOR));
-    G_VECTOR *normal;
-    normal = (G_VECTOR *)GLSC3D_Data_Buffer;
+    GLSC3D_Data_Buffer = GLSC3D_Array_Buffer(Data_Size);
+    G_VECTOR *normal = (G_VECTOR *)GLSC3D_Data_Buffer;
     
-//        G_VECTOR *normal;
-//        normal = (G_VECTOR *)malloc(sizeof(G_VECTOR ) * (N_x) * (N_y));
-    
-    G_VECTOR normal_k[4];
-    
-//    GLSC3D_Data_Buffer = GLSC3D_Array_Buffer(Data_Size_ext*sizeof(double));
-    double *data_ext;
-    data_ext = (double *)normal + Data_Size_ext;
-
-//    double *data_ext;
-//    data_ext = (double *)malloc(sizeof(double ) * (N_x+2) * (N_y+2));
+    double *data_ext = (double *)(normal + Data_Size_normal);
     
     Extend2Dim(N_x, N_y, data, data_ext);
     
