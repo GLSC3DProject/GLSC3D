@@ -17,9 +17,9 @@ void g_fan_2D(double center_x, double center_y,       //中心座標
 		g_begin_triangle_fan();
 		g_emit_vertex(center);
 		for(i=0; i<=STEP; i++) {
-            dtheta = 0.5 * angle / STEP;
-            g_emit_vertex(center + Rx2D(radius * direction, (2 * i - STEP) * dtheta));
-        }
+			dtheta = 0.5 * angle / STEP;
+			g_emit_vertex(center + Rx2D(radius * direction, (2 * i - STEP) * dtheta));
+		}
 	}
 	if(WireFill == 0)
 	{
