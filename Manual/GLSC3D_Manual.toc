@@ -1,0 +1,129 @@
+\contentsline {section}{\numberline {1}はじめに}{8}
+\contentsline {subsection}{\numberline {1.1}GLSCとその歴史}{8}
+\contentsline {subsection}{\numberline {1.2}GLSCの長所・短所}{8}
+\contentsline {subsection}{\numberline {1.3}GLSC3Dの開発まで}{12}
+\contentsline {subsubsection}{\numberline {1.3.1}X Window Systemの限界}{12}
+\contentsline {subsubsection}{\numberline {1.3.2}OpenGLとGLUTの使用}{12}
+\contentsline {subsubsection}{\numberline {1.3.3}GLSCらしさとOpenGLらしさ}{13}
+\contentsline {subsubsection}{\numberline {1.3.4}GLSC3Dの赤ちゃんの誕生}{14}
+\contentsline {subsection}{\numberline {1.4}GLSC3Dの開発}{14}
+\contentsline {subsection}{\numberline {1.5}GLSC3Dの設計哲学}{15}
+\contentsline {section}{\numberline {2}GLSCおよびGLSC3D Ver2.xからの変更点及び注意点}{17}
+\contentsline {subsection}{\numberline {2.1}GLSCからの変更点}{17}
+\contentsline {subsubsection}{\numberline {2.1.1}Fortran言語をサポートしていない}{17}
+\contentsline {subsubsection}{\numberline {2.1.2}最終の描画スタイルの変更}{17}
+\contentsline {subsection}{\numberline {2.2}GLSC3D Ver2.x からの変更点}{19}
+\contentsline {subsubsection}{\numberline {2.2.1}OpenGL の最新規格への追随}{19}
+\contentsline {subsubsection}{\numberline {2.2.2}ウインドウライブラリをFreeGLUTからSDLへの変更}{19}
+\contentsline {subsubsection}{\numberline {2.2.3}2Dの描画順の変更}{19}
+\contentsline {subsubsection}{\numberline {2.2.4}フォント埋め込みの廃止,フォント指定関数の変更,日本語などのUnicode文字への対応}{19}
+\contentsline {subsubsection}{\numberline {2.2.5}ウィンドウのサイズ変更・最大化と Apple Retina Display の対応}{20}
+\contentsline {subsubsection}{\numberline {2.2.6}マーカーの種類の追加}{20}
+\contentsline {subsubsection}{\numberline {2.2.7}ウインドウの初期化関連}{21}
+\contentsline {subsubsection}{\numberline {2.2.8}多次元配列について}{21}
+\contentsline {subsection}{\numberline {2.3}GLSC3Dの注意点}{22}
+\contentsline {subsubsection}{\numberline {2.3.1}物体の透明化における注意点(Ver1.x をお使いの方へ)}{22}
+\contentsline {subsubsection}{\numberline {2.3.2}物体の透明化における注意点(Ver1.x 以降 をお使いの方へ)}{23}
+\contentsline {section}{\numberline {3}動作環境とその構築}{25}
+\contentsline {subsection}{\numberline {3.1}動作環境}{25}
+\contentsline {subsection}{\numberline {3.2}動作環境の構築}{25}
+\contentsline {subsubsection}{\numberline {3.2.1}Mac OS Xの場合}{25}
+\contentsline {subsubsection}{\numberline {3.2.2}Linuxの場合}{25}
+\contentsline {subsubsection}{\numberline {3.2.3}Windowsの場合}{26}
+\contentsline {section}{\numberline {4}GLSC3Dのインストールとテスト}{27}
+\contentsline {section}{\numberline {5}GLSC3Dの関数}{29}
+\contentsline {subsection}{\numberline {5.1}制御関数}{32}
+\contentsline {subsubsection}{\numberline {5.1.1}\texttt {g\_init}}{32}
+\contentsline {subsubsection}{\numberline {5.1.2}\texttt {g\_init\_core}}{33}
+\contentsline {subsubsection}{\numberline {5.1.3}\texttt {g\_init\_light}}{35}
+\contentsline {subsubsection}{\numberline {5.1.4}\texttt {g\_init\_light\_core}}{35}
+\contentsline {subsubsection}{\numberline {5.1.5}\texttt {g\_disable\_light}}{35}
+\contentsline {subsubsection}{\numberline {5.1.6}\texttt {g\_scr\_color}}{36}
+\contentsline {subsubsection}{\numberline {5.1.7}\texttt {g\_cls}}{36}
+\contentsline {subsubsection}{\numberline {5.1.8}\texttt {g\_finish}}{37}
+\contentsline {subsubsection}{\numberline {5.1.9}\texttt {g\_sleep}}{37}
+\contentsline {subsubsection}{\numberline {5.1.10}\texttt {g\_capture\_set, g\_capture}}{38}
+\contentsline {subsubsection}{\numberline {5.1.11}\texttt {g\_enable\_highdpi}}{38}
+\contentsline {subsection}{\numberline {5.2}補助関数}{39}
+\contentsline {subsubsection}{\numberline {5.2.1}\texttt {g\_key\_state, g\_input\_state}}{39}
+\contentsline {subsection}{\numberline {5.3}スケール関数}{41}
+\contentsline {subsubsection}{\numberline {5.3.1}\texttt {g\_def\_scale\_2D}}{41}
+\contentsline {subsubsection}{\numberline {5.3.2}\texttt {g\_def\_scale\_3D}}{42}
+\contentsline {subsubsection}{\numberline {5.3.3}\texttt {g\_def\_scale\_3D\_core}}{44}
+\contentsline {subsubsection}{\numberline {5.3.4}\texttt {g\_sel\_scale\_2D,g\_sel\_scale\_3D}}{45}
+\contentsline {subsection}{\numberline {5.4}属性コントロール関数}{46}
+\contentsline {subsubsection}{\numberline {5.4.1}\texttt {g\_marker\_color}}{46}
+\contentsline {subsubsection}{\numberline {5.4.2}\texttt {g\_marker\_size}}{46}
+\contentsline {subsubsection}{\numberline {5.4.3}\texttt {g\_marker\_radius}}{46}
+\contentsline {subsubsection}{\numberline {5.4.4}\texttt {g\_marker\_type}}{47}
+\contentsline {subsubsection}{\numberline {5.4.5}\texttt {g\_def\_marker}}{48}
+\contentsline {subsubsection}{\numberline {5.4.6}\texttt {g\_sel\_marker}}{48}
+\contentsline {subsubsection}{\numberline {5.4.7}\texttt {g\_line\_color}}{50}
+\contentsline {subsubsection}{\numberline {5.4.8}\texttt {g\_line\_width}}{50}
+\contentsline {subsubsection}{\numberline {5.4.9}\texttt {g\_line\_type}}{50}
+\contentsline {subsubsection}{\numberline {5.4.10}\texttt {g\_def\_line}}{51}
+\contentsline {subsubsection}{\numberline {5.4.11}\texttt {g\_sel\_line}}{52}
+\contentsline {subsubsection}{\numberline {5.4.12}\texttt {g\_area\_color\_2D,g\_area\_color\_3D}}{53}
+\contentsline {subsubsection}{\numberline {5.4.13}\texttt {g\_def\_area\_2D,g\_def\_area\_3D}}{54}
+\contentsline {subsubsection}{\numberline {5.4.14}\texttt {g\_sel\_area\_2D,g\_sel\_area\_3D}}{54}
+\contentsline {subsubsection}{\numberline {5.4.15}\texttt {g\_text\_color}}{55}
+\contentsline {subsubsection}{\numberline {5.4.16}\texttt {g\_text\_font\_core}}{55}
+\contentsline {subsubsection}{\numberline {5.4.17}\texttt {g\_text\_size}}{55}
+\contentsline {subsubsection}{\numberline {5.4.18}\texttt {g\_def\_text, g\_def\_text\_core, g\_sel\_text}}{56}
+\contentsline {subsection}{\numberline {5.5}描画関数}{57}
+\contentsline {subsubsection}{\numberline {5.5.1}\texttt {g\_marker\_2D, g\_marker\_3D}}{57}
+\contentsline {subsubsection}{\numberline {5.5.2}\texttt {g\_text\_standard}}{58}
+\contentsline {subsubsection}{\numberline {5.5.3}\texttt {g\_text\_virtual\_2D,g\_text\_virtual\_3D}}{58}
+\contentsline {subsubsection}{\numberline {5.5.4}\texttt {g\_move\_2D,g\_move\_3D}}{59}
+\contentsline {subsubsection}{\numberline {5.5.5}\texttt {g\_plot\_2D,g\_plot\_3D}}{59}
+\contentsline {subsubsection}{\numberline {5.5.6}\texttt {g\_box\_2D}}{60}
+\contentsline {subsubsection}{\numberline {5.5.7}\texttt {g\_box\_3D}}{60}
+\contentsline {subsubsection}{\numberline {5.5.8}\texttt {g\_box\_3D\_core}}{61}
+\contentsline {subsubsection}{\numberline {5.5.9}\texttt {g\_sphere\_3D}}{63}
+\contentsline {subsubsection}{\numberline {5.5.10}\texttt {g\_sphere\_3D\_core}}{64}
+\contentsline {subsubsection}{\numberline {5.5.11}\texttt {g\_ellipse\_3D}}{65}
+\contentsline {subsubsection}{\numberline {5.5.12}\texttt {g\_ellipse\_3D\_core}}{66}
+\contentsline {subsubsection}{\numberline {5.5.13}\texttt {g\_prism\_3D}}{68}
+\contentsline {subsubsection}{\numberline {5.5.14}\texttt {g\_prism\_3D\_core}}{69}
+\contentsline {subsubsection}{\numberline {5.5.15}\texttt {g\_cylinder\_3D}}{71}
+\contentsline {subsubsection}{\numberline {5.5.16}\texttt {g\_cylinder\_3D\_core}}{72}
+\contentsline {subsubsection}{\numberline {5.5.17}\texttt {g\_cone\_2D}}{74}
+\contentsline {subsubsection}{\numberline {5.5.18}\texttt {g\_cone\_3D}}{75}
+\contentsline {subsubsection}{\numberline {5.5.19}\texttt {g\_cone\_3D\_core}}{77}
+\contentsline {subsubsection}{\numberline {5.5.20}\texttt {g\_pyramid\_3D}}{79}
+\contentsline {subsubsection}{\numberline {5.5.21}\texttt {g\_pyramid\_3D\_core}}{80}
+\contentsline {subsubsection}{\numberline {5.5.22}\texttt {g\_arrow\_2D}}{82}
+\contentsline {subsubsection}{\numberline {5.5.23}\texttt {g\_arrow\_3D}}{83}
+\contentsline {subsubsection}{\numberline {5.5.24}\texttt {g\_arrow\_3D\_core}}{84}
+\contentsline {subsubsection}{\numberline {5.5.25}\texttt {g\_triangle\_2D}}{86}
+\contentsline {subsubsection}{\numberline {5.5.26}\texttt {g\_triangle\_3D}}{87}
+\contentsline {subsubsection}{\numberline {5.5.27}\texttt {g\_triangle\_3D\_core}}{88}
+\contentsline {subsubsection}{\numberline {5.5.28}\texttt {g\_fan\_2D}}{89}
+\contentsline {subsubsection}{\numberline {5.5.29}\texttt {g\_fan\_3D}}{90}
+\contentsline {subsubsection}{\numberline {5.5.30}\texttt {g\_fan\_3D\_core}}{91}
+\contentsline {subsubsection}{\numberline {5.5.31}\texttt {g\_circle\_2D}}{93}
+\contentsline {subsubsection}{\numberline {5.5.32}\texttt {g\_circle\_3D}}{94}
+\contentsline {subsubsection}{\numberline {5.5.33}\texttt {g\_circle\_3D\_core}}{95}
+\contentsline {subsubsection}{\numberline {5.5.34}\texttt {g\_polygon\_2D}}{97}
+\contentsline {subsubsection}{\numberline {5.5.35}\texttt {g\_polyline\_2D}}{98}
+\contentsline {subsubsection}{\numberline {5.5.36}\texttt {g\_polyline\_3D}}{99}
+\contentsline {subsubsection}{\numberline {5.5.37}\texttt {g\_rectangle\_3D}}{100}
+\contentsline {subsubsection}{\numberline {5.5.38}\texttt {g\_rectangle\_3D\_core}}{101}
+\contentsline {subsubsection}{\numberline {5.5.39}\texttt {g\_data\_plot\_2D}}{102}
+\contentsline {subsubsection}{\numberline {5.5.40}\texttt {g\_data\_plot\_3D}}{103}
+\contentsline {subsubsection}{\numberline {5.5.41}\texttt {g\_data\_plot\_f\_3D}}{104}
+\contentsline {subsection}{\numberline {5.6}上位関数}{105}
+\contentsline {subsubsection}{\numberline {5.6.1}\texttt {g\_contln\_2D}}{105}
+\contentsline {subsubsection}{\numberline {5.6.2}\texttt {g\_contln\_f\_2D}}{106}
+\contentsline {subsubsection}{\numberline {5.6.3}\texttt {g\_bird\_view\_3D}}{107}
+\contentsline {subsubsection}{\numberline {5.6.4}\texttt {g\_bird\_view\_f\_3D}}{108}
+\contentsline {subsubsection}{\numberline {5.6.5}\texttt {g\_isosurface\_3D}}{109}
+\contentsline {subsubsection}{\numberline {5.6.6}\texttt {g\_isosurface\_f\_3D}}{110}
+\contentsline {section}{\numberline {6}Versionの履歴}{111}
+\contentsline {section}{\numberline {7}おわりに}{115}
+\contentsline {section}{\numberline {8}作者の覚書}{116}
+\contentsline {subsection}{\numberline {8.1}新関数の追加方法}{116}
+\contentsline {subsection}{\numberline {8.2}Manualの作成方法}{116}
+\contentsline {subsection}{\numberline {8.3}設計上の基本原則}{116}
+\contentsline {subsection}{\numberline {8.4}ファイル構成}{117}
+\contentsline {subsection}{\numberline {8.5}描画処理}{117}
