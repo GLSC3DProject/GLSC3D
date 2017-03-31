@@ -28,7 +28,6 @@ void update_lights()
 		if (light.enabled)
 			enabled_lights.lights[enabled_lights.num_lights++] = light;
 	}
-	printf("%d\n", enabled_lights.num_lights);
 
 	g_update_uniform(G_UNIFORM_LIGHTS, sizeof(G_LIGHT_LIST), &enabled_lights);
 }
