@@ -95,7 +95,20 @@ void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum sev
 G_REAL g_direction_phi(G_VECTOR v);
 G_REAL g_direction_theta(G_VECTOR v);
 
-#ifndef __cplusplus
+//#ifndef __cplusplus
+//
+//G_VECTOR Rn(G_VECTOR u,G_VECTOR n,G_REAL theta);
+//G_VECTOR Rx(G_VECTOR u,G_REAL theta);
+//G_VECTOR Ry(G_VECTOR u,G_REAL theta);
+//G_VECTOR Rz(G_VECTOR u,G_REAL theta);
+//
+//G_VECTOR Scaling3Ds(G_VECTOR u,G_VECTOR s);
+//
+//G_VECTOR Rx2D(G_VECTOR u,G_REAL theta);
+//
+//#endif
+
+#ifdef __cplusplus
 
 G_VECTOR Rn(G_VECTOR u,G_VECTOR n,G_REAL theta);
 G_VECTOR Rx(G_VECTOR u,G_REAL theta);
@@ -105,10 +118,6 @@ G_VECTOR Rz(G_VECTOR u,G_REAL theta);
 G_VECTOR Scaling3Ds(G_VECTOR u,G_VECTOR s);
 
 G_VECTOR Rx2D(G_VECTOR u,G_REAL theta);
-
-#endif
-
-#ifdef __cplusplus
 
 struct G_SCREEN
 {
