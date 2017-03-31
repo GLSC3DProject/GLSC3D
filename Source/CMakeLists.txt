@@ -6,8 +6,6 @@ if (MSVC)
 	set(SDL_LIBRARY SDL2.lib)
 	set(PNG_LIBRARY libpng16.lib zlib.lib)
 	set(FREETYPE_LIBRARIES freetype271.lib)
-#elseif (MINGW)
-#	set(SDL_LIBRARY SDL2.a SDL2.dll.a SDL2main.a)
 elseif (APPLE)
 	include_directories(/opt/local/include)
 	include_directories(/opt/local/include/freetype2)
@@ -17,7 +15,7 @@ elseif (APPLE)
 elseif (UNIX)
 	set(SDL_LIBRARY SDL2)
 	set(PNG_LIBRARY png)
-	set(FREETYPE_LIBRARIES /usr/lib/x86_64-linux-gnu/libfreetype.so.6)
+	set(FREETYPE_LIBRARIES freetype)
 endif ()
 
 message(CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME})
@@ -47,7 +45,7 @@ add_library(GLSC3D
 	g_cls_finish.c
 	g_init.cpp
 	g_input.c
-	g_isosurface.cpp
+	g_isosurface.c
 	g_light.cpp
 	g_line.cpp
 	g_marker.cpp

@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
 
 //	g_init_light(0, 0, 1, 2);
 	g_init_light(0, 1, -1, 1);
-	g_init_light_core(1, 1, 1, 1, 0.25f);
-	g_init_light_core(2, 0, 1, 2, 0.25f);
+//	g_init_light_core(1, 1, 1, 1, 0.25f);
+	g_init_light_core(2, 0, 1, 2, 0.5f);
 
 	//g_scr_color(1, 1, 1);
 	//g_scr_color(0.5, 0.5, 0.5);
