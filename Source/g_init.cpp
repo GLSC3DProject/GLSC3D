@@ -95,5 +95,6 @@ void g_init_core(
 
 void g_init(const char *WindowName, int width, int height)
 {
-	g_init_core(WindowName, width, height, G_WINDOW_CENTERED, G_WINDOW_CENTERED, 0, 0, 0, 0, 0, 0);
+	//g_init_core(WindowName, width, height, G_WINDOW_CENTERED, G_WINDOW_CENTERED, 0, 0, 0, 0, 0, 0);
+	g_init_core(WindowName, width, height, 0, 0, 0, 0, 0, 0, 0, 0);
 }
