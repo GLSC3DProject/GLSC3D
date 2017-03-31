@@ -60,19 +60,31 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
     G_VECTOR r_corner[4];
     G_VECTOR rc_normal;
     
-    int Data_Size = N_x * N_y;
+    int Data_Size_normal = (N_x * N_y);
+    int Data_Size_ext = (N_x + 2) * (N_y + 2);
+    int Data_Size = Data_Size_ext + Data_Size_normal;
+    
     GLSC3D_Data_Buffer = GLSC3D_Array_Buffer(Data_Size*sizeof(G_VECTOR));
     G_VECTOR *normal;
     normal = (G_VECTOR *)GLSC3D_Data_Buffer;
     
+//        G_VECTOR *normal;
+//        normal = (G_VECTOR *)malloc(sizeof(G_VECTOR ) * (N_x) * (N_y));
+    
     G_VECTOR normal_k[4];
     
-    Data_Size = (N_x + 2) * (N_y + 2);
-    GLSC3D_Data_Buffer = GLSC3D_Array_Buffer(Data_Size*sizeof(double));
+//    GLSC3D_Data_Buffer = GLSC3D_Array_Buffer(Data_Size_ext*sizeof(double));
     double *data_ext;
-    data_ext = (double *)GLSC3D_Data_Buffer;
+    data_ext = (double *)normal + Data_Size_ext;
+
+//    double *data_ext;
+//    data_ext = (double *)malloc(sizeof(double ) * (N_x+2) * (N_y+2));
     
     Extend2Dim(N_x, N_y, data, data_ext);
+    
+    for(j = 0; j < N_y; j ++)
+        for(i = 0;i < N_x; i ++)
+            normal(i, j) = G_VECTOR(-(data_ext((i + 1 + 1), (j + 0 + 1)) - data_ext((i - 1 + 1), (j + 0 + 1))) / (2*dx), -(data_ext((i + 0 + 1), (j + 1 + 1)) - data_ext((i - 0 + 1), (j - 1 + 1))) / (2*dy), 1);
     
     for(j = 0; j < N_y - 1; j ++)
     {
@@ -94,10 +106,10 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
             rc_normal = G_VECTOR(0.,0.,0.);
             for (k=0; k<4; k++) rc_normal += g_calc_normal(rc, r_corner[k], r_corner[(k+1)%4])/4;
             
-            normal_k[0] = G_VECTOR(-(data_ext((i + 1 + 1), (j + 0 + 1)) - data_ext((i - 1 + 1), (j + 0 + 1))) / (2*dx), -(data_ext((i + 0 + 1), (j + 1 + 1)) - data_ext((i - 0 + 1), (j - 1 + 1))) / (2*dy), 1);
-            normal_k[1] = G_VECTOR(-(data_ext(((i+1) + 1 + 1), (j + 0 + 1)) - data_ext(((i+1) - 1 + 1), (j + 0 + 1))) / (2*dx), -(data_ext(((i+1) + 0 + 1), (j + 1 + 1)) - data_ext(((i+1) - 0 + 1), (j - 1 + 1))) / (2*dy), 1);
-            normal_k[2] = G_VECTOR(-(data_ext(((i+1) + 1 + 1), ((j+1) + 0 + 1)) - data_ext(((i+1) - 1 + 1), ((j+1) + 0 + 1))) / (2*dx), -(data_ext(((i+1) + 0 + 1), ((j+1) + 1 + 1)) - data_ext(((i+1) - 0 + 1), ((j+1) - 1 + 1))) / (2*dy), 1);
-            normal_k[3] = G_VECTOR(-(data_ext(((i) + 1 + 1), ((j+1) + 0 + 1)) - data_ext(((i) - 1 + 1), ((j+1) + 0 + 1))) / (2*dx), -(data_ext(((i) + 0 + 1), ((j+1) + 1 + 1)) - data_ext(((i) - 0 + 1), ((j+1) - 1 + 1))) / (2*dy), 1);
+            normal_k[0] = normal(i,j);
+            normal_k[1] = normal(i+1,j);
+            normal_k[2] = normal(i+1,j+1);
+            normal_k[3] = normal(i,j+1);
             
             if(WireFill ==1) for(k = 0; k < 4; k++) g_triangle_3D_core_smooth(rc, r_corner[k], r_corner[(k+1) % 4], g_normalize(rc_normal), normal_k[k], normal_k[(k+1)%4], 0);
             
