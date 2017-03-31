@@ -3,4 +3,4 @@
 .vs/
 cmake-build-debug/
 Out/
-Manual/
+OutXcode/
