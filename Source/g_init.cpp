@@ -7,13 +7,6 @@ float			g_retina_scale_factor;
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
-//// data_buffer_add
-//double *data_buffer_double;
-//G_VECTOR *data_buffer_G_VECTOR;
-//
-//unsigned int data_buffer_double_size = 10000000;
-//unsigned int data_buffer_G_VECTOR_size = 10000000;
-
 void g_init_core(
 	const char *WindowName, int width, int height,
 	int pos_x, int pos_y,
@@ -23,9 +16,6 @@ void g_init_core(
 	int triangle_buffer_size
 )
 {
-//    data_buffer_double = (double *)malloc(sizeof (double ) * data_buffer_double_size);
-//    data_buffer_G_VECTOR = (G_VECTOR *)malloc(sizeof (G_VECTOR ) * data_buffer_G_VECTOR_size);
-
 #ifdef _WIN32
 	SetProcessDPIAware();
 #endif

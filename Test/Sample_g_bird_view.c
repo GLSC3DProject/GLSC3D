@@ -15,9 +15,30 @@
 
 #define LEN         (2.0)
 
-#define SIZE        (2048)
+#define SIZE        (16)
 #define Imax        (2 * SIZE)
 #define Jmax        (SIZE)
+
+//uint64_t GLSC3D_Data_Buffer_Size = 1<<20ULL;
+//void *GLSC3D_Data_Buffer;
+//
+//void * GLSC3D_Array_Extention(int Array_Size)
+//{
+//    int i;
+//    int ADD_GLSC3D_Data_Buffer_Size = GLSC3D_Data_Buffer_Size;
+//    for (i=0;;i++) {
+//        if (Array_Size > ADD_GLSC3D_Data_Buffer_Size){
+//            GLSC3D_Data_Buffer = (void*)realloc(GLSC3D_Data_Buffer, GLSC3D_Data_Buffer_Size * 2);
+//            if (GLSC3D_Data_Buffer == NULL) break;
+//            ADD_GLSC3D_Data_Buffer_Size *= 2;
+//        }
+//        else {
+//            GLSC3D_Data_Buffer_Size = ADD_GLSC3D_Data_Buffer_Size;
+//            break;
+//        }
+//    }
+//    return (void *)malloc(GLSC3D_Data_Buffer_Size);
+//}
 
 int main(void)
 {
@@ -44,14 +65,19 @@ int main(void)
 	double *array;
     array=(double *)malloc(sizeof(double ) * Imax*Jmax);
     
-//    double array2[Imax][Jmax];
+//    int Data_Size = Imax*Jmax;
+//    GLSC3D_Data_Buffer = GLSC3D_Array_Buffer(Data_Size*sizeof(double));
+//    double *array;
+//    array = (double *)GLSC3D_Data_Buffer;
+    
+    double array2[Imax][Jmax];
 //    double array[Imax*Jmax];
     
     /* time.h */
     clock_t start, end;
     start = clock();
     
-	for(i_time = 0; i_time < 10; i_time = (i_time + 1) % (int)(2*M_PI/dt))
+	for(i_time = 0; i_time < 100; i_time = (i_time + 1) % (int)(2*M_PI/dt))
 	{
 		double t = dt*i_time;
 
@@ -64,21 +90,21 @@ int main(void)
 				array[j*Imax + i] = sin(2*xx - t) * cos(3*yy - t) ;
 			}
 		}
-//		for (i = 0; i < Imax; i++)
-//		{
-//			xx = dx * (i + 0.5) - LEN/2.0;
-//			for (j = 0; j < Jmax; j++)
-//			{
-//				yy = dy * (j + 0.5) - LEN/2.0;
-//				array2[i][j] = sin(2*xx - t) * cos(3*yy - t) ;
-//			}
-//		}
+		for (i = 0; i < Imax; i++)
+		{
+			xx = dx * (i + 0.5) - LEN/2.0;
+			for (j = 0; j < Jmax; j++)
+			{
+				yy = dy * (j + 0.5) - LEN/2.0;
+				array2[i][j] = sin(2*xx - t) * cos(3*yy - t) ;
+			}
+		}
 		g_cls();
 		
-//		g_sel_scale_3D(0);
-//		g_area_color_3D(1, 0, 0, 1);
-//		g_line_color(1, 0, 0, 1);
-//		g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, 0);
+		g_sel_scale_3D(0);
+		g_area_color_3D(1, 0, 0, 1);
+		g_line_color(1, 0, 0, 1);
+		g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, 0);
 		
 		
 		g_sel_scale_3D(1);
@@ -94,11 +120,11 @@ int main(void)
     printf("time = %.15f\n",result);
     
     free(array);
-
+    
 //    for (i=0; i<=Jmax; i++){
 //        free(array2[i]);
 //    }
 //    free(array2);
-    
+//    
 	return 0;
 }

@@ -56,6 +56,7 @@ add_library(GLSC3D
 	g_off_screen.c
 	g_polygon_polyline.c
 	g_prism_3D.cpp
+	g_private.cpp
 	g_pyramid_3D.c
 	g_rectangle.c
 	g_scale.cpp
