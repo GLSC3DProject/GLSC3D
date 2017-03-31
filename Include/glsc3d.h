@@ -99,9 +99,9 @@ int g_capture_set(const char *name);
 
 // ---- g_light.cpp
 
-void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z, float lit_pow);
-
-void g_init_light(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z);
+void g_init_light_core(G_UINT lightnum, float x, float y, float z, float power);
+void g_init_light(G_UINT lightnum, float x, float y, float z);
+void g_disable_light(G_UINT lightnum);
 
 // ---- g_scale.cpp
 
