@@ -67,10 +67,10 @@ void g_fan_3D_core(double center_x, double center_y, double center_z,          /
 		for(i=0; i<=STEP; i++)
 		{
 			dtheta = 0.5*angle/STEP;
-			g_emit_vertex(g_plus(r0, Ry(Rz(Rx(Ry(g_multi(radius, nx),(2*i-STEP)*dtheta),psi),phi),theta)));
+			g_emit_vertex(r0 + Ry(Rz(Rx(Ry(radius * nx,(2*i-STEP)*dtheta),psi),phi),theta));
 		}
 		g_emit_vertex(r0);
-		g_emit_vertex(g_plus(r0, Ry(Rz(Rx(Ry(g_multi(radius, nx),(-STEP)*dtheta),psi),phi),theta)));
+		g_emit_vertex(r0 + Ry(Rz(Rx(Ry(radius * nx,(-STEP)*dtheta),psi),phi),theta));
 	}
 }
 

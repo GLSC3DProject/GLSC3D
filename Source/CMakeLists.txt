@@ -39,7 +39,6 @@ add_library(GLSC3D
 	g_cylinder_3D.cpp
 	g_data_plot.c
 	g_debug.cpp
-	g_direction_private.c
 	g_ellipse_3D.cpp
 	g_fan.cpp
 	g_cls_finish.c

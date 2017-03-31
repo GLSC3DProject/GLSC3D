@@ -107,3 +107,14 @@ G_VECTOR Rx2D(G_VECTOR u,G_REAL theta)//二次元平面上でuをtheta回転さ�
             R[0][0] * u.x + R[0][1] * u.y,
             R[1][0] * u.x + R[1][1] * u.y);
 }
+
+/***************************direction********************************************************/
+G_REAL g_direction_phi(G_VECTOR v)
+{
+    return atan2(v.y, sqrt(v.x*v.x+v.z*v.z));
+}
+
+G_REAL g_direction_theta(G_VECTOR v)
+{
+    return atan2(v.z, v.x);
+}
