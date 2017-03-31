@@ -15,7 +15,7 @@
 
 #define LEN         (2.0)
 
-#define SIZE        (64)
+#define SIZE        (2048)
 #define Imax        (2 * SIZE)
 #define Jmax        (SIZE)
 
@@ -51,7 +51,7 @@ int main(void)
     clock_t start, end;
     start = clock();
     
-	for(i_time = 0; i_time < 1000; i_time = (i_time + 1) % (int)(2*M_PI/dt))
+	for(i_time = 0; i_time < 10; i_time = (i_time + 1) % (int)(2*M_PI/dt))
 	{
 		double t = dt*i_time;
 

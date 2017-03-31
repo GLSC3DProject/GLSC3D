@@ -196,9 +196,9 @@ extern int g_enable_transparent;
 extern int TRIANGLE_BUFFER_SIZE;
 extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
-// ---- data_buffer
-extern double *data_buffer_double;
-extern G_VECTOR *data_buffer_G_VECTOR;
+//// ---- data_buffer
+//extern double *data_buffer_double;
+//extern G_VECTOR *data_buffer_G_VECTOR;
 
 // ---- g_scale.cpp
 
