@@ -33,15 +33,15 @@ add_library(GLSC3D
 	g_box.c
 	g_camera.cpp
 	g_capture.c
-	g_circle.c
-	g_cone.c
+	g_circle.cpp
+	g_cone.cpp
 	g_contln_2D.c
 	g_cylinder_3D.cpp
 	g_data_plot.c
 	g_debug.cpp
 	g_direction_private.c
-	g_ellipse_3D.c
-	g_fan.c
+	g_ellipse_3D.cpp
+	g_fan.cpp
 	g_cls_finish.c
 	g_init.cpp
 	g_input.c
@@ -49,18 +49,17 @@ add_library(GLSC3D
 	g_light.cpp
 	g_line.cpp
 	g_marker.cpp
-	g_matrix_private.c
 	g_move_plot.c
 	g_off_screen.c
 	g_polygon_polyline.c
 	g_prism_3D.cpp
 	g_private.cpp
-	g_pyramid_3D.c
-	g_rectangle.c
+	g_pyramid_3D.cpp
+	g_rectangle.cpp
 	g_scale.cpp
 	g_sdl_wrapper.cpp
 	g_shader_program.cpp
-	g_sphere_3D.c
+	g_sphere_3D.cpp
 	g_text.cpp
 	g_triangle.cpp
 	g_triangle_buffer.cpp
