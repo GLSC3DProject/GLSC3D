@@ -16,7 +16,8 @@ void g_ellipse_3D_core(double x, double y, double z,                            
 	double A = cos(dth), B = sin(dth), C = cos(dp), D = sin(dp);
 	double beta = g_direction_phi(g_vector3(direction_x, direction_y, direction_z));
 	double alpha = g_direction_theta(g_vector3(direction_x, direction_y, direction_z));
-	G_POSITION X = { x, y, z }, r0, r1, r2, r3;
+	G_VECTOR r0, r1, r2, r3, X;
+    X = G_VECTOR( x, y, z );
 	G_VECTOR center = g_vector3(x, y, z);
 	G_VECTOR SCALE = g_vector3(Sx, Sy, Sz);
 
