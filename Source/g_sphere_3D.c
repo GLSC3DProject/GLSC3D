@@ -1,6 +1,6 @@
 #include "glsc3d_private.h"
 
-//#define USE_g_triangle_3D_core
+#define USE_g_triangle_3D_core
 
 void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill)
 {
@@ -11,7 +11,7 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 	double a = 1, b = 0, c = 1, d = 0, P, Q, R, S;
 	double atmp, btmp, ctmp, dtmp;
 	double A = cos(dth), B = sin(dth), C = cos(dp), D = sin(dp);
-	G_POSITION r0, r1, r2, r3, X = { x, y, z };
+	G_POSITION r0, r1, r2, r3, X( x, y, z );
 #ifndef USE_g_triangle_3D_core
 	G_VERTEX   v0, v1, v2, v3;
 	G_TRIANGLE t0, t1;
@@ -27,7 +27,7 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 			r1 = g_position(radius * P * c, radius * P * d, radius * Q);
 			r2 = g_position(radius * b * R, radius * b * S, radius * a);
 			r3 = g_position(radius * P * R, radius * P * S, radius * Q);
-			
+
 #ifdef USE_g_triangle_3D_core
 			r0 = g_plus(r0, X);            r1 = g_plus(r1, X);
 			r2 = g_plus(r2, X);            r3 = g_plus(r3, X);
