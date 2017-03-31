@@ -48,18 +48,24 @@ void main() {
 // Fragment shader for rendering 3D triangles
 const char * const LIGHTING_FRAG_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
-uniform Lights { vec4 direction; float ambient, diffuse, specular, shininess; } light;
+struct G_LIGHT { vec3 direction; float pad; float ambient, diffuse, specular, shininess; };
+uniform Lights { G_LIGHT lights[3]; int num_lights; };
 layout(location = 0) in vec4 vary_color;
 layout(location = 1) in vec4 vary_normal;
 layout(location = 2) in vec4 vary_position;
 out vec4 out_color;
-void main() {
-	vec3 half_vec = normalize(light.direction.xyz - normalize(vary_position.xyz));
+vec4 calc_light(G_LIGHT light) {
+	vec3 half_vec = normalize(light.direction - normalize(vary_position.xyz));
 	vec3 normal = normalize(vary_normal.xyz);
 	normal *= gl_FrontFacing ? 1.0 : -1.0;
-	float amb_dif = light.ambient + light.diffuse * max(dot(light.direction.xyz, normal), 0);
+	float amb_dif = light.ambient + light.diffuse * max(dot(light.direction, normal), 0);
 	float spec = light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);
-	out_color = vec4(amb_dif * vary_color.rgb + spec, vary_color.a);
+	return vec4(amb_dif * vary_color.rgb + spec, vary_color.a);
+}
+void main() {
+	out_color = vec4(0.0);
+	for (int i = 0; i < num_lights; i++)
+		out_color += calc_light(lights[i]);
 })";
 
 // ----------------------------------------------------------------

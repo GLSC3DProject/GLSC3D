@@ -2,31 +2,61 @@
 
 #ifdef G_USE_CORE_PROFILE
 
+#define NUM_LIGHTS 3
+
 struct G_LIGHT
 {
 	G_VECTOR direction;
-	float direction_w;
+	GLuint enabled; // ignored in the shader
 	float ambient, diffuse, specular, shininess;
 };
 
-void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z, float lit_pow)
+struct G_LIGHT_LIST
 {
-	if (lightnum != 0) return;
+	G_LIGHT lights[NUM_LIGHTS];
+	GLuint	num_lights, pad1, pad2, pad3;
+};
 
-	G_LIGHT light;
-	light.direction = g_normalize(G_VECTOR(lit_pos_x, lit_pos_y, lit_pos_z));
-	light.direction_w = 0;
-	light.ambient = 0;
-	light.diffuse = lit_pow;
-	light.specular = 1.0f;
-	light.shininess = 64;
+G_LIGHT lights[NUM_LIGHTS];
 
-	g_update_uniform(G_UNIFORM_LIGHTS, sizeof(light), &light);
+void update_lights()
+{
+	G_LIGHT_LIST enabled_lights;
+	enabled_lights.num_lights = 0;
+
+	for (G_LIGHT light : lights) {
+		if (light.enabled)
+			enabled_lights.lights[enabled_lights.num_lights++] = light;
+	}
+	printf("%d\n", enabled_lights.num_lights);
+
+	g_update_uniform(G_UNIFORM_LIGHTS, sizeof(G_LIGHT_LIST), &enabled_lights);
+}
+
+void g_init_light_core(G_UINT lightnum, float x, float y, float z, float power)
+{
+	if (lightnum >= NUM_LIGHTS) return;
+
+	G_LIGHT &target = lights[lightnum];
+	target.direction = g_normalize(G_VECTOR(x, y, z));
+	target.enabled = true;
+	target.ambient = 0;
+	target.diffuse = power;
+	target.specular = power;
+	target.shininess = 64;
+
+	update_lights();
+}
+
+void g_disable_light(G_UINT lightnum)
+{
+	lights[lightnum].enabled = false;
+	update_lights();
 }
 
 #else
 
-void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z, float lit_pow)
+void g_init_light_core(G_UINT lightnum, float x, float y, float z, float diffuse)
 {
 //	static GLfloat lit_amb[4]={0.3, 0.3, 0.3, 0.0};	// 環境光の強さ
 	GLfloat lit_dif[4]={lit_pow, lit_pow, lit_pow, 0.0};	// 拡散光の強さ
@@ -64,7 +94,7 @@ void g_init_light_core(int lightnum, float lit_pos_x, float lit_pos_y, float lit
 }
 #endif
 
-void g_init_light(int lightnum, float lit_pos_x, float lit_pos_y, float lit_pos_z)
+void g_init_light(G_UINT lightnum, float x, float y, float z)
 {
-	g_init_light_core(lightnum,lit_pos_x,lit_pos_y,lit_pos_z, 1.0);
+	g_init_light_core(lightnum, x, y, z, 1);
 }
