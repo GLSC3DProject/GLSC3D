@@ -6,8 +6,8 @@
 //#define USE_MULTIDIMENSIONAL_ARRAY
 
 #define INTV              (1)
-#define WINDOW_SIZE_X     (500)
-#define WINDOW_SIZE_Y     (500)
+#define WINDOW_SIZE_X     (1000)
+#define WINDOW_SIZE_Y     (1000)
 
 #define LEN         (2.0)
 #define XLEN        (LEN)
