@@ -33,24 +33,18 @@ void g_prism_3D_core(
 			r2 = (r - top) * B * matrix;
 			r3 = (r + top) * B * matrix;
 
-			G_TRIANGLE t0, t1;
-			G_VERTEX v0, v1, v2, v3;
-
 			G_MATRIX C = G_MATRIX::RotationX((i + 0.5f) * dth);
 			G_VECTOR n = g_transform_normal(rn * C, matrix);
-
-			v0 = g_make_vertex(r0, n);
-			v1 = g_make_vertex(r1, n);
-			v2 = g_make_vertex(r2, n);
-			v3 = g_make_vertex(r3, n);
-
-			t0 = g_make_triangle_core(v0, v1, v2);
-			t1 = g_make_triangle_core(v1, v3, v2);
-			g_set_triangle(t0);
-			g_set_triangle(t1);
-
-			g_triangle_3D_core_worker(p, r0, r2, DivideLevel);
-			g_triangle_3D_core_worker(q, r3, r1, DivideLevel);
+			g_triangle_3D_core_smooth(
+					r0,r1,r2,
+					 n, n, n,DivideLevel);
+			g_triangle_3D_core_smooth(
+					r1,r3,r2,
+					n, n, n,DivideLevel);
+			n = g_calc_normal(p, r0, r2);
+			g_triangle_3D_core_smooth(p, r0, r2, n, n, n, DivideLevel);
+			n = g_calc_normal(q, r3, r1);
+			g_triangle_3D_core_smooth(q, r3, r1, n, n, n, DivideLevel);
 		}
 	}
 	if (Wire)
