@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.7-160201-2.6 (sjis) (TeX Live 2016/W32TeX) (preloaded format=platex 2016.9.4)  31 MAR 2017 16:31
+This is e-pTeX, Version 3.14159265-p3.7-160201-2.6 (sjis) (TeX Live 2016/W32TeX) (preloaded format=platex 2016.9.4)  31 MAR 2017 17:43
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -261,15 +261,15 @@ File: ./Figures/eps/004.eps Graphic file (type eps)
 File: ./Figures/eps/005.eps Graphic file (type eps)
  <./Figures/eps/005.eps> [22] [23] [24] [25]
 LaTeX Font Info:    Font shape `JT1/mc/m/it' in size <10> not available
-(Font)              Font shape `JT1/mc/m/n' tried instead on input line 519.
+(Font)              Font shape `JT1/mc/m/n' tried instead on input line 526.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 519.
+(Font)              scaled to size 9.60999pt on input line 526.
 LaTeX Font Info:    Font shape `JY1/mc/m/it' in size <10> not available
-(Font)              Font shape `JY1/mc/m/n' tried instead on input line 519.
+(Font)              Font shape `JY1/mc/m/n' tried instead on input line 526.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 519.
+(Font)              scaled to size 9.60999pt on input line 526.
  [26]
-Overfull \hbox (3.98499pt too wide) in paragraph at lines 539--540
+Overfull \hbox (3.98499pt too wide) in paragraph at lines 546--547
 [][]\OT1/cmr/m/n/10 GLSC3D \JY1/mc/m/n/10 は一般的なソフトウ ェアと同じように 
 ， ライブラリ \OT1/cmr/m/n/10 (\OT1/cmtt/m/n/10 libglsc3d.a\OT1/cmr/m/n/10 , \O
 T1/cmtt/m/n/10 libglsc3d.dylib\OT1/cmr/m/n/10 ,
@@ -277,19 +277,19 @@ T1/cmtt/m/n/10 libglsc3d.dylib\OT1/cmr/m/n/10 ,
 
 File: ./Figures/eps/006.eps Graphic file (type eps)
 <./Figures/eps/006.eps>
-Underfull \hbox (badness 2418) in paragraph at lines 552--554
+Underfull \hbox (badness 2418) in paragraph at lines 559--561
 \JY1/mc/m/n/10 としてください ． 様 々なフ ァイルが
  []
 
 
-Underfull \hbox (badness 1365) in paragraph at lines 552--554
+Underfull \hbox (badness 1365) in paragraph at lines 559--561
 \JY1/mc/m/n/10 コンパイルされ \OT1/cmr/m/n/10 Out \JY1/mc/m/n/10 フ ォルダにラ
 イ
  []
 
 File: ./Figures/eps/007.eps Graphic file (type eps)
 <./Figures/eps/007.eps>
-Overfull \hbox (18.08052pt too wide) in paragraph at lines 562--563
+Overfull \hbox (18.08052pt too wide) in paragraph at lines 569--570
 [][]\OT1/cmtt/m/n/10 $: cd ../SampleProgram/using_makefile 
  []
 
@@ -314,13 +314,13 @@ File: ./Figures/eps/Canvas_g_scr_color.eps Graphic file (type eps)
 ] [38
 
 ]
-Overfull \hbox (5.41893pt too wide) in paragraph at lines 998--998
+Overfull \hbox (5.41893pt too wide) in paragraph at lines 1005--1005
 []                  \OT1/cmtt/m/n/10 G_KEY_HOME,        G_KEY_RIGHT,    G_KEY_F
 4,  G_KEY_F10,[] 
  []
 
 
-Overfull \hbox (5.41893pt too wide) in paragraph at lines 998--998
+Overfull \hbox (5.41893pt too wide) in paragraph at lines 1005--1005
 []                  \OT1/cmtt/m/n/10 G_KEY_END,         G_KEY_DOWN,     G_KEY_F
 5,  G_KEY_F11,[] 
  []
@@ -541,4 +541,4 @@ Here is how much of TeX's memory you used:
  19 hyphenation exceptions out of 8191
  26i,12n,43p,1390b,430s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on GLSC3D_Manual.dvi (117 pages, 298260 bytes).
+Output written on GLSC3D_Manual.dvi (117 pages, 298772 bytes).

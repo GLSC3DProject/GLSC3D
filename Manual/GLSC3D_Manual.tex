@@ -364,12 +364,17 @@ Ver 3.0以降ではウィンドウのサイズ変更・最大化と Apple Retina
 \begin{itemize}
 	\item \verb|g_sel_scale_2D, g_sel_scale_3D|
 	\item \verb|g_marker_size, g_line_width, g_text_size|
+	\item \verb|g_text_standard|
+	\item \verb|g_input_state| (マウス座標の逆変換)
 \end{itemize}
-これらの関数を使用する場合，(最初に1回だけ呼ぶのではなく)ループ内で使用することをお勧めします．これによりウインドウサイズの変更に適切に対応できるようになります．
+Ver 3.0以降では\verb|g_sel_scale_2D, g_sel_scale_3D|を(最初に1回だけ呼ぶのではなく)ループ内で使用することをお勧めします．
+これによりウインドウサイズの変更に適切に対応できるようになります．
 
 \verb|g_capture|を用いる場合，ウインドウサイズの変更は行わないでください．
 
-Apple Retina Display では，このスケールファクターの初期値は2になります．それ以外の場合，スケールファクターの初期値は1です．
+Apple Retina Display の対応はデフォルトでは無効になっています．
+有効化する場合，\verb|g_enable_highdpi|を\verb|g_init(_core)|の前に呼び出してください．
+この場合，スケールファクターの初期値は2になります．それ以外の場合，スケールファクターの初期値は1です．
 
 \subsubsection{マーカーの種類の追加}
 \verb|g_marker_type|として正方形，円のほかに球を指定できるようにしました．
@@ -380,11 +385,13 @@ Apple Retina Display では，このスケールファクターの初期値は2�
 
 どの種類のマーカーでも，サイズは\verb|g_marker_size|によりピクセル単位の直径を指定できるほか，\verb|g_marker_radius|により仮想座標系での半径を指定することができます．
 
-\subsubsection{ウインドウの初期化関連}
-\verb|g_init_core|に指定するウインドウの位置として，画面の中央に表示することを意味する\verb|G_WINDOW_CENTERED|を指定できるようにしました．
-\verb|g_init|を使用した場合のウインドウの位置は常に\verb|G_WINDOW_CENTERED|となります．
+\subsubsection{その他}
+Ver 3.0以降ではライトの最大数を3つに変更しました．
+これは4つ以上のライトは不要と判断してのことですが，要望がある方は本マニュアルの ``おわりに'' をご覧ください．\\
 
-\subsubsection{多次元配列について}
+\verb|g_init_core|に指定するウインドウの位置として，画面の中央に表示することを意味する\verb|G_WINDOW_CENTERED|を指定できるようにしました．
+\verb|g_init|を使用した場合のウインドウの位置は常に\verb|G_WINDOW_CENTERED|となります．\\
+
 多次元配列を受け取る関数
 \begin{center}
 	\verb|g_bird_view_3D, g_contln_2D, g_data_plot_3D, g_isosurface_3D|
@@ -3226,7 +3233,9 @@ void g_isosurface_f_3D(
 
 GLSC3Dはgnuplotような便利さも無ければ，OpenGLのように3Dオブジェクトに対して，詳細な属性設定をすることもできません．しかしながら，その分コーディングが簡素となり，あなたが思い描くことは何でも表現できます．本マニュアルを熟読し，サンプルプログラムを参考にしながら使用してください．
 
-新関数の要望やバグを発見した場合は秋山正和\footnote{akiyama@es.hokudai.ac.jpですが，未来永劫このメールアドレスが使用可能かは不明です．．．}までご連絡ください．
+新関数やライトの上限を増やしてほしいなどの要望，またはバグを発見した場合は秋山正和
+\footnote{akiyama@es.hokudai.ac.jpですが，未来永劫このメールアドレスが使用可能かは不明です．．．}
+までご連絡ください．
 
 論文や学術研究会などでも本ライブラリを使用された際は，その旨を記載してください．開発の励みとなります．
 
