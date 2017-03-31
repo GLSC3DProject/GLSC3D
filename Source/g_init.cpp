@@ -33,7 +33,7 @@ void g_init_core(
 	glEnable(GL_BLEND);
 
 //	glEnable(GL_LINE_SMOOTH);
-	glEnable(GL_CULL_FACE);
+//	glEnable(GL_CULL_FACE);
 
 //	int range[2];
 //	glGetIntegerv(GL_POINT_SIZE_RANGE, range);

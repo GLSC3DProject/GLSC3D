@@ -1,18 +1,9 @@
 /*******************************************************************************
-<<<<<<< HEAD
+//
 //  g_isosurface.c & g_isosurface.h
 //  Type0
 //
-<<<<<<< HEAD
 //  Created by masakazu on 2014/05/20.
-=======
-//  Created by masakazu on 2014/11/06.
->>>>>>> 408ef24d6aad516d7dd4ef6de2be084c255466f5
-=======
-//  g_isosurface.c
-//
-//  Created by masakazu on 2014/11/06.
->>>>>>> e5a7cf6836f24c34aea38afd5e42ed3a105350c5
 //  Copyright © 2014.5.20 Masakazu Akiyama All Rights Reserved.
 //
 *******************************************************************************/
@@ -20,7 +11,7 @@
 #include<stdlib.h>
 
 #include "glsc3d_private.h"
-#define NURITUBUSI  (G_FILL)
+#define WIRE_OR_FILL  (G_FILL)
 #define DIVIDE_LEVEL    (0)
 typedef struct
 {
@@ -58,11 +49,13 @@ static MarchingEdge Judgeheight(G_VECTOR r0,G_VECTOR r1,double v0, double v1,dou
     return ans;
 }
 
-G_POSITION g_position3Ds(G_VECTOR u)
-{
-    G_POSITION r = g_position(u.x,u.y,u.z);
-    return r;
-}
+//G_POSITION g_position3Ds(G_VECTOR u)
+//{
+//    G_POSITION r = g_position(u.x,u.y,u.z);
+//    return r;
+//}
+#define g_position3Ds(u) u
+
 void g_triangle_3D_cores(G_POSITION r0,G_POSITION r1,G_POSITION r2,G_WIREFILL WireFill,int level)
 {
     g_triangle_3D_core(r0.x,r0.y,r0.z,
@@ -70,13 +63,13 @@ void g_triangle_3D_cores(G_POSITION r0,G_POSITION r1,G_POSITION r2,G_WIREFILL Wi
                        r2.x,r2.y,r2.z,
                        WireFill,level);
 }
-static void do_isosurface(MarchingCube Cube,MarchingTetrahedron *Tetrahedron, MarchingEdge *Edge,
+static void do_isosurface(const MarchingCube *Cube,MarchingTetrahedron *Tetrahedron, MarchingEdge *Edge,
                            double height,int Table1[6][5],int Table2[7][3])
 {
     int UraOmoteFlag;
     int SankakuShikaku;
     int EdgeMember[4];
-    G_VECTOR    n = {},n1 = {};
+    G_VECTOR    n,n1;
     G_POSITION r0, r1, r2, r3;
 
     int l,m;
@@ -84,8 +77,8 @@ static void do_isosurface(MarchingCube Cube,MarchingTetrahedron *Tetrahedron, Ma
     {
         for(m = 1;m <= 4;m ++)//Vertex
         {
-            Tetrahedron->r[m]     = Cube.r[Table1[l][m]];
-            Tetrahedron->value[m] = Cube.value[Table1[l][m]];
+            Tetrahedron->r[m]     = Cube->r[Table1[l][m]];
+            Tetrahedron->value[m] = Cube->value[Table1[l][m]];
         }
 
         for(m = 1;m <= 6;m ++)//Edge
@@ -110,12 +103,13 @@ static void do_isosurface(MarchingCube Cube,MarchingTetrahedron *Tetrahedron, Ma
         {
             if(SankakuShikaku == 3)
             {
-               r0 = g_position3Ds(Edge[EdgeMember[0]].r);
-
+                r0 = g_position3Ds(Edge[EdgeMember[0]].r);
+				/*
                 if(g_dot(n,n1) > 0) r1 = g_position3Ds(Edge[EdgeMember[1]].r), r2 = g_position3Ds(Edge[EdgeMember[2]].r);
                 else r1 = g_position3Ds(Edge[EdgeMember[2]].r), r2 = g_position3Ds(Edge[EdgeMember[1]].r);
-
-                g_triangle_3D_cores(r0,r1,r2,DIVIDE_LEVEL,NURITUBUSI);
+				 */
+				r1 = g_position3Ds(Edge[EdgeMember[2]].r), r2 = g_position3Ds(Edge[EdgeMember[1]].r);
+                g_triangle_3D_cores(r0,r1,r2,DIVIDE_LEVEL,WIRE_OR_FILL);
             }
             else
             {
@@ -123,28 +117,35 @@ static void do_isosurface(MarchingCube Cube,MarchingTetrahedron *Tetrahedron, Ma
                 {
                     r0 = g_position3Ds(Edge[1].r);
                     r2 = g_position3Ds(Edge[5].r);
-
+					/*
                     if(g_dot(n,n1) > 0) r1 = g_position3Ds(Edge[2].r), r3 = g_position3Ds(Edge[6].r);
                     else r1 = g_position3Ds(Edge[6].r),r3 = g_position3Ds(Edge[2].r);
+					 */
+					r1 = g_position3Ds(Edge[6].r),r3 = g_position3Ds(Edge[2].r);
                 }
                 else if(EdgeMember[0] == 1 && EdgeMember[1] == 3 && EdgeMember[2] == 4 && EdgeMember[3] == 5)
                 {
                     r0 = g_position3Ds(Edge[1].r);
                     r2 = g_position3Ds(Edge[5].r);
-
-                    if(g_dot(n,n1) > 0) r1 = g_position3Ds(Edge[3].r), r3 = g_position3Ds(Edge[4].r);
+					/*
+                    if(g_dot(n,n1) < 0) r1 = g_position3Ds(Edge[3].r), r3 = g_position3Ds(Edge[4].r);
                     else r1 = g_position3Ds(Edge[4].r),r3 = g_position3Ds(Edge[3].r);
+					 */
+					r1 = g_position3Ds(Edge[4].r),r3 = g_position3Ds(Edge[3].r);
                 }
                 else
                 {
                     r0 = g_position3Ds(Edge[3].r);
                     r2 = g_position3Ds(Edge[4].r);
 
-                    if(g_dot(n,n1) < 0) r1 = g_position3Ds(Edge[2].r),r3 = g_position3Ds(Edge[6].r);
+					/*
+                    if(g_dot(n,n1) > 0) r1 = g_position3Ds(Edge[2].r),r3 = g_position3Ds(Edge[6].r);
                     else r1 = g_position3Ds(Edge[6].r),r3 = g_position3Ds(Edge[2].r);
+					 */
+					r1 = g_position3Ds(Edge[6].r),r3 = g_position3Ds(Edge[2].r);
                 }
-                g_triangle_3D_cores(r0,r1,r2,DIVIDE_LEVEL,NURITUBUSI);
-                g_triangle_3D_cores(r0,r2,r3,DIVIDE_LEVEL,NURITUBUSI);
+                g_triangle_3D_cores(r0,r1,r2,DIVIDE_LEVEL,WIRE_OR_FILL);
+                g_triangle_3D_cores(r0,r2,r3,DIVIDE_LEVEL,WIRE_OR_FILL);
             }
         }
     }
@@ -234,24 +235,11 @@ void g_isosurface_f_3D(double x0,double x1,
                    (kk == 1 && jj == 1 && ii == 1)||(kk == 1 && jj == 0 && ii == 0)||
                    (kk == 0 && jj == 1 && ii == 0)||(kk == 0 && jj == 0 && ii == 1)
                    )
-                    do_isosurface(Cube, &Tetrahedron, Edge, height,Table1r,Table2r);
+                    do_isosurface(&Cube, &Tetrahedron, Edge, height,Table1r,Table2r);
                 else
-                    do_isosurface(Cube, &Tetrahedron, Edge, height,Table1l,Table2l);
+                    do_isosurface(&Cube, &Tetrahedron, Edge, height,Table1l,Table2l);
             }
         }
     }
 }
 #undef u
-//////////////////////////////////////////////////////////////////////////////////
-////#define FAST_CODE
-//void g_isosurface_3D(double x0,double x1,
-//                     double y0,double y1,
-//                     double z0,double z1,
-//                     int number_x,int number_y,int number_z,
-//                     double u[number_x][number_y][number_z],
-//                     double height)
-//{
-//    //g_isosurface_f_3D(x0,x1,y0,y1,z0,z1,number_x,number_y,number_z,&u[0][0][0],height);
-//	g_isosurface_f_3D(x0,x1,y0,y1,z0,z1,number_z,number_y,number_x,&u[0][0][0],height);
-//}
-////#undef FAST_CODE
