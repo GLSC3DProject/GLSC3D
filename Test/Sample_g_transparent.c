@@ -11,7 +11,7 @@ int main()
 	G_POSITION eye[4];
 	double shu = 10;
 	
-	g_init_core("GRAPH", 1280, 960,50,50,0,0,0,G_TRUE,100*24,2048);
+	g_init_core("GRAPH", 1280, 960,50,50,0,0,0,G_TRUE,100*24,4096);
 
     FILE *fp;
 	fp = fopen("data.txt","a");
@@ -67,8 +67,7 @@ int main()
 			/********************test sphere*******************************/
 			g_cone_3D_core(0.5, 1, 0.5,
 			  1, 1, 1,
-			  1, 2,
-			  24, 2, 0, 1);
+			  1, 2, 0, 1);
 			 
 			//g_arrow_3D_core(0, 0, 0, 1, 0, 1, 2*scale, 0.5*scale, 5, 5, 0, G_WIRE);
 
