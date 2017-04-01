@@ -37,7 +37,7 @@ void g_cone_3D_core(double center_x, double center_y, double center_z,          
 					double radius, double head_size,
 					int DivideLevel, G_WIREFILL WireFill)
 {
-	g_pyramid_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, head_size, 0,  100, DivideLevel, G_FILL);
+	g_pyramid_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, head_size, 0,  100, DivideLevel, WireFill);
 }
 
 void g_cone_3D(double center_x, double center_y, double center_z,          //中心座標
