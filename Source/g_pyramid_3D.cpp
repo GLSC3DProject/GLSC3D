@@ -14,7 +14,16 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 	G_VECTOR r = g_vector3(0,radius,0);
 
 	G_VECTOR rotation_top = Ry(Rz(top,phi),theta) + center;
-	G_VECTOR r_i[N], n_i_lateral[N], n_i[N];
+
+	int Data_Size_r_i = N;
+	int Data_Size_n_i_lateral = N;
+	int Data_Size_n_i = N;
+	int Data_Size = Data_Size_r_i * sizeof(G_VECTOR) + Data_Size_n_i_lateral * sizeof(G_VECTOR) + Data_Size_n_i * sizeof(G_VECTOR);
+	GLSC3D_Data_Buffer = GLSC3D_Array_Buffer(Data_Size);
+	G_VECTOR *r_i = (G_VECTOR *)GLSC3D_Data_Buffer;
+	G_VECTOR *n_i_lateral = (G_VECTOR *)(r_i + Data_Size_r_i);
+	G_VECTOR *n_i = (G_VECTOR *)(n_i_lateral + Data_Size_n_i_lateral);
+
 	G_VECTOR top_normal, center_normal;
 
 	for(i=0; i<N; i++) {
@@ -55,7 +64,7 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 void g_pyramid_3D(double center_x, double center_y, double center_z,                      //中心座標
 				  double direction_x, double direction_y, double direction_z,             //方向
 				  double radius,double head_size, double psi,                             //半径、高さ
-				  int N, G_WIREFILL WireFill)
+				  int N)
 {
-	g_pyramid_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, head_size, psi,  N, 0, WireFill);
+	g_pyramid_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, head_size, psi,  N, 0, G_FILL);
 }
