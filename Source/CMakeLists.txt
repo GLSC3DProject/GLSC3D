@@ -44,7 +44,7 @@ add_library(GLSC3D
 	g_cls_finish.c
 	g_init.cpp
 	g_input.c
-	g_isosurface.c
+	g_isosurface.cpp
 	g_light.cpp
 	g_line.cpp
 	g_marker.cpp
