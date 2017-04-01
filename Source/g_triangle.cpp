@@ -11,6 +11,9 @@ void g_triangle_3D_core_smooth(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2, G_VECTOR n
 		G_VECTOR n4 = (n1 + n2) / 2;
 		G_VECTOR n5 = (n2 + n0) / 2;
 
+		g_triangle_3D_core_smooth(r0, r3, r5, n0, n3, n5, DivideLevel - 1);
+		g_triangle_3D_core_smooth(r1, r4, r3, n1, n4, n3, DivideLevel - 1);
+		g_triangle_3D_core_smooth(r2, r5, r4, n2, n5, n4, DivideLevel - 1);
 		g_triangle_3D_core_smooth(r3, r4, r5, n3, n4, n5, DivideLevel - 1);
 	} else {
 		G_VERTEX v0 = g_make_vertex(r0, n0);
