@@ -54,18 +54,21 @@ layout(location = 0) in vec4 vary_color;
 layout(location = 1) in vec4 vary_normal;
 layout(location = 2) in vec4 vary_position;
 out vec4 out_color;
-vec4 calc_light(G_LIGHT light) {
+vec3 calc_light(vec3 normal, G_LIGHT light) {
 	vec3 half_vec = normalize(light.direction - normalize(vary_position.xyz));
-	vec3 normal = normalize(vary_normal.xyz);
-	normal *= gl_FrontFacing ? 1.0 : -1.0;
-	float amb_dif = light.ambient + light.diffuse * max(dot(light.direction, normal), 0);
+	float amb_dif = light.diffuse * max(dot(light.direction, normal), 0);
 	float spec = light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);
-	return vec4(amb_dif * vary_color.rgb + spec, vary_color.a);
+	return amb_dif * vary_color.rgb + spec;
 }
 void main() {
-	out_color = vec4(0.0);
+	vec3 normal = normalize(vary_normal.xyz);
+	normal *= gl_FrontFacing ? 1.0 : -1.0;
+
+	vec3 color = vec3(0.0);
 	for (int i = 0; i < num_lights; i++)
-		out_color += calc_light(lights[i]);
+		color += calc_light(normal, lights[i]);
+
+	out_color = vec4(color, vary_color.a);
 })";
 
 // ----------------------------------------------------------------
