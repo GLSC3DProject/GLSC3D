@@ -21,8 +21,8 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 	int Data_Size = Data_Size_r_i * sizeof(G_VECTOR) + Data_Size_n_i_lateral * sizeof(G_VECTOR) + Data_Size_n_i * sizeof(G_VECTOR);
 	GLSC3D_Data_Buffer = GLSC3D_Array_Buffer(Data_Size);
 	G_VECTOR *r_i = (G_VECTOR *)GLSC3D_Data_Buffer;
-	G_VECTOR *n_i_lateral = (G_VECTOR *)(r_i + Data_Size_r_i);
-	G_VECTOR *n_i = (G_VECTOR *)(n_i_lateral + Data_Size_n_i_lateral);
+	G_VECTOR *n_i_lateral = r_i + Data_Size_r_i;
+	G_VECTOR *n_i = n_i_lateral + Data_Size_n_i_lateral;
 
 	G_VECTOR top_normal, center_normal;
 
