@@ -4,19 +4,17 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 {
 	int theta, phi;
 	int Nt = FaceNumberLevel * 3, Np = 2 * Nt;
-	double dth = M_PI / (Nt - 1);
-	double dp = 2.0 * M_PI / (Np - 1);
+	double dth = M_PI / Nt;
+	double dp = 2.0 * M_PI / Np;
 	double a = 1, b = 0, c = 1, d = 0, P, Q, R, S;
 	double atmp, btmp, ctmp, dtmp;
 	double A = cos(dth), B = sin(dth), C = cos(dp), D = sin(dp);
-	G_VECTOR r0, r1, r2, r3, X;
-	X = G_VECTOR(x,y,z);
-	G_VECTOR v0, v1, v2, v3;
+	G_VECTOR r0, r1, r2, r3, X(x,y,z);
 	double r_inv = 1 / radius;
 
-	for (theta = 0; theta < Nt - 1; theta++)
+	for (theta = 0; theta < Nt; theta++)
 	{
-		for (phi = 0; phi < Np - 1; phi++)
+		for (phi = 0; phi < Np; phi++)
 		{
 			P = (b * A + a * B); Q = (a * A - b * B);
 			R = (c * C - d * D); S = (d * C + c * D);
@@ -25,13 +23,11 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 			r2 = G_VECTOR (radius * b * R, radius * b * S, radius * a);
 			r3 = G_VECTOR (radius * P * R, radius * P * S, radius * Q);
 
-			if (theta < Nt - 2)
 			g_triangle_3D_core_smooth(
 					r0 + X,r1 + X,r3 + X,
 					r_inv * r0,r_inv * r1,r_inv * r3,
 					DivideLevel
 			);
-			if (theta > 0)
 			g_triangle_3D_core_smooth(
 					r0 + X,r3 + X,r2 + X,
 					r_inv * r0,r_inv * r3,r_inv * r2,
