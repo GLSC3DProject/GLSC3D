@@ -25,7 +25,7 @@ void g_init_core(
 //	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-	//glDebugMessageCallback(g_debug_callback, NULL);
+//	glDebugMessageCallback(g_debug_callback, NULL);
 #endif
 
 	glDepthFunc(GL_LEQUAL);
@@ -34,10 +34,7 @@ void g_init_core(
 
 //	glEnable(GL_LINE_SMOOTH);
 //	glEnable(GL_CULL_FACE);
-
-//	int range[2];
-//	glGetIntegerv(GL_POINT_SIZE_RANGE, range);
-//	printf("Supported point size range : [%d, %d]\n", range[0], range[1]);
+//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	g_vertex_buffer_init();
 
