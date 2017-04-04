@@ -1,6 +1,7 @@
 #include "glsc3d.h"
 
 #define WIRE_OR_FILL G_WIRE
+#define ARROW_TYPE	1
 
 int main()
 {
@@ -24,7 +25,7 @@ int main()
 	g_area_color_2D(0.5, 0.75, 0.5, 1);
 	g_line_color(1, 1, 1, 1);
 	g_line_width(2);
-	g_line_type(1);
+	//g_line_type(1);
 
 	//g_text_color(1, 1, 1, 1);
 
@@ -40,15 +41,15 @@ int main()
 
 		g_sel_scale_2D_boundary(0);
 		//g_region_boundary();
-		g_cone_2D(0, -0.5, 0, 1, 1, 1, WIRE_OR_FILL);
+		//g_cone_2D(0, -0.5, 0, 1, 1, 1, WIRE_OR_FILL);
 
 		g_sel_scale_2D_boundary(1);
 		g_circle_2D(0, 0, 1, WIRE_OR_FILL);
 
 		g_sel_scale_2D(2);
 		g_text_size(24);
-		g_arrow_2D(0, 0, c, s, 1, 0.25, WIRE_OR_FILL);
-		g_arrow_2D(0, 0,-s, c, 1, 0.25, WIRE_OR_FILL);
+		g_arrow_2D(0, 0, c, s, 1, 0.25, ARROW_TYPE);
+		g_arrow_2D(0, 0,-s, c, 1, 0.25, ARROW_TYPE);
 		g_text_2D_virtual( 1.1*c, 1.1*s, "x");
 		g_text_2D_virtual(-1.1*s, 1.1*c, "y");
 

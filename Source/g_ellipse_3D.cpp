@@ -1,9 +1,10 @@
 #include "glsc3d_private.h"
 
-void g_ellipse_3D_core(double x, double y, double z,                                 //中心座標
+void g_ellipse_3D_core(
+	double x, double y, double z,                                 //中心座標
 	double Sx, double Sy, double Sz,                              //x,y,z方向への拡大率
 	double direction_x, double direction_y, double direction_z,
-	int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill)
+	int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill)
 {
 	int theta, phi;
 	int Nt = FaceNumberLevel * 2, Np = 2 * Nt;
@@ -28,13 +29,13 @@ void g_ellipse_3D_core(double x, double y, double z,                            
 			P = (b * A + a * B); Q = (a * A - b * B);
 			R = (c * C - d * D); S = (d * C + c * D);
 
-			r0 = G_VECTOR (b * c, b * d, a);
+			r0 = G_VECTOR(b * c, b * d, a);
 			r0 = center + Ry(Rz(Scaling3Ds(r0, SCALE), beta), alpha);
-			r1 = G_VECTOR (P * c, P * d, Q);
+			r1 = G_VECTOR(P * c, P * d, Q);
 			r1 = center + Ry(Rz(Scaling3Ds(r1, SCALE), beta), alpha);
-			r2 = G_VECTOR (b * R, b * S, a);
+			r2 = G_VECTOR(b * R, b * S, a);
 			r2 = center + Ry(Rz(Scaling3Ds(r2, SCALE), beta), alpha);
-			r3 = G_VECTOR (P * R, P * S, Q);
+			r3 = G_VECTOR(P * R, P * S, Q);
 			r3 = center + Ry(Rz(Scaling3Ds(r3, SCALE), beta), alpha);
 
 			n0 = Scaling3Ds(r0, n_SCALE);
@@ -42,15 +43,15 @@ void g_ellipse_3D_core(double x, double y, double z,                            
 			n2 = Scaling3Ds(r2, n_SCALE);
 			n3 = Scaling3Ds(r3, n_SCALE);
 
-			g_triangle_3D_core_smooth(
+			g_triangle_3D_smooth_core_s(
 					r0 + X,r1 + X,r3 + X,
 					g_normalize(n0),g_normalize(n1),g_normalize(n3),
-					DivideLevel
+					DivideLevel, Wire, Fill
 			);
-			g_triangle_3D_core_smooth(
+			g_triangle_3D_smooth_core_s(
 					r0 + X,r3 + X,r2 + X,
 					g_normalize(n0),g_normalize(n3),g_normalize(n2),
-					DivideLevel
+					DivideLevel, Wire, Fill
 			);
 			ctmp = c;
 			dtmp = d;
@@ -64,9 +65,10 @@ void g_ellipse_3D_core(double x, double y, double z,                            
 	}
 }
 
-void g_ellipse_3D(double x, double y, double z,                                 //中心座標
+void g_ellipse_3D(
+	double x, double y, double z,                                 //中心座標
 	double Sx, double Sy, double Sz,                              //x,y,z方向への拡大率
 	double direction_x, double direction_y, double direction_z)   //方向
 {
-	g_ellipse_3D_core(x, y, z, Sx, Sy, Sz, direction_x, direction_y, direction_z, 12, 0, 1);
+	g_ellipse_3D_core(x, y, z, Sx, Sy, Sz, direction_x, direction_y, direction_z, 12, 0, G_FALSE, G_TRUE);
 }

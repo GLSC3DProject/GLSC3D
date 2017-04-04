@@ -23,8 +23,8 @@ typedef unsigned int G_UINT;
 typedef int G_BOOL;
 #define G_FALSE	0
 #define G_TRUE	1
-//#define G_NO	0
-//#define G_YES	1
+#define G_NO	0
+#define G_YES	1
 
 /*typedef enum
  {
@@ -251,14 +251,14 @@ void g_box_3D_core(double x, double y, double z,
 void g_box_3D(double x, double y, double z,
 			  double width, double height, double depth);
 
-void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);
+void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
 void g_sphere_3D(double x, double y, double z, double radius);
 
 void g_ellipse_3D_core(double x, double y, double z,
 					   double Sx, double Sy, double Sz,
 					   double direction_x, double direction_y, double direction_z,
-					   int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);
+					   int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
 void g_ellipse_3D(double x, double y, double z,
 				  double Sx, double Sy, double Sz,
@@ -279,11 +279,6 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,
 
 void g_cylinder_3D(double center_x, double center_y, double center_z, double direction_x, double direction_y,
 				   double direction_z, double radius, double height, double psi, G_BOOL Wire, G_BOOL Fill);
-
-void g_cone_2D(double center_x, double center_y,
-			   double direction_x, double direction_y,
-			   double radius, double head_size,
-			   int type);
 
 void g_cone_3D_core(double center_x, double center_y, double center_z,
 					double direction_x, double direction_y, double direction_z,
@@ -318,24 +313,63 @@ void g_arrow_3D(double base_x, double base_y, double base_z,
 				double direction_x, double direction_y, double direction_z,
 				double arrow_size, double head_size);
 
-void g_triangle_3D(double x0, double y0, double z0,
-				   double x1, double y1, double z1,
-				   double x2, double y2, double z2,
-				   G_WIREFILL WireFill);
+void g_triangle_3D_smooth_core_s(
+	G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
+	G_VECTOR n0, G_VECTOR n1, G_VECTOR n2,
+	int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_triangle_3D_core(double x0, double y0, double z0,
-						double x1, double y1, double z1,
-						double x2, double y2, double z2,
-						int DivideLevel, G_WIREFILL WireFill);
+void g_triangle_3D_smooth_s(
+	G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
+	G_VECTOR n0, G_VECTOR n1, G_VECTOR n2,
+	G_BOOL Wire, G_BOOL Fill);
 
-void g_triangle_3D_core_smooth(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
-							   G_VECTOR n0, G_VECTOR n1, G_VECTOR n2,
-							   int DivideLevel);
+void g_triangle_3D_core_s(
+	G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
+	int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_triangle_2D(double x0, double y0,
-				   double x1, double y1,
-				   double x2, double y2,
-				   G_WIREFILL WireFill);
+void g_triangle_3D_s(
+	G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
+	G_BOOL Wire, G_BOOL Fill);
+
+void g_triangle_3D_smooth_core(
+	double x0, double y0, double z0,
+	double x1, double y1, double z1,
+	double x2, double y2, double z2,
+	double nx0, double ny0, double nz0,
+	double nx1, double ny1, double nz1,
+	double nx2, double ny2, double nz2,
+	int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+
+void g_triangle_3D_smooth(
+	double x0, double y0, double z0,
+	double x1, double y1, double z1,
+	double x2, double y2, double z2,
+	double nx0, double ny0, double nz0,
+	double nx1, double ny1, double nz1,
+	double nx2, double ny2, double nz2,
+	G_BOOL Wire, G_BOOL Fill);
+
+void g_triangle_3D_core(
+	double x0, double y0, double z0,
+	double x1, double y1, double z1,
+	double x2, double y2, double z2,
+	int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+
+void g_triangle_3D(
+	double x0, double y0, double z0,
+	double x1, double y1, double z1,
+	double x2, double y2, double z2,
+	G_BOOL Wire, G_BOOL Fill);
+
+void g_triangle_2D_s(
+	G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
+	G_BOOL Wire, G_BOOL Fill);
+
+void g_triangle_2D(
+	double x0, double y0,
+	double x1, double y1,
+	double x2, double y2,
+	G_WIREFILL WireFill);
 
 void g_fan_2D(double center_x, double center_y,
 			  double direction_x, double direction_y,

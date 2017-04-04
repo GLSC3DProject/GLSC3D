@@ -50,56 +50,56 @@ void g_box_3D_core(double x, double y, double z,
 		g_triangle_3D_core(r0.x, r0.y, r0.z,
 				r1.x, r1.y, r1.z,
 				r4.x, r4.y, r4.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 		g_triangle_3D_core(r1.x, r1.y, r1.z,
 				r5.x, r5.y, r5.z,
 				r4.x, r4.y, r4.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 
 		g_triangle_3D_core(r6.x, r6.y, r6.z,
 				r2.x, r2.y, r2.z,
 				r4.x, r4.y, r4.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 		g_triangle_3D_core(r4.x, r4.y, r4.z,
 				r2.x, r2.y, r2.z,
 				r0.x, r0.y, r0.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 
 		g_triangle_3D_core(r2.x, r2.y, r2.z,
 				r7.x, r7.y, r7.z,
 				r3.x, r3.y, r3.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 		g_triangle_3D_core(r6.x, r6.y, r6.z,
 				r7.x, r7.y, r7.z,
 				r2.x, r2.y, r2.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 
 		g_triangle_3D_core(r1.x, r1.y, r1.z,
 				r7.x, r7.y, r7.z,
 				r5.x, r5.y, r5.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 		g_triangle_3D_core(r1.x, r1.y, r1.z,
 				r3.x, r3.y, r3.z,
 				r7.x, r7.y, r7.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 
 		g_triangle_3D_core(r0.x, r0.y, r0.z,
 				r2.x, r2.y, r2.z,
 				r1.x, r1.y, r1.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 		g_triangle_3D_core(r2.x, r2.y, r2.z,
 				r3.x, r3.y, r3.z,
 				r1.x, r1.y, r1.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 
 		g_triangle_3D_core(r6.x, r6.y, r6.z,
 				r4.x, r4.y, r4.z,
 				r7.x, r7.y, r7.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 		g_triangle_3D_core(r5.x, r5.y, r5.z,
 				r7.x, r7.y, r7.z,
 				r4.x, r4.y, r4.z,
-				DivideLevel, WireFill);
+				DivideLevel, G_FALSE, G_TRUE);
 	}
 	if(WireFill == 0)
 	{

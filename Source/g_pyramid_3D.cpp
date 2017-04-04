@@ -1,4 +1,5 @@
 ﻿#include "glsc3d_private.h"
+
 void g_pyramid_3D_core(double center_x, double center_y, double center_z,                      //中心座標
 					   double direction_x, double direction_y, double direction_z,             //方向
 					   double radius,double head_size, double psi,                             //半径、高さ
@@ -79,8 +80,8 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 	for(i=0;i<N;i++)
 	{
 		if(WireFill == 1) {
-			g_triangle_3D_core_smooth(r_i[i], r_i[(i + 1) % N], rotation_top, n_i_lateral[i], n_i_lateral[i], n_i_lateral[i], DivideLevel);
-			g_triangle_3D_core_smooth(r_i[(i + 1) % N], r_i[i], center, center_normal, center_normal, center_normal, DivideLevel);
+			g_triangle_3D_smooth_worker(r_i[i], r_i[(i + 1) % N], rotation_top, n_i_lateral[i], n_i_lateral[i], n_i_lateral[i], DivideLevel);
+			g_triangle_3D_smooth_worker(r_i[(i + 1) % N], r_i[i], center, center_normal, center_normal, center_normal, DivideLevel);
 		}
 
 		if(WireFill == 0)

@@ -245,9 +245,11 @@ void g_triangle_buffer_flush();
 
 // ---- g_triangle.c
 
-void g_triangle_3D_core_worker(G_POSITION r0, G_POSITION r1, G_POSITION r2, int DivideLevel);
+void g_triangle_3D_smooth_worker(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2, G_VECTOR n0, G_VECTOR n1, G_VECTOR n2, int DivideLevel);
+void g_triangle_3D_flat_worker(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2, int DivideLevel);
+void g_triangle_3D_wire_worker(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2);
 
-void g_set_triangle(const G_TRIANGLE t);
+void g_set_triangle(const G_TRIANGLE *t);
 void g_triangle_terminal(const G_TRIANGLE *t);
 
 // ---- g_sdl_wrapper.cpp

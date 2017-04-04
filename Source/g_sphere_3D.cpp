@@ -1,6 +1,6 @@
 #include "glsc3d_private.h"
 
-void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill)
+void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill)
 {
 	int theta, phi;
 	int Nt = FaceNumberLevel * 2, Np = 2 * Nt;
@@ -10,7 +10,7 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 	double atmp, btmp, ctmp, dtmp;
 	double A = cos(dth), B = sin(dth), C = cos(dp), D = sin(dp);
 	G_VECTOR r0, r1, r2, r3, X(x,y,z);
-	double r_inv = 1 / radius;
+	float r_inv = 1 / (float)radius;
 
 	for (theta = 0; theta < Nt; theta++)
 	{
@@ -23,15 +23,15 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 			r2 = G_VECTOR (radius * b * R, radius * b * S, radius * a);
 			r3 = G_VECTOR (radius * P * R, radius * P * S, radius * Q);
 
-			g_triangle_3D_core_smooth(
+			g_triangle_3D_smooth_core_s(
 					r0 + X,r1 + X,r3 + X,
 					r_inv * r0,r_inv * r1,r_inv * r3,
-					DivideLevel
+					DivideLevel, Wire, Fill
 			);
-			g_triangle_3D_core_smooth(
+			g_triangle_3D_smooth_core_s(
 					r0 + X,r3 + X,r2 + X,
 					r_inv * r0,r_inv * r3,r_inv * r2,
-					DivideLevel
+					DivideLevel, Wire, Fill
 			);
 			ctmp = c;
 			dtmp = d;
@@ -47,5 +47,5 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 
 void g_sphere_3D(double x, double y, double z, double radius)
 {
-	g_sphere_3D_core(x, y, z, radius, 12, 0, G_FILL);
+	g_sphere_3D_core(x, y, z, radius, 12, 0, G_FALSE, G_TRUE);
 }

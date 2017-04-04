@@ -101,7 +101,7 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
             normal_k[2] = normal(i+1,j+1);
             normal_k[3] = normal(i,j+1);
             
-            if(WireFill ==1) for(k = 0; k < 4; k++) g_triangle_3D_core_smooth(rc, r_corner[k], r_corner[(k+1) % 4], g_normalize(rc_normal), normal_k[k], normal_k[(k+1)%4], 0);
+            if(WireFill ==1) for(k = 0; k < 4; k++) g_triangle_3D_smooth_worker(rc, r_corner[k], r_corner[(k+1) % 4], g_normalize(rc_normal), normal_k[k], normal_k[(k+1)%4], 0);
             
             if(WireFill == 0)
             {

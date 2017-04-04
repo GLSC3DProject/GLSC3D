@@ -1,10 +1,10 @@
 #include "glsc3d.h"
 
-#define WIRE_OR_FILL G_WIRE
+#define WIRE_OR_FILL G_FILL
 #define WIRE G_TRUE
 #define FILL G_TRUE
 
-int main(int argc, char *argv[])
+int main()
 {
 	const int Width = 240, Height = 240;
 	const int CountX = 5, CountY = 2;
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	int id = 0;
 	for (int i = 0; i < CountX; i++)
 	for (int j = 0; j < CountY; j++)
-		g_def_scale_3D_core(id++, -1, 1, -1, 1, -1, 1, Width * i, Height * j, Width, Height, 0.2, 0.4, 1, 8, 0, 0, 1);
+		g_def_scale_3D_core(id++, -1, 1, -1, 1, -1, 1, Width * i, Height * j, Width, Height, 0, 1, 1, 8, 0, 0, 1);
 
 	for (double t = 0;; t += 1./128) {
 		double c = cos(t), s = sin(t);
@@ -52,13 +52,13 @@ int main(int argc, char *argv[])
 		g_cylinder_3D_core(0, 0, 0, 0, 0, 1, 1, 2, t,24, 0, WIRE, FILL);
 
 		g_sel_scale_3D(4);
-		g_ellipse_3D_core(0, 0, 0, 1.5, 1, 0.75, c, s, 0, 8, 0, WIRE_OR_FILL);
+		g_ellipse_3D_core(0, 0, 0, 1.5, 1, 0.75, c, s, 0, 8, 0, WIRE, FILL);
 
 		g_sel_scale_3D(5);
 		g_box_3D_core(0, 0, 0, 3, 2, 1.5, 0, WIRE_OR_FILL);
 
 		g_sel_scale_3D(6);
-		g_sphere_3D_core(0, 0, 0, 1, 2, 0, WIRE_OR_FILL);
+		g_sphere_3D_core(0, 0, 0, 1, 8, 0, WIRE, FILL);
 
 		g_sel_scale_3D(7);
 		g_rectangle_3D_core(0, 0, 0, c, s, 0, 3, 2, 0, 0, WIRE_OR_FILL);

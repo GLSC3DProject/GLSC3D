@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <memory>
-#include <glsc3d_private.h>
 #include "glsc3d_private.h"
+#include <memory>
 
 void g_triangle_buffer_reset();
 
@@ -131,7 +128,7 @@ void g_triangle_buffer_append(const G_TRIANGLE *t)
 	
 	//printf("temp_index: %d, TEMPORARY_TRIANGLE_BUFFER_SIZE: %d\n", temp_index, TEMPORARY_TRIANGLE_BUFFER_SIZE);
 	if(temp_index >= TEMPORARY_TRIANGLE_BUFFER_SIZE)
-		g_triangle_buffer_flush()/*, printf("temp_index >= TEMPORARY_TRIANGLE_BUFFER_SIZE\n")*/;
+		g_triangle_buffer_flush();
 
 	G_MATRIX c = glsc3D_inner_scale[g_current_scale_id].camera.view;
 	G_VECTOR g = (t->vertex[0].position + t->vertex[1].position + t->vertex[2].position) / 3;
@@ -227,7 +224,7 @@ void g_triangle_merge(int *index_s0, int *index_s1, int *index_d, float *u, unsi
 
 void g_triangle_buffer_draw()
 {
-    if(g_enable_transparent)
+    if (g_enable_transparent)
     {
         //g_triangle_buffer_flush();
         g_triangle_buffer_merge();

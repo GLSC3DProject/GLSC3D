@@ -1,5 +1,5 @@
 #include "glsc3d_private.h"
-#include <stdio.h>
+
 void g_rectangle_3D_core(double x, double y, double z,
 		double direction_x, double direction_y, double direction_z,
 		double width, double depth,
@@ -23,8 +23,8 @@ void g_rectangle_3D_core(double x, double y, double z,
 
 	if(WireFill == G_FILL)
 	{
-		g_triangle_3D_core_worker(r0, r1, r2, DivideLevel);
-		g_triangle_3D_core_worker(r0, r2, r3, DivideLevel);
+		g_triangle_3D_flat_worker(r0, r1, r2, DivideLevel);
+		g_triangle_3D_flat_worker(r0, r2, r3, DivideLevel);
 	}
 	else
 	{

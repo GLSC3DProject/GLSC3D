@@ -7,33 +7,34 @@
 //  Copyright © 2014.5.20 Masakazu Akiyama All Rights Reserved.
 //
 *******************************************************************************/
-#include<stdio.h>
-#include<stdlib.h>
 
 #include "glsc3d_private.h"
-#define WIRE_OR_FILL  (G_FILL)
-#define DIVIDE_LEVEL    (0)
-typedef struct
+
+#define WIRE	G_FALSE
+#define FILL	G_TRUE
+#define DIVIDE_LEVEL	0
+
+struct MarchingCube
 {
 	G_VECTOR r[8 + 1];
 	double   value[8 + 1];
-} MarchingCube;
+};
 
-typedef struct
+struct MarchingTetrahedron
 {
 	G_VECTOR r[4 + 1];
 	double   value[4 + 1];
-} MarchingTetrahedron;
+};
 
-typedef struct
+struct MarchingEdge
 {
 	G_VECTOR r;
 	int flag;
-} MarchingEdge;
+};
 
-static MarchingEdge Judgeheight(G_VECTOR r0,G_VECTOR r1,double v0, double v1,double c)
+static MarchingEdge Judgeheight(G_VECTOR r0, G_VECTOR r1, double v0, double v1, double c)
 {
-	MarchingEdge    ans;
+	MarchingEdge ans;
 
 	ans.flag = 0;
 	if(v1 < c && c < v0)
@@ -56,15 +57,8 @@ static MarchingEdge Judgeheight(G_VECTOR r0,G_VECTOR r1,double v0, double v1,dou
 //}
 #define g_position3Ds(u) u
 
-void g_triangle_3D_cores(G_POSITION r0,G_POSITION r1,G_POSITION r2,G_WIREFILL WireFill,int level)
-{
-	g_triangle_3D_core(r0.x,r0.y,r0.z,
-					   r1.x,r1.y,r1.z,
-					   r2.x,r2.y,r2.z,
-					   WireFill,level);
-}
-static void do_isosurface(const MarchingCube *Cube,MarchingTetrahedron *Tetrahedron, MarchingEdge *Edge,
-						  double height,int Table1[6][5],int Table2[7][3])
+static void do_isosurface(const MarchingCube *Cube, MarchingTetrahedron *Tetrahedron, MarchingEdge *Edge,
+						  double height, int Table1[6][5], int Table2[7][3])
 {
 	int UraOmoteFlag;
 	int SankakuShikaku;
@@ -109,7 +103,7 @@ static void do_isosurface(const MarchingCube *Cube,MarchingTetrahedron *Tetrahed
                 else r1 = g_position3Ds(Edge[EdgeMember[2]].r), r2 = g_position3Ds(Edge[EdgeMember[1]].r);
 				 */
 				r1 = g_position3Ds(Edge[EdgeMember[2]].r), r2 = g_position3Ds(Edge[EdgeMember[1]].r);
-				g_triangle_3D_cores(r0,r1,r2,DIVIDE_LEVEL,WIRE_OR_FILL);
+				g_triangle_3D_core_s(r0, r1, r2, DIVIDE_LEVEL, WIRE, FILL);
 			}
 			else
 			{
@@ -144,8 +138,8 @@ static void do_isosurface(const MarchingCube *Cube,MarchingTetrahedron *Tetrahed
 					 */
 					r1 = g_position3Ds(Edge[6].r),r3 = g_position3Ds(Edge[2].r);
 				}
-				g_triangle_3D_cores(r0,r1,r2,DIVIDE_LEVEL,WIRE_OR_FILL);
-				g_triangle_3D_cores(r0,r2,r3,DIVIDE_LEVEL,WIRE_OR_FILL);
+				g_triangle_3D_core_s(r0, r1, r2, DIVIDE_LEVEL, WIRE, FILL);
+				g_triangle_3D_core_s(r0, r2, r3, DIVIDE_LEVEL, WIRE, FILL);
 			}
 		}
 	}
@@ -474,7 +468,7 @@ void g_isosurface_f_3D(double x0,double x1,
 //												  nabla[3],
 //												  v[0],
 //												  v[3], height);
-//							g_triangle_3D_core_smooth(
+//							g_triangle_3D_smooth(
 //													  Edge[0].r,
 //													  Edge[2].r,
 //													  Edge[1].r,
@@ -482,7 +476,7 @@ void g_isosurface_f_3D(double x0,double x1,
 //													  Edge[2].nabla,
 //													  Edge[1].nabla,
 //													  WIRE_OR_FILL);
-//							g_triangle_3D_core_smooth(
+//							g_triangle_3D_smooth(
 //													  Edge[0].r,
 //													  Edge[1].r,
 //													  Edge[3].r,
@@ -507,7 +501,7 @@ void g_isosurface_f_3D(double x0,double x1,
 //												  nabla[3],
 //												  v[1],
 //												  v[3], height);
-//							g_triangle_3D_core_smooth(
+//							g_triangle_3D_smooth(
 //													  Edge[0].r,
 //													  Edge[2].r,
 //													  Edge[1].r,
@@ -515,7 +509,7 @@ void g_isosurface_f_3D(double x0,double x1,
 //													  Edge[2].nabla,
 //													  Edge[1].nabla,
 //													  WIRE_OR_FILL);
-//							g_triangle_3D_core_smooth(
+//							g_triangle_3D_smooth(
 //													  Edge[0].r,
 //													  Edge[1].r,
 //													  Edge[3].r,
@@ -561,7 +555,7 @@ void g_isosurface_f_3D(double x0,double x1,
 //							r0 = Edge[EdgeMember[0]].r;
 //							r1 = Edge[EdgeMember[1]].r;
 //							r2 = Edge[EdgeMember[2]].r;
-//							g_triangle_3D_core_smooth(r0,r1,r2,
+//							g_triangle_3D_smooth(r0,r1,r2,
 //													  g_normalize(Edge[EdgeMember[0]].nabla),
 //													  g_normalize(Edge[EdgeMember[1]].nabla),
 //													  g_normalize(Edge[EdgeMember[2]].nabla),
@@ -614,13 +608,13 @@ void g_isosurface_f_3D(double x0,double x1,
 //								r3 = Edge[1].r;
 //							}
 //
-//							g_triangle_3D_core_smooth(r0,r1,r2,
+//							g_triangle_3D_smooth(r0,r1,r2,
 //													  g_normalize(Edge[EdgeMember[0]].nabla),
 //													  g_normalize(Edge[EdgeMember[1]].nabla),
 //													  g_normalize(Edge[EdgeMember[2]].nabla),
 //													  WIRE_OR_FILL);
 //
-//							g_triangle_3D_core_smooth(r0,r2,r3,
+//							g_triangle_3D_smooth(r0,r2,r3,
 //													  g_normalize(Edge[EdgeMember[0]].nabla),
 //													  g_normalize(Edge[EdgeMember[2]].nabla),
 //													  g_normalize(Edge[EdgeMember[3]].nabla),
