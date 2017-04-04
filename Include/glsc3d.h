@@ -287,8 +287,8 @@ void g_cone_2D(double center_x, double center_y,
 
 void g_cone_3D_core(double center_x, double center_y, double center_z,
 					double direction_x, double direction_y, double direction_z,
-					double radius,double head_size,
-					int DivideLevel, G_WIREFILL WireFill);
+					double radius, double head_size,
+					int N, int DivideLevel, G_WIREFILL WireFill);
 
 void g_cone_3D(double center_x, double center_y, double center_z,
 			   double direction_x, double direction_y, double direction_z,
@@ -311,7 +311,8 @@ void g_arrow_2D(double base_x, double base_y,
 
 void g_arrow_3D_core(double base_x, double base_y, double base_z,
 					 double direction_x, double direction_y, double direction_z,
-					 double arrow_size, double head_size, int DivideLevel, G_WIREFILL WireFill);
+					 double arrow_size, double head_size,
+					 int N, int DivideLevel, G_WIREFILL WireFill);
 
 void g_arrow_3D(double base_x, double base_y, double base_z,
 				double direction_x, double direction_y, double direction_z,
