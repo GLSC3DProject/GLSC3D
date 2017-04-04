@@ -75,13 +75,13 @@ void g_cone_3D_core(double center_x, double center_y, double center_z,          
 		}
 	}
 
-	for(i=0;i<N-20;i++)
+	for(i=0;i<N;i++)
 	{
 		r0 = Ry(Rz(Rx(top,i*dth),phi),theta) + center;
 		r1 = Ry(Rz(Rx(r,i*dth),phi),theta) + center;
 		r2 = Ry(Rz(Rx(top,(i+1)*dth),phi),theta) + center;
 		r3 = Ry(Rz(Rx(r,(i+1)*dth),phi),theta) + center;
-		
+
 		if(WireFill==1)
 		{
 			n0 = Ry(Rz(Rx(Rz(r,alpha),(i-0.5)*dth),phi),theta) + Ry(Rz(Rx(Rz(r,alpha),(i+0.5)*dth),phi),theta);
