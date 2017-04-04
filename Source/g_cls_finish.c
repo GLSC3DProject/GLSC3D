@@ -12,8 +12,9 @@ void g_cls()
 
 void g_finish()
 {
-	g_vertex_buffer_flush();
+	g_triangle_buffer_flush();
 	g_triangle_buffer_draw();
+	g_vertex_buffer_flush();
 
 	g_swap_buffers();
 	g_poll_events();

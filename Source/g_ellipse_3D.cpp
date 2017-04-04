@@ -6,9 +6,9 @@ void g_ellipse_3D_core(double x, double y, double z,                            
 	int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill)
 {
 	int theta, phi;
-	int Nt = FaceNumberLevel * 3, Np = 2 * Nt;
-	double dth = M_PI / (Nt - 1);
-	double dp = 2.0 * M_PI / (Np - 1);
+	int Nt = FaceNumberLevel * 2, Np = 2 * Nt;
+	double dth = M_PI / Nt;
+	double dp = 2.0 * M_PI / Np;
 	double a = 1, b = 0, c = 1, d = 0, P, Q, R, S;
 	double atmp, btmp, ctmp, dtmp;
 	double A = cos(dth), B = sin(dth), C = cos(dp), D = sin(dp);
@@ -21,9 +21,9 @@ void g_ellipse_3D_core(double x, double y, double z,                            
 	G_VECTOR n0, n1, n2, n3;
 	G_VECTOR n_SCALE = g_vector3(1 / Sx, 1 / Sy, 1 / Sz);
 
-	for (theta = 0; theta < Nt - 1; ++theta)
+	for (theta = 0; theta < Nt; theta++)
 	{
-		for (phi = 0; phi < Np - 1; phi++)
+		for (phi = 0; phi < Np; phi++)
 		{
 			P = (b * A + a * B); Q = (a * A - b * B);
 			R = (c * C - d * D); S = (d * C + c * D);
@@ -31,7 +31,7 @@ void g_ellipse_3D_core(double x, double y, double z,                            
 			r0 = G_VECTOR (b * c, b * d, a);
 			r0 = center + Ry(Rz(Scaling3Ds(r0, SCALE), beta), alpha);
 			r1 = G_VECTOR (P * c, P * d, Q);
-			r1 = center +  Ry(Rz(Scaling3Ds(r1, SCALE), beta), alpha);
+			r1 = center + Ry(Rz(Scaling3Ds(r1, SCALE), beta), alpha);
 			r2 = G_VECTOR (b * R, b * S, a);
 			r2 = center + Ry(Rz(Scaling3Ds(r2, SCALE), beta), alpha);
 			r3 = G_VECTOR (P * R, P * S, Q);
@@ -42,21 +42,16 @@ void g_ellipse_3D_core(double x, double y, double z,                            
 			n2 = Scaling3Ds(r2, n_SCALE);
 			n3 = Scaling3Ds(r3, n_SCALE);
 
-			if (theta < Nt - 2)
-			{
-				g_triangle_3D_core_smooth(
-						r0 + X,r1 + X,r3 + X,
-						g_normalize(n0),g_normalize(n1),g_normalize(n3),
-						DivideLevel
-				);
-			}
-			if (theta > 0){
-				g_triangle_3D_core_smooth(
-						r0 + X,r3 + X,r2 + X,
-						g_normalize(n0),g_normalize(n3),g_normalize(n2),
-						DivideLevel
-				);
-			}
+			g_triangle_3D_core_smooth(
+					r0 + X,r1 + X,r3 + X,
+					g_normalize(n0),g_normalize(n1),g_normalize(n3),
+					DivideLevel
+			);
+			g_triangle_3D_core_smooth(
+					r0 + X,r3 + X,r2 + X,
+					g_normalize(n0),g_normalize(n3),g_normalize(n2),
+					DivideLevel
+			);
 			ctmp = c;
 			dtmp = d;
 			c = ctmp * C - dtmp * D;

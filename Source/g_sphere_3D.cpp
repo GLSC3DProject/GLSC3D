@@ -3,7 +3,7 @@
 void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill)
 {
 	int theta, phi;
-	int Nt = FaceNumberLevel * 3, Np = 2 * Nt;
+	int Nt = FaceNumberLevel * 2, Np = 2 * Nt;
 	double dth = M_PI / Nt;
 	double dp = 2.0 * M_PI / Np;
 	double a = 1, b = 0, c = 1, d = 0, P, Q, R, S;

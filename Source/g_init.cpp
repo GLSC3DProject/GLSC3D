@@ -66,7 +66,7 @@ void g_init_core(
 	{
 		if(temporary_triangle_buffer_size == 0)
 		{
-			TEMPORARY_TRIANGLE_BUFFER_SIZE = 1 << 10;
+			TEMPORARY_TRIANGLE_BUFFER_SIZE = 1 << 20;
 		}
 		else
 		{

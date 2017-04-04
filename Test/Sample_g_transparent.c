@@ -11,7 +11,7 @@ int main()
 	G_POSITION eye[4];
 	double shu = 10;
 	
-	g_init_core("GRAPH", 1280, 960,50,50,0,0,0,G_TRUE,100*24,4096);
+	g_init_core("GRAPH", 1280, 960,50,50,0,0,0,G_TRUE, 0, 0);
 
     FILE *fp;
 	fp = fopen("data.txt","a");

@@ -129,9 +129,10 @@ void g_triangle_buffer_append(const G_TRIANGLE *t)
 		exit(0);
 	}
 	
+	//printf("temp_index: %d, TEMPORARY_TRIANGLE_BUFFER_SIZE: %d\n", temp_index, TEMPORARY_TRIANGLE_BUFFER_SIZE);
 	if(temp_index >= TEMPORARY_TRIANGLE_BUFFER_SIZE)
-		g_triangle_buffer_flush();
-	
+		g_triangle_buffer_flush()/*, printf("temp_index >= TEMPORARY_TRIANGLE_BUFFER_SIZE\n")*/;
+
 	G_MATRIX c = glsc3D_inner_scale[g_current_scale_id].camera.view;
 	G_VECTOR g = (t->vertex[0].position + t->vertex[1].position + t->vertex[2].position) / 3;
 	
@@ -152,6 +153,8 @@ void g_triangle_buffer_flush()
 {
     if(g_enable_transparent)
     {
+		//g_quit();
+		//printf("g_triangle_buffer_flush called\n");
         for(int i = 0; i < temp_index; ++i)
             triangle_index[i] = buffer_index - 1 - i;
         DBG_WRITE("before quick sort");
@@ -226,7 +229,7 @@ void g_triangle_buffer_draw()
 {
     if(g_enable_transparent)
     {
-        g_triangle_buffer_flush();
+        //g_triangle_buffer_flush();
         g_triangle_buffer_merge();
 
         int current_camera_id = -1;
