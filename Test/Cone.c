@@ -46,8 +46,8 @@ int main()
 //		g_triangle_3D( 2, h,  1,-2, h,  1,-2, h,-1, WIRE_OR_FILL);
 
 		g_area_color_3D(0.5, 0.75, 0.5, 1);
-		g_cone_3D_core(-2*c, -2*s, 0, c, s, 0, 2, 2, 0, WIRE_OR_FILL);
-		g_cone_3D_core(2*c, 2*s, 0, -c, -s, 0, 2, 2, 0, WIRE_OR_FILL);
+		g_cone_3D_core(-2*c, -2*s, 0, c, s, 0, 2, 2, 100, 0, WIRE_OR_FILL);
+		g_cone_3D_core(2*c, 2*s, 0, -c, -s, 0, 2, 2, 100, 0, WIRE_OR_FILL);
 
 		g_line_color(0, 0, 0, 1);
 		g_sel_scale_2D(1);
