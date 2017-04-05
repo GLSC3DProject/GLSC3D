@@ -9,3 +9,21 @@
 7: g_input.cの挙動で初期反応が遅い: リピートの部分があやしい (優先度低)
 8: g_isosurface.cのコードを書き直す >>> 秋山先生の仕事
 9: g_captureで高解像に対応するか？もっと速くできるか？は問題なし．
+
+
+
+2017/4/5
+sushida
+g_cylinder.cpp
+g_box.c
+g_polygon_polyline.c
+
+akiyama
+g_circle.c
+(g_isosurface.c)
+
+tateiri
+g_ellipse_3D.cpp
+g_fan.cpp
+
+
