@@ -33,7 +33,7 @@ int main(void)
     double array2[Imax][Jmax];
     double array[Imax*Jmax];
     
-	for(i_time = 0; i_time < 1000; i_time = (i_time + 1) % (int)(2*M_PI/dt))
+	for(i_time = 0; ; i_time = (i_time + 1) % (int)(2*M_PI/dt))
 	{
 		double t = dt*i_time;
 
