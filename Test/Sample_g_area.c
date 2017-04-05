@@ -47,35 +47,35 @@ int main()
             
             g_sel_scale_2D(4);
             g_sel_area_2D(0);
-            g_box_2D(0,0,1,1,1);
+            g_box_2D(0,0,1,1,G_YES,G_NO);
            
             g_sel_scale_2D(5);
             g_sel_area_2D(1);
-            g_box_2D(0,0,1,1,1);
+            g_box_2D(0,0,1,1,G_YES,G_NO);
             
             g_sel_scale_2D(6);
             g_sel_area_2D(2);
-            g_box_2D(0,0,1,1,1);
+            g_box_2D(0,0,1,1, G_YES,G_NO);
             
             g_sel_scale_2D(7);
             g_sel_area_2D(3);
-            g_box_2D(0,0,1,1,1);
+            g_box_2D(0,0,1,1, G_YES,G_NO);
             
             g_sel_scale_3D(0);
             g_sel_area_3D(0);
-            g_box_3D(0,0,0,2,2,2);
+            g_box_3D(0,0,0,2,2,2,G_YES,G_NO);
             
             g_sel_scale_3D(1);
             g_sel_area_3D(1);
-            g_box_3D(0,0,0,2,2,2);
+            g_box_3D(0,0,0,2,2,2,G_YES,G_NO);
             
             g_sel_scale_3D(2);
             g_sel_area_3D(2);
-            g_box_3D(0,0,0,2,2,2);
+            g_box_3D(0,0,0,2,2,2,G_YES,G_NO);
             
             g_sel_scale_3D(3);
             g_sel_area_3D(3);
-            g_box_3D(0,0,0,2,2,2);
+            g_box_3D(0,0,0,2,2,2,G_YES,G_NO);
             
             g_finish();
             g_sleep(0.05);

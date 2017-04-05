@@ -19,7 +19,7 @@ int main()
         g_cls();
         g_sel_scale_3D(0);
         g_area_color_3D(1, 0, 0, 1);
-        g_pyramid_3D(0,-2,0,0,1,0,2,4,M_PI/6,6);
+        g_pyramid_3D(0,-2,0,0,1,0,2,4,M_PI/6,6,G_NO,G_YES);
         
         g_finish();
     }

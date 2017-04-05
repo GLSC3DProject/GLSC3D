@@ -407,7 +407,7 @@ void g_circle_3D_core(double center_x, double center_y, double center_z,
 void g_circle_3D(double center_x, double center_y, double center_z,
 				 double radius,
 				 double theta, double phi,
-				 G_WIREFILL WireFill);
+				 G_BOOL Wire, G_BOOL Fill);
 
 void g_polygon_2D(double *xx, double *yy, int n, G_WIREFILL WireFill);
 

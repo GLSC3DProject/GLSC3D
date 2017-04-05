@@ -21,16 +21,16 @@ int main()
         g_cls();
         g_sel_scale_2D(0);
         g_line_color(1,0,0,1);
-        g_circle_2D(1,1,1,0);
+        g_circle_2D(1,1,1,G_YES,G_NO);
         
         g_area_color_2D(1,0,0,1);
-        g_circle_2D(-1,-1,1,1);
+        g_circle_2D(-1,-1,1,G_YES,G_NO);
         
         g_sel_scale_3D(1);
         g_area_color_3D(1, 0, 0, 1);
-        g_circle_3D(0,0,0,1,0.01*i_time,0,1);
+        g_circle_3D(0,0,0,1,0.01*i_time,0, G_YES,G_NO);
         g_line_color(1,0,0,1);
-        g_circle_3D(0,0,0,1,-0.01*i_time,0,0);
+        g_circle_3D(0,0,0,1,-0.01*i_time,0,G_YES,G_NO);
         
         g_finish();
     }

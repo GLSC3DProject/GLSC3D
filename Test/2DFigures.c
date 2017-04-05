@@ -54,7 +54,7 @@ int main()
 		g_text_2D_virtual(-1.1*s, 1.1*c, "y");
 
 		g_sel_scale_2D(3);
-		g_fan_2D(0, 0, c, s, 1, 2.0, WIRE_OR_FILL);
+		g_fan_2D(0, 0, c, s, 1, 2.0, G_YES,G_NO);
 
 		g_sel_scale_2D(4);
 		g_polygon_2D(p, q, 5, WIRE_OR_FILL);

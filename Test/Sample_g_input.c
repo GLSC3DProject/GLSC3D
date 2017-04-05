@@ -20,12 +20,12 @@ int main()
 	{
 		g_sleep(0.01);
 		g_cls();
-		g_circle_2D(down_x, down_y, 20, 1);
-		g_circle_2D(up_x, up_y, 20, 1);
+		g_circle_2D(down_x, down_y, 20, G_YES,G_NO);
+		g_circle_2D(up_x, up_y, 20, G_YES,G_NO);
 		g_sel_text(1);
 		g_text_size(24);
 		g_area_color_2D(1, 1, 1, 1);
-		g_box_2D(545, 75, 150, 90, 1);
+		g_box_2D(545, 75, 150, 90, G_YES,G_NO);
 		g_text_2D_virtual(500, 68, "Exit");
 		g_text_2D_virtual(500, 93, "Program");
 

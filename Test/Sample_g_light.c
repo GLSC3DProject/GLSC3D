@@ -20,7 +20,7 @@ int main()
         
         g_sel_scale_3D(0);
         g_area_color_3D(1,0,0,1);
-        g_box_3D(0,0,0,1,1,1);
+        g_box_3D(0,0,0,1,1,1, G_YES,G_NO);
         
         g_finish();
         g_sleep(0.05);
