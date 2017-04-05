@@ -61,7 +61,7 @@ int main()
 		g_sphere_3D_core(0, 0, 0, 1, 8, 0, WIRE, FILL);
 
 		g_sel_scale_3D(7);
-		g_rectangle_3D_core(0, 0, 0, c, s, 0, 3, 2, 0, 0, WIRE_OR_FILL);
+		g_rectangle_3D_core(0, 0, 0, c, s, 0, 3, 2, 0, 0, WIRE, FILL);
 
 		g_sel_scale_3D(8);
 		g_text_size(24);
