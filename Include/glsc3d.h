@@ -257,7 +257,7 @@ void g_box_3D(
 
 void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_sphere_3D(double x, double y, double z, double radius);
+void g_sphere_3D(double x, double y, double z, double radius, G_BOOL Wire, G_BOOL Fill);
 
 void g_ellipse_3D_core(
 	double x, double y, double z,
@@ -305,7 +305,7 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 void g_pyramid_3D(double center_x, double center_y, double center_z,
 				  double direction_x, double direction_y, double direction_z,
 				  double radius,double head_size, double psi,
-				  int N);
+				  int N, G_BOOL WIRE, G_BOOL FILL);
 
 void g_arrow_2D(double base_x, double base_y,
 				double direction_x, double direction_y,
@@ -379,31 +379,34 @@ void g_triangle_2D(
 	double x2, double y2,
 	G_BOOL Wire, G_BOOL Fill);
 
-void g_fan_2D(double center_x, double center_y,
-			  double direction_x, double direction_y,
-			  double radius,
-			  double angle,
-			  G_WIREFILL WireFill);
+void g_fan_2D(
+	double center_x, double center_y,
+	double direction_x, double direction_y,
+	double radius,
+	double angle,
+	G_BOOL Wire, G_BOOL Fill);
 
-void g_fan_3D_core(double center_x, double center_y, double center_z,
-				   double direction_x, double direction_y, double direction_z,
-				   double radius,
-				   double angle, double psi,
-				   int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);
+void g_fan_3D_core(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius,
+	double angle, double psi,
+	int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_fan_3D(double center_x, double center_y, double center_z,
-			  double direction_x, double direction_y, double direction_z,
-			  double radius,
-			  double angle, double psi,
-			  G_WIREFILL WireFill);
+void g_fan_3D(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius,
+	double angle, double psi,
+	G_BOOL Wire, G_BOOL Fill);
 
 void g_circle_2D(double center_x, double center_y,
-				 double radius, G_WIREFILL WireFill);
+				 double radius, G_BOOL Wire, G_BOOL Fill);
 
 void g_circle_3D_core(double center_x, double center_y, double center_z,
 					  double radius,
 					  double theta, double phi,
-					  int N, int DivideLevel, G_WIREFILL WireFill);
+					  int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
 void g_circle_3D(double center_x, double center_y, double center_z,
 				 double radius,

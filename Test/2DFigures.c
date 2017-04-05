@@ -44,7 +44,7 @@ int main()
 		//g_cone_2D(0, -0.5, 0, 1, 1, 1, WIRE_OR_FILL);
 
 		g_sel_scale_2D_boundary(1);
-		g_circle_2D(0, 0, 1, WIRE_OR_FILL);
+		g_circle_2D(0, 0, 1, G_YES, G_NO);
 
 		g_sel_scale_2D(2);
 		g_text_size(24);
