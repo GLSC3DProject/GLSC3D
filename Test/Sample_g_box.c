@@ -20,13 +20,13 @@ int main()
 		g_cls();
 		g_sel_scale_2D(1);
 		g_area_color_2D(1, 0, 0,1);
-		g_box_2D(1,1,1,1,1);
+		g_box_2D(1,1,1,1,G_NO, G_YES);
 		g_line_color(1,0,0,1);
-		g_box_2D(-1,-1,1,1,0);
+		g_box_2D(-1,-1,1,1,G_YES, G_NO);
 		
 		g_sel_scale_3D(0);
 		g_area_color_3D(1, 0, 0, 1);
-		g_box_3D(0,0,0,3,3,3);
+		g_box_3D(0,0,0,3,3,3,G_YES, G_YES);
 		
 		g_finish();
 	}

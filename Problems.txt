@@ -14,7 +14,7 @@
 
 2017/4/5
 sushida
-g_cylinder.cpp
+//g_cylinder.cpp
 g_box.c
 g_polygon_polyline.c
 
