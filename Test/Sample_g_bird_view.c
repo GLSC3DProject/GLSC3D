@@ -15,7 +15,7 @@
 
 #define LEN         (2.0)
 
-#define SIZE        (32)
+#define SIZE        (30)
 #define Imax        (2 * SIZE)
 #define Jmax        (SIZE)
 
