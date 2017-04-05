@@ -1,7 +1,7 @@
 #include "glsc3d.h"
 
 #define WIRE_OR_FILL G_FILL
-#define WIRE G_TRUE
+#define WIRE G_FALSE
 #define FILL G_TRUE
 
 int main()
@@ -14,8 +14,8 @@ int main()
 
 //	g_init_light(0, 0, 1, 2);
 	g_init_light(0, 1, -1, 1);
-//	g_init_light_core(1, 1, 1, 1, 0.25f);
-	g_init_light_core(2, 0, 1, 2, 0.5f);
+	g_init_light_core(1, 0, 1, 2, 0.5f);
+//	g_init_light_core(2, 1, 1, 1, 0.25f);
 
 	//g_scr_color(1, 1, 1);
 	//g_scr_color(0.5, 0.5, 0.5);

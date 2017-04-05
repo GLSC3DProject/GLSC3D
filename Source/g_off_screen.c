@@ -5,8 +5,6 @@
 static GLuint frame_buffer;
 static GLuint color_buffer, depth_buffer;
 
-#define G_DECL_INIT_GLEXT(Type, Name) Type Name = (Type)glXGetProcAddress((const GLubyte *)#Name)
-
 void g_init_off_screen_rendering()
 {
 	//version check

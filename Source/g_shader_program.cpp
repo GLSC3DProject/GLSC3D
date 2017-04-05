@@ -64,9 +64,11 @@ void main() {
 	vec3 normal = normalize(vary_normal.xyz);
 	normal *= gl_FrontFacing ? 1.0 : -1.0;
 
-	vec3 color = vec3(0.0);
-	for (int i = 0; i < num_lights; i++)
-		color += calc_light(normal, lights[i]);
+	vec3 color = calc_light(normal, lights[0]);
+	if (num_lights >= 2)
+		color += calc_light(normal, lights[1]);
+	if (num_lights >= 3)
+		color += calc_light(normal, lights[2]);
 
 	out_color = vec4(color, vary_color.a);
 })";
