@@ -50,6 +50,12 @@ extern "C"
 
 #define G_EXTERN_DECL_GLEXT(Type, Name) extern Type Name;
 
+#ifdef _WIN32
+#define G_DECL_INIT_GLEXT(Type, Name) Type Name = (Type)wglGetProcAddress(#Name)
+#else
+#define G_DECL_INIT_GLEXT(Type, Name) Type Name = (Type)glXGetProcAddress((const GLubyte *)#Name)
+#endif
+
 #define G_EMIT_GLEXT(Action) \
 Action(PFNGLVERTEXATTRIBPOINTERPROC,        glVertexAttribPointer) \
 Action(PFNGLENABLEVERTEXATTRIBARRAYPROC,    glEnableVertexAttribArray) \
@@ -78,8 +84,7 @@ Action(PFNGLUNIFORM4FVPROC,                 glUniform4fv) \
 Action(PFNGLGENSAMPLERSPROC,                glGenSamplers) \
 Action(PFNGLBINDSAMPLERPROC,                glBindSampler) \
 Action(PFNGLSAMPLERPARAMETERIPROC,          glSamplerParameteri) \
-Action(PFNGLBINDBUFFERBASEPROC,             glBindBufferBase) \
-Action(PFNGLDEBUGMESSAGECALLBACKPROC,       glDebugMessageCallback)
+Action(PFNGLBINDBUFFERBASEPROC,             glBindBufferBase)
 
 G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 
