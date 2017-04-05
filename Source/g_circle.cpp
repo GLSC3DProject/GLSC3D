@@ -2,12 +2,12 @@
 
 void g_circle_2D(
 	double center_x, double center_y,
-	double radius, G_WIREFILL WireFill)
+	double radius, G_BOOL Wire, G_BOOL Fill)
 {
 	int i,STEP=64;
 	double dtheta=2*PI/STEP;
 
-	if(WireFill == 1)
+	if(Wire == 1)
 	{
 		g_begin_triangle_fan();
 		for(i=0; i<=STEP; i++)
@@ -16,7 +16,7 @@ void g_circle_2D(
 			g_emit_vertex(pos);
 		}
 	}
-	if(WireFill == 0)
+	if(Wire == 0)
 	{
 		g_begin_line_strip();
 		for(i=0; i<=STEP; i++)
@@ -31,7 +31,7 @@ void g_circle_3D_core(
 	double center_x, double center_y, double center_z,
 	double radius,
 	double theta, double phi,
-	int N, int DivideLevel, G_WIREFILL WireFill)
+	int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill)
 {
 	int i,STEP=N;
 	double dtheta=2*PI/STEP;
@@ -40,7 +40,7 @@ void g_circle_3D_core(
 	G_VECTOR r0, r1, r2;
 
 	//r0 = Rz(Rx(r,theta),phi) + center;
-	if (WireFill==1)
+	if (Wire==1)
 	{
 		for(i=0; i<STEP; i++)
 		{
@@ -49,7 +49,7 @@ void g_circle_3D_core(
 			g_triangle_3D_flat_worker(center, r1, r2, DivideLevel);
 		}
 	}
-	if (WireFill==0)
+	if (Wire==0)
 	{
 		g_begin_line_strip();
 		for(i=0; i<=STEP; i++)
@@ -63,7 +63,7 @@ void g_circle_3D(
 	double center_x, double center_y, double center_z,
 	double radius,
 	double theta, double phi,
-	G_WIREFILL WireFill)
+	G_BOOL Wire, G_BOOL Fill)
 {
-	g_circle_3D_core(center_x, center_y, center_z, radius, theta, phi, 64, 0, WireFill);
+	g_circle_3D_core(center_x, center_y, center_z, radius, theta, phi, 64, 0, Wire, Fill);
 }

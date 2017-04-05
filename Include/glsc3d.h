@@ -391,12 +391,12 @@ void g_fan_3D(double center_x, double center_y, double center_z,
 			  G_WIREFILL WireFill);
 
 void g_circle_2D(double center_x, double center_y,
-				 double radius, G_WIREFILL WireFill);
+				 double radius, G_BOOL Wire, G_BOOL Fill);
 
 void g_circle_3D_core(double center_x, double center_y, double center_z,
 					  double radius,
 					  double theta, double phi,
-					  int N, int DivideLevel, G_WIREFILL WireFill);
+					  int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
 void g_circle_3D(double center_x, double center_y, double center_z,
 				 double radius,
