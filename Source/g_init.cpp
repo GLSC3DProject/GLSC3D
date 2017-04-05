@@ -59,7 +59,7 @@ void g_init_core(
 	g_line_width(1);
 	g_line_type(0);
 
-	g_init_light(0, 1, 1, 1);
+	g_init_light(0, 0, 0, 1);
 
 	g_enable_transparent = enable_transparent;
 

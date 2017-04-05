@@ -8,9 +8,6 @@
 
 static const double h = -0.5;
 
-#define WIRE_OR_FILL G_FILL
-//#define WIRE_OR_FILL G_WIRE
-
 int main()
 {
 	g_init("GLSC3D", WIDTH, HEIGHT*2);
@@ -41,13 +38,11 @@ int main()
 		g_line_width(2);
 		
 		g_area_color_3D(0.5, 0.5, 0.75, 1);
-		g_rectangle_3D(0, h, 0, 1, 0, 0, 5, 4, 0, G_FALSE, G_TRUE);
-//		g_triangle_3D(-2, h, -1, 2, h, -1, 2, h, 1, WIRE_OR_FILL);
-//		g_triangle_3D( 2, h,  1,-2, h,  1,-2, h,-1, WIRE_OR_FILL);
+		g_rectangle_3D(0, h, 0, 1, 0, 0, 5, 4, 0, G_NO, G_YES);
 
 		g_area_color_3D(0.5, 0.75, 0.5, 1);
-		g_cone_3D_core(-2*c, -2*s, 0, c, s, 0, 2, 2, 100, 0, G_FALSE, G_FILL);
-		g_cone_3D_core(2*c, 2*s, 0, -c, -s, 0, 2, 2, 100, 0, G_FALSE, G_FILL);
+		g_cone_3D_core(-2*c, -2*s, 0, c, s, 0, 2, 2, 100, 0, G_NO, G_YES);
+		g_cone_3D_core(2*c, 2*s, 0, -c, -s, 0, 2, 2, 100, 0, G_NO, G_YES);
 
 		g_line_color(0, 0, 0, 1);
 		g_sel_scale_2D(1);

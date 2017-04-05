@@ -38,21 +38,21 @@ int main()
 			g_line_width(2);
 			g_area_color_3D(1, 0, 0, 0.4);
 			g_line_color(1,0, 0, 1);
-			g_arrow_3D(-2*scale, 0, 0, 1, 0, 0, 4*scale, 0.1*scale);
+			g_arrow_3D(-2*scale, 0, 0, 1, 0, 0, 4*scale, 0.1*scale, G_NO, G_YES);
 
 			g_area_color_3D(0, 1, 0, 0.4);
 			g_line_color(0, 1, 0, 1);
-			g_arrow_3D(0, -2*scale, 0, 0, 1, 0, 4*scale, 0.1*scale);
+			g_arrow_3D(0, -2*scale, 0, 0, 1, 0, 4*scale, 0.1*scale, G_NO, G_YES);
 
 			g_area_color_3D(0, 0, 1, 0.4);
 			g_line_color(0, 0, 1, 1);
-			g_arrow_3D(0, 0, -2*scale, 0, 0, 1, 4*scale, 0.1*scale);
+			g_arrow_3D(0, 0, -2*scale, 0, 0, 1, 4*scale, 0.1*scale, G_NO, G_YES);
 
 			g_area_color_3D(1, 0, 1, 0.4);
 
 			g_cone_3D_core(0.5, 1, 0.5,
 			  1, 1, 1,
-			  1, 2, 100, 0, G_FALSE, G_FILL);
+			  1, 2, 100, 0, G_NO, G_YES);
 
         }
 		g_finish();

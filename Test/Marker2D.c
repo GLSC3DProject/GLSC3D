@@ -1,7 +1,5 @@
 #include "glsc3d.h"
 
-// #define WIRE_OR_FILL G_FILL
-
 int main()
 {
 	const int Size = 320;

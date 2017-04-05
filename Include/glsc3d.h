@@ -36,16 +36,6 @@ typedef int G_DIMENSION;
 #define G_2D 0
 #define G_3D 1
 
-/*typedef enum
- {
- G_WIRE   = 0,
- G_FILL   = 1,
- } G_WIREFILL; */
-
-typedef int G_WIREFILL;
-#define G_WIRE 0
-#define G_FILL 1
-
 #define G_OFF_SCREEN		NULL
 
 #define G_WINDOW_CENTERED	0x2FFF0000
@@ -225,19 +215,6 @@ g_isosurface_f_3D(x0, x1, y0, y1, z0, z1, number_x, number_y, number_z, &u[0][0]
 #define g_data_plot_3D(x0, x1, y0, y1, N_x, N_y, data) \
 g_data_plot_f_3D(x0, x1, y0, y1, N_x, N_y, &data[0][0])
 
-// ------ g_box_vert.c ------
-
-//void g_box_2D_vert(double left, double right, double bottom, double top, G_WIREFILL WireFill);
-//
-//void g_box_3D_vert_core(double x_min, double x_max,
-//						double y_min, double y_max,
-//						double z_min, double z_max,
-//						int DivideLevel, G_WIREFILL WireFill);
-//
-//void g_box_3D_vert(double x_min, double x_max,
-//				   double y_min, double y_max,
-//				   double z_min, double z_max);
-
 // ------ g_box.c -----
 
 void g_box_2D(
@@ -295,7 +272,7 @@ void g_cone_3D_core(double center_x, double center_y, double center_z,
 
 void g_cone_3D(double center_x, double center_y, double center_z,
 			   double direction_x, double direction_y, double direction_z,
-			   double radius,double head_size);
+			   double radius,double head_size, G_BOOL Wire, G_BOOL Fill);
 
 void g_pyramid_3D_core(double center_x, double center_y, double center_z,                      //中心座標
 					   double direction_x, double direction_y, double direction_z,             //方向
@@ -315,11 +292,11 @@ void g_arrow_2D(double base_x, double base_y,
 void g_arrow_3D_core(double base_x, double base_y, double base_z,                //根元の座標
 					 double direction_x, double direction_y, double direction_z, //方向
 					 double arrow_size, double head_size,
-					 int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
+					 int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
 void g_arrow_3D(double base_x, double base_y, double base_z,
 				double direction_x, double direction_y, double direction_z,
-				double arrow_size, double head_size);
+				double arrow_size, double head_size, G_BOOL Wire, G_BOOL Fill);
 
 void g_triangle_3D_smooth_core_s(
 	G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,

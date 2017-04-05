@@ -1,7 +1,5 @@
 #include "glsc3d.h"
 
- #define WIRE_OR_FILL G_WIRE
-
 int main()
 {
 	const int s = 320;
@@ -24,18 +22,18 @@ int main()
 		
 		g_sel_scale_2D(0);
 		g_area_color_2D(1, 1, 0, 1);
-		g_box_2D(0, 0, 2, 1, G_YES,G_NO);
+		g_box_2D(0, 0, 2, 1, G_YES, G_NO);
 		
 //		g_sel_scale_2D(1);
 //		g_area_color_2D(1, 0, 0, 1);
-//		g_box_2D_vert(-1, 1, -0.5, 0.5, WIRE_OR_FILL);
+//		g_box_2D_vert(-1, 1, -0.5, 0.5, G_YES, G_NO);
 		
 		g_sel_scale_3D(2);
 		g_area_color_3D(0.5, 0.75, 0.5, 1);
-		g_box_3D_core(0, 0, 0, 2, 1, 1.5, 0, G_YES,G_NO);
+		g_box_3D_core(0, 0, 0, 2, 1, 1.5, 0, G_YES, G_NO);
 		
 //		g_sel_scale_3D(3);
-//		g_box_3D_vert_core(-1, 1, -0.5, 0.5, -0.75, 0.75, 0, WIRE_OR_FILL);
+//		g_box_3D_vert_core(-1, 1, -0.5, 0.5, -0.75, 0.75, 0, G_YES, G_NO);
 		
 		g_finish();
 	}

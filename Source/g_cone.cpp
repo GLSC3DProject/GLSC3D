@@ -79,7 +79,8 @@ void g_cone_3D_core(
 void g_cone_3D(
 	double center_x, double center_y, double center_z,          //中心座標
 	double direction_x, double direction_y, double direction_z, //方向
-	double radius,double head_size)                             //半径、高さ
+	double radius,double head_size,                             //半径、高さ
+	G_BOOL Wire, G_BOOL Fill)
 {
-	g_cone_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, head_size, 100, 0, G_FALSE, G_FILL);
+	g_cone_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, head_size, 100, 0, Wire, Fill);
 }

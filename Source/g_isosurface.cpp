@@ -251,8 +251,6 @@ void g_isosurface_f_3D(double x0,double x1,
 //#include<stdlib.h>
 //
 //#include "glsc3d_private.h"
-//#define WIRE_OR_FILL  (G_FILL)
-//#define DIVIDE_LEVEL    (0)
 //struct MarchingCube
 //{
 //	G_VECTOR r[15 + 1];
