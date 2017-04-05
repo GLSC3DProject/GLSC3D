@@ -253,7 +253,7 @@ void g_box_3D(double x, double y, double z,
 
 void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_sphere_3D(double x, double y, double z, double radius);
+void g_sphere_3D(double x, double y, double z, double radius, G_BOOL Wire, G_BOOL Fill);
 
 void g_ellipse_3D_core(
 	double x, double y, double z,

@@ -45,7 +45,7 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 	}
 }
 
-void g_sphere_3D(double x, double y, double z, double radius)
+void g_sphere_3D(double x, double y, double z, double radius, G_BOOL Wire, G_BOOL Fill)
 {
-	g_sphere_3D_core(x, y, z, radius, 12, 0, G_FALSE, G_TRUE);
+	g_sphere_3D_core(x, y, z, radius, 12, 0, Wire, Fill);
 }
