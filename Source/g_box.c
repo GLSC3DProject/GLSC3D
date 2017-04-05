@@ -2,7 +2,7 @@
 
 void g_box_2D(double x, double y,
 		double width, double height,
-		G_WIREFILL WireFill)
+		G_BOOL WIRE, G_BOOL FILL)
 {
 	int i;
 	G_VECTOR r[4],center;
@@ -11,27 +11,21 @@ void g_box_2D(double x, double y,
 	r[1] = g_vector2(width/2, -height/2);
 	r[2] = g_vector2(width/2, height/2);
 	r[3] = g_vector2(-width/2, height/2);
-	if(WireFill == 1)
+	if(FILL)
 	{
 		g_begin_triangle_fan();
-		for(i=0;i<4;i++)
-		{
-			g_emit_vertex(g_plus(center,r[i]));
-		}
+		for(i=0;i<4;i++) g_emit_vertex(g_plus(center,r[i]));
 	}
-	if(WireFill == 0)
+	if(WIRE)
 	{
 		g_begin_line_loop();
-		for(i=0;i<4;i++)
-		{
-			g_emit_vertex(g_plus(center,r[i]));
-		}
+		for(i=0;i<4;i++) g_emit_vertex(g_plus(center,r[i]));
 	}
 }
 
 void g_box_3D_core(double x, double y, double z,
 		double width, double height, double depth,
-		int DivideLevel, G_WIREFILL WireFill)
+		int DivideLevel, G_BOOL WIRE, G_BOOL FILL)
 {
 	G_VECTOR r0, r1, r2, r3, r4, r5, r6, r7;
 
@@ -45,7 +39,7 @@ void g_box_3D_core(double x, double y, double z,
 	r7 = g_vector3(x+width/2., y+height/2., z+depth/2.);
 
 
-	if(WireFill == 1)
+	if(FILL)
 	{
 		g_triangle_3D_core(r0.x, r0.y, r0.z,
 				r1.x, r1.y, r1.z,
@@ -101,7 +95,7 @@ void g_box_3D_core(double x, double y, double z,
 				r4.x, r4.y, r4.z,
 				DivideLevel, G_FALSE, G_TRUE);
 	}
-	if(WireFill == 0)
+	if(WIRE)
 	{
 		g_move_3D(r0.x,r0.y,r0.z);
 		g_plot_3D(r1.x,r1.y,r1.z);
@@ -129,7 +123,7 @@ void g_box_3D_core(double x, double y, double z,
 	}
 }
 void g_box_3D(double x, double y, double z,
-		double width, double height, double depth)
+		double width, double height, double depth, G_BOOL WIRE, G_BOOL FILL)
 {
-	g_box_3D_core(x, y, z, width, height, depth, 0, G_FILL);
+	g_box_3D_core(x, y, z, width, height, depth, 0, WIRE, FILL);
 }

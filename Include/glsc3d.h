@@ -242,14 +242,14 @@ g_data_plot_f_3D(x0, x1, y0, y1, N_x, N_y, &data[0][0])
 
 void g_box_2D(double x, double y,
 			  double width, double height,
-			  G_WIREFILL WireFill);
+			  G_BOOL WIRE, G_BOOL FILL);
 
 void g_box_3D_core(double x, double y, double z,
 				   double width, double height, double depth,
-				   int DivideLevel, G_WIREFILL WireFill);
+				   int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
 void g_box_3D(double x, double y, double z,
-			  double width, double height, double depth);
+			  double width, double height, double depth, G_BOOL WIRE, G_BOOL FILL);
 
 void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
