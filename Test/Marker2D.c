@@ -22,7 +22,7 @@ int main()
 		g_cls();
 		g_sel_scale_2D(0);
 
-		g_box_2D(0, 0, 2, 2, G_WIRE);
+		g_box_2D(0, 0, 2, 2, G_YES, G_NO);
 		
 		g_move_2D(+1, +1);
 		g_plot_2D(-1, -1);

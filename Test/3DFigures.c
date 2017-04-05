@@ -55,7 +55,7 @@ int main()
 		g_ellipse_3D_core(0, 0, 0, 1.5, 1, 0.75, c, s, 0, 8, 0, WIRE, FILL);
 
 		g_sel_scale_3D(5);
-		g_box_3D_core(0, 0, 0, 3, 2, 1.5, 0, WIRE_OR_FILL);
+		g_box_3D_core(0, 0, 0, 3, 2, 1.5, 0, G_NO, G_YES);
 
 		g_sel_scale_3D(6);
 		g_sphere_3D_core(0, 0, 0, 1, 8, 0, WIRE, FILL);

@@ -240,16 +240,20 @@ g_data_plot_f_3D(x0, x1, y0, y1, N_x, N_y, &data[0][0])
 
 // ------ g_box.c -----
 
-void g_box_2D(double x, double y,
-			  double width, double height,
-			  G_BOOL WIRE, G_BOOL FILL);
+void g_box_2D(
+	double x, double y,
+	double width, double height,
+	G_BOOL WIRE, G_BOOL FILL);
 
-void g_box_3D_core(double x, double y, double z,
-				   double width, double height, double depth,
-				   int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
+void g_box_3D_core(
+	double x, double y, double z,
+	double width, double height, double depth,
+	int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
-void g_box_3D(double x, double y, double z,
-			  double width, double height, double depth, G_BOOL WIRE, G_BOOL FILL);
+void g_box_3D(
+	double x, double y, double z,
+	double width, double height, double depth,
+	G_BOOL WIRE, G_BOOL FILL);
 
 void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
@@ -406,7 +410,7 @@ void g_circle_3D(double center_x, double center_y, double center_z,
 				 double theta, double phi,
 				 G_WIREFILL WireFill);
 
-void g_polygon_2D(double *xx, double *yy, int n, G_WIREFILL WireFill);
+void g_polygon_2D(double *xx, double *yy, int n, G_BOOL WIRE, G_BOOL FILL);
 
 void g_polyline_2D(double *xx, double *yy, int n);
 

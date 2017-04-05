@@ -57,7 +57,7 @@ int main()
 		g_fan_2D(0, 0, c, s, 1, 2.0, WIRE_OR_FILL);
 
 		g_sel_scale_2D(4);
-		g_polygon_2D(p, q, 5, WIRE_OR_FILL);
+		g_polygon_2D(p, q, 5, G_NO, G_YES);
 
 		g_sel_scale_2D(5);
 		g_polyline_2D(u, v, 6);

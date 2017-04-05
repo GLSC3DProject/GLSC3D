@@ -25,7 +25,7 @@ int main()
 		g_sel_text(1);
 		g_text_size(24);
 		g_area_color_2D(1, 1, 1, 1);
-		g_box_2D(545, 75, 150, 90, 1);
+		g_box_2D(545, 75, 150, 90, G_NO, G_YES);
 		g_text_2D_virtual(500, 68, "Exit");
 		g_text_2D_virtual(500, 93, "Program");
 
