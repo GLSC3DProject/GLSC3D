@@ -7,7 +7,7 @@ void g_circle_2D(
 	int i,STEP=64;
 	double dtheta=2*PI/STEP;
 
-	if(Wire == 1)
+	if (Fill)
 	{
 		g_begin_triangle_fan();
 		for(i=0; i<=STEP; i++)
@@ -16,7 +16,7 @@ void g_circle_2D(
 			g_emit_vertex(pos);
 		}
 	}
-	if(Wire == 0)
+	if (Wire)
 	{
 		g_begin_line_strip();
 		for(i=0; i<=STEP; i++)
@@ -37,10 +37,9 @@ void g_circle_3D_core(
 	double dtheta=2*PI/STEP;
 	G_VECTOR r(radius,0,0);
 	G_VECTOR center(center_x, center_y, center_z);
-	G_VECTOR r0, r1, r2;
+	G_VECTOR r1, r2;
 
-	//r0 = Rz(Rx(r,theta),phi) + center;
-	if (Wire==1)
+	if (Fill)
 	{
 		for(i=0; i<STEP; i++)
 		{
@@ -49,7 +48,7 @@ void g_circle_3D_core(
 			g_triangle_3D_flat_worker(center, r1, r2, DivideLevel);
 		}
 	}
-	if (Wire==0)
+	if (Wire)
 	{
 		g_begin_line_strip();
 		for(i=0; i<=STEP; i++)
