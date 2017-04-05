@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
 project(GLSC3D)
 
-#set(CMAKE_C_FLAGS -Werror)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_FLAGS -W -Wall)
+#set(CMAKE_CXX_STANDARD 11)
 
 include_directories(Include)
 add_subdirectory(Source)
