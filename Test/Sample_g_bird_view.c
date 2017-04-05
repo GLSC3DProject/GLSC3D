@@ -21,8 +21,7 @@ int main(void)
 	g_def_scale_3D_core(1, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, WINDOW_SIZE_X/2, 0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y,1, 1, 1, 0, 0, 0, 1);
 	
 	g_init_light_core(0, 1, 2, 3, 1);
-
-
+	
 	int i_time;
 	double dt = 0.03;
 	int i,j;

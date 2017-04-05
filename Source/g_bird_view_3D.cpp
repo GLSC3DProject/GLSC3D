@@ -105,16 +105,8 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
             
             if(WIRE)
             {
-//                g_begin_line_loop();
-//                for(k=0; k<4; k++)
-//                {
-//                    g_emit_vertex(r_corner[k]);
-//                }
-
-                g_move_s(r_corner[0]);
-                for(k=0; k<4; k++) g_plot_s(r_corner[(k+1)%4]);
-
-
+                g_move_s(r_corner[3]);
+                for(k=0; k<4; k++) g_plot_s(r_corner[k]);
             }
         }
     }

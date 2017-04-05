@@ -213,8 +213,8 @@ void g_data_plot_f_3D(double x0, double x1,
 void g_data_plot_2D(double x_left, double x_right,
 					double *yy, int n);
 
-#define g_bird_view_3D(x0, x1, y0, y1, N_x, N_y, data, wire, fill) \
-g_bird_view_f_3D(x0, x1, y0, y1, N_x, N_y, &data[0][0], wire, fill)
+#define g_bird_view_3D(x_left,x_right,y_bottom,y_top,N_x,N_z, data, wire, fill)\
+(g_bird_view_f_3D((x_left),(x_right),(y_bottom),(y_top),(N_x),(N_z),(double *)(data), wire, fill))
 
 #define g_contln_2D(x_left, x_right, y_bottom, y_top, N_x, N_y, data2D, level) \
 g_contln_f_2D(x_left, x_right, y_bottom, y_top, N_x, N_y, &data2D[0][0], level)
