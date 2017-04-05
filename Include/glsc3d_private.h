@@ -168,7 +168,6 @@ typedef struct
 {
 	G_VERTEX vertex[3];
 } G_TRIANGLE;
-//typedef G_VERTEX G_TRIANGLE[3];
 
 // ---- g_area.cpp
 
@@ -182,7 +181,7 @@ static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal)
 
 static inline G_TRIANGLE g_make_triangle_core(G_VERTEX v0, G_VERTEX v1, G_VERTEX v2)
 {
-	G_TRIANGLE t = {v0, v1, v2};
+	G_TRIANGLE t = {{v0, v1, v2}};
 	return t;
 }
 
