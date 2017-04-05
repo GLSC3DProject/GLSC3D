@@ -375,23 +375,26 @@ void g_triangle_2D(
 	double x2, double y2,
 	G_BOOL Wire, G_BOOL Fill);
 
-void g_fan_2D(double center_x, double center_y,
-			  double direction_x, double direction_y,
-			  double radius,
-			  double angle,
-			  G_WIREFILL WireFill);
+void g_fan_2D(
+	double center_x, double center_y,
+	double direction_x, double direction_y,
+	double radius,
+	double angle,
+	G_BOOL Wire, G_BOOL Fill);
 
-void g_fan_3D_core(double center_x, double center_y, double center_z,
-				   double direction_x, double direction_y, double direction_z,
-				   double radius,
-				   double angle, double psi,
-				   int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);
+void g_fan_3D_core(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius,
+	double angle, double psi,
+	int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_fan_3D(double center_x, double center_y, double center_z,
-			  double direction_x, double direction_y, double direction_z,
-			  double radius,
-			  double angle, double psi,
-			  G_WIREFILL WireFill);
+void g_fan_3D(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius,
+	double angle, double psi,
+	G_BOOL Wire, G_BOOL Fill);
 
 void g_circle_2D(double center_x, double center_y,
 				 double radius, G_BOOL Wire, G_BOOL Fill);
