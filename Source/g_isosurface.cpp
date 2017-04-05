@@ -63,7 +63,7 @@ static void do_isosurface(const MarchingCube *Cube, MarchingTetrahedron *Tetrahe
 	int UraOmoteFlag;
 	int SankakuShikaku;
 	int EdgeMember[4];
-	G_VECTOR    n,n1;
+//	G_VECTOR    n,n1;
 	G_POSITION r0, r1, r2, r3;
 
 	int l,m;

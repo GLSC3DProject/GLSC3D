@@ -71,5 +71,5 @@ void g_ellipse_3D(
 	double direction_x, double direction_y, double direction_z,   //方向
 	G_BOOL Wire, G_BOOL Fill)
 {
-	g_ellipse_3D_core(x, y, z, Sx, Sy, Sz, direction_x, direction_y, direction_z, 12, 0, G_FALSE, G_TRUE);
+	g_ellipse_3D_core(x, y, z, Sx, Sy, Sz, direction_x, direction_y, direction_z, 12, 0, Wire, Fill);
 }
