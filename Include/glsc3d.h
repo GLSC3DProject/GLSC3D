@@ -255,14 +255,17 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 
 void g_sphere_3D(double x, double y, double z, double radius);
 
-void g_ellipse_3D_core(double x, double y, double z,
-					   double Sx, double Sy, double Sz,
-					   double direction_x, double direction_y, double direction_z,
-					   int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+void g_ellipse_3D_core(
+	double x, double y, double z,
+	double Sx, double Sy, double Sz,
+	double direction_x, double direction_y, double direction_z,
+	int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_ellipse_3D(double x, double y, double z,
-				  double Sx, double Sy, double Sz,
-				  double direction_x, double direction_y, double direction_z);
+void g_ellipse_3D(
+	double x, double y, double z,
+	double Sx, double Sy, double Sz,
+	double direction_x, double direction_y, double direction_z,
+	G_BOOL Wire, G_BOOL Fill);
 
 void g_prism_3D_core(double center_x, double center_y, double center_z,
 					 double direction_x, double direction_y, double direction_z,

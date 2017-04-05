@@ -20,7 +20,7 @@ void g_ellipse_3D_core(
 	G_VECTOR center = G_VECTOR(x, y, z);
 	G_VECTOR SCALE = G_VECTOR(Sx, Sy, Sz);
 	G_VECTOR n0, n1, n2, n3;
-	G_VECTOR n_SCALE = g_vector3(1 / Sx, 1 / Sy, 1 / Sz);
+	G_VECTOR n_SCALE = G_VECTOR(1 / Sx, 1 / Sy, 1 / Sz);
 
 	for (theta = 0; theta < Nt; theta++)
 	{
@@ -68,7 +68,8 @@ void g_ellipse_3D_core(
 void g_ellipse_3D(
 	double x, double y, double z,                                 //中心座標
 	double Sx, double Sy, double Sz,                              //x,y,z方向への拡大率
-	double direction_x, double direction_y, double direction_z)   //方向
+	double direction_x, double direction_y, double direction_z,   //方向
+	G_BOOL Wire, G_BOOL Fill)
 {
 	g_ellipse_3D_core(x, y, z, Sx, Sy, Sz, direction_x, direction_y, direction_z, 12, 0, G_FALSE, G_TRUE);
 }
