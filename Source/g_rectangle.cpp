@@ -4,7 +4,7 @@ void g_rectangle_3D_core(double x, double y, double z,
 		double direction_x, double direction_y, double direction_z,
 		double width, double depth,
 		double psi,
-		int DivideLevel, G_WIREFILL WireFill)
+		int DivideLevel, G_BOOL WIRE, G_BOOL FILL)
 {
 	G_VECTOR r[4], center, r0, r1, r2, r3;
 	center = g_vector3(x,y,z);
@@ -21,7 +21,7 @@ void g_rectangle_3D_core(double x, double y, double z,
 	r2 = g_plus(center,Ry(Rz(Rx(r[2],psi),phi),theta));
 	r3 = g_plus(center,Ry(Rz(Rx(r[3],psi),phi),theta));
 
-	if(WireFill == G_FILL)
+	if(FILL)
 	{
 		g_triangle_3D_flat_worker(r0, r1, r2, DivideLevel);
 		g_triangle_3D_flat_worker(r0, r2, r3, DivideLevel);
@@ -40,7 +40,7 @@ void g_rectangle_3D(double x, double y, double z,
 		double direction_x, double direction_y, double direction_z,
 		double width, double depth,
 		double psi,
-		G_WIREFILL WireFill)
+		G_BOOL WIRE, G_BOOL FILL)
 {
-	g_rectangle_3D_core(x, y, z, direction_x, direction_y, direction_z, width, depth, psi, 0, WireFill);
+	g_rectangle_3D_core(x, y, z, direction_x, direction_y, direction_z, width, depth, psi, 0, WIRE, FILL);
 }

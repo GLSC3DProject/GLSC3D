@@ -50,7 +50,7 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
                       double y0, double y1,      //図を表示したい範囲
                       int N_x, int N_y,                   //配列のサイズ
                       double *data,                       //二次元配列
-                      G_WIREFILL WireFill)
+                      G_BOOL WIRE, G_BOOL FILL)
 {
     int i,j,k;
     double dx = (x1 - x0) / (N_x - 1);
@@ -101,9 +101,9 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
             normal_k[2] = normal(i+1,j+1);
             normal_k[3] = normal(i,j+1);
             
-            if(WireFill ==1) for(k = 0; k < 4; k++) g_triangle_3D_smooth_worker(rc, r_corner[k], r_corner[(k+1) % 4], g_normalize(rc_normal), normal_k[k], normal_k[(k+1)%4], 0);
+            if(FILL) for(k = 0; k < 4; k++) g_triangle_3D_smooth_worker(rc, r_corner[k], r_corner[(k+1) % 4], g_normalize(rc_normal), normal_k[k], normal_k[(k+1)%4], 0);
             
-            if(WireFill == 0)
+            if(WIRE)
             {
                 g_begin_line_loop();
                 for(k=0; k<4; k++)
@@ -114,6 +114,5 @@ void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
         }
     }
 }
-
 #undef U2
 #undef U2_EXT

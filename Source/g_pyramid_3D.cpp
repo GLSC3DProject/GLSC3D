@@ -3,7 +3,7 @@
 void g_pyramid_3D_core(double center_x, double center_y, double center_z,                      //中心座標
 					   double direction_x, double direction_y, double direction_z,             //方向
 					   double radius,double head_size, double psi,                             //半径、高さ
-					   int N, int DivideLevel, G_WIREFILL WireFill)
+					   int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL)
 {
 
 //	int i;
@@ -79,12 +79,12 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 
 	for(i=0;i<N;i++)
 	{
-		if(WireFill == 1) {
+		if(FILL) {
 			g_triangle_3D_smooth_worker(r_i[i], r_i[(i + 1) % N], rotation_top, n_i_lateral[i], n_i_lateral[i], n_i_lateral[i], DivideLevel);
 			g_triangle_3D_smooth_worker(r_i[(i + 1) % N], r_i[i], center, center_normal, center_normal, center_normal, DivideLevel);
 		}
 
-		if(WireFill == 0)
+		if(WIRE)
 		{
 			g_move_3D(rotation_top.x,rotation_top.y,rotation_top.z);
 			g_plot_3D(r_i[i].x,r_i[i].y,r_i[i].z);
@@ -101,5 +101,5 @@ void g_pyramid_3D(double center_x, double center_y, double center_z,            
 				  double radius,double head_size, double psi,                             //半径、高さ
 				  int N)
 {
-	g_pyramid_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, head_size, psi,  N, 0, G_FILL);
+	g_pyramid_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, head_size, psi,  N, 0, G_FALSE, G_FILL);
 }

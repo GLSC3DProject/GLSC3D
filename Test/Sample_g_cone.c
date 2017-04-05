@@ -17,11 +17,11 @@ int main()
     for(i_time = 0;;i_time++)
     {
         g_cls();
-        g_sel_scale_2D(1);
-        g_area_color_2D(1, 0, 0,1);
-        g_cone_2D(-1,-1.5,0,1,0.5,2,1);
-        g_line_color(1,0,0,1);
-        g_cone_2D(1,-0.5,0,1,0.5,2,0);
+//        g_sel_scale_2D(1);
+//        g_area_color_2D(1, 0, 0,1);
+//        g_cone_2D(-1,-1.5,0,1,0.5,2,1);
+//        g_line_color(1,0,0,1);
+//        g_cone_2D(1,-0.5,0,1,0.5,2,0);
         
         g_sel_scale_3D(0);
         g_area_color_3D(1, 0, 0, 1);

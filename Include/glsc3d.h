@@ -186,11 +186,11 @@ void g_sel_text(int id);
 
 // ----------------
 
-void g_bird_view_f_3D(double x0, double x1,
-					  double y0, double y1,
-					  int N_x, int N_y,
-					  double *data,
-					  G_WIREFILL WireFill);
+void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
+					  double y0, double y1,      //図を表示したい範囲
+					  int N_x, int N_y,                   //配列のサイズ
+					  double *data,                       //二次元配列
+					  G_BOOL WIRE, G_BOOL FILL);
 
 void g_contln_f_2D(double x_left, double x_right,
 				   double y_bottom, double y_top,
@@ -213,8 +213,8 @@ void g_data_plot_f_3D(double x0, double x1,
 void g_data_plot_2D(double x_left, double x_right,
 					double *yy, int n);
 
-#define g_bird_view_3D(x0, x1, y0, y1, N_x, N_y, data, WireFill) \
-g_bird_view_f_3D(x0, x1, y0, y1, N_x, N_y, &data[0][0], WireFill)
+#define g_bird_view_3D(x0, x1, y0, y1, N_x, N_y, data, wire, fill) \
+g_bird_view_f_3D(x0, x1, y0, y1, N_x, N_y, &data[0][0], wire, fill)
 
 #define g_contln_2D(x_left, x_right, y_bottom, y_top, N_x, N_y, data2D, level) \
 g_contln_f_2D(x_left, x_right, y_bottom, y_top, N_x, N_y, &data2D[0][0], level)
@@ -280,19 +280,20 @@ void g_cylinder_3D_core(double center_x, double center_y, double center_z,
 void g_cylinder_3D(double center_x, double center_y, double center_z, double direction_x, double direction_y,
 				   double direction_z, double radius, double height, double psi, G_BOOL Wire, G_BOOL Fill);
 
+
 void g_cone_3D_core(double center_x, double center_y, double center_z,
 					double direction_x, double direction_y, double direction_z,
 					double radius, double head_size,
-					int N, int DivideLevel, G_WIREFILL WireFill);
+					int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
 void g_cone_3D(double center_x, double center_y, double center_z,
 			   double direction_x, double direction_y, double direction_z,
 			   double radius,double head_size);
 
-void g_pyramid_3D_core(double center_x, double center_y, double center_z,
-					   double direction_x, double direction_y, double direction_z,
-					   double radius,double head_size, double psi,
-					   int N, int DivideLevel, G_WIREFILL WireFill);
+void g_pyramid_3D_core(double center_x, double center_y, double center_z,                      //中心座標
+					   double direction_x, double direction_y, double direction_z,             //方向
+					   double radius,double head_size, double psi,                             //半径、高さ
+					   int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
 void g_pyramid_3D(double center_x, double center_y, double center_z,
 				  double direction_x, double direction_y, double direction_z,
@@ -304,10 +305,10 @@ void g_arrow_2D(double base_x, double base_y,
 				double arrow_size, double head_size,
 				int type);
 
-void g_arrow_3D_core(double base_x, double base_y, double base_z,
-					 double direction_x, double direction_y, double direction_z,
+void g_arrow_3D_core(double base_x, double base_y, double base_z,                //根元の座標
+					 double direction_x, double direction_y, double direction_z, //方向
 					 double arrow_size, double head_size,
-					 int N, int DivideLevel, G_WIREFILL WireFill);
+					 int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
 void g_arrow_3D(double base_x, double base_y, double base_z,
 				double direction_x, double direction_y, double direction_z,
@@ -369,7 +370,7 @@ void g_triangle_2D(
 	double x0, double y0,
 	double x1, double y1,
 	double x2, double y2,
-	G_WIREFILL WireFill);
+	G_BOOL Wire, G_BOOL Fill);
 
 void g_fan_2D(double center_x, double center_y,
 			  double direction_x, double direction_y,
@@ -412,13 +413,13 @@ void g_rectangle_3D_core(double x, double y, double z,
 						 double direction_x, double direction_y, double direction_z,
 						 double width, double depth,
 						 double psi,
-						 int DivideLevel, G_WIREFILL WireFill);
+						 int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
 void g_rectangle_3D(double x, double y, double z,
 					double direction_x, double direction_y, double direction_z,
 					double width, double depth,
 					double psi,
-					G_WIREFILL WireFill);
+					G_BOOL WIRE, G_BOOL FILL);
 
 extern char *g_key_code_string[];
 

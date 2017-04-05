@@ -38,7 +38,7 @@ void g_arrow_2D(double base_x, double base_y,                 //根元の座標
 void g_arrow_3D_core(double base_x, double base_y, double base_z,                //根元の座標
                      double direction_x, double direction_y, double direction_z, //方向
                      double arrow_size, double head_size,
-                     int N, int DivideLevel, G_WIREFILL WireFill)
+                     int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL)
 {
     G_VECTOR base = g_vector3(base_x,base_y,base_z);
     G_VECTOR direction = g_vector3(direction_x,direction_y,direction_z);
@@ -47,7 +47,7 @@ void g_arrow_3D_core(double base_x, double base_y, double base_z,               
     g_cone_3D_core(center.x, center.y, center.z,
                    n.x, n.y, n.z,
                    head_size / SQRT3, head_size,
-                   N, DivideLevel, WireFill);
+                   N, DivideLevel, G_FALSE, G_FILL);
     g_move_s(base);
     g_plot_s(center);
 }
@@ -56,5 +56,5 @@ void g_arrow_3D(double base_x, double base_y, double base_z,                //�
                 double direction_x, double direction_y, double direction_z, //方向
                 double arrow_size, double head_size)                        //全体の長さ、頭の長さ
 {
-    g_arrow_3D_core(base_x, base_y, base_z, direction_x, direction_y, direction_z, arrow_size, head_size, 100, 0, G_FILL);
+    g_arrow_3D_core(base_x, base_y, base_z, direction_x, direction_y, direction_z, arrow_size, head_size, 100, 0, G_FALSE, G_FILL);
 }

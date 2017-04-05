@@ -15,7 +15,7 @@ int main()
         
         g_sel_scale_3D(0);
                 
-        g_area_color_3D(1, 0, 0, 1);
+        g_area_color_3D(1, 0, 0, 0.5);
         
         g_sphere_3D(0, 0, 0, scale);
 

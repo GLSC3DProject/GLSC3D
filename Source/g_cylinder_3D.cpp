@@ -50,7 +50,7 @@ void g_cylinder_3D_core(
 	}
 	if (Wire)
 	{
-		g_begin_lines();
+//		g_begin_lines();
 
 		for (int i = 0; i < N; i++)
 		{
@@ -61,9 +61,14 @@ void g_cylinder_3D_core(
 			r2 = (r - top) * B * matrix;
 			r3 = (r + top) * B * matrix;
 
-			g_emit_line(r0, r1);
-			g_emit_line(r0, r2);
-			g_emit_line(r1, r3);
+//			g_emit_line(r0, r1);
+//			g_emit_line(r0, r2);
+//			g_emit_line(r1, r3);
+
+			g_move_s(r2);
+			g_plot_s(r0);
+			g_plot_s(r1);
+			g_plot_s(r3);
 		}
 	}
 }

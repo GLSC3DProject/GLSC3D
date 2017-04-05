@@ -20,11 +20,11 @@ int main()
 		g_cls();
 		g_sel_scale_3D(0);
 		g_line_color(1, 0, 0, 1);
-		g_rectangle_3D(0,0,0,1,1,0,2,4,0.01*i_time,0);
+		g_rectangle_3D(0,0,0,1,1,0,2,4,0.01*i_time, G_TRUE, G_FALSE);
 
 		g_sel_scale_3D(1);
 		g_area_color_3D(1, 0, 0, 1);
-		g_rectangle_3D(0,0,0,1,1,0,2,4,0.01*i_time,1);
+		g_rectangle_3D(0,0,0,1,1,0,2,4,0.01*i_time, G_FALSE, G_TRUE);
 
 		g_finish();
 	}

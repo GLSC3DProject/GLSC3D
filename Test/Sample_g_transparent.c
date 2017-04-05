@@ -52,7 +52,7 @@ int main()
 
 			g_cone_3D_core(0.5, 1, 0.5,
 			  1, 1, 1,
-			  1, 2, 100, 0, G_FILL);
+			  1, 2, 100, 0, G_FALSE, G_FILL);
 
         }
 		g_finish();
