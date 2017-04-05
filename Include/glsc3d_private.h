@@ -197,8 +197,8 @@ extern int TRIANGLE_BUFFER_SIZE;
 extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
 // ---- g_array_buffer.c
-extern void *GLSC3D_Data_Buffer;
-void * GLSC3D_Array_Buffer(int Array_Size);
+extern void * GLSC3D_Data_Buffer;
+void * GLSC3D_Array_Buffer(size_t Array_Size);
     
 // ---- g_scale.cpp
 

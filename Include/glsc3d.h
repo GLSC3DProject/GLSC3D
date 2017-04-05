@@ -171,7 +171,8 @@ void g_text_font_core(const char *font_file);
 void g_text_size(float size);
 
 void g_def_text_core(int id, float r, float g, float b, float a, const char *font_type, float font_size);
-void g_def_text(int id, float r, float g, float b, float a, int font, float font_size);
+//void g_def_text(int id, float r, float g, float b, float a, int font, float font_size);
+void g_def_text(int id, float r, float g, float b, float a, float font_size);
 void g_sel_text(int id);
 
 // ----------------

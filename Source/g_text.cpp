@@ -231,7 +231,8 @@ void g_def_text_core(int id, float r, float g, float b, float a, const char *fon
 	glsc3D_g_def_text[id].font_size = font_size;
 }
 
-void g_def_text(int id, float r, float g, float b, float a, int font, float font_size)
+//void g_def_text(int id, float r, float g, float b, float a, int font, float font_size)
+void g_def_text(int id, float r, float g, float b, float a, float font_size)
 {
 	g_def_text_core(id, r, g, b, a, NULL, font_size);
 }

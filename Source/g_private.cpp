@@ -1,9 +1,9 @@
 #include "glsc3d_private.h"
 
 size_t GLSC3D_Data_Buffer_Size = 1 << 20;
-void *GLSC3D_Data_Buffer;
+void * GLSC3D_Data_Buffer;
 
-void *GLSC3D_Array_Buffer(int Array_Size)
+void * GLSC3D_Array_Buffer(size_t Array_Size)
 {
 	while (Array_Size > GLSC3D_Data_Buffer_Size)
 		GLSC3D_Data_Buffer_Size *= 2;

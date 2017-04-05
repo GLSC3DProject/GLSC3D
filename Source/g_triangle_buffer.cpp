@@ -16,7 +16,7 @@ int *aligned_index;
 int aligned_index_index;
 
 int *final_index;
-int final_index_index;
+unsigned int final_index_index;
 
 int *merge_buffer;
 
@@ -306,7 +306,7 @@ void g_triangle_buffer_merge()
                         {
                             
                             g_triangle_merge(merge_buffer, aligned_index + j + 1, final_index + i_length, triangle_r, merge_buffer_length, length);
-                            for(int k = 0; k < merge_buffer_length + length; ++k)
+                            for(unsigned int k = 0; k < merge_buffer_length + length; ++k)
                                 merge_buffer[k] = (final_index + i_length)[k];
                             merge_buffer_length += length;
                             DBG_WRITE("merge_buffer_length : %d", merge_buffer_length);
@@ -315,7 +315,7 @@ void g_triangle_buffer_merge()
                 }
             }
             
-            for(int j = 0; j < merge_buffer_length; ++j)
+            for(unsigned int j = 0; j < merge_buffer_length; ++j)
                 (final_index + i_length)[j] = merge_buffer[j];
             i_length += merge_buffer_length;
             DBG_WRITE("i_length : %d", i_length);

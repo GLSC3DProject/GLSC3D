@@ -1,4 +1,3 @@
-#include<stdlib.h>
 #include<stdio.h>
 
 #include "glsc3d.h"
@@ -20,11 +19,12 @@ int main()
 		g_cls();
 		g_sel_scale_3D(0);
 		g_line_color(1, 0, 0, 1);
-		g_rectangle_3D(0,0,0,1,1,0,2,4,0.01*i_time, G_TRUE, G_FALSE);
+		g_rectangle_3D(0,0,0,1,1,0,2,4,0.01*i_time, G_YES, G_NO);
 
 		g_sel_scale_3D(1);
-		g_area_color_3D(1, 0, 0, 1);
-		g_rectangle_3D(0,0,0,1,1,0,2,4,0.01*i_time, G_FALSE, G_TRUE);
+		g_line_color(0, 1, 1, 1);
+		g_area_color_3D(0, 0, 1, 1);
+		g_rectangle_3D_core(0,0,0,1,1,0,2,4,0.01*i_time, 4, G_YES, G_YES);
 
 		g_finish();
 	}

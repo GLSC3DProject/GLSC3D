@@ -13,8 +13,8 @@ int main()
 
 	g_def_scale_2D(0, 0, 640, 480, 0, 0, 0, 640, 480);
 	g_sel_scale_2D(0);
-	g_def_text(0, 1, 1, 1, 1, 0, 20);
-	g_def_text(1, 0, 0, 0, 1, 0, 20);
+	g_def_text(0, 1, 1, 1, 1, 20);
+	g_def_text(1, 0, 0, 0, 1, 20);
 
 	while (1)
 	{

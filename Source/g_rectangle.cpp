@@ -26,7 +26,7 @@ void g_rectangle_3D_core(double x, double y, double z,
 		g_triangle_3D_flat_worker(r0, r1, r2, DivideLevel);
 		g_triangle_3D_flat_worker(r0, r2, r3, DivideLevel);
 	}
-	else
+	if(WIRE)
 	{
 		g_begin_line_loop();
 		for(int i=0;i<4;i++)

@@ -22,7 +22,7 @@ void g_triangle_3D_smooth_worker(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2, G_VECTOR
 		G_VERTEX v1 = g_make_vertex(r1, n1);
 		G_VERTEX v2 = g_make_vertex(r2, n2);
 
-		G_TRIANGLE t0 = {v0, v1, v2};
+		G_TRIANGLE t0 = g_make_triangle_core(v0, v1, v2);
 		g_set_triangle(&t0);
 	}
 }
