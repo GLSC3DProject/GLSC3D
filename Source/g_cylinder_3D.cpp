@@ -50,8 +50,6 @@ void g_cylinder_3D_core(
 	}
 	if (Wire)
 	{
-//		g_begin_lines();
-
 		for (int i = 0; i < N; i++)
 		{
 			G_MATRIX A = G_MATRIX::RotationX(i * dth);
@@ -60,10 +58,6 @@ void g_cylinder_3D_core(
 			r1 = (r + top) * A * matrix;
 			r2 = (r - top) * B * matrix;
 			r3 = (r + top) * B * matrix;
-
-//			g_emit_line(r0, r1);
-//			g_emit_line(r0, r2);
-//			g_emit_line(r1, r3);
 
 			g_move_s(r2);
 			g_plot_s(r0);
