@@ -301,7 +301,7 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 void g_pyramid_3D(double center_x, double center_y, double center_z,
 				  double direction_x, double direction_y, double direction_z,
 				  double radius,double head_size, double psi,
-				  int N);
+				  int N, G_BOOL WIRE, G_BOOL FILL);
 
 void g_arrow_2D(double base_x, double base_y,
 				double direction_x, double direction_y,
