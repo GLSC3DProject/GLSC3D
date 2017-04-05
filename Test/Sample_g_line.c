@@ -1,6 +1,4 @@
-#include<stdlib.h>
 #include<stdio.h>
-
 
 #include "glsc3d.h"
 
@@ -12,7 +10,9 @@ int main()
 {
     g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
     
-    g_def_scale_2D(0,-2, 2, -2, 2,0, 0,WINDOW_SIZE_X, WINDOW_SIZE_Y);
+    g_def_scale_2D(0,
+                   -2, 2, -2, 2,
+                   0, 0,WINDOW_SIZE_X, WINDOW_SIZE_Y);
     
 	g_def_line(0, 1, 0, 0, 1, 4, 0);
 	g_def_line(1, 0, 1, 0, 1, 4, 1);
