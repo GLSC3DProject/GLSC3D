@@ -29,7 +29,7 @@ int main()
 
     g_def_marker(7, 0, 0, 1, 1, 1, 45);
     g_def_marker(8, 1, 0, 1, 1, 0, 50);
-    g_def_marker(9, 1, 1, 0, 1, 1, 55);
+    g_def_marker(9, 1, 1, 0, 1, 2, 55);
 
     for(int i_time = 0;;i_time++)
     {
@@ -68,7 +68,6 @@ int main()
         g_marker_3D(-1.5, 0, 1.5);
 
         g_sel_marker(9);
-        g_marker_type(G_MARKER_SPHERE);
         g_marker_3D(1, 0, 1);
 
         g_finish();

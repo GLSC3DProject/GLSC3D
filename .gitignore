@@ -8,5 +8,5 @@ Manual/GLSC3D_Manual.*
 cmake-build-debug/
 Out/
 OutXcode/
-Sample/Release/
+Samples/Release/
 Advanced/Release/

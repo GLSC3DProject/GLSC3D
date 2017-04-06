@@ -1,5 +1,5 @@
-#include<stdlib.h>
 #include<stdio.h>
+#include<math.h>
 
 #include "glsc3d.h"
 
@@ -11,14 +11,10 @@
 
 int main()
 {
-    
-    g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
-    //g_init_core("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y,WINDOW_POS_X,WINDOW_POS_Y);
+    g_init_core("Sample_g_init.c", WINDOW_SIZE_X, WINDOW_SIZE_Y,WINDOW_POS_X,WINDOW_POS_Y, 0.9, 0.9, 0.9, 1, 1<<20, 1<<20);
     g_init_light(0,-1,-1,-1);
     
-    int i;
-    
-    for(i=0;;i++)
+    for(int i=0; ;i++)
     {
         g_scr_color(cos(0.01*i)*sin(0.01*i),cos(0.01*i),sin(0.01*i));
         g_cls();
