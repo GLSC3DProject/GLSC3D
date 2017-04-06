@@ -1,0 +1,2 @@
+cc ${1} -W -Wall -O2 -I/$HOME/include -L/$HOME/lib -lglsc3d -L/usr/lib/x86_64-linux-gnu -lGL -lGLU -lSDL2 -lfreetype -lpng /usr/lib/x86_64-linux-gnu/libc++.so.1.0 -lm -o ${1%.c}
+
