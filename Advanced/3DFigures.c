@@ -24,7 +24,6 @@ int main()
 
 	//g_line_width(2);
 	//g_line_type(1);
-	g_line_color(1, 1, 1, 0.5);
 
 	g_text_color(0.5f, 0.5f, 0, 1);
 

@@ -61,6 +61,14 @@ void g_init_core(
 
 	g_init_light(0, 0, 0, 1);
 
+	g_scr_color(r, g, b);
+
+	g_marker_color(0, 0, 0, 1);
+	g_line_color(0, 0, 0, 1);
+	g_area_color_2D(0, 0, 0, 1);
+	g_area_color_3D(0, 0, 0, 1);
+	g_text_color(0, 0, 0, 1);
+
 	g_enable_transparent = enable_transparent;
 
 	if(g_enable_transparent)
@@ -84,11 +92,6 @@ void g_init_core(
 
 		g_triangle_buffer_init();
 	}
-
-	g_scr_color(r,g,b);
-//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//	g_finish();
-//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void g_init(const char *WindowName, int width, int height)

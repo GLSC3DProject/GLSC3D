@@ -16,7 +16,7 @@ struct G_MARKER_APPEARANCE
 
 G_MARKER_APPEARANCE glsc3D_g_def_marker[TotalDisplayNumber];
 
-G_COLOR	g_current_marker_color(1, 1, 1, 1);
+G_COLOR	g_current_marker_color;
 float	g_current_marker_size;
 G_UINT	g_current_marker_type;
 G_UINT	g_current_marker_size_type;

@@ -25,7 +25,6 @@ int main()
 		
 		g_sel_scale_2D(0);
 		
-		g_text_color(1, 1, 1, 1);
 		time_t time_val = time(0);
 		strftime(TEXT2, sizeof(TEXT2), "%Y/%m/%d %H:%M:%S", localtime(&time_val));
 

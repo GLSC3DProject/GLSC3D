@@ -26,7 +26,7 @@ GLint g_stipple_type[] = {
 	0b00110111,
 };
 
-G_COLOR	g_current_line_color(1, 1, 1, 1);
+G_COLOR	g_current_line_color;
 float	g_current_line_size;
 int		g_current_line_stipple;
 bool	g_need_line_stipple_updated;

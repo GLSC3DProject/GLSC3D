@@ -7,7 +7,7 @@
 
 GLuint g_texture, g_sampler, g_quad_vao;
 
-G_COLOR g_current_text_color(1, 1, 1, 1);
+G_COLOR g_current_text_color;
 float g_current_text_size = 0;
 
 static FT_Library library;

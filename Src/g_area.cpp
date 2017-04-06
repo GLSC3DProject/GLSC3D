@@ -1,7 +1,7 @@
 #include "glsc3d_private.h"
 
-G_COLOR g_current_area_color_3D(1, 1, 1, 1);
-G_COLOR g_current_area_color_2D(1, 1, 1, 1);
+G_COLOR g_current_area_color_3D;
+G_COLOR g_current_area_color_2D;
 
 G_COLOR glsc3D_g_def_area2D[TotalDisplayNumber];
 G_COLOR glsc3D_g_def_area3D[TotalDisplayNumber];
