@@ -27,7 +27,7 @@ message(SDL_LIBRARY: ${SDL_LIBRARY})
 message(FREETYPE_LIBRARIES: ${FREETYPE_LIBRARIES})
 message(PNG_LIBRARY: ${PNG_LIBRARY})
 
-add_library(GLSC3D
+add_library(glsc3d
 	g_area.cpp
 	g_arrow.cpp
 	g_bird_view_3D.cpp
@@ -64,12 +64,9 @@ add_library(GLSC3D
 	g_triangle.cpp
 	g_triangle_buffer.cpp
 	g_vertex_buffer.cpp
-	../Include/glsc3d.h
-	../Include/glsc3d_math.h
-	../Include/glsc3d_private.h
 )
 
-target_link_libraries(GLSC3D
+target_link_libraries(glsc3d
 	${OPENGL_gl_LIBRARY}
 	${SDL_LIBRARY}
 	${PNG_LIBRARY}
