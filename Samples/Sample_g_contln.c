@@ -44,7 +44,9 @@ int main()
 		
 		g_cls();
 		g_sel_scale_2D(0);
+		g_line_color(1.0,0.0,0.0,1.0);
 		g_contln_f_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array, -0.5);
+		g_line_color(0.0,1.0,0.0,1.0);
 		g_contln_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array2, 0.5);
 		
 		g_finish();
