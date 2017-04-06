@@ -2,6 +2,8 @@
 .idea/*
 !.idea/codeStyleSettings.xml
 Manual/*.pbm
+Manual/GLSC3D_Manual.*
+!Manual/GLSC3D_Manual.tex
 .vs/
 cmake-build-debug/
 Out/
