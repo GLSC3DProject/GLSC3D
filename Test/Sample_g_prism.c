@@ -1,4 +1,3 @@
-#include<stdlib.h>
 #include<stdio.h>
 
 #include "glsc3d.h"
@@ -20,8 +19,6 @@ int main()
 				   WINDOW_SIZE_X/2, 0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y,
 				   -0.1, 1.0, 0.1,
 				   10);
-
-	g_init_light(0, 0, 0, 2);
 
 	for (int i_time = 0;; i_time++)
 	{

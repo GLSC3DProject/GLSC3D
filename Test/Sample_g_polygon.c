@@ -1,6 +1,4 @@
-#include<stdlib.h>
 #include<stdio.h>
-
 #include "glsc3d.h"
 
 #define WINDOW_SIZE_X     (1000)
@@ -9,9 +7,7 @@
 int main()
 {
     g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
-    
     g_def_scale_2D(0,-2, 2, -2, 2,0, 0,WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
-
     g_def_scale_2D(1,-2, 2, -2, 2,WINDOW_SIZE_X/2, 0,WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
     
     double x[5],y[5];

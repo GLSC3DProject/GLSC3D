@@ -1,5 +1,5 @@
-#include <glsc3d.h>
 #include <stdio.h>
+#include "glsc3d.h"
 
 #define PI M_PI
 

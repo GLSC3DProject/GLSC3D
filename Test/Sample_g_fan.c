@@ -1,6 +1,4 @@
-#include<stdlib.h>
 #include<stdio.h>
-
 #include "glsc3d.h"
 
 #define WINDOW_SIZE_X     (1000)

@@ -1,4 +1,3 @@
-#include<stdlib.h>
 #include<stdio.h>
 #include "glsc3d.h"
 

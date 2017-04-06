@@ -1,4 +1,3 @@
-#include<stdlib.h>
 #include<stdio.h>
 
 #include "glsc3d.h"
@@ -19,18 +18,18 @@
 int main()
 {
 	g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
-	g_scr_color(1, 1, 1);
 	g_line_width(1);
 	
 	g_def_scale_2D(0,-2, 2, -2, 2,0, 0,WINDOW_SIZE_X, WINDOW_SIZE_Y);
 	
 	int i_time;
+	int i,j;
+	double xx,yy,dx=4.0/Imax,dy=4.0/Jmax;
+	double array[Imax*Jmax];
+	double array2[Imax][Jmax];
+
 	for(i_time = 0;;i_time++)
 	{
-		int i,j;
-		double xx,yy,dx=4.0/Imax,dy=4.0/Jmax;
-		double array[Imax*Jmax];
-		double array2[Imax][Jmax];
 		for (i = 0; i < Imax; i++)
 		{
 			xx = dx * i;
