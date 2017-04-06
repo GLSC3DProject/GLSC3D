@@ -1,6 +1,7 @@
 ﻿.DS_Store
 .idea/*
 !.idea/codeStyleSettings.xml
+Manual/*.pbm
 .vs/
 cmake-build-debug/
 Out/
