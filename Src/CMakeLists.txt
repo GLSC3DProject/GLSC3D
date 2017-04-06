@@ -1,3 +1,5 @@
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Out)
+
 find_package(OpenGL)
 
 if (MSVC)
@@ -23,9 +25,6 @@ message(CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME})
 message(CMAKE_C_FLAGS: ${CMAKE_C_FLAGS})
 message(CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS})
 message(OPENGL_gl_LIBRARY: ${OPENGL_gl_LIBRARY})
-message(SDL_LIBRARY: ${SDL_LIBRARY})
-message(FREETYPE_LIBRARIES: ${FREETYPE_LIBRARIES})
-message(PNG_LIBRARY: ${PNG_LIBRARY})
 
 add_library(glsc3d
 	g_area.cpp
