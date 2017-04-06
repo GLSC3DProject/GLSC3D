@@ -7,7 +7,7 @@
 
 int main()
 {
-    g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
+    g_init("Sample_g_marker.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
     
     g_def_scale_2D(0,
                    -2, 2, -2, 2,
@@ -27,9 +27,9 @@ int main()
     g_def_marker(5, 0, 1, 1, 1, 1, 35);
     g_def_marker(6, 1, 1, 1, 1, 0, 40);
 
-    g_def_marker(7, 0, 0, 1, 1, 1, 45);
-    g_def_marker(8, 1, 0, 1, 1, 0, 50);
-    g_def_marker(9, 1, 1, 0, 1, 2, 55);
+    g_def_marker(7, 1, 0, 0, 1, 1, 45);
+    g_def_marker(8, 0, 1, 0, 1, 0, 50);
+    g_def_marker(9, 0, 0, 1, 1, 2, 55);
 
     for(int i_time = 0;;i_time++)
     {

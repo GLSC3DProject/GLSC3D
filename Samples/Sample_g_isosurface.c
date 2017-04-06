@@ -63,10 +63,10 @@ int main()
 					WINDOW_SIZE_X, WINDOW_SIZE_Y,
 					1, 1, 1,
 					1);
-	g_init_light_core(0,1,1,1,1);
-	int i_time;
+//	g_init_light_core(0,1,1,1,1);
+
 	double t,dt = 1./32;
-	for(i_time = 0;;i_time++)
+	for(int i_time = 0;;i_time++)
 	{
 		t = i_time * dt;
 		
@@ -96,11 +96,9 @@ int main()
 				}
 			}
 		}
-		
-		g_scr_color(0, 0, 0);
+
 		g_cls();
 		g_sel_scale_3D(0);
-		g_area_color_3D(1, 0, 0, 1);
 		
 #ifndef USE_MULTIDIMENSIONAL_ARRAY
 		g_isosurface_f_3D(-XLEN / 2 + 0.5 * d_x, XLEN / 2 - 0.5 * d_x,

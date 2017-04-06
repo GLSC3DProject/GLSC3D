@@ -24,8 +24,7 @@
 #define		U2_EXT(i,j) u2_ext[(j) * ((imax) + 2) + (i)]
 
 // Bird_view用に境界条件を設定しているバルク部分はコピー, 境界部分は片側差分
-void
-Extend2Dim(int imax, int jmax, double *u2, double *u2_ext)
+void Extend2Dim(int imax, int jmax, double *u2, double *u2_ext)
 {
     int i, j;
     
@@ -46,11 +45,12 @@ Extend2Dim(int imax, int jmax, double *u2, double *u2_ext)
     }
 }
 
-void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
-                      double y0, double y1,      //図を表示したい範囲
-                      int N_x, int N_y,                   //配列のサイズ
-                      double *data,                       //二次元配列
-                      G_BOOL WIRE, G_BOOL FILL)
+void g_bird_view_f_3D(
+    double x0, double x1,    //図を表示したい範囲
+    double y0, double y1,      //図を表示したい範囲
+    int N_x, int N_y,                   //配列のサイズ
+    double *data,                       //二次元配列
+    G_BOOL WIRE, G_BOOL FILL)
 {
     int i,j,k;
     double dx = (x1 - x0) / (N_x - 1);

@@ -1,9 +1,10 @@
 ﻿#include "glsc3d_private.h"
 
-void g_pyramid_3D_core(double center_x, double center_y, double center_z,                      //中心座標
-					   double direction_x, double direction_y, double direction_z,             //方向
-					   double radius,double head_size, double psi,                             //半径、高さ
-					   int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL)
+void g_pyramid_3D_core(
+	double center_x, double center_y, double center_z,                      //中心座標
+	double direction_x, double direction_y, double direction_z,             //方向
+	double radius,double head_size, double psi,                             //半径、高さ
+	int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL)
 {
 	int i;
 	double dth = 2 * PI / N;
@@ -50,10 +51,11 @@ void g_pyramid_3D_core(double center_x, double center_y, double center_z,       
 	}
 }
 
-void g_pyramid_3D(double center_x, double center_y, double center_z,                      //中心座標
-				  double direction_x, double direction_y, double direction_z,             //方向
-				  double radius,double head_size, double psi,                             //半径、高さ
-				  int N, G_BOOL WIRE, G_BOOL FILL)
+void g_pyramid_3D(
+	double center_x, double center_y, double center_z,                      //中心座標
+	double direction_x, double direction_y, double direction_z,             //方向
+	double radius,double head_size, double psi,                             //半径、高さ
+	int N, G_BOOL WIRE, G_BOOL FILL)
 {
 	g_pyramid_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, head_size, psi,  N, 0, WIRE, FILL);
 }

@@ -66,8 +66,11 @@ void g_prism_3D_core(
 	}
 }
 
-void g_prism_3D(double center_x, double center_y, double center_z, double direction_x, double direction_y,
-				double direction_z, double radius, double height, double psi, int N, G_BOOL Wire, G_BOOL Fill)                //半径、高さ、側面数
+void g_prism_3D(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius, double height, double psi, int N,
+	G_BOOL Wire, G_BOOL Fill)                //半径、高さ、側面数
 {
 	g_prism_3D_core(center_x, center_y, center_z, direction_x, direction_y, direction_z, radius, height, psi, N, 0, Wire, Fill);
 }

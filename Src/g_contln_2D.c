@@ -9,11 +9,12 @@
 #define flag(i,j)        (flag[(i)*N_y+(j)])
 #define data2D(i, j)     data2D[(i)*N_y+(j)]
 
-void g_contln_f_2D(double x_left, double x_right,
-		double y_bottom, double y_top,
-		int N_x, int N_y,
-		double *data2D,
-		double level)
+void g_contln_f_2D(
+	double x_left, double x_right,
+	double y_bottom, double y_top,
+	int N_x, int N_y,
+	double *data2D,
+	double level)
 {
 	int i,j,k,l;
 	double xl = x_right-x_left,yl = y_top-y_bottom;

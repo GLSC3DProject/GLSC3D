@@ -12,7 +12,6 @@
 int main()
 {
     g_init_core("Sample_g_init.c", WINDOW_SIZE_X, WINDOW_SIZE_Y,WINDOW_POS_X,WINDOW_POS_Y, 0.9, 0.9, 0.9, 1, 1<<20, 1<<20);
-    g_init_light(0,-1,-1,-1);
     
     for(int i=0; ;i++)
     {

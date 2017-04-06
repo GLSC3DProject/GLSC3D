@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include "glsc3d.h"
 
 int main()
@@ -13,18 +14,14 @@ int main()
 
 	g_def_scale_2D(0, 0, 640, 480, 0, 0, 0, 640, 480);
 	g_sel_scale_2D(0);
-	g_def_text(0, 1, 1, 1, 1, 20);
-	g_def_text(1, 0, 0, 0, 1, 20);
 
 	while (1)
 	{
-		g_sleep(0.01);
 		g_cls();
-		g_circle_2D(down_x, down_y, 20, G_YES,G_NO);
-		g_circle_2D(up_x, up_y, 20, G_YES,G_NO);
-		g_sel_text(1);
+		g_circle_2D(down_x, down_y, 20, G_YES,G_YES);
+		g_circle_2D(up_x, up_y, 20, G_YES,G_YES);
+
 		g_text_size(24);
-		g_area_color_2D(1, 1, 1, 1);
 		g_box_2D(545, 75, 150, 90, G_YES,G_NO);
 		g_text_2D_virtual(500, 68, "Exit");
 		g_text_2D_virtual(500, 93, "Program");
@@ -43,7 +40,6 @@ int main()
 		if (500 <= up_x && up_x <= 620 && 20 <= up_y && up_y <= 140)
 			break;
 
-		g_sel_text(0);
 		text_y = 40;
 		if (count++ / 32 % 2 == 0)
 			g_text_2D_virtual(text_x, text_y, "Please input any key or click");
@@ -55,6 +51,7 @@ int main()
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse down x:%d y:%d", down_x, down_y);
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse up   x:%d y:%d", up_x, up_y);
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse state : %s", state_string[mouse_state]);
+
 		g_sleep(0.1);
 		g_finish();
 		fflush(stdout);

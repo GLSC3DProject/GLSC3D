@@ -1,4 +1,3 @@
-#include<stdlib.h>
 #include<stdio.h>
 
 #include "glsc3d.h"
@@ -11,9 +10,10 @@
 
 int main()
 {
-    g_init("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y);
-    
-    g_def_scale_3D(0,-2, 2, -2, 2, -2, 2,0, 0,WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2,1, 1, 1,1);
+    g_init("Sample_g_area.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
+    g_init_light(0, 1, 1, 1); // 立方体を確認するためにライトの位置を初期位置から変更
+
+    g_def_scale_3D(0,-2, 2, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2, 1, 1, 1, 1);
     g_def_scale_3D(1,-2, 2, -2, 2, -2, 2,WINDOW_SIZE_X/4, 0,WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2,1, 1, 1,1);
     g_def_scale_3D(2,-2, 2, -2, 2, -2, 2,2*WINDOW_SIZE_X/4, 0,WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2,1, 1, 1,1);
     g_def_scale_3D(3,-2, 2, -2, 2, -2, 2,3*WINDOW_SIZE_X/4, 0,WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2,1, 1, 1,1);
@@ -22,8 +22,7 @@ int main()
     g_def_scale_2D(5,-2, 2, -2, 2,WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2,WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2);
     g_def_scale_2D(6,-2, 2, -2, 2,2*WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2,WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2);
     g_def_scale_2D(7,-2, 2, -2, 2,3*WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2,WINDOW_SIZE_X/4, WINDOW_SIZE_Y/2);
-    
-    
+
     g_def_area_3D(0,1,0,0,1);
     g_def_area_3D(1,0,1,0,1);
     g_def_area_3D(2,0,0,1,1);
@@ -34,13 +33,8 @@ int main()
     g_def_area_2D(2,0,0,1,1);
     g_def_area_2D(3,1,1,1,1);
 
-    int i_time;
-    double t,dt = 0.1;
-    for(i_time = 0;;i_time++)
+    for(int i_time = 0;;i_time++)
     {
-        
-        t = i_time * dt;
-        
         if(i_time%INTV == 0)
         {
             g_cls();

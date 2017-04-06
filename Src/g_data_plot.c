@@ -1,10 +1,11 @@
 #include "glsc3d_private.h"
 #define     data(i, j)      data[(j)*N_y+(i)]
 
-void g_data_plot_f_3D(double x0, double x1,
-		double y0, double y1,
-		int N_x, int N_y,
-		double *data)
+void g_data_plot_f_3D(
+	double x0, double x1,
+	double y0, double y1,
+	int N_x, int N_y,
+	double *data)
 {
 	int i, j;
 	double dx=(x1-x0)/N_x, dy=(y1-y0)/N_x;

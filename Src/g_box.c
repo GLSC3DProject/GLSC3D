@@ -1,8 +1,9 @@
 #include "glsc3d_private.h"
 
-void g_box_2D(double x, double y,
-		double width, double height,
-		G_BOOL WIRE, G_BOOL FILL)
+void g_box_2D(
+	double x, double y,
+	double width, double height,
+	G_BOOL WIRE, G_BOOL FILL)
 {
 	int i;
 	G_VECTOR r[4],center;
@@ -23,9 +24,10 @@ void g_box_2D(double x, double y,
 	}
 }
 
-void g_box_3D_core(double x, double y, double z,
-		double width, double height, double depth,
-		int DivideLevel, G_BOOL WIRE, G_BOOL FILL)
+void g_box_3D_core(
+	double x, double y, double z,
+	double width, double height, double depth,
+	int DivideLevel, G_BOOL WIRE, G_BOOL FILL)
 {
 	G_VECTOR r0, r1, r2, r3, r4, r5, r6, r7;
 
@@ -122,8 +124,10 @@ void g_box_3D_core(double x, double y, double z,
 		g_plot_3D(r4.x,r4.y,r4.z);
 	}
 }
-void g_box_3D(double x, double y, double z,
-		double width, double height, double depth, G_BOOL WIRE, G_BOOL FILL)
+void g_box_3D(
+	double x, double y, double z,
+	double width, double height, double depth,
+	G_BOOL WIRE, G_BOOL FILL)
 {
 	g_box_3D_core(x, y, z, width, height, depth, 0, WIRE, FILL);
 }

@@ -95,10 +95,11 @@ void g_disable_light(G_UINT lightnum);
 
 // ---- g_scale.cpp
 
-void g_def_scale_2D(int id,
-					double x_left, double x_right, double y_bottom, double y_top,
-					double x_left_std, double y_top_std,
-					double width_std, double height_std);
+void g_def_scale_2D(
+	int id,
+	double x_left, double x_right, double y_bottom, double y_top,
+	double x_left_std, double y_top_std,
+	double width_std, double height_std);
 
 void g_def_scale_3D_core(
 	int id,

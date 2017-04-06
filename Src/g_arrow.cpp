@@ -2,10 +2,11 @@
 
 #define SQRT3 1.7320508f
 
-void g_arrow_2D(double base_x, double base_y,                 //根元の座標
-                double direction_x, double direction_y,       //方向
-                double arrow_size, double head_size,          //全体の長さ、頭の長さ
-                int type)
+void g_arrow_2D(
+	double base_x, double base_y,                 //根元の座標
+	double direction_x, double direction_y,       //方向
+	double arrow_size, double head_size,          //全体の長さ、頭の長さ
+	int type)
 {
     G_VECTOR base = G_VECTOR(base_x, base_y);
     G_VECTOR X = g_normalize(G_VECTOR(direction_x, direction_y));
