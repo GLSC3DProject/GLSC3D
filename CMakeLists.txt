@@ -1,11 +1,10 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 2.8)
 project(GLSC3D)
 
 if (UNIX)
 	list(APPEND CMAKE_C_FLAGS	" -O2 ")
-	list(APPEND CMAKE_CXX_FLAGS	" -O2 ")
+	list(APPEND CMAKE_CXX_FLAGS	" -O2 -std=c++14 ")
 endif()
-set(CMAKE_CXX_STANDARD 11)
 
 include_directories(Include)
 
