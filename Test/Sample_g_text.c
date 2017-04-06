@@ -13,15 +13,13 @@
 
 int main()
 {
-	g_init("GRAPH",WINDOW_SIZE_X,WINDOW_SIZE_Y);
+	g_init("Sample_g_text.c",WINDOW_SIZE_X,WINDOW_SIZE_Y);
 	
 	g_def_scale_2D(0,-2, 2, -2, 2,0, 0,WINDOW_SIZE_X, WINDOW_SIZE_Y);
 	
-	int i_time;
-	
 	char TEXT2[20];
 	
-	for(i_time = 0;;i_time++)
+	for(int i_time = 0;;i_time++)
 	{
 		g_cls();
 		

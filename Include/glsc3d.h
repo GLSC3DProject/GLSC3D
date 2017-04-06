@@ -100,20 +100,22 @@ void g_def_scale_2D(int id,
 					double x_left_std, double y_top_std,
 					double width_std, double height_std);
 
-void g_def_scale_3D_core(int id,
-						 double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
-						 double x_left_std, double y_top_std,
-						 double width_std, double height_std,
-						 double direction_x, double direction_y, double direction_z,
-						 double r,
-						 double up_x, double up_y, double up_z);
+void g_def_scale_3D_core(
+	int id,
+	double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
+	double x_left_std, double y_top_std,
+	double width_std, double height_std,
+	double direction_x, double direction_y, double direction_z,
+	double r,
+	double up_x, double up_y, double up_z);
 
-void g_def_scale_3D(int id,
-					double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
-					double x_left_std, double y_top_std,
-					double width_std, double height_std,
-					double direction_x, double direction_y, double direction_z,
-					double r);
+void g_def_scale_3D(
+	int id,
+	double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
+	double x_left_std, double y_top_std,
+	double width_std, double height_std,
+	double direction_x, double direction_y, double direction_z,
+	double r);
 
 void g_sel_scale_2D(int id);
 void g_sel_scale_3D(int id);
@@ -177,32 +179,35 @@ void g_sel_text(int id);
 
 // ----------------
 
-void g_bird_view_f_3D(double x0, double x1,    //図を表示したい範囲
-					  double y0, double y1,      //図を表示したい範囲
-					  int N_x, int N_y,                   //配列のサイズ
-					  double *data,                       //二次元配列
-					  G_BOOL WIRE, G_BOOL FILL);
+void g_bird_view_f_3D(
+	double x0, double x1,    //図を表示したい範囲
+	double y0, double y1,      //図を表示したい範囲
+	int N_x, int N_y,                   //配列のサイズ
+	double *data,                       //二次元配列
+	G_BOOL WIRE, G_BOOL FILL);
 
-void g_contln_f_2D(double x_left, double x_right,
-				   double y_bottom, double y_top,
-				   int N_x, int N_y,
-				   double *data2D,
-				   double level);
+void g_contln_f_2D(
+	double x_left, double x_right,
+	double y_bottom, double y_top,
+	int N_x, int N_y,
+	double *data2D,
+	double level);
 
-void g_isosurface_f_3D(double x0,double x1,
-					   double y0,double y1,
-					   double z0,double z1,
-					   int number_x,int number_y,int number_z,
-					   double *u,
-					   double height);
+void g_isosurface_f_3D(
+	double x0,double x1,
+	double y0,double y1,
+	double z0,double z1,
+	int number_x,int number_y,int number_z,
+	double *u,
+	double height);
 
-void g_data_plot_f_3D(double x0, double x1,
-					  double y0, double y1,
-					  int N_x, int N_y,
-					  double *data);
+void g_data_plot_f_3D(
+	double x0, double x1,
+	double y0, double y1,
+	int N_x, int N_y,
+	double *data);
 
-void g_data_plot_2D(double x_left, double x_right,
-					double *yy, int n);
+void g_data_plot_2D(double x_left, double x_right, double *yy, int n);
 
 #define g_bird_view_3D(x_left,x_right,y_bottom,y_top,N_x,N_z, data, wire, fill)\
 (g_bird_view_f_3D((x_left),(x_right),(y_bottom),(y_top),(N_x),(N_z),(double *)(data), wire, fill))
@@ -249,55 +254,67 @@ void g_ellipse_3D(
 	double direction_x, double direction_y, double direction_z,
 	G_BOOL Wire, G_BOOL Fill);
 
-void g_prism_3D_core(double center_x, double center_y, double center_z,
-					 double direction_x, double direction_y, double direction_z,
-					 double radius, double height, double psi, int N,
-					 int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+void g_prism_3D_core(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius, double height, double psi, int N,
+	int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_prism_3D(double center_x, double center_y, double center_z, double direction_x, double direction_y,
-				double direction_z, double radius, double height, double psi, int N, G_BOOL Wire, G_BOOL Fill);
+void g_prism_3D(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius, double height, double psi, int N, G_BOOL Wire, G_BOOL Fill);
 
-void g_cylinder_3D_core(double center_x, double center_y, double center_z,
-						double direction_x, double direction_y, double direction_z,
-						double radius, double height, double psi,
-						int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+void g_cylinder_3D_core(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius, double height, double psi,
+	int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_cylinder_3D(double center_x, double center_y, double center_z, double direction_x, double direction_y,
-				   double direction_z, double radius, double height, double psi, G_BOOL Wire, G_BOOL Fill);
+void g_cylinder_3D(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius, double height, double psi, G_BOOL Wire, G_BOOL Fill);
 
+void g_cone_3D_core(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius, double head_size,
+	int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
-void g_cone_3D_core(double center_x, double center_y, double center_z,
-					double direction_x, double direction_y, double direction_z,
-					double radius, double head_size,
-					int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
+void g_cone_3D(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius,double head_size, G_BOOL Wire, G_BOOL Fill);
 
-void g_cone_3D(double center_x, double center_y, double center_z,
-			   double direction_x, double direction_y, double direction_z,
-			   double radius,double head_size, G_BOOL Wire, G_BOOL Fill);
+void g_pyramid_3D_core(
+	double center_x, double center_y, double center_z,                      //中心座標
+	double direction_x, double direction_y, double direction_z,             //方向
+	double radius,double head_size, double psi,                             //半径、高さ
+	int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
-void g_pyramid_3D_core(double center_x, double center_y, double center_z,                      //中心座標
-					   double direction_x, double direction_y, double direction_z,             //方向
-					   double radius,double head_size, double psi,                             //半径、高さ
-					   int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
+void g_pyramid_3D(
+	double center_x, double center_y, double center_z,
+	double direction_x, double direction_y, double direction_z,
+	double radius,double head_size, double psi,
+	int N, G_BOOL WIRE, G_BOOL FILL);
 
-void g_pyramid_3D(double center_x, double center_y, double center_z,
-				  double direction_x, double direction_y, double direction_z,
-				  double radius,double head_size, double psi,
-				  int N, G_BOOL WIRE, G_BOOL FILL);
+void g_arrow_2D(
+	double base_x, double base_y,
+	double direction_x, double direction_y,
+	double arrow_size, double head_size,
+	int type);
 
-void g_arrow_2D(double base_x, double base_y,
-				double direction_x, double direction_y,
-				double arrow_size, double head_size,
-				int type);
+void g_arrow_3D_core(
+	double base_x, double base_y, double base_z,                //根元の座標
+	double direction_x, double direction_y, double direction_z, //方向
+	double arrow_size, double head_size,
+	int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_arrow_3D_core(double base_x, double base_y, double base_z,                //根元の座標
-					 double direction_x, double direction_y, double direction_z, //方向
-					 double arrow_size, double head_size,
-					 int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
-
-void g_arrow_3D(double base_x, double base_y, double base_z,
-				double direction_x, double direction_y, double direction_z,
-				double arrow_size, double head_size, G_BOOL Wire, G_BOOL Fill);
+void g_arrow_3D(
+	double base_x, double base_y, double base_z,
+	double direction_x, double direction_y, double direction_z,
+	double arrow_size, double head_size, G_BOOL Wire, G_BOOL Fill);
 
 void g_triangle_3D_smooth_core_s(
 	G_VECTOR r0, G_VECTOR r1, G_VECTOR r2,
@@ -378,18 +395,19 @@ void g_fan_3D(
 	double angle, double psi,
 	G_BOOL Wire, G_BOOL Fill);
 
-void g_circle_2D(double center_x, double center_y,
-				 double radius, G_BOOL Wire, G_BOOL Fill);
+void g_circle_2D(
+	double center_x, double center_y,
+	double radius, G_BOOL Wire, G_BOOL Fill);
 
-void g_circle_3D_core(double center_x, double center_y, double center_z,
-					  double radius,
-					  double theta, double phi,
-					  int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+void g_circle_3D_core(
+	double center_x, double center_y, double center_z,
+	double radius, double theta, double phi,
+	int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 
-void g_circle_3D(double center_x, double center_y, double center_z,
-				 double radius,
-				 double theta, double phi,
-				 G_BOOL Wire, G_BOOL Fill);
+void g_circle_3D(
+	double center_x, double center_y, double center_z,
+	double radius, double theta, double phi,
+	G_BOOL Wire, G_BOOL Fill);
 
 void g_polygon_2D(double *xx, double *yy, int n, G_BOOL WIRE, G_BOOL FILL);
 
@@ -397,17 +415,19 @@ void g_polyline_2D(double *xx, double *yy, int n);
 
 void g_polyline_3D(double *xx, double *yy, double *zz, int n);
 
-void g_rectangle_3D_core(double x, double y, double z,
-						 double direction_x, double direction_y, double direction_z,
-						 double width, double depth,
-						 double psi,
-						 int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
+void g_rectangle_3D_core(
+	double x, double y, double z,
+	double direction_x, double direction_y, double direction_z,
+	double width, double depth,
+	double psi,
+	int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
-void g_rectangle_3D(double x, double y, double z,
-					double direction_x, double direction_y, double direction_z,
-					double width, double depth,
-					double psi,
-					G_BOOL WIRE, G_BOOL FILL);
+void g_rectangle_3D(
+	double x, double y, double z,
+	double direction_x, double direction_y, double direction_z,
+	double width, double depth,
+	double psi,
+	G_BOOL WIRE, G_BOOL FILL);
 
 extern char *g_key_code_string[];
 

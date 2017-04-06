@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\documentclass[a4paper,12pt]{jarticle}%
-\documentclass[uplatex,a4paper,12pt]{jsarticle}%
+\documentclass[platex,a4paper,12pt]{jsarticle}%
 %\documentstyle[pre,aps]{revtex}
 
 \setlength{\textheight}{\paperheight}   % ひとまず紙面を本文領域に
@@ -1147,6 +1147,8 @@ void g_def_scale_3D_core(
 \end{itembox}
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D,g_sel_scale_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_sel\_scale\_2D,g\_sel\_scale\_3D}}
@@ -1167,6 +1169,31 @@ void g_sel_scale_3D(
 \begin{itembox}[l]{\texttt{g\_sel\_scale\_2D,g\_sel\_scale\_3D}関数の説明}
 仮想座標系を選択する．
 \end{itembox}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D_boundary,g_sel_scale_3D_boundary%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_sel\_scale\_2D\_boundary,g\_sel\_scale\_3D\_boundary}}
+
+\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary,g\_sel\_scale\_3D\_boundary}関数}
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_sel_scale_2D_boundary(
+        int id);
+void g_sel_scale_3D_boundary(
+        int id);
+   \end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|id| ; スケール番号\\
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary,g\_sel\_scale\_3D\_boundary}関数の説明}
+仮想座標系を選択し，選択された仮装座標系の枠を表示する．
+\end{itembox}
+
+
 
 
 \clearpage
@@ -1573,18 +1600,19 @@ void g_text_font_core(
 void g_def_text(
         int id,
         float r, float g, float b, float a,
-        int font, unsigned int font_size);
+        unsigned int font_size);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; テキストの属性番号\\
 \verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
-\verb|font| ; 使用されません\\
+%\verb|font| ; 使用されません\\
 \verb|font_size| ; テキストのサイズ（自然数）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_def\_text}関数の説明}
-テキストの属性セットを定義する．\verb|font|引数は無視される．
+テキストの属性セットを定義する．
+%\verb|font|引数は無視される．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%%%g_def_text_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1771,12 +1799,14 @@ void g_plot_3D(
 void g_box_2D(
         double x, double y,
         double width, double height,
-        G_WIREFILL WireFill);    
+        G_BOOL Wire, G_BOOL Fill);    
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y| ; 重心の座標\\
 \verb|width,height| ; 幅と高さ\\
-\verb|WireFill| ; 塗りつぶすか（1），塗りつぶさないか（0）\\
+%\verb|WireFill| ; 塗りつぶすか（1），塗りつぶさないか（0）\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1793,11 +1823,14 @@ void g_box_2D(
 \begin{verbatim}
 void g_box_3D(
         double x, double y, double z,
-        double width, double height, double depth);   
+        double width, double height, double depth
+      	G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 重心の座標\\
 \verb|width,height,depth| ; 幅と高さと奥行き\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1814,13 +1847,16 @@ void g_box_3D(
 void g_box_3D(
         double x, double y, double z,
         double width, double height, double depth,
-        int DivideLevel, G_WIREFILL WireFill);   
+        int DivideLevel,
+        G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 重心の座標\\
 \verb|width,height,depth| ; 幅と高さと奥行き\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1838,6 +1874,8 @@ void g_box_3D(
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%g_sphere_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_sphere\_3D}}
@@ -1847,18 +1885,22 @@ void g_box_3D(
 \begin{verbatim}
 void g_sphere_3D(
         double x, double y, double z,
-        double radius);   
+        double radius,
+        G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 重心の座標\\
 \verb|radius| ; 半径\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_sphere\_3D}関数の説明}
 球を描画する．
 
-Ver 3.0以降: この関数を小さな球を大量に表示する目的には使用しないでください．代わりに球マーカーを使用してください．
+Ver 3.0以降: この関数を小さな球を大量に表示する目的には使用しないでください．
+代わりに球マーカーを使用してください．
 \end{itembox}
 
 
@@ -1872,14 +1914,17 @@ Ver 3.0以降: この関数を小さな球を大量に表示する目的には�
 void g_sphere_3D_core(
         double x, double y, double z,
         double radius,
-        int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);   
+        int FaceNumberLevel, int DivideLevel, 
+        G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 重心の座標\\
 \verb|radius| ; 半径\\
 \verb|FaceNumberLevel| ; 球面の分割レベル\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1897,6 +1942,7 @@ Ver 3.0以降: この関数を小さな球を大量に表示する目的には�
 
 
 
+
 %%%%%%%%%%%%%%%%%%%%%g_ellipse_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_ellipse\_3D}}
@@ -1907,12 +1953,15 @@ Ver 3.0以降: この関数を小さな球を大量に表示する目的には�
 void g_ellipse_3D(
         double x, double y, double z,
         double Sx, double Sy, double Sz,
-        double direction_x, double direction_y, double direction_z);   
+        double direction_x, double direction_y, double direction_z,
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 重心の座標\\
 \verb|Sx,Sy,Sz| ; x,y,z方向へのスケーリング率\\
 \verb|direction| ; 向き\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1935,7 +1984,8 @@ void g_ellipse_3D_core(
         double x, double y, double z,
         double Sx, double Sy, double Sz,
         double direction_x, double direction_y, double direction_z,
-        int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);   
+        int FaceNumberLevel, int DivideLevel, 
+        G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 重心の座標\\
@@ -1943,7 +1993,9 @@ void g_ellipse_3D_core(
 \verb|direction| ; 向き\\
 \verb|FaceNumberLevel| ; 球面の分割レベル\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1959,6 +2011,7 @@ void g_ellipse_3D_core(
 
 
 
+
 %%%%%%%%%%%%%%%%%%%%%g_prism_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_prism\_3D}}
@@ -1969,7 +2022,8 @@ void g_ellipse_3D_core(
 void g_prism_3D(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
-        double radius, double height, double psi, int N);
+        double radius, double height, double psi, int N,
+        G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -1978,6 +2032,8 @@ void g_prism_3D(
 \verb|height| ; 高さ\\
 \verb|psi| ; \verb|direction|に対する回転角\\
 \verb|N| ; 側面の数\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1987,6 +2043,7 @@ void g_prism_3D(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 
@@ -2001,7 +2058,7 @@ void g_prism_3D_core(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
         double radius, double height, double psi, int N,
-        int DivideLevel, G_WIREFILL WireFill);
+        int DivideLevel, G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2011,7 +2068,9 @@ void g_prism_3D_core(
 \verb|psi| ; \verb|direction|に対する回転角\\
 \verb|N| ; 側面の数\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2027,6 +2086,7 @@ void g_prism_3D_core(
 
 
 
+
 %%%%%%%%%%%%%%%%%%%%%g_cylinder_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_cylinder\_3D}}
@@ -2037,7 +2097,8 @@ void g_prism_3D_core(
 void g_cylinder_3D(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
-        double radius, double height, double psi);
+        double radius, double height, double psi,
+        G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2045,6 +2106,8 @@ void g_cylinder_3D(
 \verb|radius| ; 半径\\
 \verb|height| ; 高さ\\
 \verb|psi| ; \verb|direction|に対する回転角\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2067,7 +2130,8 @@ void g_cylinder_3D_core(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
         double radius, double height, double psi,
-        int N, int DivideLevel, G_WIREFILL WireFill);
+        int N, int DivideLevel, 
+        G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2077,7 +2141,9 @@ void g_cylinder_3D_core(
 \verb|psi| ; \verb|direction|に対する回転角\\
 \verb|N| ; 側面の数\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2145,8 +2211,8 @@ void g_cone_3D(
 \verb|direction| ; 向き\\
 \verb|radius| ; 半径\\
 \verb|head_size| ; 高さ\\
-\verb|Wire| ; \verb|G_YES|:線を描く, \verb|G_NO|:線を描かない \\
-\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2160,7 +2226,6 @@ void g_cone_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-aa
 
 %%%%%%%%%%%%%%%%%%%%%g_cone_3D_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
@@ -2173,8 +2238,7 @@ void g_cone_3D_core(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
         double radius, double head_size,
-        int FaceNumberLevel_X, int FaceNumberLevel_Y,
-        int DivideLevel, 
+        int N, int DivideLevel, 
         G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2182,10 +2246,10 @@ void g_cone_3D_core(
 \verb|direction| ; 向き\\
 \verb|radius| ; 半径\\
 \verb|head_size| ; 高さ\\
-\verb|FaceNumberLevel| ; 球面の分割レベル\\
+\verb|N| ; 円周の分割数\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|Wire| ; \verb|G_YES|:線を描く, \verb|G_NO|:線を描かない \\
-\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2204,6 +2268,7 @@ void g_cone_3D_core(
 
 
 
+
 %%%%%%%%%%%%%%%%%%%%%g_pyramid_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_pyramid\_3D}}
@@ -2214,7 +2279,8 @@ void g_cone_3D_core(
 void g_pyramid_3D(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
-        double radius, double head_size, double psi, int N);
+        double radius, double head_size, double psi, int N,
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2223,6 +2289,8 @@ void g_pyramid_3D(
 \verb|head_size| ; 高さ\\
 \verb|psi| ; \verb|direction|に対する回転角\\
 \verb|N| ; 側面の数\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2245,7 +2313,7 @@ void g_pyramid_3D_core(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
         double radius, double head_size, double psi, int N,
-        int DivideLevel, G_WIREFILL WireFill);
+        int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2255,7 +2323,9 @@ void g_pyramid_3D_core(
 \verb|psi| ; \verb|direction|に対する回転角\\
 \verb|N| ; 側面の数\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2268,6 +2338,7 @@ void g_pyramid_3D_core(
 	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_pyramid.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 
@@ -2288,7 +2359,7 @@ void g_arrow_2D(
 \verb|direction| ; 向き\\
 \verb|arrow_size| ; 全体の長さ\\
 \verb|head_size| ; 傘の部分の長さ\\
-\verb|type| ; 矢印の種類(0〜2)\\
+\verb|type| ; 矢印の種類(0〜2)
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2302,8 +2373,6 @@ void g_arrow_2D(
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%g_arrow_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_arrow\_3D}}
@@ -2314,13 +2383,16 @@ void g_arrow_2D(
 void g_arrow_3D(
         double base_x, double base_y, double base_z,
         double direction_x, double direction_y, double direction_z,
-        double arrow_size, double head_size);
+        double arrow_size, double head_size,
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|base| ; 根元の座標\\
 \verb|direction| ; 向き\\
 \verb|arrow_size| ; 全体の長さ\\
 \verb|head_size| ; 傘の部分の長さ\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2346,17 +2418,19 @@ void g_arrow_3D_core(
         double base_x, double base_y, double base_z,
         double direction_x, double direction_y, double direction_z,
         double arrow_size, double head_size, 
-        int FaceNumberLevel_X, int FaceNumberLevel_Y,
-        int DivideLevel, G_WIREFILL WireFill);
+        int N, int DivideLevel, 
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|base| ; 根元の座標\\
 \verb|direction| ; 向き\\
 \verb|arrow_size| ; 全体の長さ\\
 \verb|head_size| ; 傘の部分の長さ\\
-\verb|FaceNumberLevel| ; 球面の分割レベル\\
+\verb|N| ; 傘の部分の分割数\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2387,11 +2461,13 @@ void g_triangle_2D(
         double x0, double y0,
         double x1, double y1,
         double x2, double y2,
-        G_WIREFILL WireFill);    
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y| ; 各頂点の座標\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2405,8 +2481,6 @@ void g_triangle_2D(
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%g_triangle_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_triangle\_3D}}
@@ -2418,11 +2492,13 @@ void g_triangle_3D(
         double x0, double y0, double z0,
         double x1, double y1, double z1,
         double x2, double y2, double z2,
-        G_WIREFILL WireFill);    
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|x,y| ; 各頂点の座標\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|x,y,z| ; 各頂点の座標\\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2445,12 +2521,14 @@ void g_triangle_3D_core(
         double x0, double y0, double z0,
         double x1, double y1, double z1,
         double x2, double y2, double z2,
-        int DivideLevel, G_WIREFILL WireFill);    
+        int DivideLevel, G_BOOL Wire, G_BOOL Fill);  
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|x,y| ; 各頂点の座標\\
+\verb|x,y,z| ; 各頂点の座標\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2465,6 +2543,81 @@ void g_triangle_3D_core(
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%%%%%%%%%%%%%%%%%%%%g_triangle_3D_smooth%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\subsubsection{\texttt{g\_triangle\_3D\_smooth}}
+
+\begin{itembox}[l]{\texttt{g\_triangle\_3D\_smooth}関数}
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_triangle_3D_smooth(
+        double x0, double y0, double z0,
+        double x1, double y1, double z1,
+        double x2, double y2, double z2,
+        double nx0, double ny0, double nz0,
+        double nx1, double ny1, double nz1,
+        double nx2, double ny2, double nz2,
+        G_BOOL Wire, G_BOOL Fill);  
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|x,y,z| ; 各頂点の座標\\
+\verb|nx,ny,nz| ; 各頂点での法線ベクトルの$x,y,z$成分\\
+%\verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_triangle\_3D\_smooth}関数の説明}
+三角形を描画する．（頂点の指定順によって表裏が変わることに注意．）
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
+\begin{figure}[htb]
+%	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_triangle.eps}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%g_triangle_3D_smooth_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\subsubsection{\texttt{g\_triangle\_3D\_smooth\_core}}
+
+\begin{itembox}[l]{\texttt{g\_triangle\_3D\_smooth\_core}関数}
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_triangle_3D_smooth_smooth(
+        double x0, double y0, double z0,
+        double x1, double y1, double z1,
+        double x2, double y2, double z2,
+        double nx0, double ny0, double nz0,
+        double nx1, double ny1, double nz1,
+        double nx2, double ny2, double nz2,
+        int DivideLevel, G_BOOL Wire, G_BOOL Fill);  
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|x,y,z| ; 各頂点の座標\\
+\verb|nx,ny,nz| ; 各頂点での法線ベクトルの$x,y,z$成分\\
+\verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_triangle\_3D\_smooth\_core}関数の説明}
+三角形を描画する．（頂点の指定順によって表裏が変わることに注意．）
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
+\begin{figure}[htb]
+%	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_triangle.eps}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%g_fan_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
@@ -2477,14 +2630,16 @@ void g_fan_2D(
         double center_x, double center_y,
         double direction_x, double direction_y,
         double radius, double angle,
-        G_WIREFILL WireFill);   
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 中心の座標\\
 \verb|direction| ; 向き\\
 \verb|radius| ; 半径\\
 \verb|angle| ; 扇の中心角\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2498,8 +2653,6 @@ void g_fan_2D(
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%g_fan_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_fan\_3D}}
@@ -2511,7 +2664,7 @@ void g_fan_3D(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
         double radius, double angle, double psi,
-        G_WIREFILL WireFill);
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 中心の座標\\
@@ -2519,7 +2672,9 @@ void g_fan_3D(
 \verb|radius| ; 半径\\
 \verb|angle| ; 扇の中心角\\
 \verb|psi| ; \verb|direction|に対する回転角\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2545,7 +2700,7 @@ void g_fan_3D_core(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
         double radius, double angle, double psi,
-        int FaceNumberLevel, int DivideLevel, G_WIREFILL WireFill);
+        int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 中心の座標\\
@@ -2553,9 +2708,11 @@ void g_fan_3D_core(
 \verb|radius| ; 半径\\
 \verb|angle| ; 扇の中心角\\
 \verb|psi| ; \verb|direction|に対する回転角\\
-\verb|FaceNumberLevel| ; 球面の分割レベル\\
+\verb|FaceNumberLevel| ; 扇形の分割レベル\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2584,12 +2741,14 @@ void g_fan_3D_core(
 \begin{verbatim}
 void g_circle_2D(
         double center_x, double center_y,
-        double radius,G_WIREFILL WireFill);
+        double radius, G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 中心の座標\\
 \verb|radius| ; 半径\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2612,18 +2771,21 @@ void g_circle_2D(
 \begin{verbatim}
 void g_circle_3D(
         double center_x, double center_y,
-        double radius, double theta, double phi);
+        double radius, double theta, double phi, 
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 中心の座標\\
 \verb|radius| ; 半径\\
 \verb|psi| ; 半径\\
 \verb|theta| ; 半径\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_circle\_3D}関数の説明}
-円盤を描画する．
+円板を描画する．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -2643,21 +2805,23 @@ void g_circle_3D(
 void g_circle_3D_core(
         double center_x, double center_y,
         double radius, double theta, double phi,        
-        int N, int DivideLevel, G_WIREFILL WireFill);
+        int N, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 中心の座標\\
 \verb|radius| ; 半径\\
 \verb|psi| ; 半径\\
 \verb|theta| ; 半径\\
-\verb|N| ; 辺の数
-\verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|N| ; 円周の分割数 \\
+\verb|DivideLevel| ; 面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_circle\_3D\_core}関数の説明}
-円盤を描画する．
+円板を描画する．
 \end{itembox}
 \begin{figure}[htb]
 	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_circle.eps}
@@ -2681,12 +2845,14 @@ void g_circle_3D_core(
 \begin{verbatim}
 void g_polygon_2D(
         double *xx, double *yy,
-        int n,G_WIREFILL WireFill);
+        int n, G_BOOL WIRE, G_BOOL FILL);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|xx,yy| ; 頂点データを格納した一次元配列\\
 \verb|n| ; 配列の数\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2716,7 +2882,7 @@ void g_polyline_2D(
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|xx,yy| ; 頂点データを格納した一次元配列\\
-\verb|n| ; 配列の数\\
+\verb|n| ; 配列の数
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2742,7 +2908,7 @@ void g_polyline_3D(
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|xx,yy,zz| ; 頂点データを格納した一次元配列\\
-\verb|n| ; 配列の数\\
+\verb|n| ; 配列の数
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2768,12 +2934,16 @@ void g_polyline_3D(
 void g_rectangle_3D(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
-        double width, double depth, double psi);
+        double width, double depth, double psi,
+        G_BOOL WIRE, G_BOOL FILL);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
 \verb|direction| ; 向き\\
 \verb|width,height,depth| ; 幅，高さ，奥行き\\
+\verb|psi| ; \verb|direction|に対する回転角\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2796,14 +2966,17 @@ void g_rectangle_3D_core(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
         double width, double depth, double psi,
-        int DivideLevel, G_WIREFILL WireFill);
+        int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
 \verb|direction| ; 向き\\
 \verb|width,height,depth| ; 幅，高さ，奥行き\\
+\verb|psi| ; \verb|direction|に対する回転角\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2846,8 +3019,6 @@ void g_data_plot_2D(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%g_data_plot_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2942,7 +3113,8 @@ void g_contln_2D(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_contln\_2D}関数の説明}
-2次元配列\verb|u|に対して，値\verb|level|に等高線を描画する．（2次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
+2次元配列\verb|u|に対して，値\verb|level|に等高線を描画する．
+（2次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -2976,7 +3148,8 @@ void g_contln_f_2D(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_contln\_f\_2D}関数の説明}
-1次元配列\verb|u|に対して，値\verb|level|に等高線を描画する．（2次元配列化*に関しては前章をお読みください．）
+1次元配列\verb|u|に対して，値\verb|level|に等高線を描画する．
+（2次元配列化*に関しては前章をお読みください．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -3000,18 +3173,21 @@ void g_bird_view_3D(
         double y_bottom, double y_top,
         int number_x, int number_y,
         double u[number_x][number_y],
-        G_WIREFILL WireFill);
+        G_BOOL WIRE, G_BOOL FILL);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 描画範囲の指定\\
 \verb|number| ; 配列\verb|u|の各方向のサイズ\\
 \verb|u| ; 2次元配列もしくは1次元配列を2次元配列化*した配列\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_bird\_view\_3D}関数の説明}
-2次元配列\verb|u|に対して鳥瞰図を描画する．\verb|y_top|$=$\verb|y_bottom|とするとy方向のスケーリングをせず，値をそのまま反映する．（2次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
+2次元配列\verb|u|に対して鳥瞰図を描画する．\verb|y_top|$=$\verb|y_bottom|とするとy方向のスケーリングをせず，値をそのまま反映する．
+（2次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -3031,19 +3207,21 @@ void g_bird_view_f_3D(
         double x_left, double x_right, 
         double y_bottom, double y_top,
         int number_x, int number_y,
-        double *u,
-        G_WIREFILL WireFill);
+        double *u, G_BOOL WIRE, G_BOOL FILL);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; 描画範囲の指定\\
 \verb|number| ; 配列\verb|u|の各方向のサイズ\\
 \verb|u| ;1次元配列を2次元配列化*した配列\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない 
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_bird\_view\_f\_3D}関数の説明}
-1次元配列\verb|u|に対して鳥瞰図を描画する．\verb|y_top|$=$\verb|y_bottom|とするとy方向のスケーリングをせず，値をそのまま反映する．（2次元配列化*に関しては前章をお読みください．）
+1次元配列\verb|u|に対して鳥瞰図を描画する．\verb|y_top|$=$\verb|y_bottom|とするとy方向のスケーリングをせず，値をそのまま反映する．
+（2次元配列化*に関しては前章をお読みください．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -3079,15 +3257,14 @@ void g_isosurface_3D(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_isosurface\_3D}関数の説明}
-3次元配列\verb|u|に対して与えられた高さ\verb|height|の位置でマーチングテトラへドン法を用いて，等値面を描画する．（フラットシェーディングのみサポートしている．フラットシェーディングはメモリ使用量が増大するため機能しない．3次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
+3次元配列\verb|u|に対して与えられた高さ\verb|height|の位置でマーチングテトラへドン法を用いて，等値面を描画する．
+（フラットシェーディングのみサポートしている．フラットシェーディングはメモリ使用量が増大するため機能しない．3次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%g_isosurface_f_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3114,7 +3291,8 @@ void g_isosurface_f_3D(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_isosurface\_f\_3D}関数の説明}
-1次元配列\verb|u|に対して与えられた高さ\verb|height|の位置でマーチングテトラへドン法を用いて，等値面を描画する．（フラットシェーディングのみサポートしている．フラットシェーディングはメモリ使用量が増大するため機能しない．3次元配列化*に関しては前章をお読みください．）
+1次元配列\verb|u|に対して与えられた高さ\verb|height|の位置でマーチングテトラへドン法を用いて，等値面を描画する．
+（フラットシェーディングのみサポートしている．フラットシェーディングはメモリ使用量が増大するため機能しない．3次元配列化*に関しては前章をお読みください．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
