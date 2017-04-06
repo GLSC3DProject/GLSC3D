@@ -1,37 +1,37 @@
-\contentsline {section}{\numberline {1}‚Í‚¶‚ß‚É}{8}
-\contentsline {subsection}{\numberline {1.1}GLSC‚Æ‚»‚Ì—ğj}{8}
-\contentsline {subsection}{\numberline {1.2}GLSC‚Ì’·ŠE’ZŠ}{8}
-\contentsline {subsection}{\numberline {1.3}GLSC3D‚ÌŠJ”­‚Ü‚Å}{12}
-\contentsline {subsubsection}{\numberline {1.3.1}X Window System‚ÌŒÀŠE}{12}
-\contentsline {subsubsection}{\numberline {1.3.2}OpenGL‚ÆGLUT‚Ìg—p}{12}
-\contentsline {subsubsection}{\numberline {1.3.3}GLSC‚ç‚µ‚³‚ÆOpenGL‚ç‚µ‚³}{13}
-\contentsline {subsubsection}{\numberline {1.3.4}GLSC3D‚ÌÔ‚¿‚á‚ñ‚Ì’a¶}{14}
-\contentsline {subsection}{\numberline {1.4}GLSC3D‚ÌŠJ”­}{14}
-\contentsline {subsection}{\numberline {1.5}GLSC3D‚ÌİŒv“NŠw}{15}
-\contentsline {section}{\numberline {2}GLSC‚¨‚æ‚ÑGLSC3D Ver2.x‚©‚ç‚Ì•ÏX“_‹y‚Ñ’ˆÓ“_}{17}
-\contentsline {subsection}{\numberline {2.1}GLSC‚©‚ç‚Ì•ÏX“_}{17}
-\contentsline {subsubsection}{\numberline {2.1.1}FortranŒ¾Œê‚ğƒTƒ|[ƒg‚µ‚Ä‚¢‚È‚¢}{17}
-\contentsline {subsubsection}{\numberline {2.1.2}ÅI‚Ì•`‰æƒXƒ^ƒCƒ‹‚Ì•ÏX}{17}
-\contentsline {subsection}{\numberline {2.2}GLSC3D Ver2.x ‚©‚ç‚Ì•ÏX“_}{19}
-\contentsline {subsubsection}{\numberline {2.2.1}OpenGL ‚ÌÅV‹KŠi‚Ö‚Ì’Ç}{19}
-\contentsline {subsubsection}{\numberline {2.2.2}ƒEƒCƒ“ƒhƒEƒ‰ƒCƒuƒ‰ƒŠ‚ğFreeGLUT‚©‚çSDL‚Ö‚Ì•ÏX}{19}
-\contentsline {subsubsection}{\numberline {2.2.3}2D‚Ì•`‰æ‡‚Ì•ÏX}{19}
-\contentsline {subsubsection}{\numberline {2.2.4}ƒtƒHƒ“ƒg–„‚ß‚İ‚Ì”p~,ƒtƒHƒ“ƒgw’èŠÖ”‚Ì•ÏX,“ú–{Œê‚È‚Ç‚ÌUnicode•¶š‚Ö‚Ì‘Î‰}{19}
-\contentsline {subsubsection}{\numberline {2.2.5}ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY•ÏXEÅ‘å‰»‚Æ Apple Retina Display ‚Ì‘Î‰}{20}
-\contentsline {subsubsection}{\numberline {2.2.6}ƒ}[ƒJ[‚Ìí—Ş‚Ì’Ç‰Á}{20}
-\contentsline {subsubsection}{\numberline {2.2.7}‚»‚Ì‘¼}{21}
-\contentsline {subsection}{\numberline {2.3}GLSC3D‚Ì’ˆÓ“_}{22}
-\contentsline {subsubsection}{\numberline {2.3.1}•¨‘Ì‚Ì“§–¾‰»‚É‚¨‚¯‚é’ˆÓ“_(Ver1.x ‚ğ‚¨g‚¢‚Ì•û‚Ö)}{22}
-\contentsline {subsubsection}{\numberline {2.3.2}•¨‘Ì‚Ì“§–¾‰»‚É‚¨‚¯‚é’ˆÓ“_(Ver1.x ˆÈ~ ‚ğ‚¨g‚¢‚Ì•û‚Ö)}{23}
-\contentsline {section}{\numberline {3}“®ìŠÂ‹«‚Æ‚»‚Ì\’z}{25}
-\contentsline {subsection}{\numberline {3.1}“®ìŠÂ‹«}{25}
-\contentsline {subsection}{\numberline {3.2}“®ìŠÂ‹«‚Ì\’z}{25}
-\contentsline {subsubsection}{\numberline {3.2.1}Mac OS X‚Ìê‡}{25}
-\contentsline {subsubsection}{\numberline {3.2.2}Linux‚Ìê‡}{25}
-\contentsline {subsubsection}{\numberline {3.2.3}Windows‚Ìê‡}{26}
-\contentsline {section}{\numberline {4}GLSC3D‚ÌƒCƒ“ƒXƒg[ƒ‹‚ÆƒeƒXƒg}{27}
-\contentsline {section}{\numberline {5}GLSC3D‚ÌŠÖ”}{29}
-\contentsline {subsection}{\numberline {5.1}§ŒäŠÖ”}{32}
+\contentsline {section}{\numberline {1}ã¯ã˜ã‚ã«}{8}
+\contentsline {subsection}{\numberline {1.1}GLSCã¨ãã®æ­´å²}{8}
+\contentsline {subsection}{\numberline {1.2}GLSCã®é•·æ‰€ãƒ»çŸ­æ‰€}{8}
+\contentsline {subsection}{\numberline {1.3}GLSC3Dã®é–‹ç™ºã¾ã§}{12}
+\contentsline {subsubsection}{\numberline {1.3.1}X Window Systemã®é™ç•Œ}{12}
+\contentsline {subsubsection}{\numberline {1.3.2}OpenGLã¨GLUTã®ä½¿ç”¨}{12}
+\contentsline {subsubsection}{\numberline {1.3.3}GLSCã‚‰ã—ã•ã¨OpenGLã‚‰ã—ã•}{13}
+\contentsline {subsubsection}{\numberline {1.3.4}GLSC3Dã®èµ¤ã¡ã‚ƒã‚“ã®èª•ç”Ÿ}{14}
+\contentsline {subsection}{\numberline {1.4}GLSC3Dã®é–‹ç™º}{14}
+\contentsline {subsection}{\numberline {1.5}GLSC3Dã®è¨­è¨ˆå“²å­¦}{15}
+\contentsline {section}{\numberline {2}GLSCãŠã‚ˆã³GLSC3D Ver2.xã‹ã‚‰ã®å¤‰æ›´ç‚¹åŠã³æ³¨æ„ç‚¹}{17}
+\contentsline {subsection}{\numberline {2.1}GLSCã‹ã‚‰ã®å¤‰æ›´ç‚¹}{17}
+\contentsline {subsubsection}{\numberline {2.1.1}Fortranè¨€èªã‚’ã‚µãƒãƒ¼ãƒˆã—ã¦ã„ãªã„}{17}
+\contentsline {subsubsection}{\numberline {2.1.2}æœ€çµ‚ã®æç”»ã‚¹ã‚¿ã‚¤ãƒ«ã®å¤‰æ›´}{17}
+\contentsline {subsection}{\numberline {2.2}GLSC3D Ver2.x ã‹ã‚‰ã®å¤‰æ›´ç‚¹}{19}
+\contentsline {subsubsection}{\numberline {2.2.1}OpenGL ã®æœ€æ–°è¦æ ¼ã¸ã®è¿½éš}{19}
+\contentsline {subsubsection}{\numberline {2.2.2}ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’FreeGLUTã‹ã‚‰SDLã¸ã®å¤‰æ›´}{19}
+\contentsline {subsubsection}{\numberline {2.2.3}2Dã®æç”»é †ã®å¤‰æ›´}{19}
+\contentsline {subsubsection}{\numberline {2.2.4}ãƒ•ã‚©ãƒ³ãƒˆåŸ‹ã‚è¾¼ã¿ã®å»ƒæ­¢,ãƒ•ã‚©ãƒ³ãƒˆæŒ‡å®šé–¢æ•°ã®å¤‰æ›´,æ—¥æœ¬èªãªã©ã®Unicodeæ–‡å­—ã¸ã®å¯¾å¿œ}{19}
+\contentsline {subsubsection}{\numberline {2.2.5}ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºå¤‰æ›´ãƒ»æœ€å¤§åŒ–ã¨ Apple Retina Display ã®å¯¾å¿œ}{20}
+\contentsline {subsubsection}{\numberline {2.2.6}ãƒãƒ¼ã‚«ãƒ¼ã®ç¨®é¡ã®è¿½åŠ }{20}
+\contentsline {subsubsection}{\numberline {2.2.7}ãã®ä»–}{21}
+\contentsline {subsection}{\numberline {2.3}GLSC3Dã®æ³¨æ„ç‚¹}{22}
+\contentsline {subsubsection}{\numberline {2.3.1}ç‰©ä½“ã®é€æ˜åŒ–ã«ãŠã‘ã‚‹æ³¨æ„ç‚¹(Ver1.x ã‚’ãŠä½¿ã„ã®æ–¹ã¸)}{22}
+\contentsline {subsubsection}{\numberline {2.3.2}ç‰©ä½“ã®é€æ˜åŒ–ã«ãŠã‘ã‚‹æ³¨æ„ç‚¹(Ver1.x ä»¥é™ ã‚’ãŠä½¿ã„ã®æ–¹ã¸)}{23}
+\contentsline {section}{\numberline {3}å‹•ä½œç’°å¢ƒã¨ãã®æ§‹ç¯‰}{25}
+\contentsline {subsection}{\numberline {3.1}å‹•ä½œç’°å¢ƒ}{25}
+\contentsline {subsection}{\numberline {3.2}å‹•ä½œç’°å¢ƒã®æ§‹ç¯‰}{25}
+\contentsline {subsubsection}{\numberline {3.2.1}Mac OS Xã®å ´åˆ}{25}
+\contentsline {subsubsection}{\numberline {3.2.2}Linuxã®å ´åˆ}{25}
+\contentsline {subsubsection}{\numberline {3.2.3}Windowsã®å ´åˆ}{26}
+\contentsline {section}{\numberline {4}GLSC3Dã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¨ãƒ†ã‚¹ãƒˆ}{27}
+\contentsline {section}{\numberline {5}GLSC3Dã®é–¢æ•°}{29}
+\contentsline {subsection}{\numberline {5.1}åˆ¶å¾¡é–¢æ•°}{32}
 \contentsline {subsubsection}{\numberline {5.1.1}\texttt {g\_init}}{32}
 \contentsline {subsubsection}{\numberline {5.1.2}\texttt {g\_init\_core}}{33}
 \contentsline {subsubsection}{\numberline {5.1.3}\texttt {g\_init\_light}}{35}
@@ -43,14 +43,14 @@
 \contentsline {subsubsection}{\numberline {5.1.9}\texttt {g\_sleep}}{37}
 \contentsline {subsubsection}{\numberline {5.1.10}\texttt {g\_capture\_set, g\_capture}}{38}
 \contentsline {subsubsection}{\numberline {5.1.11}\texttt {g\_enable\_highdpi}}{38}
-\contentsline {subsection}{\numberline {5.2}•â•ŠÖ”}{39}
+\contentsline {subsection}{\numberline {5.2}è£œåŠ©é–¢æ•°}{39}
 \contentsline {subsubsection}{\numberline {5.2.1}\texttt {g\_key\_state, g\_input\_state}}{39}
-\contentsline {subsection}{\numberline {5.3}ƒXƒP[ƒ‹ŠÖ”}{41}
+\contentsline {subsection}{\numberline {5.3}ã‚¹ã‚±ãƒ¼ãƒ«é–¢æ•°}{41}
 \contentsline {subsubsection}{\numberline {5.3.1}\texttt {g\_def\_scale\_2D}}{41}
 \contentsline {subsubsection}{\numberline {5.3.2}\texttt {g\_def\_scale\_3D}}{42}
 \contentsline {subsubsection}{\numberline {5.3.3}\texttt {g\_def\_scale\_3D\_core}}{44}
 \contentsline {subsubsection}{\numberline {5.3.4}\texttt {g\_sel\_scale\_2D,g\_sel\_scale\_3D}}{45}
-\contentsline {subsection}{\numberline {5.4}‘®«ƒRƒ“ƒgƒ[ƒ‹ŠÖ”}{46}
+\contentsline {subsection}{\numberline {5.4}å±æ€§ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«é–¢æ•°}{46}
 \contentsline {subsubsection}{\numberline {5.4.1}\texttt {g\_marker\_color}}{46}
 \contentsline {subsubsection}{\numberline {5.4.2}\texttt {g\_marker\_size}}{46}
 \contentsline {subsubsection}{\numberline {5.4.3}\texttt {g\_marker\_radius}}{46}
@@ -69,7 +69,7 @@
 \contentsline {subsubsection}{\numberline {5.4.16}\texttt {g\_text\_font\_core}}{55}
 \contentsline {subsubsection}{\numberline {5.4.17}\texttt {g\_text\_size}}{55}
 \contentsline {subsubsection}{\numberline {5.4.18}\texttt {g\_def\_text, g\_def\_text\_core, g\_sel\_text}}{56}
-\contentsline {subsection}{\numberline {5.5}•`‰æŠÖ”}{57}
+\contentsline {subsection}{\numberline {5.5}æç”»é–¢æ•°}{57}
 \contentsline {subsubsection}{\numberline {5.5.1}\texttt {g\_marker\_2D, g\_marker\_3D}}{57}
 \contentsline {subsubsection}{\numberline {5.5.2}\texttt {g\_text\_standard}}{58}
 \contentsline {subsubsection}{\numberline {5.5.3}\texttt {g\_text\_virtual\_2D,g\_text\_virtual\_3D}}{58}
@@ -86,43 +86,42 @@
 \contentsline {subsubsection}{\numberline {5.5.14}\texttt {g\_prism\_3D\_core}}{69}
 \contentsline {subsubsection}{\numberline {5.5.15}\texttt {g\_cylinder\_3D}}{71}
 \contentsline {subsubsection}{\numberline {5.5.16}\texttt {g\_cylinder\_3D\_core}}{72}
-\contentsline {subsubsection}{\numberline {5.5.17}\texttt {g\_cone\_2D}}{74}
-\contentsline {subsubsection}{\numberline {5.5.18}\texttt {g\_cone\_3D}}{75}
-\contentsline {subsubsection}{\numberline {5.5.19}\texttt {g\_cone\_3D\_core}}{77}
-\contentsline {subsubsection}{\numberline {5.5.20}\texttt {g\_pyramid\_3D}}{79}
-\contentsline {subsubsection}{\numberline {5.5.21}\texttt {g\_pyramid\_3D\_core}}{80}
-\contentsline {subsubsection}{\numberline {5.5.22}\texttt {g\_arrow\_2D}}{82}
-\contentsline {subsubsection}{\numberline {5.5.23}\texttt {g\_arrow\_3D}}{83}
-\contentsline {subsubsection}{\numberline {5.5.24}\texttt {g\_arrow\_3D\_core}}{84}
-\contentsline {subsubsection}{\numberline {5.5.25}\texttt {g\_triangle\_2D}}{86}
-\contentsline {subsubsection}{\numberline {5.5.26}\texttt {g\_triangle\_3D}}{87}
-\contentsline {subsubsection}{\numberline {5.5.27}\texttt {g\_triangle\_3D\_core}}{88}
-\contentsline {subsubsection}{\numberline {5.5.28}\texttt {g\_fan\_2D}}{89}
-\contentsline {subsubsection}{\numberline {5.5.29}\texttt {g\_fan\_3D}}{90}
-\contentsline {subsubsection}{\numberline {5.5.30}\texttt {g\_fan\_3D\_core}}{91}
-\contentsline {subsubsection}{\numberline {5.5.31}\texttt {g\_circle\_2D}}{93}
-\contentsline {subsubsection}{\numberline {5.5.32}\texttt {g\_circle\_3D}}{94}
-\contentsline {subsubsection}{\numberline {5.5.33}\texttt {g\_circle\_3D\_core}}{95}
-\contentsline {subsubsection}{\numberline {5.5.34}\texttt {g\_polygon\_2D}}{97}
-\contentsline {subsubsection}{\numberline {5.5.35}\texttt {g\_polyline\_2D}}{98}
-\contentsline {subsubsection}{\numberline {5.5.36}\texttt {g\_polyline\_3D}}{99}
-\contentsline {subsubsection}{\numberline {5.5.37}\texttt {g\_rectangle\_3D}}{100}
-\contentsline {subsubsection}{\numberline {5.5.38}\texttt {g\_rectangle\_3D\_core}}{101}
-\contentsline {subsubsection}{\numberline {5.5.39}\texttt {g\_data\_plot\_2D}}{102}
-\contentsline {subsubsection}{\numberline {5.5.40}\texttt {g\_data\_plot\_3D}}{103}
-\contentsline {subsubsection}{\numberline {5.5.41}\texttt {g\_data\_plot\_f\_3D}}{104}
-\contentsline {subsection}{\numberline {5.6}ãˆÊŠÖ”}{105}
-\contentsline {subsubsection}{\numberline {5.6.1}\texttt {g\_contln\_2D}}{105}
-\contentsline {subsubsection}{\numberline {5.6.2}\texttt {g\_contln\_f\_2D}}{106}
-\contentsline {subsubsection}{\numberline {5.6.3}\texttt {g\_bird\_view\_3D}}{107}
-\contentsline {subsubsection}{\numberline {5.6.4}\texttt {g\_bird\_view\_f\_3D}}{108}
-\contentsline {subsubsection}{\numberline {5.6.5}\texttt {g\_isosurface\_3D}}{109}
-\contentsline {subsubsection}{\numberline {5.6.6}\texttt {g\_isosurface\_f\_3D}}{110}
-\contentsline {section}{\numberline {6}Version‚Ì—š—ğ}{111}
-\contentsline {section}{\numberline {7}‚¨‚í‚è‚É}{115}
-\contentsline {section}{\numberline {8}ìÒ‚ÌŠo‘}{116}
-\contentsline {subsection}{\numberline {8.1}VŠÖ”‚Ì’Ç‰Á•û–@}{116}
-\contentsline {subsection}{\numberline {8.2}Manual‚Ìì¬•û–@}{116}
-\contentsline {subsection}{\numberline {8.3}İŒvã‚ÌŠî–{Œ´‘¥}{116}
-\contentsline {subsection}{\numberline {8.4}ƒtƒ@ƒCƒ‹\¬}{117}
-\contentsline {subsection}{\numberline {8.5}•`‰æˆ—}{117}
+\contentsline {subsubsection}{\numberline {5.5.17}\texttt {g\_cone\_3D}}{74}
+\contentsline {subsubsection}{\numberline {5.5.18}\texttt {g\_cone\_3D\_core}}{76}
+\contentsline {subsubsection}{\numberline {5.5.19}\texttt {g\_pyramid\_3D}}{78}
+\contentsline {subsubsection}{\numberline {5.5.20}\texttt {g\_pyramid\_3D\_core}}{79}
+\contentsline {subsubsection}{\numberline {5.5.21}\texttt {g\_arrow\_2D}}{81}
+\contentsline {subsubsection}{\numberline {5.5.22}\texttt {g\_arrow\_3D}}{82}
+\contentsline {subsubsection}{\numberline {5.5.23}\texttt {g\_arrow\_3D\_core}}{83}
+\contentsline {subsubsection}{\numberline {5.5.24}\texttt {g\_triangle\_2D}}{85}
+\contentsline {subsubsection}{\numberline {5.5.25}\texttt {g\_triangle\_3D}}{86}
+\contentsline {subsubsection}{\numberline {5.5.26}\texttt {g\_triangle\_3D\_core}}{87}
+\contentsline {subsubsection}{\numberline {5.5.27}\texttt {g\_fan\_2D}}{88}
+\contentsline {subsubsection}{\numberline {5.5.28}\texttt {g\_fan\_3D}}{89}
+\contentsline {subsubsection}{\numberline {5.5.29}\texttt {g\_fan\_3D\_core}}{90}
+\contentsline {subsubsection}{\numberline {5.5.30}\texttt {g\_circle\_2D}}{92}
+\contentsline {subsubsection}{\numberline {5.5.31}\texttt {g\_circle\_3D}}{93}
+\contentsline {subsubsection}{\numberline {5.5.32}\texttt {g\_circle\_3D\_core}}{94}
+\contentsline {subsubsection}{\numberline {5.5.33}\texttt {g\_polygon\_2D}}{96}
+\contentsline {subsubsection}{\numberline {5.5.34}\texttt {g\_polyline\_2D}}{97}
+\contentsline {subsubsection}{\numberline {5.5.35}\texttt {g\_polyline\_3D}}{98}
+\contentsline {subsubsection}{\numberline {5.5.36}\texttt {g\_rectangle\_3D}}{99}
+\contentsline {subsubsection}{\numberline {5.5.37}\texttt {g\_rectangle\_3D\_core}}{100}
+\contentsline {subsubsection}{\numberline {5.5.38}\texttt {g\_data\_plot\_2D}}{101}
+\contentsline {subsubsection}{\numberline {5.5.39}\texttt {g\_data\_plot\_3D}}{102}
+\contentsline {subsubsection}{\numberline {5.5.40}\texttt {g\_data\_plot\_f\_3D}}{103}
+\contentsline {subsection}{\numberline {5.6}ä¸Šä½é–¢æ•°}{104}
+\contentsline {subsubsection}{\numberline {5.6.1}\texttt {g\_contln\_2D}}{104}
+\contentsline {subsubsection}{\numberline {5.6.2}\texttt {g\_contln\_f\_2D}}{105}
+\contentsline {subsubsection}{\numberline {5.6.3}\texttt {g\_bird\_view\_3D}}{106}
+\contentsline {subsubsection}{\numberline {5.6.4}\texttt {g\_bird\_view\_f\_3D}}{107}
+\contentsline {subsubsection}{\numberline {5.6.5}\texttt {g\_isosurface\_3D}}{108}
+\contentsline {subsubsection}{\numberline {5.6.6}\texttt {g\_isosurface\_f\_3D}}{109}
+\contentsline {section}{\numberline {6}Versionã®å±¥æ­´}{110}
+\contentsline {section}{\numberline {7}ãŠã‚ã‚Šã«}{114}
+\contentsline {section}{\numberline {8}ä½œè€…ã®è¦šæ›¸}{115}
+\contentsline {subsection}{\numberline {8.1}æ–°é–¢æ•°ã®è¿½åŠ æ–¹æ³•}{115}
+\contentsline {subsection}{\numberline {8.2}Manualã®ä½œæˆæ–¹æ³•}{115}
+\contentsline {subsection}{\numberline {8.3}è¨­è¨ˆä¸Šã®åŸºæœ¬åŸå‰‡}{115}
+\contentsline {subsection}{\numberline {8.4}ãƒ•ã‚¡ã‚¤ãƒ«æ§‹æˆ}{116}
+\contentsline {subsection}{\numberline {8.5}æç”»å‡¦ç†}{116}

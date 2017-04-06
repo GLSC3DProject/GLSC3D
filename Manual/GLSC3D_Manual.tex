@@ -338,7 +338,7 @@ GLSC3D 3.0ではデフォルトのフォントを
 \begin{table}[h]
 	\centering
 	\begin{tabular}{ll}
-		Mac OS X & /System/Library/Fonts/ヒラギノ角ゴシック W4.ttc\\
+		Mac OS X & /System/Library/Fonts/ヒラギノ角ゴシック W4.ttc\\
 		Linux & /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc\\
 		Windows & C:/Windows/Fonts/Meiryo.ttc\\
 	\end{tabular}
@@ -2094,35 +2094,35 @@ void g_cylinder_3D_core(
 
 
 
-%%%%%%%%%%%%%%%%%%%%%g_cone_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\clearpage
-\subsubsection{\texttt{g\_cone\_2D}}
-
-\begin{itembox}[l]{\texttt{g\_cone\_2D}関数}
-%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
-\begin{verbatim}
-void g_cone_2D(
-        double center_x, double center_y,
-        double direction_x, double direction_y,
-        double radius, double head_size, int type);
-\end{verbatim}
-%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|center| ; 重心の座標\\
-\verb|direction| ; 向き\\
-\verb|radius| ; 半径\\
-\verb|head_size| ; 高さ\\
-\verb|type| ; 種類（0〜2）\\
-\end{itembox}
-
-%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_cone\_2D}関数の説明}
-二等辺三角形を描画する．
-\end{itembox}
-
-%%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
-\begin{figure}[htb]
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%g_cone_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\clearpage
+%%\subsubsection{\texttt{g\_cone\_2D}}
+%%
+%%\begin{itembox}[l]{\texttt{g\_cone\_2D}関数}
+%%%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+%%\begin{verbatim}
+%%void g_cone_2D(
+%%        double center_x, double center_y,
+%%        double direction_x, double direction_y,
+%%        double radius, double head_size, int type);
+%%\end{verbatim}
+%%%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+%%\verb|center| ; 重心の座標\\
+%%\verb|direction| ; 向き\\
+%%\verb|radius| ; 半径\\
+%%\verb|head_size| ; 高さ\\
+%%\verb|type| ; 種類（0〜2）\\
+%%\end{itembox}
+%%
+%%%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{itembox}[l]{\texttt{g\_cone\_2D}関数の説明}
+%%二等辺三角形を描画する．
+%%\end{itembox}
+%%
+%%%%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
+%%\begin{figure}[htb]
+%%\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -2137,13 +2137,16 @@ void g_cone_2D(
 void g_cone_3D(
         double center_x, double center_y, double center_z,
         double direction_x, double direction_y, double direction_z,
-        double radius, double head_size);
+        double radius, double head_size
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
 \verb|direction| ; 向き\\
 \verb|radius| ; 半径\\
 \verb|head_size| ; 高さ\\
+\verb|Wire| ; \verb|G_YES|:線を描く, \verb|G_NO|:線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない \\
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -2170,7 +2173,8 @@ void g_cone_3D_core(
         double direction_x, double direction_y, double direction_z,
         double radius, double head_size,
         int FaceNumberLevel_X, int FaceNumberLevel_Y,
-        int DivideLevel, G_WIREFILL WireFill);
+        int DivideLevel, 
+        G_BOOL Wire, G_BOOL Fill);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|center| ; 重心の座標\\
@@ -2179,7 +2183,8 @@ void g_cone_3D_core(
 \verb|head_size| ; 高さ\\
 \verb|FaceNumberLevel| ; 球面の分割レベル\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
-\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:線を描く, \verb|G_NO|:線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない \\
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
