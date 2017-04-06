@@ -18,15 +18,8 @@ int main()
 
 	g_init("Grid", Size * CountX, Size * CountY);
 
-	// g_scr_color(1, 1, 1);
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	g_area_color_2D(0.5, 0.75, 0.5, 1);
-	g_line_color(1, 1, 1, 1);
 	g_line_width(2);
 	//g_line_type(1);
-
-	//g_text_color(1, 1, 1, 1);
 
 	int id = 0;
 	for (int i = 0; i < CountX; i++)

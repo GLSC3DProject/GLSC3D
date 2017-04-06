@@ -11,7 +11,6 @@ int main()
 	g_enable_highdpi();
 	g_init("GLSC3D", Width * CountX, Height * CountY);
 
-//	g_init_light(0, 0, 1, 2);
 	g_init_light(0, 1, -1, 1);
 	g_init_light_core(1, 0, 1, 2, 0.5f);
 //	g_init_light_core(2, 1, 1, 1, 0.25f);
@@ -24,8 +23,6 @@ int main()
 
 	//g_line_width(2);
 	//g_line_type(1);
-
-	g_text_color(0.5f, 0.5f, 0, 1);
 
 	int id = 0;
 	for (int i = 0; i < CountX; i++)
