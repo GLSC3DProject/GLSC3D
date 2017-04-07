@@ -14,7 +14,7 @@ MyProject="MyProject"
 
 if [ ! -s /usr/share/fonts/opentype/noto/NotoSansCJKjp-Regular.otf ]
 then
-cp Install_file_and_script_and_fonts/NotoSansCJKjp-Regular.otf /usr/share/fonts/opentype/noto/
+sudo cp Install_file_and_script_and_fonts/NotoSansCJKjp-Regular.otf /usr/share/fonts/opentype/noto/
 fi
 
 mkdir ${MyProject}
