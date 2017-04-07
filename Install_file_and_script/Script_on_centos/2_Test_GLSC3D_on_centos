@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Starting the Install GLSC3D Library on your ubuntu!"
+echo "Starting the Install GLSC3D Library on your centos!"
 
 cd
 WDR="GLSC3D_Working_Directory"
@@ -59,6 +59,6 @@ done
 fi
 
 echo "Successfully Done!!"
-echo "Next step is \"3_Install_GLSC3D_on_your_ubuntu\""
+echo "Next step is \"3_Install_GLSC3D_on_your_centos\""
 
 

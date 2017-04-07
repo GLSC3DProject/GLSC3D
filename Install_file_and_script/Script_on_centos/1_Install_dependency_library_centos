@@ -1,5 +1,5 @@
 #!/bin/sh
 
 sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-sudo yum -y install git.x86_64 cmake.x86_64 libpng12-devel.x86_64 SDL2-devel.x86_64 freetype-devel.x86_64
+sudo yum -y install git.x86_64 cmake.x86_64 libpng.x86_64 libpng12-devel.x86_64 SDL2-devel.x86_64 freetype-devel.x86_64
 echo "Next step is \"2_Test_GLSC3D_on_centos\""
