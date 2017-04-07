@@ -1,0 +1,105 @@
+
+See the Manual/GLSC3D_Manual.pdf.
+
+
+Change log
+////////////////////////////////////////////////////////
+2017 4.7 Ver 3.0.0
+全般的に大幅に改良を加えた．関数の引数なども変わったので，2.2.1のユーザーは要注意．
+
+2015 4.15 Ver 2.1.1
+			・g_data_plot, g_isosurface, g_bird_viewのバグを修正
+2015 4.13 Ver 2.1
+			・オフスクリーンレンダリングを実装
+			・Manualを更新（岡本）
+
+2014 12.4 Ver 2.0　（全員）
+			・ほとんどすべての関数の実装を見直した．
+			・遠距離並び替え型透明化処理を正式にサポート
+			・Manualを更新
+
+2014 10.16 Ver 1.13-experimental
+			・Manualを更新
+			・視点位置の内部的な計算方法を改善
+			・gluPerspectinveの引数(fovy, z_near, z_far)を変更(平芳）
+
+2014 10.14 Ver 1.12
+			・Ver1.12-experimentalの変更点を採用
+			・manualの付録をTexに書き換え（未完成）
+			・後方互換性がないので注意してください（平芳）
+
+2014 10.3 Ver 1.12-experimental
+			・3D版と2D版で同じ機能を提供する関数を統一
+			・3D版しか存在しない関数から3D表示を削除
+			破壊的な変更のため、experimental で評価を待ちます（岡本）
+
+2014 10.3 Ver 1.11	C++対応、及びgcc対策のための雑多な修正
+			・g_init_3D g_init_3D_core のchar* 型引数をconst char * 型に
+			・変数長配列がc++利用時には削除されるように
+
+			その他の修正
+			・G_INPUT 構造体を削除
+			・マニュアルのg_init_3D_core を修正（岡本）
+
+2014 9.16 Ver 1.10	g_bird_viewを改良（mallocを使わないプログラムに改変）
+			g_rectangle_3Dの法線ベクトルの向きを修正（平芳）
+
+2014 9.8 Ver 1.09	g_text_standardの追加
+			マニュアル（付録）の更新（平芳）
+
+2014 9.4 Ver 1.08	g_def_scale_3D_coreの追加（画面上方向の指定を可能に）
+			fontのデフォルト値を設定
+			マニュアル（付録）の更新（平芳）
+
+2014 8.13 Ver 1.07	g_init_3D, g_init_3D_coreの引数のwin_pos,width,heightをdouble型からint型に変更
+			g_bird_view_f_3D，g_contln_f_3D，g_data_plot_f_3Dを作成し, test_programに使用例を追記
+			マニュアル（付録）の更新（平芳）
+
+2014 8.11 Ver 1.06
+			g_input.c を正式に追加．ASCII文字に加えて，ファンクションキー，矢印キーなどの特殊キーを入力可能．
+			マウス入力に対応．最後にクリックされたポイントを入手可能．
+				G_INPUT_STATE g_input_state(G_KEY_CODE code, int *x, int *y) 入力データの取得
+			詳しくはマニュアルで（岡本）
+			test_programにg_input_stateの使用方法を追記（平芳）
+
+
+2014 7.28 Ver 1.05-experimental
+			g_input.c を仮追加．ASCII文字を入力出来るように．
+				void g_input_init() 入力機構の初期化
+				G_INPUT g_get_input() 入力データの取得
+				G_INPUT_STATE g_input_state(G_INPUT in,unsigned char key) keyに対応するキーの情報を取得。G_INPUT_STATE列挙体の詳細はg_input.hで
+
+
+			Sample_g_input を追加．上記の分のサンプルコード．
+			g_text_3D/2D_virtual を変更．printf形式でのフォーマットを使えるように．
+			glsc3d.h に M_PI の定義を追加．M_PI が定義されていない環境(CentOSとか)に対応するように．
+			尚，long double の精度が環境依存なので，四倍精度にも対応出きるように36桁定義．
+			experimental 取れたらマニュアル更新します．（岡本）
+
+2014 6.27 Ver 1.04	g_init_light_3D_coreの追加．
+			TestProgramを変更．
+			マニュアルを更新．（平芳）
+
+2014 6.27 Ver 1.03	g_cls_3D内のglutMainLoopEventをg_finish_3Dに移動．
+			g_scr_color_3Dの引数から不透明度(a)を削除．
+			g_init_3D_coreで背景色を変更可能にした．
+			上に伴い，TestProgramとSampleProgramを変更．
+			g_rectangle_3Dのdirectionのバグを修正．
+			g_contln_2Dの線が途切れる問題を修正．
+			マニュアルの更新．（平芳）
+
+2014 6.27 Ver 1.02 	g_isosurface_f_3Dを作成した．TestProgramも作成した．マニュアルへは記載していない．（秋山）
+
+2014 6.24 Ver 1.01 	TesProgramにRunAllSampleスクリプトを追加．glsc3d.hをc++にも対応可能にした．（秋山）
+
+
+2014 6.22 Ver 1.0 	マニュアルを更新（平芳）
+
+Known Issues
+//////////////////////////////////////////////////////////
+2014 9.17 g_data_plot 等
+			g++ では落ちます．また，c++の規格上(?)，c++からは呼び出せません．
+
+2014 7.28 g_text_2D_virtual
+			描画位置を僅かに変えて連続使用すると奇妙な位置に移動する．
+			glRasterPos の挙動が原因？　（岡本）

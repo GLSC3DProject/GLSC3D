@@ -481,7 +481,7 @@ OpenGL，SDLはGLSC3Dの根幹部分です．
 PNGライブラリは画面をキャプチャするために必要です\footnote{\url{http://www.libpng.org/pub/png/libpng.html}}．
 C言語のMathライブラリは描画関数内で数学関数を用いているために必要です．
 デフォルトの設定では，頂点データを保持用に，
-概ね\textcolor{red}{500KB+1048KB}のメモリー領域を使用します．
+概ね500KB+1048KBのメモリー領域を使用します．
 
 %%多くの場合，MacOS\footnote{MacOSはUNIXと認められましたが．．．}，
 %%Linux，UNIX ではSDL以外は標準的にインストールされています．
@@ -555,6 +555,7 @@ Script\_on\_mac.zipを解凍すると以下の実行ファイルが入手でき�
 \url{https://github.com/GLSC3DProject/GLSC3D}
 から最新版のGLSC3Dがダウンロードされます．
 \verb|GLSC3D_Working_Directory|内のファイルは下図のようになります．
+また，フォントファイルがシステムにない場合は\verb|$HOME/Library/Fonts|にインストールされます．
 次に，全てのサンプルプログラムとアドバンスドプログラムが実行できるかを確認します．
 サンプルプログラムとアドバンスドプログラムは実行時間がすこしかかるので，Noを選択してスキップすることもできます．
 各プログラムは\verb|esc|キーを押すと終了します．
@@ -641,6 +642,7 @@ Script\_on\_ubuntu.zipを解凍すると以下の実行ファイルが入手で�
 \verb|GLSC3D_Working_Directory|に
 \url{https://github.com/GLSC3DProject/GLSC3D}
 から最新版のGLSC3Dがダウンロードされます．
+また，フォントファイルがシステムにない場合は\verb|/usr/share/fonts/opentype/noto|にインストールされます．
 次に，全てのサンプルプログラムとアドバンスドプログラムが実行できるかを確認します．
 サンプルプログラムとアドバンスドプログラムは実行時間がすこしかかるので，Noを選択してスキップすることもできます．
 実行結果はMac OS Xと同様です．
@@ -1008,7 +1010,7 @@ void g_scr_color(
         float r, float g, float b, float a);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
+\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1070,7 +1072,7 @@ void g_sleep(
         double wait_time);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|wait_time| ; 静止時間（秒）\\
+\verb|wait_time| ; 静止時間（秒）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1095,7 +1097,7 @@ void g_capture_set(
 void g_capture();
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|name| ; 保存先のフォルダ名（``''または\verb|NULL|の場合，フォルダ名は「Frames年.月.日.時間.分.秒」となる．）\\
+\verb|name| ; 保存先のフォルダ名（``''または\verb|NULL|の場合，フォルダ名は「Frames年.月.日.時間.分.秒」となる．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1374,7 +1376,7 @@ void g_marker_color(
         float r, float g, float b, float a);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
+\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1389,15 +1391,15 @@ void g_marker_color(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_marker_size(
-        float size);
+	float size);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|size| ; マーカーの大きさ(ピクセル単位)\\
+\verb|size| ; マーカーの大きさ（ピクセル単位）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_marker\_size}関数の説明}
-	マーカーの大きさを変更する．ピクセル単位の直径を指定する．
+マーカーの大きさを変更する．ピクセル単位の直径を指定する．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%%%g_marker_radius%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1406,11 +1408,11 @@ void g_marker_size(
 \begin{itembox}[l]{\texttt{g\_marker\_radius}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
-void g_marker_radius
-        float size);
+void g_marker_radius(
+	float size);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|size| ; マーカーの大きさ(仮想座標系での半径)\\
+\verb|size| ; マーカーの大きさ（仮想座標系での半径）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1430,7 +1432,7 @@ void g_marker_type(
         unsigned int type);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|type| ; マーカーの種類\\
+\verb|type| ; マーカーの種類
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1473,7 +1475,7 @@ void g_def_marker(
 \verb|id| ; マーカーの属性番号\\
 \verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
 \verb|type| ; マーカーの種類（\verb|g_marker_type|の説明を参照）\\
-\verb|size| ; マーカーの大きさ\\
+\verb|size| ; マーカーの大きさ
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1490,7 +1492,7 @@ void g_sel_marker(
         int id);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|id| ; マーカーの属性番号\\
+\verb|id| ; マーカーの属性番号
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1517,7 +1519,7 @@ void g_line_color(
         float r,float g,float b,float a);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
+\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1535,7 +1537,7 @@ void g_line_width(
         float size);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|size| ; 線の太さ\\
+\verb|size| ; 線の太さ
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1553,7 +1555,7 @@ void g_line_type(
         int type);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|type| ; 線の種類（0〜8）\\
+\verb|type| ; 線の種類（0〜8）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1584,7 +1586,7 @@ void g_def_line(
 \verb|id| ; 線の属性番号\\
 \verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
 \verb|width| ; 線の太さ\\
-\verb|type| ; 線の種類（0〜8）\\
+\verb|type| ; 線の種類（0〜8）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1610,7 +1612,7 @@ void g_sel_line(
         int id);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|id| ; 線の属性番号\\
+\verb|id| ; 線の属性番号
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1642,7 +1644,7 @@ void g_area_color_3D(
         float r, float g, float b, float a);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
+\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1673,7 +1675,7 @@ void g_def_area_3D(
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; 塗りつぶしの属性番号\\
-\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）\\
+\verb|r,g,b,a| ; 光の三原色＋不透明度（$0\leq \verb|r,g,b,a| \leq 1$）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1693,7 +1695,7 @@ void g_sel_area_3D(
         int id);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|id| ; 塗りつぶしの属性番号\\
+\verb|id| ; 塗りつぶしの属性番号
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1749,7 +1751,7 @@ void g_text_font_core(
         float size);
 	\end{verbatim}
 	%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-	\verb|size| ; テキストのサイズを指定する．\\
+	\verb|size| ; テキストのサイズを指定する．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1826,7 +1828,6 @@ void g_sel_text(
 
 \clearpage
 \subsection{描画関数}
-
 %%%%%%%%%%%%%%%%%%%%%g_marker_2D,g_marker_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\texttt{g\_marker\_2D, g\_marker\_3D}}
 
@@ -1839,7 +1840,7 @@ void g_marker_3D(
         double x, double y, double z);	
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|x,y,z| ; マーカーの中心座標\\
+\verb|x,y,z| ; マーカーの中心座標
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1851,6 +1852,7 @@ void g_marker_3D(
 \begin{figure}[htb]
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 
@@ -1867,12 +1869,13 @@ void g_text_standard(
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y| ; テキスト左下の座標（標準座標系）\\
-\verb|str| ; 文字列\\
+\verb|str| ; 文字列
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_text\_standard}関数の説明}
-文字列を描画する．（座標指定が標準座標系であることに注意．）
+文字列を描画する．
+（座標指定が標準座標系であることに注意．）
 \end{itembox}
 
 
@@ -1891,12 +1894,13 @@ void g_text_3D_virtual(
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|x,y,z| ; テキスト左下の座標（仮想座標系）\\
-\verb|str| ; 文字列\\
+\verb|str| ; 文字列
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_text\_virtual\_2D,g\_text\_virtual\_3D}関数の説明}
-文字列を描画する．（座標指定が仮想座標系であることに注意．）
+文字列を描画する．
+（座標指定が仮想座標系であることに注意．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -2030,7 +2034,7 @@ void g_box_3D(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_box\_3D\_core}関数の説明}
-直方体を描画する．(より細かい設定が可能)
+直方体を描画する．（より細かい設定が可能）
 \end{itembox}
 \begin{figure}[htb]
 \centering
@@ -2901,7 +2905,7 @@ void g_fan_3D_core(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_fan\_3D\_core}関数の説明}
-扇形を描画する．
+扇形を描画する．（より細かい設定が可能）
 \end{itembox}
 \begin{figure}[htb]
 \centering
@@ -3007,7 +3011,7 @@ void g_circle_3D_core(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_circle\_3D\_core}関数の説明}
-円板を描画する．
+円板を描画する．（より細かい設定が可能）
 \end{itembox}
 \begin{figure}[htb]
 \centering
@@ -3283,7 +3287,6 @@ void g_data_plot_f_3D(
 
 \clearpage
 \subsection{上位関数}
-
 %%%%%%%%%%%%%%%%%%%%%g_contln_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\texttt{g\_contln\_2D}}
 
@@ -3447,7 +3450,7 @@ void g_isosurface_3D(
 \verb|x,y,z| ; 描画範囲の指定\\
 \verb|number| ; 配列\verb|u|の各方向のサイズ\\
 \verb|u| ; 3次元配列もしくは1次元配列を3次元配列化*した配列\\
-\verb|height| ; 等値面を描きたい値\\
+\verb|height| ; 等値面を描きたい値
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -3481,7 +3484,7 @@ void g_isosurface_f_3D(
 \verb|x,y,z| ; 描画範囲の指定\\
 \verb|number| ; 配列\verb|u|の各方向のサイズ\\
 \verb|u| ; 1次元配列を3次元配列化*した配列\\
-\verb|height| ; 等値面を描きたい値\\
+\verb|height| ; 等値面を描きたい値
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
