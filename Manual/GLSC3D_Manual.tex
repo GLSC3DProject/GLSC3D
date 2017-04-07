@@ -175,9 +175,9 @@ GLSC3Dとはその名の通り，GLSCの3次元への拡張バージョンのこ
 \subsubsection{OpenGLとGLUTの使用}
 3次元の描画ライブラリとして有名なのは，やはりOpenGL(Open Graphics Library)\footnote{\verb|http://www.opengl.org/|}でしょう．DirectX\footnote{\verb|http://ja.wikipedia.org/wiki/Microsoft_DirectX|}というライブラリも有名ですが，Windows上でしか動かないので問題です．OpenGLは様々な環境で動作すること，描画が高速であること，そしてその名の通りオープンなAPI(Application Program Interface)であることから，GLSC3Dの構築には最適です．
 
-OpenGLはグラフィック専門のAPIなので，ウインドウを画面に出したり，マウスやキーボードのようなデバイスから操作を受け付けるためには他のライブラリを使用する\footnote{このように書くとGLSC3Dではマウスやキーボードを使ってインタラクティブにグラフィックを行うことができそうですが，現時点(2014.6.5)ではそのような関数は未実装です．}必要があります．それがGLUT(OpenGL Utility Toolkit)\footnote{\verb|http://www.opengl.org/resources/libraries/glut/|}です．GLUTはこのようなOS間でのデバイスの違いの差も吸収してくれます．そこでOpengGLでインタラクティブなグラフィックプログラムを制作するといえば，大抵はGLUTも使用することになります．
+OpenGLはグラフィック専門のAPIなので，ウインドウを画面に出したり，マウスやキーボードのようなデバイスから操作を受け付けるためには他のライブラリを使用する\footnote{このように書くとGLSC3Dではマウスやキーボードを使ってインタラクティブにグラフィックを行うことができそうですが，現時点(2014.6.5)ではそのような関数は未実装です．その後Ver2.2.1で実装されました．}必要があります．それがGLUT(OpenGL Utility Toolkit)\footnote{\verb|http://www.opengl.org/resources/libraries/glut/|}です．GLUTはこのようなOS間でのデバイスの違いの差も吸収してくれます．そこでOpengGLでインタラクティブなグラフィックプログラムを制作するといえば，大抵はGLUTも使用することになります．
 
-実はGLUTは1998 年に発表された Version 3.7以降整備が行われなくなってしまいました．それでは困るということで，いくつかの団体(OpenGLUT\footnote{\verb|http://openglut.sourceforge.net/|}，FreeGLUT\footnote{\verb|http://freeglut.sourceforge.net/|})がGLUTと互換性のある新たなライブラリを開発してきました．どちらの団体でも良かったのですが，freeGLUTのほうが作者の開発環境であるMacOSと相性がよいので，GLSC3Dの開発ではfreeGLUTを採用しました\footnote{何年か後にOpenGLUT陣営が勝っていれば，それに合わせてプログラムを更新します．．．}．これにて，GLSC3Dの開発に必要な土台は準備出来ました．あとは，どのように実装するかという問題が残されました．
+実はGLUTは1998 年に発表された Version 3.7以降整備が行われなくなってしまいました．それでは困るということで，いくつかの団体(OpenGLUT\footnote{\verb|http://openglut.sourceforge.net/|}，FreeGLUT\footnote{\verb|http://freeglut.sourceforge.net/|})がGLUTと互換性のある新たなライブラリを開発してきました．どちらの団体でも良かったのですが，freeGLUTのほうが作者の開発環境であるMacOSと相性がよいので，GLSC3Dの開発ではfreeGLUTを採用しました\footnote{何年か後にOpenGLUT陣営が勝っていれば，それに合わせてプログラムを更新します．．．}\footnote{FreeGLUTはいくつかの問題があることがわかり，Ver3.00からはSDLに移行されました．}．これにて，GLSC3Dの開発に必要な土台は準備出来ました．あとは，どのように実装するかという問題が残されました．
 
 \subsubsection{GLSCらしさとOpenGLらしさ}
 
@@ -479,7 +479,7 @@ Ver. 3.0では依存ライブラリとインストール方法が変更されて
 GLSC3D Ver. 3.0.0以降では，OpenGL，SDL，libPNG，FreeType，Mathライブラリに依存します．
 OpenGL，SDLはGLSC3Dの根幹部分です．
 PNGライブラリは画面をキャプチャするために必要です\footnote{\url{http://www.libpng.org/pub/png/libpng.html}}．
-C言語のMathライブラリは描画関数内で数学関数を用いているために必要です．デフォルトの設定では概ね500KBのメモリー領域を使用します．
+C言語のMathライブラリは描画関数内で数学関数を用いているために必要です．デフォルトの設定では，頂点データを保持用に，概ね500KB+1048KBのメモリー領域を使用します．
 
 多くの場合，MacOS\footnote{MacOSはUNIXと認められましたが．．．}，
 Linux，UNIX ではSDL以外は標準的にインストールされています．
@@ -553,9 +553,9 @@ Script\_on\_mac.zipを解凍すると以下の実行ファイルが入手でき�
 はじめに\verb|$HOME|に\verb|GLSC3D_Working_Directory|というディレクトリが作成され，
 \verb|GLSC3D_Working_Directory|に
 \url{https://github.com/GLSC3DProject/GLSC3D}
-から最新版のGLSC3Dをダウンロードされます．
+から最新版のGLSC3Dがダウンロードされます．
 次に，全てのサンプルプログラムとアドバンスドプログラムが実行できるかを確認します．
-サンプルプログラムとアドバンスドプログラムは 1: 実行する もしくは 2: 実行しない を選択して下さい．
+サンプルプログラムとアドバンスドプログラムは実行時間がすこしかかるので，Noを選択してスキップすることもできます．
 
 \begin{itembox}[l]{スクリプトの実行}
 \verb|$: ./3_Test_GLSC3D_on_mac|
@@ -588,8 +588,8 @@ Script\_on\_mac.zipを解凍すると以下の実行ファイルが入手でき�
 \end{itembox}
 
 無事にパスが通っていれば，
-\verb|bin|内の\verb|ccg|コマンドによって自動的にサンプルプログラム \verb|Hello_GLSC3D.c| がコンパイルされ，
-実行されます．
+\verb|bin|内の\verb|ccg|コマンドによって自動的にサンプルプログラム \verb|Hello_GLSC3D.c| がコンパイルされ，実行されます．
+実行がうまく行った場合は，システムに正しくGLSC3Dがインストールされたことになります．
 
 \subsubsection{Linuxの場合}
 
