@@ -1,0 +1,53 @@
+#!/bin/sh
+
+echo "Starting the Install GLSC3D Library on your mac!"
+
+cd
+mkdir -p ~/lib
+mkdir -p ~/include
+mkdir -p ~/bin
+
+WDR="GLSC3D_Working_Directory"
+mkdir -p ${WDR}
+open ${WDR}
+
+cp ${WDR}/GLSC3D/Out/libglsc3d.a ~/lib/
+cp ${WDR}/GLSC3D/Install_file_and_script/ccg_mac ~/bin/ccg
+cp ${WDR}/GLSC3D/Install_file_and_script/Hello_GLSC3D.c ${WDR}/
+cp ${WDR}/GLSC3D/Include/glsc3d.h ~/include/
+cp ${WDR}/GLSC3D/Include/glsc3d_math.h ~/include/
+
+echo "Set the PATH"
+yourPATH=`echo $PATH`
+TF=1
+
+flag=`echo "${yourPATH}" | grep "$HOME/include"`
+flag=`echo ${#flag}`
+if [ $flag -eq 0 ]
+then
+    echo "Please write the following message in the your .bashrc or .profile and so on..."
+    echo "export PATH=\$PATH:\$HOME/include"
+	TF=0
+fi
+
+flag=`echo "${yourPATH}" | grep "$HOME/bin"`
+flag=`echo ${#flag}`
+if [ $flag -eq 0 ]
+then
+    echo "Please write the following message in the your .bashrc or .profile and so on..."
+    echo "export PATH=\$PATH:\$HOME/bin"
+	TF=0
+exit
+fi
+
+if [ $TF -eq 1 ]
+then
+	cd ${WDR}
+	ccg Hello_GLSC3D.c
+	./Hello_GLSC3D
+	echo "GLSC3D Library is installed on your mac successfully !!"
+	echo "The directroy \"${WDR}\" is not necessary."
+	echo "You can delete this directroy, if you want!"
+	echo "Done!"
+fi
+
