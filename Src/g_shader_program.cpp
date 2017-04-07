@@ -1,5 +1,4 @@
 #include "glsc3d_private.h"
-#include <vector>
 
 #ifdef G_USE_CORE_PROFILE
 
@@ -286,10 +285,12 @@ void g_check_shader_compile_status(GLuint shader)
 	GLint info_log_length = g_get_shader_int(shader, GL_INFO_LOG_LENGTH);
 	
 	if (info_log_length > 0) {
-		std::vector<char> info_log((size_t)info_log_length);
+		char * info_log = (char *)malloc(info_log_length * sizeof(char));
 		
-		glGetShaderInfoLog(shader, info_log_length, NULL, info_log.data());
-		printf("%s\n", info_log.data());
+		glGetShaderInfoLog(shader, info_log_length, NULL, info_log);
+		printf("%s\n", info_log);
+
+		free(info_log);
 
 		if (g_get_shader_int(shader, GL_COMPILE_STATUS) == GL_FALSE)
 			printf("Compile Failed.\n");
@@ -317,10 +318,12 @@ void g_link_program(GLuint program)
 	GLint info_log_length = g_get_program_info(program, GL_INFO_LOG_LENGTH);
 	
 	if (info_log_length > 0) {
-		std::vector<char> info_log((size_t)info_log_length);
+		char * info_log = (char *)malloc(info_log_length * sizeof(char));
 		
-		glGetProgramInfoLog(program, GL_INFO_LOG_LENGTH, NULL, info_log.data());
-		printf("%s\n", info_log.data());
+		glGetProgramInfoLog(program, GL_INFO_LOG_LENGTH, NULL, info_log);
+		printf("%s\n", info_log);
+
+		free(info_log);
 
 		if (g_get_program_info(program, GL_LINK_STATUS) == GL_FALSE)
 			printf("Link Failed.\n");

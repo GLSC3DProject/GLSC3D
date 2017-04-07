@@ -33,7 +33,7 @@
 
 #define TIME_STEP		(1.f / 512)
 
-#define WINDOW_SIZE		1024
+#define WINDOW_SIZE		640
 
 // returns rand between 0 and 1
 float frand() { return (float)rand() / RAND_MAX; }
