@@ -13,6 +13,11 @@ git clone https://github.com/GLSC3DProject/GLSC3D
 cd GLSC3D
 MyProject="MyProject"
 
+if [ ! -s $HOME/Library/Fonts/NotoSansCJKjp-Regular.otf ]
+then
+	cp Install_file_and_script_and_fonts/NotoSansCJKjp-Regular.otf $HOME/Library/Fonts/
+fi
+
 mkdir ${MyProject}
 cd ${MyProject}
 cmake ../
