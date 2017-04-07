@@ -76,8 +76,7 @@ void g_text_init()
 #ifdef __APPLE__
 	char default_font[256];
 	strcpy(default_font, getenv("HOME"));
-	strcat(default_font, "/Library/Fonts/");
-	strcat(default_font, DEFAULT_FONT_NAME);
+	strcat(default_font, "/Library/Fonts/" DEFAULT_FONT_NAME);
 
 	g_text_font_core(default_font);
 #else
