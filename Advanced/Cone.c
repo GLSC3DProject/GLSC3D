@@ -1,7 +1,7 @@
 #include "glsc3d.h"
 
-#define WIDTH 640*2
-#define HEIGHT 320*2
+#define WIDTH 640
+#define HEIGHT 320
 
 #define x_division 64
 #define y_division 32
@@ -10,6 +10,7 @@ static const double h = -0.5;
 
 int main()
 {
+	g_enable_highdpi();
 	g_init("GLSC3D", WIDTH, HEIGHT*2);
 	
 	g_init_light(0, 1, 0, 1);
@@ -35,7 +36,6 @@ int main()
 		g_cls();
 		
 		g_sel_scale_3D(0);
-		g_line_width(2);
 		
 		g_area_color_3D(0.5, 0.5, 0.75, 1);
 		g_rectangle_3D(0, h, 0, 1, 0, 0, 5, 4, 0, G_NO, G_YES);

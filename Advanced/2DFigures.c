@@ -16,9 +16,9 @@ int main()
 	for (int i = 0; i <= 5; i++)
 		u[i] = sin(4*M_PI/5 * i), v[i] = cos(4*M_PI/5 * i);
 
+	g_enable_highdpi();
 	g_init("Grid", Size * CountX, Size * CountY);
 
-	g_line_width(2);
 	//g_line_type(1);
 
 	int id = 0;

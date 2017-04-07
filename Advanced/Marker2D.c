@@ -4,6 +4,7 @@ int main()
 {
 	const int Size = 320;
 
+	g_enable_highdpi();
 	g_init("GLSC3D", Size, Size);
 
 //	g_scr_color(1, 1, 1);
