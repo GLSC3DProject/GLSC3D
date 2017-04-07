@@ -1,4 +1,4 @@
 #!/bin/sh
 
 sudo port -N install cmake libpng libsdl2
-echo "Next step is \"3_Test_GLSC3D_on_Mac\""
+echo "Next step is \"3_Test_GLSC3D_on_mac\""
