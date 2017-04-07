@@ -1,4 +1,5 @@
 #include "glsc3d_private.h"
+#include <string.h>
 #include <stdarg.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -29,18 +30,18 @@ struct G_TEXT_APPEARANCE
 
 G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
-#define DEFAULT_FONT_NAME "NotoSansCJKjp-Regular.otf"
+#define DEFAULT_FONT_NAME "/NotoSansCJKjp-Regular.otf"
 
-#ifdef __APPLE__
-#define DEFAULT_FONT_FILE "/System/Library/Fonts/" DEFAULT_FONT_NAME
-#endif
+//#ifdef __APPLE__
+//#define DEFAULT_FONT_FILE "/System/Library/Fonts" DEFAULT_FONT_NAME
+//#endif
 
 #ifdef __linux__
-#define DEFAULT_FONT_FILE "/usr/share/fonts/opentype/noto/" DEFAULT_FONT_NAME
+#define DEFAULT_FONT_FILE "/usr/share/fonts/opentype/noto" DEFAULT_FONT_NAME
 #endif
 
 #ifdef _WIN32
-#define DEFAULT_FONT_FILE "C:/Windows/Fonts/" DEFAULT_FONT_NAME
+#define DEFAULT_FONT_FILE "C:/Windows/Fonts" DEFAULT_FONT_NAME
 #endif
 
 void g_text_init()
@@ -73,7 +74,16 @@ void g_text_init()
 		g_quit();
 	}
 
+#ifdef __APPLE__
+	char default_font[256];
+	strcpy(default_font, getenv("HOME"));
+	strcat(default_font, DEFAULT_FONT_NAME);
+
+	g_text_font_core(default_font);
+#else
 	g_text_font_core(DEFAULT_FONT_FILE);
+#endif
+
 	g_text_size(24);
 }
 
