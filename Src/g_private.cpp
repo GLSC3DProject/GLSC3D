@@ -1,11 +1,18 @@
 #include "glsc3d_private.h"
 
-size_t GLSC3D_Data_Buffer_Size = 1 << 20;
+#define MINIMIM_SIZE (1 << 12)
+
+size_t GLSC3D_Data_Buffer_Size;
 void * GLSC3D_Data_Buffer;
 
-void * GLSC3D_Array_Buffer(size_t Array_Size)
+void * GLSC3D_Array_Buffer(size_t array_size)
 {
-	while (Array_Size > GLSC3D_Data_Buffer_Size)
+	if (array_size <= GLSC3D_Data_Buffer_Size)
+		return GLSC3D_Data_Buffer;
+
+	GLSC3D_Data_Buffer_Size = MINIMIM_SIZE;
+
+	while (array_size > GLSC3D_Data_Buffer_Size)
 		GLSC3D_Data_Buffer_Size *= 2;
 
 	// If the first argument of realloc is NULL, realloc behaves the same way as malloc.

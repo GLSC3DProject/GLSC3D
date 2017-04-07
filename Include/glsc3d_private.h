@@ -197,9 +197,10 @@ extern int TRIANGLE_BUFFER_SIZE;
 extern int TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
 // ---- g_array_buffer.c
+
 extern void * GLSC3D_Data_Buffer;
-void * GLSC3D_Array_Buffer(size_t Array_Size);
-    
+void * GLSC3D_Array_Buffer(size_t array_size);
+
 // ---- g_scale.cpp
 
 extern int				g_current_scale_id;
@@ -312,7 +313,7 @@ void g_begin_line_loop(void);
 
 void g_begin_triangle_strip(void);
 void g_begin_triangle_fan(void);
-    
+
 #ifdef __cplusplus
 }
 #endif
