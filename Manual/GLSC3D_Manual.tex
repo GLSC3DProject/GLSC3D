@@ -16,7 +16,11 @@
 
 \usepackage{wrapfig}
 %\usepackage[dvips]{graphicx}
-\usepackage[dvipdfmx]{graphicx}
+%\usepackage[dvipdfmx]{graphicx}
+\usepackage[draft]{graphicx}
+
+\usepackage{url}
+
 \usepackage[usenames]{color}
 %\usepackage{jumoline}
 \usepackage{color}
@@ -472,31 +476,120 @@ Ver. 3.0では依存ライブラリとインストール方法が変更されて
 
 \subsection{動作環境}
 
-GLSC3D 3.0はOpenGL, SDL，libPNG，FreeType, Mathライブラリに依存します．
-OpenGL, SDLはGLSC3Dの根幹部分です．PNGライブラリは画面をキャプチャするために必要です\footnote{\verb|http://www.libpng.org/pub/png/libpng.html|}．
+GLSC3D Ver. 3.0.0以降では，OpenGL，SDL，libPNG，FreeType，Mathライブラリに依存します．
+OpenGL，SDLはGLSC3Dの根幹部分です．
+PNGライブラリは画面をキャプチャするために必要です\footnote{\url{http://www.libpng.org/pub/png/libpng.html}}．
 C言語のMathライブラリは描画関数内で数学関数を用いているために必要です．デフォルトの設定では概ね500KBのメモリー領域を使用します．
 
-多くの場合，MacOS\footnote{MacOSはUNIXと認められましたが．．．}, Linux, UNIX ではSDL以外は標準的にインストールされています．
+多くの場合，MacOS\footnote{MacOSはUNIXと認められましたが．．．}，
+Linux，UNIX ではSDL以外は標準的にインストールされています．
 
 \subsection{動作環境の構築}
 
+GLSC3D Ver. 3.0.0以降では，
+GLSC3DをインストールためのシェルスクリプトをOS毎に用意しています．
+\url{http://www-mmc.es.hokudai.ac.jp/~masakazu/}の公開ソフトウェアから対応するスクリプトをダウンロードし，
+実行することによってインストールが行われます．
+
 \subsubsection{Mac OS Xの場合}
 
-{\bf Xcodeのインストール：}
+\noindent
+{\bf (1) Xcodeのインストール：}
 
-Mac OS XはXcodeを導入しなければ，様々な開発環境がインストールされません．まずXcodeをインストールしてください．App StoreでXcodeを検索すればトップに表示されます．
+Mac OS XはXcodeを導入しなければ，様々な開発環境がインストールされません．
+まずXcodeをインストールしてください．
+App StoreでXcodeを検索すればトップに表示されます．
 
-{\bf SDL, libPNG, Freetype のインストール：}
+%%{\bf SDL, libPNG, Freetype のインストール：}
+%%
+%%XQuartzを使用しないため，これらはMacPortsを用いてインストールしてください．\\MacPortsは通常\verb|/opt/local/bin/port|にあります．
+%%
+%%\verb|sudo port install libSDL2-devel|
+%%
+%%\verb|sudo port install libpng|
+%%
+%%\verb|sudo port install libfreetype|
+%%
+%%ヘッダファイルは\verb|/opt/local/include|，ライブラリは\verb|/opt/local/lib|に保存されます．
 
-XQuartzを使用しないため，これらはMacPortsを用いてインストールしてください．\\MacPortsは通常\verb|/opt/local/bin/port|にあります．
+\noindent 
+{\bf (2) Mac OS X用シェルスクリプト：} 
 
-\verb|sudo port install libSDL2-devel|
+Script\_on\_mac.zipを解凍すると以下の実行ファイルが入手できる：
+\begin{itemize}
+\item[] 1\_Install\_macports\_mac
+\item[] 2\_Install\_dependency\_library\_mac
+\item[] 3\_Test\_GLSC3D\_on\_mac
+\item[] 4\_Install\_GLSC3D\_on\_your\_mac
+\end{itemize}
 
-\verb|sudo port install libpng|
+\noindent 
+{\bf (3) 1\_Install\_macports\_macの実行：} 
 
-\verb|sudo port install libfreetype|
+1つ目のスクリプトでは，MacPortsがインストールされているかを確認します．
+以下のように実行すると，ブラウザで\verb|https://www.macports.org/|のページが開くので，
+インストールしていない場合はダウンロードおよびインストールを行って下さい．
 
-ヘッダファイルは\verb|/opt/local/include|，ライブラリは\verb|/opt/local/lib|に保存されます．
+\begin{itembox}[l]{スクリプトの実行}
+\verb|$: ./1_Install_macports_mac|
+\end{itembox}
+
+無事にインストールされたら，次のステップに進んで下さい．
+
+\noindent 
+{\bf (4) 2\_Install\_dependency\_library\_macの実行：} 
+
+2つ目のスクリプトでは，GLSC3Dが依存しているライブラリでMac OS Xに必要なもの
+(cmake, libPNG, libsdl2)を導入します．
+
+\begin{itembox}[l]{スクリプトの実行}
+\verb|$: ./2_Install_dependency_library_mac|
+\end{itembox}
+
+\noindent 
+{\bf (5) 3\_Test\_GLSC3D\_on\_macの実行：} 
+
+3つ目のスクリプトでは，
+はじめに\verb|$HOME|に\verb|GLSC3D_Working_Directory|というディレクトリが作成され，
+\verb|GLSC3D_Working_Directory|に
+\url{https://github.com/GLSC3DProject/GLSC3D}
+から最新版のGLSC3Dをダウンロードされます．
+次に，全てのサンプルプログラムとアドバンスドプログラムが実行できるかを確認します．
+サンプルプログラムとアドバンスドプログラムは 1: 実行する もしくは 2: 実行しない を選択して下さい．
+
+\begin{itembox}[l]{スクリプトの実行}
+\verb|$: ./3_Test_GLSC3D_on_mac|
+\end{itembox}
+
+\noindent 
+{\bf (6) 4\_Install\_GLSC3D\_on\_your\_macの実行：} 
+
+4つ目のスクリプトでは，
+はじめに\verb|$HOME|直下に3つのフォルダ\verb|bin|，\verb|include|，\verb|lib|を作成し，
+\verb|ccg|を\verb|bin|に，
+\verb|glsc3d.h|，\verb|glsc3d_math.h|を\verb|include|に，
+\verb|libgslc3d.a|を\verb|lib|に，
+\verb|Hello_GLSC3D.c|を\verb|GLSC3D_Working_Directory|の直下に保存します．
+次に，
+\verb|bin|，\verb|include|
+にパスが通っているかの確認をします．
+
+\begin{itembox}[l]{スクリプトの実行}
+\verb|$: ./4_Install_GLSC3D_on_your_mac|
+\end{itembox}
+
+パスが通っていない場合はメッセージに従って，
+下記のようにシェルを編集して下さい．
+
+\begin{itembox}[l]{パスの通し方: 使用しているシェル(.bashrc or .profileなど)において書きを追加する．}
+\verb|export PATH=$PATH:$HOME/bin|
+	
+\verb|export PATH=$PATH:$HOME/include|
+\end{itembox}
+
+無事にパスが通っていれば，
+\verb|bin|内の\verb|ccg|コマンドによって自動的にサンプルプログラム \verb|Hello_GLSC3D.c| がコンパイルされ，
+実行されます．
 
 \subsubsection{Linuxの場合}
 
