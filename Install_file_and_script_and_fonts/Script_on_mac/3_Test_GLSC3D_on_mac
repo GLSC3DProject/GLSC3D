@@ -1,0 +1,66 @@
+#!/bin/sh
+
+echo "Starting the Install GLSC3D Library on your mac!"
+
+cd
+WDR="GLSC3D_Working_Directory"
+mkdir -p ${WDR}
+open ${WDR}
+cd ${WDR}
+
+git clone https://github.com/GLSC3DProject/GLSC3D
+
+cd GLSC3D
+MyProject="MyProject"
+
+mkdir ${MyProject}
+cd ${MyProject}
+cmake ../
+make
+
+echo "Check Samples"
+cd ../Samples
+
+echo "Do you want to run the Sample Program? (YES=1, NO=0)"
+read TF
+
+if [ $TF -eq 1 ]
+then
+	for x in Sample*.c
+	do
+		echo "Sample Program ${x%.c} running ... \n if you quit the program, push the ESC!"
+		./${x%.c}
+	done
+fi
+
+echo "Check Advanced"
+cd ../Advanced
+
+echo "Do you want to run the Advanced Program? (YES=1, NO=0)"
+read TF
+if [ $TF -eq 0 ]
+then
+echo "Successfully Done!!"
+echo "Next step is \"4_Install_GLSC3D_on_your_mac\""
+exit
+fi
+
+if [ $TF -eq 1 ]
+then
+for x in *.c
+do
+	echo "Sample Program ${x%.c} running ... \n if you quit the program, push the ESC!"
+	./${x%.c}
+done
+
+for x in *.cpp
+do
+	echo "Sample Program ${x%.cpp} running ... \n if you quit the program, push the ESC!"
+	./${x%.cpp}
+done
+fi
+
+echo "Successfully Done!!"
+echo "Next step is \"4_Install_GLSC3D_on_your_mac\""
+
+

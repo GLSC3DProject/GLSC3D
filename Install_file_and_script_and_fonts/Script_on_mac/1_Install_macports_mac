@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "Please install macports on your mac..."
+open "https://www.macports.org/install.php"
+echo "Next step is \"2_Install_dependency_library_mac\""

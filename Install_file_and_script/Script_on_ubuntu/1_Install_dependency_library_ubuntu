@@ -1,4 +1,0 @@
-#!/bin/sh
-
-sudo apt -y install git cmake libpng12-dev libsdl2-dev libfreetype6-dev libc++1
-echo "Next step is \"2_Test_GLSC3D_on_ubuntu\""

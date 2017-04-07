@@ -34,11 +34,11 @@ int main()
 		// 1-byte characters
 		g_text_standard(x, y += dy, "Hello, World!");
 
-		// 2-byte characters
-		g_text_standard(x, y += dy, "Γειά σου Κόσμε!");
-
 		// 3-byte characters
 		g_text_standard(x, y += dy, "こんにちは，世界!");
+
+		// 2-byte characters
+		g_text_standard(x, y += dy, "∀∃∧∂∩∈∬∮≈");
 
 		g_text_standard(x, y += dy, TEXT2);
 

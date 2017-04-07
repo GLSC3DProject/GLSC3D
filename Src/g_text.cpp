@@ -29,16 +29,18 @@ struct G_TEXT_APPEARANCE
 
 G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
+#define DEFAULT_FONT_NAME "NotoSansCJKjp-Regular.otf"
+
 #ifdef __APPLE__
-#define DEFAULT_FONT_FILE "/System/Library/Fonts/ヒラギノ角ゴシック W4.ttc"
+#define DEFAULT_FONT_FILE "/System/Library/Fonts/" DEFAULT_FONT_NAME
 #endif
 
 #ifdef __linux__
-#define DEFAULT_FONT_FILE "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"
+#define DEFAULT_FONT_FILE "/usr/share/fonts/opentype/noto/" DEFAULT_FONT_NAME
 #endif
 
 #ifdef _WIN32
-#define DEFAULT_FONT_FILE "C:/Windows/Fonts/Meiryo.ttc"
+#define DEFAULT_FONT_FILE "C:/Windows/Fonts/" DEFAULT_FONT_NAME
 #endif
 
 void g_text_init()
