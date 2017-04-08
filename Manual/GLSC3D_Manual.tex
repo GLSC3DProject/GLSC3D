@@ -1086,7 +1086,6 @@ void g_sleep(
 
 
 %%%%%%%%%%%%%%%%%%%%g_capture, g_capture_set%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\clearpage
 \subsubsection{\texttt{g\_capture\_set, g\_capture}}
 
 \begin{itembox}[l]{\texttt{g\_capture\_set, g\_capture}関数}
@@ -1097,7 +1096,7 @@ void g_capture_set(
 void g_capture();
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|name| ; 保存先のフォルダ名（``''または\verb|NULL|の場合，フォルダ名は「Frames年.月.日.時間.分.秒」となる．）
+\verb|name| ; 保存先のフォルダ名（``''または\verb|NULL|の場合，フォルダ名は「Frames年.月.日.時.分.秒」となる．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1107,6 +1106,7 @@ void g_capture();
 画面を取り込む関数．（\verb|g_capture|）
 \end{itembox}
 
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%g_enable_highdpi%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\texttt{g\_enable\_highdpi}}
 
@@ -1120,7 +1120,30 @@ void g_enable_highdpi();
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_enable\_highdpi}関数の説明}
-Apple Retina Displayのネイティブ解像度で描画するように指定します．
+Apple Retina Displayのネイティブ解像度で描画するように指定します．\\
+この関数を使用するときは，必ず\verb|g_init(_core)|より前に使用してください．
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%%%g_set_antialiasing%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_set\_antialiasing}}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_set\_antialiasing}関数}
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_set_antialiasing(
+        unsigned int level);
+\end{verbatim}
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_set\_antialiasing}関数の説明}
+アンチエイリアシングのレベルを指定します．\\
+アンチエイリアシングは線や面の境界で発生するジャギーを低減して滑らかに表示します．\\
+
+有効な値は 0 (アンチエイリアシングは無効), 1, 2, 3, 4 (最大のクオリティ) ですが，環境によっては有効な最大値が3以下かもしれません．
+デフォルトの値は 0 です．\\
+
 この関数を使用するときは，必ず\verb|g_init(_core)|より前に使用してください．
 \end{itembox}
 
@@ -1318,22 +1341,22 @@ void g_def_scale_3D_core(
 
 %%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D,g_sel_scale_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\subsubsection{\texttt{g\_sel\_scale\_2D,g\_sel\_scale\_3D}}
+\subsubsection{\texttt{g\_sel\_scale\_2D, g\_sel\_scale\_3D}}
 
-\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D,g\_sel\_scale\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D, g\_sel\_scale\_3D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_sel_scale_2D(
         int id);
 void g_sel_scale_3D(
         int id);
-   \end{verbatim}
+\end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; スケール番号
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D,g\_sel\_scale\_3D}関数の説明}
+\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D, g\_sel\_scale\_3D}関数の説明}
 仮想座標系を選択する．
 \end{itembox}
 
@@ -1341,23 +1364,23 @@ void g_sel_scale_3D(
 
 
 %%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D_boundary,g_sel_scale_3D_boundary%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_sel\_scale\_2D\_boundary,g\_sel\_scale\_3D\_boundary}}
+\subsubsection{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}}
 
-\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary,g\_sel\_scale\_3D\_boundary}関数}
+\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_sel_scale_2D_boundary(
         int id);
 void g_sel_scale_3D_boundary(
         int id);
-   \end{verbatim}
+\end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; スケール番号
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary,g\_sel\_scale\_3D\_boundary}関数の説明}
-仮想座標系を選択し，選択された仮装座標系の枠を表示する．
+\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}関数の説明}
+仮想座標系を選択し，選択された仮想座標系の枠を表示する．
 \end{itembox}
 
 
@@ -1391,7 +1414,7 @@ void g_marker_color(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_marker_size(
-	float size);
+        float size);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|size| ; マーカーの大きさ（ピクセル単位）
@@ -1409,7 +1432,7 @@ void g_marker_size(
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_marker_radius(
-	float size);
+        float size);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|size| ; マーカーの大きさ（仮想座標系での半径）
