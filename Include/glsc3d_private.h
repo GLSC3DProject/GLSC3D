@@ -35,16 +35,13 @@
 
 #define PI M_PI
 
-// Comment out to use legacy implementation
-#define G_USE_CORE_PROFILE
-
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
 // On Windows and Linux, it is required to get address of OpenGL 1.2+ functions.
-#if defined(G_USE_CORE_PROFILE) && (defined(_WIN32) || defined(__linux__))
+#if defined(_WIN32) || defined(__linux__)
 
 #define G_NEED_GET_GLEXT_PROC_ADDRESS
 
@@ -95,7 +92,7 @@ G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user);
 #endif
 
-#endif // defined(G_USE_CORE_PROFILE) && (defined(_WIN32) || defined(__linux__))
+#endif // defined(_WIN32) || defined(__linux__)
 
 G_REAL g_direction_phi(G_VECTOR v);
 G_REAL g_direction_theta(G_VECTOR v);
@@ -266,8 +263,6 @@ void g_quit(void);
 
 // ---- g_shader_program.cpp
 
-#ifdef G_USE_CORE_PROFILE
-
 enum G_UNIFORM_BINDING { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
 enum G_MARKER_SIZE_TYPE { G_MARKER_SIZE_STANDARD, G_MARKER_SIZE_VIRTUAL, G_NUM_MARKER_SIZE_TYPES };
 
@@ -283,15 +278,6 @@ extern GLint g_texture_sampler_location, g_texture_color_location;
 void g_shader_program_init();
 void g_update_uniform(GLuint index, GLsizei size, const void *data);
 void g_use_program(GLuint program);
-
-#else
-
-extern G_BOOL g_lighting_enabled;
-
-void g_enable_lighting(void);
-void g_disable_lighting(void);
-
-#endif
 
 // ---- g_vertex_buffer.c
 

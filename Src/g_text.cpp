@@ -3,8 +3,6 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#ifdef G_USE_CORE_PROFILE
-
 GLuint g_texture, g_sampler, g_quad_vao;
 
 G_COLOR g_current_text_color;
@@ -252,5 +250,3 @@ void g_sel_text(int id)
 {
 	glsc3D_g_def_text[id].select();
 }
-
-#endif

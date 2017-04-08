@@ -39,21 +39,10 @@ void g_init_core(
 
 	g_vertex_buffer_init();
 
-#ifdef G_USE_CORE_PROFILE
 	g_shader_program_init();
 	g_text_init();
 
 	glEnable(GL_PROGRAM_POINT_SIZE);
-#else
-	GLfloat specular[4] = {1, 1, 1, 1};
-
-	glShadeModel(GL_SMOOTH);
-
-//	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
-	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 128);
-#endif
 
 	g_marker_size(1);
 	g_line_width(2);

@@ -45,23 +45,12 @@ void g_marker_radius(float size)
 
 void g_marker_type(G_UINT type)
 {
-#ifdef G_USE_CORE_PROFILE
 	if (type >= G_NUM_MARKER_TYPES) {
 		printf("Invalid marker type.\n");
 		return;
 	}
 
 	g_current_marker_type = type;
-#else
-	if(type == 0)
-    {
-        glEnable(GL_POINT_SMOOTH);
-    }
-    if(type == 1)
-    {
-        glDisable(GL_POINT_SMOOTH);
-    }
-#endif
 }
 
 void g_marker_s(G_VECTOR position)

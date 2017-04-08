@@ -40,11 +40,8 @@ typedef int G_DIMENSION;
 
 #define G_WINDOW_CENTERED	0x2FFF0000
 
-//#ifndef NDEBUG
-//#define DBG_WRITE(...) fprintf(stderr, "%s:%d In function '%s'", __FILE__, __LINE__, __func__), fprintf(stderr, "  "  __VA_ARGS__), fprintf(stderr, "\n")
-//#else
 #define DBG_WRITE(...)
-//#endif
+//#define DBG_WRITE(...) fprintf(stderr, "%s:%d In function '%s'", __FILE__, __LINE__, __func__), fprintf(stderr, "  "  __VA_ARGS__), fprintf(stderr, "\n")
 
 // ---- g_init.cpp
 
@@ -181,10 +178,10 @@ void g_sel_text(int id);
 // ----------------
 
 void g_bird_view_f_3D(
-	double x0, double x1,    //図を表示したい範囲
-	double y0, double y1,      //図を表示したい範囲
-	int N_x, int N_y,                   //配列のサイズ
-	double *data,                       //二次元配列
+	double x0, double x1,   //図を表示したい範囲
+	double y0, double y1,   //図を表示したい範囲
+	int N_x, int N_y,       //配列のサイズ
+	double *data,           //二次元配列
 	G_BOOL WIRE, G_BOOL FILL);
 
 void g_contln_f_2D(
@@ -289,9 +286,9 @@ void g_cone_3D(
 	double radius,double head_size, G_BOOL Wire, G_BOOL Fill);
 
 void g_pyramid_3D_core(
-	double center_x, double center_y, double center_z,                      //中心座標
-	double direction_x, double direction_y, double direction_z,             //方向
-	double radius,double head_size, double psi,                             //半径、高さ
+	double center_x, double center_y, double center_z,          //中心座標
+	double direction_x, double direction_y, double direction_z, //方向
+	double radius,double head_size, double psi,                 //半径、高さ
 	int N, int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
 void g_pyramid_3D(

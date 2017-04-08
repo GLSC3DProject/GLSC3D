@@ -20,7 +20,6 @@ void G_SCALE::select()
 
 	glViewport(x, y, w, h);
 
-#ifdef G_USE_CORE_PROFILE
 	G_TRANSFORM transform;
 	transform.camera = camera;
 	transform.pixel_scale = screen.height * camera.proj.y.y;
@@ -29,13 +28,6 @@ void G_SCALE::select()
 	transform.screen_height = screen.height;
 
 	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
-#else
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf((float *)&camera.proj);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf((float *)&camera.view);
-#endif
 }
 
 void g_def_scale_2D(

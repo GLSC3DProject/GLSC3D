@@ -1,7 +1,5 @@
 #include "glsc3d_private.h"
 
-#ifdef G_USE_CORE_PROFILE
-
 #define GLSL_VERSION_DECL "#version 410 core\n"
 
 #define MATRICES_UNIFORM_DECL \
@@ -294,8 +292,6 @@ void g_check_shader_compile_status(GLuint shader)
 
 		if (g_get_shader_int(shader, GL_COMPILE_STATUS) == GL_FALSE)
 			printf("Compile Failed.\n");
-
-//		assert(CompileStatus);
 	}
 }
 
@@ -418,21 +414,3 @@ void g_use_program(GLuint program)
 		g_current_program = program;
 	}
 }
-
-#else
-
-G_BOOL g_lighting_enabled;
-
-void g_enable_lighting()
-{
-	glEnable(GL_LIGHTING);
-	g_lighting_enabled = G_TRUE;
-}
-
-void g_disable_lighting()
-{
-	glDisable(GL_LIGHTING);
-	g_lighting_enabled = G_FALSE;
-}
-
-#endif
