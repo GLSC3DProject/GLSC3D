@@ -1,9 +1,10 @@
 ﻿#include "glsc3d_private.h"
 
-int             glsc3D_width;
-int             glsc3D_height;
-float			g_screen_scale_factor;
-float			g_retina_scale_factor;
+int glsc3D_width;
+int glsc3D_height;
+
+float g_screen_scale_factor;
+float g_retina_scale_factor;
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
@@ -16,24 +17,12 @@ void g_init_core(
 	int triangle_buffer_size
 )
 {
-#ifdef _WIN32
-	SetProcessDPIAware();
-#endif
-
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
-
-//	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
-
-#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-//	G_DECL_INIT_GLEXT(PFNGLDEBUGMESSAGECALLBACKPROC, glDebugMessageCallback);
-//	glDebugMessageCallback(g_debug_callback, NULL);
-#endif
 
 	glDepthFunc(GL_LEQUAL);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
-//	glEnable(GL_LINE_SMOOTH);
 //	glEnable(GL_CULL_FACE);
 //	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 

@@ -12,7 +12,7 @@ struct G_LIGHT
 struct G_LIGHT_LIST
 {
 	G_LIGHT lights[NUM_LIGHTS];
-	GLuint	num_lights, pad1, pad2, pad3;
+	GLuint	num_lights, pad0, pad1, pad2;
 };
 
 G_LIGHT lights[NUM_LIGHTS];

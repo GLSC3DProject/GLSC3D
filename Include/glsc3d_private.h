@@ -41,9 +41,7 @@ extern "C"
 #endif
 
 // On Windows and Linux, it is required to get address of OpenGL 1.2+ functions.
-#if defined(_WIN32) || defined(__linux__)
-
-#define G_NEED_GET_GLEXT_PROC_ADDRESS
+#ifndef __APPLE__
 
 #define G_EXTERN_DECL_GLEXT(Type, Name) extern Type Name;
 
@@ -85,14 +83,7 @@ Action(PFNGLBINDBUFFERBASEPROC,             glBindBufferBase)
 
 G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 
-// Uncomment to enable OpenGL debug messages
-#define G_ENABLE_OPENGL_DEBUG_CALLBACK
-
-#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user);
-#endif
-
-#endif // defined(_WIN32) || defined(__linux__)
+#endif // ifndef __APPLE__
 
 G_REAL g_direction_phi(G_VECTOR v);
 G_REAL g_direction_theta(G_VECTOR v);
@@ -138,19 +129,6 @@ G_CAMERA g_make_camera_2D(float x_left, float x_right, float y_bottom, float y_t
 extern G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
 #endif
-
-//typedef enum
-//{
-//	G_EYE,
-//	G_CENTER,
-//}G_ROTATE_ANCHOR;
-//
-//typedef enum
-//{
-//	G_PITCH,
-//	G_ROLL,
-//	G_YAW,
-//}G_ROTATE_DIRECTION;
 
 typedef struct
 {

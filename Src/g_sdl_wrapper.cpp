@@ -2,23 +2,32 @@
 
 #include <SDL2/SDL.h>
 
-#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
+#ifndef __APPLE__
 
 #define G_DECL_GLEXT(Type, Name) Type Name;
 #define G_INIT_GLEXT(Type, Name) Name = (Type)SDL_GL_GetProcAddress(#Name);
 
 G_EMIT_GLEXT(G_DECL_GLEXT);
-#endif
+
+// Uncomment to enable OpenGL debug messages
+//#define G_ENABLE_OPENGL_DEBUG_CALLBACK
+
+#endif // ifndef __APPLE__
 
 void g_keyboard_event(const SDL_Keysym &keysym, G_INPUT_STATE state);
 void g_mouse_event(const SDL_MouseButtonEvent &event, G_INPUT_STATE state);
+
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
+void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user);
+#endif
 
 SDL_Window*		g_window;
 SDL_GLContext	g_context;
 
 int g_window_width, g_window_height;
 
-bool g_highdpi_enabled;
+bool	g_highdpi_enabled;
+G_UINT	g_antialiasing_level;
 
 void g_update_drawable_size()
 {
@@ -34,21 +43,38 @@ void g_enable_highdpi()
 {
 	if (SDL_WasInit(SDL_INIT_VIDEO)) {
 		printf("g_enable_highdpi must be called before g_init(_core)\n");
-		g_quit();
+		return;
 	}
 
 	g_highdpi_enabled = true;
 }
 
+void g_set_antialiasing(G_UINT level)
+{
+	if (SDL_WasInit(SDL_INIT_VIDEO)) {
+		printf("g_set_antialiasing must be called before g_init(_core)\n");
+		return;
+	}
+
+	if (level > 4) {
+		printf("Invalid argument passed in g_set_antialiasing.\n");
+		printf("Valid values are 0 (no antialiasing), 1, 2, 3 and 4.\n");
+		return;
+	}
+
+	g_antialiasing_level = level;
+}
+
 void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height)
 {
+#ifdef _WIN32
+	SetProcessDPIAware();
+#endif
+
 	SDL_Init(SDL_INIT_VIDEO);
 
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-
-//	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-//	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
@@ -59,6 +85,11 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 		| SDL_GL_CONTEXT_DEBUG_FLAG
 #endif
 	);
+
+	if (g_antialiasing_level > 0) {
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 1 << g_antialiasing_level);
+	}
 
 	g_window_width = width, g_window_height = height;
 
@@ -89,8 +120,15 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 
 	g_context = SDL_GL_CreateContext(g_window);
 
-#ifdef G_NEED_GET_GLEXT_PROC_ADDRESS
+#ifndef __APPLE__
 	G_EMIT_GLEXT(G_INIT_GLEXT);
+#endif
+
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
+	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
+
+	G_DECL_INIT_GLEXT(PFNGLDEBUGMESSAGECALLBACKPROC, glDebugMessageCallback);
+	glDebugMessageCallback(g_debug_callback, NULL);
 #endif
 
 	SDL_GL_SetSwapInterval(1);
@@ -299,3 +337,41 @@ void g_mouse_event(const SDL_MouseButtonEvent &event, G_INPUT_STATE state)
 	if (button != G_KEY_INVALID)
 		g_mouse_func(button, state, event.x, event.y);
 }
+
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
+
+#define DEF_CASE(value) case value: printf(#value); break
+
+void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user)
+{
+	printf("\nSource : ");
+	switch (source) {
+		DEF_CASE(GL_DEBUG_SOURCE_API);
+		DEF_CASE(GL_DEBUG_SOURCE_WINDOW_SYSTEM);
+		DEF_CASE(GL_DEBUG_SOURCE_SHADER_COMPILER);
+		DEF_CASE(GL_DEBUG_SOURCE_APPLICATION);
+		DEF_CASE(GL_DEBUG_SOURCE_OTHER);
+	}
+
+	printf(", Type : ");
+	switch (type) {
+		DEF_CASE(GL_DEBUG_TYPE_ERROR);
+		DEF_CASE(GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR);
+		DEF_CASE(GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR);
+		DEF_CASE(GL_DEBUG_TYPE_PORTABILITY);
+		DEF_CASE(GL_DEBUG_TYPE_PERFORMANCE);
+		DEF_CASE(GL_DEBUG_TYPE_OTHER);
+	}
+
+	printf(", Severity : ");
+	switch (severity) {
+		DEF_CASE(GL_DEBUG_SEVERITY_HIGH);
+		DEF_CASE(GL_DEBUG_SEVERITY_MEDIUM);
+		DEF_CASE(GL_DEBUG_SEVERITY_LOW);
+		DEF_CASE(GL_DEBUG_SEVERITY_NOTIFICATION);
+	}
+
+	printf("\n%s\n", message);
+}
+
+#endif

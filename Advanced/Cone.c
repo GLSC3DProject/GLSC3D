@@ -11,6 +11,7 @@ static const double h = -0.5;
 int main()
 {
 	g_enable_highdpi();
+	g_set_antialiasing(2);
 	g_init("GLSC3D", WIDTH, HEIGHT*2);
 	
 	g_init_light(0, 1, 0, 1);

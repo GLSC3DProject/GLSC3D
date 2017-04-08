@@ -38,7 +38,6 @@ add_library(glsc3d
 	g_contln_2D.c
 	g_cylinder_3D.cpp
 	g_data_plot.c
-	g_debug.cpp
 	g_ellipse_3D.cpp
 	g_fan.cpp
 	g_cls_finish.c

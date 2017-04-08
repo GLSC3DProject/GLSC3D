@@ -9,6 +9,7 @@ int main()
 	const int CountX = 5, CountY = 2;
 
 	g_enable_highdpi();
+	g_set_antialiasing(2);
 	g_init("GLSC3D", Width * CountX, Height * CountY);
 
 	g_init_light(0, 1, -1, 1);

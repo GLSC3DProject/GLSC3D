@@ -17,6 +17,7 @@ int main()
 		u[i] = sin(4*M_PI/5 * i), v[i] = cos(4*M_PI/5 * i);
 
 	g_enable_highdpi();
+	g_set_antialiasing(2);
 	g_init("Grid", Size * CountX, Size * CountY);
 
 	//g_line_type(1);

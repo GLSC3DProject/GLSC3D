@@ -57,6 +57,7 @@ void g_init_core (
 void g_init(const char *WindowName, int width, int height);
 
 void g_enable_highdpi();
+void g_set_antialiasing(G_UINT level);
 
 // ----g_area.c
 
