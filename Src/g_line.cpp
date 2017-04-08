@@ -48,7 +48,7 @@ void g_line_width(float size)
 #ifdef G_USE_CORE_PROFILE
 	g_current_line_size = size;
 #else
-    glLineWidth(size);
+	glLineWidth(size);
 #endif
 }
 
@@ -67,41 +67,41 @@ void g_line_type(G_UINT type)
 		g_need_line_stipple_updated = true;
 	}
 #else
-    if (type==0) {
-        glDisable(GL_LINE_STIPPLE);
-    }else if (type==1) {
-        glLineStipple(1, 0x00FF);
-        glEnable(GL_LINE_STIPPLE);
-    }else if (type==2) {
-        glLineStipple(2, 0x00FF);
-        glEnable(GL_LINE_STIPPLE);
-    }else if (type==3) {
-        glLineStipple(1, 0x0C0F);
-        glEnable(GL_LINE_STIPPLE);
-    }else if (type==4) {
-        glLineStipple(3, 0x0C0F);
-        glEnable(GL_LINE_STIPPLE);
-    }else if (type==5) {
-        glLineStipple(1, 0xAAAA);
-        glEnable(GL_LINE_STIPPLE);
-    }else if (type==6) {
-        glLineStipple(2, 0xAAAA);
-        glEnable(GL_LINE_STIPPLE);
-    }else if (type==7) {
-        glLineStipple(3, 0xAAAA);
-        glEnable(GL_LINE_STIPPLE);
-    }else if (type==8) {
-        glLineStipple(4, 0xAAAA);
-        glEnable(GL_LINE_STIPPLE);
-    }
+	if (type==0) {
+		glDisable(GL_LINE_STIPPLE);
+	}else if (type==1) {
+		glLineStipple(1, 0x00FF);
+		glEnable(GL_LINE_STIPPLE);
+	}else if (type==2) {
+		glLineStipple(2, 0x00FF);
+		glEnable(GL_LINE_STIPPLE);
+	}else if (type==3) {
+		glLineStipple(1, 0x0C0F);
+		glEnable(GL_LINE_STIPPLE);
+	}else if (type==4) {
+		glLineStipple(3, 0x0C0F);
+		glEnable(GL_LINE_STIPPLE);
+	}else if (type==5) {
+		glLineStipple(1, 0xAAAA);
+		glEnable(GL_LINE_STIPPLE);
+	}else if (type==6) {
+		glLineStipple(2, 0xAAAA);
+		glEnable(GL_LINE_STIPPLE);
+	}else if (type==7) {
+		glLineStipple(3, 0xAAAA);
+		glEnable(GL_LINE_STIPPLE);
+	}else if (type==8) {
+		glLineStipple(4, 0xAAAA);
+		glEnable(GL_LINE_STIPPLE);
+	}
 #endif
 }
 
 void g_def_line(int id, float r, float g, float b, float a, float width, int type)
 {
-    glsc3D_g_def_line[id].color = G_COLOR(r, g, b, a);
-    glsc3D_g_def_line[id].width = width;
-    glsc3D_g_def_line[id].type = type;
+	glsc3D_g_def_line[id].color = G_COLOR(r, g, b, a);
+	glsc3D_g_def_line[id].width = width;
+	glsc3D_g_def_line[id].type = type;
 }
 
 void g_sel_line(int id)

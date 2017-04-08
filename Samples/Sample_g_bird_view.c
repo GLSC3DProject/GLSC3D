@@ -17,7 +17,7 @@ int main(void)
 	g_init("Sample_g_bird_view.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
 	g_def_scale_3D_core(0, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, 0, 0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y, 1, 1, 1, 0, 0, 0, 1);
-	
+
 	g_def_scale_3D_core(1, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, WINDOW_SIZE_X/2, 0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y,1, 1, 1, 0, 0, 0, 1);
 
 	double dt = 0.03;
@@ -25,8 +25,8 @@ int main(void)
 	double xx,yy,dx=LEN/Imax,dy=LEN/Jmax;
 
 	double array[Imax*Jmax];
-    double array2[Imax][Jmax];
-    
+	double array2[Imax][Jmax];
+
 	for(int i_time = 0; ; i_time = (i_time + 1) % (int)(2*M_PI/dt))
 	{
 		double t = dt*i_time;
@@ -56,6 +56,6 @@ int main(void)
 		g_bird_view_f_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array, G_FALSE, G_TRUE);
 
 		g_finish();
-    }
+	}
 	return 0;
 }

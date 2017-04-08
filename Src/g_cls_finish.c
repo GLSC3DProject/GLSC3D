@@ -7,7 +7,7 @@ void g_scr_color(float r, float g, float b)
 
 void g_cls()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void g_finish()
@@ -18,5 +18,4 @@ void g_finish()
 
 	g_swap_buffers();
 	g_poll_events();
-//	g_get_input();
 }

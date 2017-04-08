@@ -17,7 +17,8 @@ void g_triangle_3D_smooth_worker(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2, G_VECTOR
 		g_triangle_3D_smooth_worker(r1, r4, r3, n1, n4, n3, DivideLevel - 1);
 		g_triangle_3D_smooth_worker(r2, r5, r4, n2, n5, n4, DivideLevel - 1);
 		g_triangle_3D_smooth_worker(r3, r4, r5, n3, n4, n5, DivideLevel - 1);
-	} else {
+	}
+	else {
 		G_VERTEX v0 = g_make_vertex(r0, n0);
 		G_VERTEX v1 = g_make_vertex(r1, n1);
 		G_VERTEX v2 = g_make_vertex(r2, n2);
@@ -179,7 +180,7 @@ void g_triangle_2D(
 
 void g_set_triangle(const G_TRIANGLE *t)
 {
-	if(g_enable_transparent)
+	if (g_enable_transparent)
 	{
 		g_triangle_buffer_append(t);
 	}
@@ -192,7 +193,7 @@ void g_set_triangle(const G_TRIANGLE *t)
 void g_triangle_terminal(const G_TRIANGLE *t)
 {
 	g_begin_triangles();
-	
+
 	g_vertex_buffer_append(t->vertex[0]);
 	g_vertex_buffer_append(t->vertex[1]);
 	g_vertex_buffer_append(t->vertex[2]);

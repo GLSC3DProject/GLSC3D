@@ -1,7 +1,7 @@
-﻿#include<stdio.h>
-#include<string.h>
-#include<time.h>
-#include<math.h>
+﻿#include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include <math.h>
 #include "glsc3d.h"
 
 #ifdef _WIN32
@@ -14,17 +14,17 @@
 int main()
 {
 	g_init("Sample_g_text.c",WINDOW_SIZE_X,WINDOW_SIZE_Y);
-	
+
 	g_def_scale_2D(0,-2, 2, -2, 2,0, 0,WINDOW_SIZE_X, WINDOW_SIZE_Y);
-	
+
 	char TEXT2[20];
-	
+
 	for(int i_time = 0;;i_time++)
 	{
 		g_cls();
-		
+
 		g_sel_scale_2D(0);
-		
+
 		time_t time_val = time(0);
 		strftime(TEXT2, sizeof(TEXT2), "%Y/%m/%d %H:%M:%S", localtime(&time_val));
 
@@ -60,10 +60,10 @@ int main()
 
 		g_text_size(48);
 		g_text_standard(x, y += 48, "48pt");
-		
+
 		g_sleep(1./16);
 		g_finish();
- 	}
+	}
 	return 0;
 }
 

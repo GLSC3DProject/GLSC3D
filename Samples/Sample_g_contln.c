@@ -18,16 +18,16 @@
 int main()
 {
 	g_init("Sample_g_contln.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
-	
+
 	g_def_scale_2D(0, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
-	int i,j;
-	double xx, yy, dx=4.0/Imax, dy=4.0/Jmax;
+	int i, j;
+	double xx, yy, dx = 4.0 / Imax, dy = 4.0 / Jmax;
 
 	double array[Imax*Jmax];
 	double array2[Imax][Jmax];
 
-	for(int i_time = 0;;i_time++)
+	for (int i_time = 0;; i_time++)
 	{
 		for (i = 0; i < Imax; i++)
 		{
@@ -36,19 +36,19 @@ int main()
 			{
 				yy = dy * j;
 				//printf("x = %f, y = %f\n", xx, yy);
-				array[i*Jmax + j] = sin(2*xx - 1) * cos(3*yy - 0.5);
+				array[i*Jmax + j] = sin(2 * xx - 1) * cos(3 * yy - 0.5);
 				//array[i*Jmax + j] = xx*xx + yy*yy;
-				array2[i][j] = sin(2*xx - 1) * cos(3*yy - 0.5);
+				array2[i][j] = sin(2 * xx - 1) * cos(3 * yy - 0.5);
 			}
 		}
-		
+
 		g_cls();
 		g_sel_scale_2D(0);
-		g_line_color(1.0,0.0,0.0,1.0);
+		g_line_color(1.0, 0.0, 0.0, 1.0);
 		g_contln_f_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array, -0.5);
-		g_line_color(0.0,1.0,0.0,1.0);
+		g_line_color(0.0, 1.0, 0.0, 1.0);
 		g_contln_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array2, 0.5);
-		
+
 		g_finish();
 	}
 	return 0;
