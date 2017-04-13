@@ -1,11 +1,14 @@
 ﻿.DS_Store
+
 .idea/*
 !.idea/codeStyleSettings.xml
 
 .vs/
 
 Manual/*.pbm
+Manual/GLSC3D_Manual.*
 !Manual/GLSC3D_Manual.tex
+!Manual/GLSC3D_Manual.pdf
 
 cmake-build-debug/
 Out/
