@@ -1,4 +1,36 @@
 #!/bin/sh
 
-sudo port -N install cmake libpng libsdl2
+InstallCommand=""
+
+comtemp="cmake"
+echo "Checking $comtemp...."
+if type $comtemp > /dev/null 2>&1
+then
+echo "$comtemp is installed"
+else
+echo "$comtemp is not installed"
+InstallCommand="${InstallCommand} $comtemp"
+fi
+
+comtemp="libpng"
+echo "Checking $comtemp...."
+if type "libpng-config" > /dev/null 2>&1
+then
+echo "$comtemp is installed"
+else
+echo "$comtemp is not installed"
+InstallCommand="${InstallCommand} $comtemp"
+fi
+
+comtemp="libsdl2"
+echo "Checking $comtemp...."
+if type "sdl2" > /dev/null 2>&1
+then
+echo "$comtemp is installed"
+else
+echo "$comtemp is not installed"
+InstallCommand="${InstallCommand} $comtemp"
+fi
+
+sudo port -N install ${InstallCommand}
 echo "Next step is \"3_Test_GLSC3D_on_mac\""
