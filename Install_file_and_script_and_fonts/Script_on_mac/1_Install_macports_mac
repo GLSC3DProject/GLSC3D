@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if type "port" > /dev/null 2>&1
+then
+echo "Next step is \"2_Install_dependency_library_mac\""
+else
 echo "Please install macports on your mac..."
 open "https://www.macports.org/install.php"
-echo "Next step is \"2_Install_dependency_library_mac\""
+fi
