@@ -15,9 +15,10 @@
 \addtolength{\textwidth}{-40truemm}     % 右の余白も20mmに
 
 \usepackage{wrapfig}
-%\usepackage[dvips]{graphicx}
-%\usepackage[dvipdfmx]{graphicx}
-\usepackage{graphicx}
+%\usepackage[draft]{graphicx}
+\usepackage[dvipdfmx]{graphicx}
+%\usepackage{graphicx}
+\graphicspath{{Figures/eps/}}
 
 \usepackage{url}
 
@@ -46,7 +47,7 @@
 \title{\vspace{10mm}\Huge{GLSC3D (Ver. 3.0.0) \\ Manual}}
 \author{\Large{構想・制作・監督：秋山 正和}\\\vspace{5mm}
 北海道大学 電子科学研究所 \vspace{1zw} \\
-\includegraphics[width=100mm]{Figures/eps/CoverPage.eps} \vspace{1zw} \\
+\includegraphics[width=100mm]{CoverPage.eps} \vspace{1zw} \\
 \Large{制作(Ver. 2.2.1以降)：舘入 数磨$^*$，須志田 隆道$^\dagger$} \\
 $^*$北海道大学大学院 理学研究院 数学専攻,  $^\dagger$北海道大学 電子科学研究所
 \vspace{1zw}\\ 
@@ -147,7 +148,7 @@ GLSC とは，Graphics Library for Scientific Computing の略で，科学計算
 
 \begin{wrapfigure}[10]{r}{70mm}
 \vspace{-1\baselineskip}
-	\includegraphics[width=70mm]{./Figures/eps/001.eps}
+	\includegraphics[width=70mm]{001.eps}
 \end{wrapfigure}
 
 その一方で，GLSCには短所もあります．例えば，gnuplotなどの汎用ツールは次のように端末に打つとグラフを出します．
@@ -183,7 +184,7 @@ OpenGLはグラフィック専門のAPIなので，ウインドウを画面に�
 
 \begin{wrapfigure}[11]{r}{70mm}
 \vspace{-1\baselineskip}
-	\includegraphics[width=70mm]{./Figures/eps/002.eps}
+	\includegraphics[width=70mm]{002.eps}
 \end{wrapfigure}
 
 先にも説明したように，GLSCは数値計算屋さんの作った描画ライブラリです．筆者は何かプロジェクトをスタートさせる時，数値計算のプログラムパートに精力を注ぎ，次にグラフィックパートを作成します\footnote{こう言うとグラフィックを疎かにしているようですが，グラフィックも綺麗にしないとインパクトのある講演はできませんからね．．．どっちも大事です．}．この時，数値計算を行いながら，可視化を行うわけですから，必然的にプログラムは$(a)$の様な構成になります．ここではこのようなプログラミング構成をGLSCらしいプログラミング構成と定義します\footnote{「らしさ」を強要しているわけではありません．自由な発想に基づきプログラムをしてください．}．
@@ -198,7 +199,7 @@ GLSCらしいプログラミング構成となるように，どのようにOpen
 
 \begin{wrapfigure}[6]{r}{30mm}
 \vspace{-1\baselineskip}
-	\includegraphics[width=30mm]{./Figures/eps/003.eps}
+	\includegraphics[width=30mm]{003.eps}
 \end{wrapfigure}
 
 GLSC3Dの根幹部分は先が見えたので，あとは実際の描画関数の設計を行うことを考えます．例えば，円錐を描画する関数\verb|DrawCone|を考えます．円錐の底の中心が原点$(0,0,0)$，尖った先端を$(0,0,h)$，円錐の半径を$r$として円錐の描画関数を設計することを考えます．\verb|DrawCone|の引数\footnote{引数（ひきすう）と読みます．例えば関数$f(x,y)$なら$x,y$が引数です．とある学生がこの漢字を読めなかったもので．．．}は$h,r$ということになります．当たり前ですが，この状態で描画される円錐はいつも底の中心が原点となっていますし，傾いた円錐というのも描画できません．このような時，3Dオブジェクトに対して平行移動や回転などを施してやれば目的を達成できます．しかしながら\verb|DrawCone|は呼ばれた時点で，底の中心が原点となるようなものしか描画できません．どうすればよいでしょうか．一つの戦略は\verb|DrawCone|関数の引数を増やし，円錐の底の座標や傾きなどを追加し，\verb|DrawCone|の内部設計を変える方法です．でも，これは開発者側はちょっと面倒なプログラミングをせねばなりません．
@@ -415,7 +416,7 @@ Ver 3.0以降ではライトの最大数を3つに変更しました．
 
 \begin{wrapfigure}[4]{r}{50mm}
 \vspace{-1\baselineskip}
-	\includegraphics[width=50mm]{./Figures/eps/004.eps}
+	\includegraphics[width=50mm]{004.eps}
 \end{wrapfigure}
 
 2枚の板が重なっている状況を考えます．3次元では奥行き情報があるので，それを元にどちらが手前にあるかを判定し($z$バッファ法と呼ばれます)描画を行います．
@@ -425,7 +426,7 @@ GLSCでは物体の透明化処理はできませんでしたが，GLSC3Dでは$
 
 \begin{wrapfigure}[10]{r}{70mm}
 \vspace{-1\baselineskip}
-	\includegraphics[width=70mm]{./Figures/eps/005.eps}
+	\includegraphics[width=70mm]{005.eps}
 \end{wrapfigure}
 
 図(a)では視線に対して，緑のオブジェクトが手前，赤が奥となっています．緑のオブジェクトを構成するどの頂点も，赤のオブジェクトを構成する頂点よりも手前にあることが計算できるので，自動的に奥行き判定をすることができ，$\alpha$ブレンディング法を実行できます．
@@ -513,7 +514,7 @@ Script\_on\_mac.zipを解凍すると以下の実行ファイルが入手でき�
 \end{itemize}
 
 \begin{wrapfigure}{r}{50mm}
-\includegraphics[width=50mm]{./Figures/eps/Canvas_macports.eps}
+\includegraphics[width=50mm]{Canvas_macports.eps}
 \vspace{-4\baselineskip}
 \end{wrapfigure}
 
@@ -546,7 +547,7 @@ Script\_on\_mac.zipを解凍すると以下の実行ファイルが入手でき�
 {\bf (5) 3\_Test\_GLSC3D\_on\_macの実行：} 
 
 \begin{wrapfigure}{r}{60mm}
-\includegraphics[width=60mm]{./Figures/eps/Canvas_Directory_GLSC3D.eps}
+\includegraphics[width=60mm]{Canvas_Directory_GLSC3D.eps}
 \end{wrapfigure}
 
 3つ目のスクリプトでは，
@@ -566,9 +567,9 @@ Script\_on\_mac.zipを解凍すると以下の実行ファイルが入手でき�
 
 \begin{figure}[htb]
 \centering
-\includegraphics[scale=.6]{./Figures/eps/Canvas_Samples.eps}
+\includegraphics[scale=.6]{Canvas_Samples.eps}
 \hspace{2zw}
-\includegraphics[scale=.6]{./Figures/eps/Canvas_Advanced.eps}
+\includegraphics[scale=.6]{Canvas_Advanced.eps}
 \end{figure}
 
 無事にインストールされたら，次のステップに進んで下さい．
@@ -591,7 +592,7 @@ Script\_on\_mac.zipを解凍すると以下の実行ファイルが入手でき�
 \end{itembox}
 
 \begin{wrapfigure}{r}{60mm}
-\includegraphics[width=60mm]{./Figures/eps/Canvas_Hello_GLSD3D.eps}
+\includegraphics[width=60mm]{Canvas_Hello_GLSD3D.eps}
 \vspace{-4\baselineskip}
 \end{wrapfigure}
 
@@ -709,7 +710,7 @@ Community Editionは無料で使用することができます．
 %%
 %%\begin{wrapfigure}[11]{r}{70mm}
 %%\vspace{-1\baselineskip}
-%%	\includegraphics[width=70mm]{./Figures/eps/006.eps}
+%%	\includegraphics[width=70mm]{006.eps}
 %%\end{wrapfigure}
 %%
 %%GLSC3D.zipをデスクトップに展開してください．GLSC3Dの構成は右のようになっているはずです．ここからはターミナルでの操作となります．Srcフォルダに移動し，makeを実行してください．すなわち，
@@ -723,7 +724,7 @@ Community Editionは無料で使用することができます．
 %%
 %%\begin{wrapfigure}[11]{r}{70mm}
 %%\vspace{-1\baselineskip}
-%%	\includegraphics[width=70mm]{./Figures/eps/007.eps}
+%%	\includegraphics[width=70mm]{007.eps}
 %%\end{wrapfigure}
 %%
 %%作られたライブラリとヘッダーファイルが正常に動作すること確認するために，SampleProgramフォルダ下のusing\_makefileフォルダに移動してください．そしてmakeを実行してください．test\_programという実行ファイルが作られるので，実行してください．すなわち，
@@ -782,13 +783,13 @@ Community Editionは無料で使用することができます．
 \section{GLSC3Dの関数}
 %\begin{wrapfigure}{r}{70mm}
 %\vspace{-1\baselineskip}
-%	\includegraphics[width=70mm]{./Figures/eps/GLSC3D_Manual-94.eps}
+%	\includegraphics[width=70mm]{GLSC3D_Manual-94.eps}
 %\end{wrapfigure}
 
 GLSC3DはGLSCと同様に一枚のキャンバスに対して，いくつかの絵を描画するようなソフトであると考えてください．適切な関数を用い，キャンバスをいくつかのエリアに区切り，それぞれのエリアに描きたいもの（3次元，2次元，テキスト等）を描画することができます．
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_kansu_gaiyo.eps}
+\includegraphics[width=100mm]{Canvas_kansu_gaiyo.eps}
 \end{figure}
 
 GLSC3Dを利用する際，多くの場合基本的な枠組みは以下のような形態となるでしょう．ここでは我々が用意した関数それぞれについての説明とその実行例も記載しておりますので，個々の関数の使用方法はそちらをご覧ください．なお，具体的な使用例はサンプルプログラムがありますので，そちらをご覧ください．\\
@@ -856,7 +857,7 @@ int main()
 
 %\begin{figure}[htb]
 %\vspace{-1\baselineskip}
-%	\includegraphics[width=140mm]{./Figures/eps/GLSC3D_Manual-2.eps}
+%	\includegraphics[width=140mm]{GLSC3D_Manual-2.eps}
 %\end{figure}
 
 %新関数の使用方法などに関しては付録.pdfを参考にしてください．
@@ -889,7 +890,7 @@ void g_init(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 %\begin{figure}[htb]
-%	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_init.eps}
+%	\includegraphics[width=100mm]{Canvas_g_init.eps}
 %\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -931,7 +932,7 @@ Since Ver 3.0: \verb|pos_x, pos_y|に\verb|G_WINDOW_CENTERED|を指定すると�
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_init_core.eps}
+\includegraphics[width=100mm]{Canvas_g_init_core.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1021,7 +1022,7 @@ void g_scr_color(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_scr_color.eps}
+\includegraphics[width=100mm]{Canvas_g_scr_color.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1100,7 +1101,7 @@ void g_capture();
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_capture\_set,g\_capture}関数の説明}
+\begin{itembox}[l]{\texttt{g\_capture\_set, g\_capture}関数の説明}
 画面を取り込むための準備を行う関数．（\verb|g_capture_set|）
 
 画面を取り込む関数．（\verb|g_capture|）
@@ -1252,7 +1253,7 @@ void g_def_scale_2D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_def_scale_2D.eps}
+\includegraphics[width=100mm]{Canvas_g_def_scale_2D.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1295,7 +1296,7 @@ void g_def_scale_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_def_scale_3D.eps}
+\includegraphics[width=100mm]{Canvas_g_def_scale_3D.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1339,7 +1340,7 @@ void g_def_scale_3D_core(
 
 
 
-%%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D,g_sel_scale_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D, g_sel_scale_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_sel\_scale\_2D, g\_sel\_scale\_3D}}
 
@@ -1363,7 +1364,7 @@ void g_sel_scale_3D(
 
 
 
-%%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D_boundary,g_sel_scale_3D_boundary%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D_boundary, g_sel_scale_3D_boundary%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}}
 
 \begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}関数}
@@ -1526,7 +1527,7 @@ void g_sel_marker(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_marker.eps}
+\includegraphics[width=100mm]{Canvas_g_marker.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1646,7 +1647,7 @@ void g_sel_line(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_line.eps}
+\includegraphics[width=100mm]{Canvas_g_line.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1654,11 +1655,11 @@ void g_sel_line(
 
 
 
-%%%%%%%%%%%%%%%%%%%%%g_area_color_2D,g_area_color_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%g_area_color_2D, g_area_color_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\subsubsection{\texttt{g\_area\_color\_2D,g\_area\_color\_3D}}
+\subsubsection{\texttt{g\_area\_color\_2D, g\_area\_color\_3D}}
 
-\begin{itembox}[l]{\texttt{g\_area\_color\_2D,g\_area\_color\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_area\_color\_2D, g\_area\_color\_3D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_area_color_2D(
@@ -1671,22 +1672,22 @@ void g_area_color_3D(
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_area\_color\_2D,g\_area\_color\_3D}関数の説明}
+\begin{itembox}[l]{\texttt{g\_area\_color\_2D, g\_area\_color\_3D}関数の説明}
 面を塗りつぶす色を変更する．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_area_color.eps}
+\includegraphics[width=100mm]{Canvas_g_area_color.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%g_def_area_2D,g_def_area_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%g_def_area_2D, g_def_area_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\subsubsection{\texttt{g\_def\_area\_2D,g\_def\_area\_3D}}
+\subsubsection{\texttt{g\_def\_area\_2D, g\_def\_area\_3D}}
 
-\begin{itembox}[l]{\texttt{g\_def\_area\_2D,g\_def\_area\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_def\_area\_2D, g\_def\_area\_3D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_def_area_2D(
@@ -1702,14 +1703,14 @@ void g_def_area_3D(
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_def\_area\_2D,g\_def\_area\_3D}関数の説明}
+\begin{itembox}[l]{\texttt{g\_def\_area\_2D, g\_def\_area\_3D}関数の説明}
 塗りつぶしの属性セットを定義する．
 \end{itembox}
 
-%%%%%%%%%%%%%%%%%%%%%g_sel_area_2D,g_sel_area_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_sel\_area\_2D,g\_sel\_area\_3D}}
+%%%%%%%%%%%%%%%%%%%%%g_sel_area_2D, g_sel_area_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_sel\_area\_2D, g\_sel\_area\_3D}}
 
-\begin{itembox}[l]{\texttt{g\_sel\_area\_2D,g\_sel\_area\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_sel\_area\_2D, g\_sel\_area\_3D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_sel_area_2D(
@@ -1722,7 +1723,7 @@ void g_sel_area_3D(
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_sel\_area\_2D,g\_sel\_area\_3D}関数の説明}
+\begin{itembox}[l]{\texttt{g\_sel\_area\_2D, g\_sel\_area\_3D}関数の説明}
 塗りつぶしの属性セットを選択する．
 \end{itembox}
 
@@ -1851,7 +1852,7 @@ void g_sel_text(
 
 \clearpage
 \subsection{描画関数}
-%%%%%%%%%%%%%%%%%%%%%g_marker_2D,g_marker_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%g_marker_2D, g_marker_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\texttt{g\_marker\_2D, g\_marker\_3D}}
 
 \begin{itembox}[l]{\texttt{g\_marker\_2D, g\_marker\_3D}関数}
@@ -1902,10 +1903,10 @@ void g_text_standard(
 \end{itembox}
 
 
-%%%%%%%%%%%%%%%%%%%%%g_text_virtual_2D,g_text_virtual_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_text\_virtual\_2D,g\_text\_virtual\_3D}}
+%%%%%%%%%%%%%%%%%%%%%g_text_virtual_2D, g_text_virtual_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_text\_virtual\_2D, g\_text\_virtual\_3D}}
 
-\begin{itembox}[l]{\texttt{g\_text\_virtual\_2D,g\_text\_virtual\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_text\_virtual\_2D, g\_text\_virtual\_3D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_text_2D_virtual(
@@ -1921,7 +1922,7 @@ void g_text_3D_virtual(
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_text\_virtual\_2D,g\_text\_virtual\_3D}関数の説明}
+\begin{itembox}[l]{\texttt{g\_text\_virtual\_2D, g\_text\_virtual\_3D}関数の説明}
 文字列を描画する．
 （座標指定が仮想座標系であることに注意．）
 \end{itembox}
@@ -1934,11 +1935,11 @@ void g_text_3D_virtual(
 
 
 
-%%%%%%%%%%%%%%%%%%%%%g_move_2D,g_move_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%g_move_2D, g_move_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\subsubsection{\texttt{g\_move\_2D,g\_move\_3D}}
+\subsubsection{\texttt{g\_move\_2D, g\_move\_3D}}
 
-\begin{itembox}[l]{\texttt{g\_move\_2D,g\_move\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_move\_2D, g\_move\_3D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_move_2D(
@@ -1951,14 +1952,14 @@ void g_move_3D(
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_move\_2D,g\_move\_3D}関数の説明}
+\begin{itembox}[l]{\texttt{g\_move\_2D, g\_move\_3D}関数の説明}
 線の始点を指定する．
 \end{itembox}
 
-%%%%%%%%%%%%%%%%%%%%%g_plot_2D,g_plot_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_plot\_2D,g\_plot\_3D}}
+%%%%%%%%%%%%%%%%%%%%%g_plot_2D, g_plot_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_plot\_2D, g\_plot\_3D}}
 
-\begin{itembox}[l]{\texttt{g\_plot\_2D,g\_plot\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_plot\_2D, g\_plot\_3D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
 void g_plot_2D(
@@ -1971,14 +1972,14 @@ void g_plot_3D(
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_plot\_2D,g\_plot\_3D}関数の説明}
+\begin{itembox}[l]{\texttt{g\_plot\_2D, g\_plot\_3D}関数の説明}
 線の終点を指定する．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_move_g_plot.eps}
+\includegraphics[width=100mm]{Canvas_g_move_g_plot.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2061,13 +2062,13 @@ void g_box_3D(
 \end{itembox}
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_box.eps}
+\includegraphics[width=100mm]{Canvas_g_box.eps}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_box2.eps}
+\includegraphics[width=100mm]{Canvas_g_box2.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2135,7 +2136,7 @@ Ver 3.0以降: この関数を小さな球を大量に表示する目的には�
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_sphere_SDL.eps}
+\includegraphics[width=100mm]{Canvas_g_sphere_SDL.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2205,7 +2206,7 @@ void g_ellipse_3D_core(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_ellipse_SDL.eps}
+\includegraphics[width=100mm]{Canvas_g_ellipse_SDL.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2281,7 +2282,7 @@ void g_prism_3D_core(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_prism.eps}
+\includegraphics[width=100mm]{Canvas_g_prism.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2355,7 +2356,7 @@ void g_cylinder_3D_core(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{./Figures/eps/Canvas_g_cylinder.eps}
+\includegraphics[width=100mm]{Canvas_g_cylinder.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2423,7 +2424,7 @@ void g_cone_3D(
 \end{itembox}
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_cone.eps}
+	\includegraphics[width=100mm]{Canvas_g_cone.eps}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -2461,13 +2462,13 @@ void g_cone_3D_core(
 \end{itembox}
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_cone.eps}
+	\includegraphics[width=100mm]{Canvas_g_cone.eps}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_cone2.eps}
+	\includegraphics[width=100mm]{Canvas_g_cone2.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2541,7 +2542,7 @@ void g_pyramid_3D_core(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_pyramid.eps}
+	\includegraphics[width=100mm]{Canvas_g_pyramid.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2607,7 +2608,7 @@ void g_arrow_3D(
 \end{itembox}
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_arrow.eps}
+	\includegraphics[width=100mm]{Canvas_g_arrow.eps}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -2646,13 +2647,13 @@ void g_arrow_3D_core(
 \end{itembox}
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_arrow.eps}
+	\includegraphics[width=100mm]{Canvas_g_arrow.eps}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_arrow2.eps}
+	\includegraphics[width=100mm]{Canvas_g_arrow2.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2748,7 +2749,7 @@ void g_triangle_3D_core(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_triangle.eps}
+	\includegraphics[width=100mm]{Canvas_g_triangle.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2785,7 +2786,7 @@ void g_triangle_3D_smooth(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
-%	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_triangle.eps}
+%	\includegraphics[width=100mm]{Canvas_g_triangle.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2822,7 +2823,7 @@ void g_triangle_3D_smooth_smooth(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
-%	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_triangle.eps}
+%	\includegraphics[width=100mm]{Canvas_g_triangle.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2893,7 +2894,7 @@ void g_fan_3D(
 \end{itembox}
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_fan.eps}
+	\includegraphics[width=100mm]{Canvas_g_fan.eps}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -2932,13 +2933,13 @@ void g_fan_3D_core(
 \end{itembox}
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_fan.eps}
+	\includegraphics[width=100mm]{Canvas_g_fan.eps}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_fan2.eps}
+	\includegraphics[width=100mm]{Canvas_g_fan2.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3038,13 +3039,13 @@ void g_circle_3D_core(
 \end{itembox}
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_circle.eps}
+	\includegraphics[width=100mm]{Canvas_g_circle.eps}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_circle2.eps}
+	\includegraphics[width=100mm]{Canvas_g_circle2.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3078,7 +3079,7 @@ void g_polygon_2D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_polygon.eps}
+	\includegraphics[width=100mm]{Canvas_g_polygon.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3135,7 +3136,7 @@ void g_polyline_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_polyline.eps}
+	\includegraphics[width=100mm]{Canvas_g_polyline.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3205,7 +3206,7 @@ void g_rectangle_3D_core(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_rectangle.eps}
+	\includegraphics[width=100mm]{Canvas_g_rectangle.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3301,7 +3302,7 @@ void g_data_plot_f_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_data_plot.eps}
+	\includegraphics[width=100mm]{Canvas_g_data_plot.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3374,7 +3375,7 @@ void g_contln_f_2D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_contln.eps}
+	\includegraphics[width=100mm]{Canvas_g_contln.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3447,7 +3448,7 @@ void g_bird_view_f_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_bird_view.eps}
+	\includegraphics[width=100mm]{Canvas_g_bird_view.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -3519,7 +3520,7 @@ void g_isosurface_f_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-	\includegraphics[width=100mm]{./Figures/eps/Canvas_g_isosurface.eps}
+	\includegraphics[width=100mm]{Canvas_g_isosurface.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
