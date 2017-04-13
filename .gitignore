@@ -5,7 +5,6 @@
 .vs/
 
 Manual/*.pbm
-Manual/GLSC3D_Manual.*
 !Manual/GLSC3D_Manual.tex
 
 cmake-build-debug/
