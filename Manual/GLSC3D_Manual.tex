@@ -333,29 +333,24 @@ Mac OS X上ではFreeGLUTはネイティブに動作せず，代わりにXQuartz
 \end{itemize}
 といった問題点があったため，使用するライブラリをFreeGLUTからSDLに変更しました．
 
-\subsubsection{2Dの描画順の変更}
-以前のGLSC3Dでは2Dで先に描画したものが後に描画したものより優先して表示されていました．
-Ver 3.0以降では後に描画したものが優先して表示されるように変更しました．
-
-なお，3Dモードの場合も奥行きが完全に一致したときには，同様の挙動になるように変更されています．
-
 \subsubsection{フォント埋め込みの廃止,フォント指定関数の変更,日本語などのUnicode文字への対応}
 以前のGLSC3Dでは4種類の日本語フォントをライブラリに埋め込んでいましたが，ファイルサイズが肥大化するためこれを廃止しました．
-GLSC3D 3.0ではデフォルトのフォントを
+Ver 3.0以降ではインストーラーが，GLSC3D に同梱されたフォント \verb|Noto Sans CJK JP Regular|
+\footnote{Google Noto Fonts (https://www.google.com/get/noto/) にて配布されています．} を
 \begin{table}[h]
 	\centering
 	\begin{tabular}{ll}
-		Mac OS X & /System/Library/Fonts/ヒラギノ角ゴシック W4.ttc\\
-		Linux & /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc\\
-		Windows & C:/Windows/Fonts/Meiryo.ttc\\
+		Mac OS X & \verb|~/Library/Fonts/|\\
+		Linux & \verb|/usr/share/fonts/opentype/noto/|\\
+		Windows & \verb|C:/Windows/Fonts/|\\
 	\end{tabular}
-\end{table}
+\end{table}\\
+に配置し，GLSC3Dはここからデフォルトフォントを読み込みます．
+違うフォントを使いたい場合，\verb|g_text_font_core|にフォントファイル名を指定してください．
 
-から読み込みます．もしこの場所にフォントが存在しない場合，または違うフォントを使いたい場合，\verb|g_text_font_core|にフォントファイル名を指定してください．
-また，\verb|Source/g_text.cpp|内の\verb|DEFAULT_FONT_FILE|を書き換えてコンパイルし直せばデフォルトのフォントを変更することもできます．
-
+\newpage
 埋め込みフォントを指定する関数\verb|g_text_font|を廃止しました．また，テキストのフォント指定\verb|g_text_font_core|とサイズ指定\verb|g_text_size|を分離しました．
-また，\verb|g_def_text|関数の\verb|font|引数は無視されます．
+また，\verb|g_def_text|関数の\verb|font|引数を削除しました．
 
 日本語や数学記号などのUnicode文字に対応しました．これを用いる場合文字列のエンコードは必ずUTF-8にしてください．
 gccでは文字列リテラルのエンコードはデフォルトでUTF-8になります．お使いのコンパイラーのデフォルトがUTF-8でない場合，
@@ -363,6 +358,11 @@ C++11の\verb|u8|プレフィックスを使用してみてください．(C++11
 \begin{center}
 \verb|g_text_virtual_3D(0, 0, 0, u8"あいうえお");|
 \end{center}
+
+\subsubsection{2Dの描画順の変更}
+以前のGLSC3Dでは2Dで先に描画したものが後に描画したものより優先して表示されていました．
+Ver 3.0以降では後に描画したものが優先して表示されるように変更しました．
+3Dモードの場合も奥行きが完全に一致したときには，同様の挙動になるように変更されています．
 
 \subsubsection{ウィンドウのサイズ変更・最大化と Apple Retina Display の対応}
 Ver 3.0以降ではウィンドウのサイズ変更・最大化と Apple Retina Display に対応しています．
@@ -380,9 +380,10 @@ Ver 3.0以降では\verb|g_sel_scale_2D, g_sel_scale_3D|を(最初に1回だけ�
 \verb|g_capture|を用いる場合，ウインドウサイズの変更は行わないでください．
 
 Apple Retina Display の対応はデフォルトでは無効になっています．
-有効化する場合，\verb|g_enable_highdpi|を\verb|g_init(_core)|の前に呼び出してください．
+有効化する場合，\verb|g_enable_highdpi()|を\verb|g_init(_core)|の前に呼び出してください．
 この場合，スケールファクターの初期値は2になります．それ以外の場合，スケールファクターの初期値は1です．
 
+\newpage
 \subsubsection{マーカーの種類の追加}
 \verb|g_marker_type|として正方形，円のほかに球を指定できるようにしました．
 引数には定数\verb|G_MARKER_SQUARE=0, G_MARKER_CIRCLE=1, G_MARKER_SPHERE=2|を指定できます．
@@ -396,8 +397,14 @@ Apple Retina Display の対応はデフォルトでは無効になっていま�
 Ver 3.0以降ではライトの最大数を3つに変更しました．
 これは4つ以上のライトは不要と判断してのことですが，要望がある方は本マニュアルの ``おわりに'' をご覧ください．\\
 
-\verb|g_init_core|に指定するウインドウの位置として，画面の中央に表示することを意味する\verb|G_WINDOW_CENTERED|を指定できるようにしました．
-\verb|g_init|を使用した場合のウインドウの位置は常に\verb|G_WINDOW_CENTERED|となります．\\
+アンチエイリアシングを使用して描画することを指定できるようにしました．\\
+アンチエイリアシングは線や面の境界で発生するジャギーを低減して滑らかに表示します．\\
+詳細は\verb|g_set_antialiasing|を参照してください．\\
+
+プログラムを\verb|Esc|キーで終了できるようにしました．\\
+そのため，プログラムがキーボード入力として\verb|Esc|を使用することはできません．\\
+
+\verb|g_init_core|に指定するウインドウの位置として，画面の中央に表示することを意味する\verb|G_WINDOW_CENTERED|を指定できるようにしました．\\
 
 多次元配列を受け取る関数
 \begin{center}
@@ -481,11 +488,8 @@ GLSC3D Ver. 3.0.0以降では，OpenGL，SDL，libPNG，FreeType，Mathライブ
 OpenGL，SDLはGLSC3Dの根幹部分です．
 PNGライブラリは画面をキャプチャするために必要です\footnote{\url{http://www.libpng.org/pub/png/libpng.html}}．
 C言語のMathライブラリは描画関数内で数学関数を用いているために必要です．
-デフォルトの設定では，頂点データを保持用に，
-概ね500KB+1048KBのメモリー領域を使用します．
 
-%%多くの場合，MacOS\footnote{MacOSはUNIXと認められましたが．．．}，
-%%Linux，UNIX ではSDL以外は標準的にインストールされています．
+頂点データを保持用に，9MBのメモリー領域を使用します．これは$2^{16}$個の三角形を一度にGPUに転送できるサイズです．
 
 \subsection{動作環境の構築}
 GLSC3D Ver. 3.0.0以降では，
@@ -694,7 +698,7 @@ libpngおよびfontに対するパスの指定が正しくできていれば動�
 ライブラリのバージョンがUbuntuに比べて古いので動作の保証ができません．
 GLSC3D Ver. 2.1.1を使用されることをお勧めします．
 
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Windowsの場合}
 
@@ -956,7 +960,7 @@ void g_init_light(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_init\_light}関数の説明}
 ライトの方向を設定するための関数です．ライトは常に平行光源です．ライト0から2の3個までの光源を設定できます．
-この関数を呼ばずに描画した場合，デフォルト値として\texttt{g\_init\_light(0,1,1,1)}の光源が設定されます．
+この関数を呼ばずに描画した場合，デフォルト値として\texttt{g\_init\_light(0, 0, 0, 1)}の光源が設定されます．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%%%g_init_light_core%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1135,6 +1139,9 @@ Apple Retina Displayのネイティブ解像度で描画するように指定し
 void g_set_antialiasing(
         unsigned int level);
 \end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|level| ; アンチエイリアシングのレベル
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1566,7 +1573,7 @@ void g_line_width(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_line\_width}関数の説明}
-線の太さを変更する．（0は1と同じ太さになることに注意）
+線の太さを変更する．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%%%g_line_type%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
