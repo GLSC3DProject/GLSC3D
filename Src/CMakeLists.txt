@@ -3,8 +3,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Out)
 find_package(OpenGL)
 
 if (MSVC)
-	list(APPEND CMAKE_C_FLAGS	" /MP")
-	list(APPEND CMAKE_CXX_FLAGS	" /MP")
+	set(CMAKE_C_FLAGS	" /Ox /MP")
+	set(CMAKE_CXX_FLAGS	" /Ox /MP")
 	set(SDL_LIBRARY SDL2.lib)
 	set(PNG_LIBRARY libpng16.lib zlib.lib)
 	set(FREETYPE_LIBRARIES freetype271.lib)
@@ -22,8 +22,6 @@ elseif (UNIX)
 endif ()
 
 message(CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME})
-message(CMAKE_C_FLAGS: ${CMAKE_C_FLAGS})
-message(CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS})
 message(OPENGL_gl_LIBRARY: ${OPENGL_gl_LIBRARY})
 
 add_library(glsc3d
