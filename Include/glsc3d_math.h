@@ -54,7 +54,10 @@ typedef G_VECTOR G_DIRECTION;
 
 static inline G_VECTOR g_vector(G_REAL x, G_REAL y, G_REAL z)
 {
-	G_VECTOR v = {(float)x, (float)y, (float)z};
+	G_VECTOR v;
+	v.x = (float)x;
+	v.y = (float)y;
+	v.z = (float)z;
 	return v;
 }
 
@@ -91,9 +94,9 @@ static inline G_VECTOR g_multi (G_REAL a, G_VECTOR u)
 static inline G_VECTOR g_cross (G_VECTOR u,G_VECTOR v)
 {
 	return g_vector3(
-			u.y*v.z - v.y*u.z,
-			u.z*v.x - v.z*u.x,
-			u.x*v.y - v.x*u.y);
+		u.y*v.z - v.y*u.z,
+		u.z*v.x - v.z*u.x,
+		u.x*v.y - v.x*u.y);
 }
 
 static inline float g_dot (G_VECTOR u, G_VECTOR v)
