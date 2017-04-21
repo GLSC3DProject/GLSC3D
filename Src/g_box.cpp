@@ -9,6 +9,7 @@ void g_box_2D(
 	G_VECTOR r1(x_right, y_bottom);
 	G_VECTOR r2(x_right, y_top);
 	G_VECTOR r3(x_left, y_top);
+
 	if (Fill)
 	{
 		g_begin_triangles();
