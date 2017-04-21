@@ -1,7 +1,10 @@
 #!/bin/sh
 
+echo "Checking your system..."
+
 if type "port" > /dev/null 2>&1
 then
+echo "port command is already installed on your mac"
 echo "Next step is \"2_Install_dependency_library_mac\""
 else
 echo "Please install macports on your mac..."

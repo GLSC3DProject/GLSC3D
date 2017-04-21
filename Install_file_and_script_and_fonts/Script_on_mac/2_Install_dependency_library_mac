@@ -24,7 +24,9 @@ fi
 
 comtemp="libsdl2"
 echo "Checking $comtemp...."
-if type "sdl2" > /dev/null 2>&1
+sdl_existence=`port list | grep "libsdl2 "`
+
+if [ ${#sdl_existence} -gt 0 ]
 then
 echo "$comtemp is installed"
 else
@@ -32,5 +34,9 @@ echo "$comtemp is not installed"
 InstallCommand="${InstallCommand} $comtemp"
 fi
 
-sudo port -N install ${InstallCommand}
-echo "Next step is \"3_Test_GLSC3D_on_mac\""
+if [ ${#InstallCommand} -gt 0 ]
+then
+	sudo port -N install ${InstallCommand}
+else
+	echo "Next step is \"3_Test_GLSC3D_on_mac\""
+fi
