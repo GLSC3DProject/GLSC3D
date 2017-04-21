@@ -24,7 +24,7 @@ endif ()
 message(CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME})
 message(OPENGL_gl_LIBRARY: ${OPENGL_gl_LIBRARY})
 
-add_library(glsc3d
+add_library(glsc3d_3
 	g_area.cpp
 	g_arrow.cpp
 	g_bird_view_3D.cpp
@@ -62,7 +62,7 @@ add_library(glsc3d
 	g_vertex_buffer.cpp
 )
 
-target_link_libraries(glsc3d
+target_link_libraries(glsc3d_3
 	${OPENGL_gl_LIBRARY}
 	${SDL_LIBRARY}
 	${PNG_LIBRARY}
