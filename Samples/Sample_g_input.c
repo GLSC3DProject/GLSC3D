@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "glsc3d.h"
+#include "glsc3d_3.h"
 
 int main()
 {

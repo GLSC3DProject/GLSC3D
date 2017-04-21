@@ -1,6 +1,6 @@
 #ifdef __linux__
 
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 static GLuint frame_buffer;
 static GLuint color_buffer, depth_buffer;

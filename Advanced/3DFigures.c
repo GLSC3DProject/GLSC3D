@@ -1,4 +1,4 @@
-#include "glsc3d.h"
+#include "glsc3d_3.h"
 
 #define WIRE G_FALSE
 #define FILL G_TRUE

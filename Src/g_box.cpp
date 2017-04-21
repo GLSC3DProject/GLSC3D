@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 void g_box_2D(
 	double x_left, double x_right,

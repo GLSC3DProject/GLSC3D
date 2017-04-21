@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 #define     data(i, j)      data[(j)*N_y+(i)]
 
 void g_data_plot_f_3D(

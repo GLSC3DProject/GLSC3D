@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 #include <stdarg.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H

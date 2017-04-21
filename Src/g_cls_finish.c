@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 void g_scr_color(float r, float g, float b)
 {

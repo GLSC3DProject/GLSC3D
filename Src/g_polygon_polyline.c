@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 void g_polygon_2D(double *xx, double *yy, int n, G_BOOL WIRE, G_BOOL FILL)
 {
 	if (FILL)

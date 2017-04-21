@@ -1,7 +1,7 @@
 #ifndef GLSC3D_PRIVATE_H
 #define GLSC3D_PRIVATE_H
 
-#include "glsc3d.h"
+#include "glsc3d_3.h"
 
 #ifdef __cplusplus
 #include <cassert>

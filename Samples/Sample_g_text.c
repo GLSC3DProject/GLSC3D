@@ -2,7 +2,7 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-#include "glsc3d.h"
+#include "glsc3d_3.h"
 
 #ifdef _WIN32
 #pragma execution_character_set("UTF-8")

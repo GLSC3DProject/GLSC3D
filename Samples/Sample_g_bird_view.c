@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-#include "glsc3d.h"
+#include "glsc3d_3.h"
 
 #define INTV              (1)
 #define WINDOW_SIZE_X     (1024)

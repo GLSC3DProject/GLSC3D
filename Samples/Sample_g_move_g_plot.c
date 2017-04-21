@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#include "glsc3d.h"
+#include "glsc3d_3.h"
 
 #define WINDOW_SIZE_X     (1000)
 #define WINDOW_SIZE_Y     (500)

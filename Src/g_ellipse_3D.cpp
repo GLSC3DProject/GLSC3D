@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 void g_ellipse_3D_core(
 	double x, double y, double z,                                 //中心座標

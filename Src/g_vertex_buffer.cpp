@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 static const size_t VERTEX_BUFFER_SIZE = 3 << 16;
 

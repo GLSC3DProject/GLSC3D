@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 void g_circle_2D(
 	double center_x, double center_y,

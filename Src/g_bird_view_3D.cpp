@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 /****************************************
  boxmember[a]

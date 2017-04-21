@@ -8,7 +8,7 @@
 //
 *******************************************************************************/
 
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 #define WIRE	G_FALSE
 #define FILL	G_TRUE

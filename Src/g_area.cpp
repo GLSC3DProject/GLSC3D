@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 G_COLOR g_current_area_color_3D;
 G_COLOR g_current_area_color_2D;

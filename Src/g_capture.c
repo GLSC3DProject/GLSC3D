@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <png.h>
 
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 #define DirectoryPathLength 256
 #define FilePathLength (DirectoryPathLength + 12)

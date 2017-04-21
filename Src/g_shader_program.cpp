@@ -1,4 +1,4 @@
-#include "glsc3d_private.h"
+#include "glsc3d_3_private.h"
 
 #define GLSL_VERSION_DECL "#version 410 core\n"
 

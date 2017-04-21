@@ -5,7 +5,7 @@
 #define M_PI (3.14159265358979323846264338327950288)
 #endif
 
-#include "glsc3d_math.h"
+#include "glsc3d_3_math.h"
 
 #ifdef __cplusplus
 extern "C"
