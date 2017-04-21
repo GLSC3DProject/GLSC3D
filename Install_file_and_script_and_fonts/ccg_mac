@@ -1,1 +1,1 @@
-cc ${1} -W -Wall -O2 -I/$HOME/include -L/$HOME/lib -lglsc3d -framework OpenGL -L/opt/local/lib -lsdl2 -lfreetype -lpng -o ${1%.c}
+cc ${1} -W -Wall -O2 -I/$HOME/include -L/$HOME/lib -lglsc3d_3 -framework OpenGL -L/opt/local/lib -lsdl2 -lfreetype -lpng -o ${1%.c}
