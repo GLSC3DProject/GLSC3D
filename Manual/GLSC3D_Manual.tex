@@ -49,7 +49,7 @@
 北海道大学 電子科学研究所 \vspace{1zw} \\
 \includegraphics[width=100mm]{CoverPage.eps} \vspace{1zw} \\
 \Large{制作(Ver. 2.2.1以降)：舘入 数磨$^*$，須志田 隆道$^\dagger$} \\
-$^*$北海道大学大学院 理学研究院 数学専攻,  $^\dagger$北海道大学 電子科学研究所
+$^*$北海道大学大学院 理学院 数学専攻,  $^\dagger$北海道大学 電子科学研究所
 \vspace{1zw}\\ 
 \Large{制作(Ver. 2.2.1まで)：平芳 悠人，岡本 守} \\
 北海道大学 理学部 数学科\\
@@ -585,8 +585,8 @@ Script\_on\_mac.zipを解凍すると以下の実行ファイルが入手でき�
 4つ目のスクリプトでは，
 はじめに\verb|$HOME|直下に3つのフォルダ\verb|bin|，\verb|include|，\verb|lib|を作成し，
 \verb|ccg|を\verb|bin|に，
-\verb|glsc3d.h|，\verb|glsc3d_math.h|を\verb|include|に，
-\verb|libgslc3d.a|を\verb|lib|に，
+\verb|glsc3d_3.h|，\verb|glsc3d_3_math.h|を\verb|include|に，
+\verb|libglsc3d_3.a|を\verb|lib|に，
 \verb|Hello_GLSC3D.c|を\verb|GLSC3D_Working_Directory|の直下に保存します．
 次に，
 \verb|bin|，\verb|include|
@@ -665,8 +665,8 @@ Script\_on\_ubuntu.zipを解凍すると以下の実行ファイルが入手で�
 4つ目のスクリプトでは，
 はじめに\verb|$HOME|直下に3つのフォルダ\verb|bin|，\verb|include|，\verb|lib|を作成し，
 \verb|ccg|を\verb|bin|に，
-\verb|glsc3d.h|，\verb|glsc3d_math.h|を\verb|include|に，
-\verb|libgslc3d.a|を\verb|lib|に，
+\verb|glsc3d_3.h|，\verb|glsc3d_3_math.h|を\verb|include|に，
+\verb|libglsc3d_3.a|を\verb|lib|に，
 \verb|Hello_GLSC3D.c|を\verb|GLSC3D_Working_Directory|の直下に保存します．
 次に，
 \verb|bin|，\verb|include|
@@ -804,7 +804,7 @@ GLSC3Dを利用する際，多くの場合基本的な枠組みは以下のよ�
 \begin{verbatim}
 #include <...>
 ...
-#include <glsc3d.h>
+#include <glsc3d_3.h>
 
 int main()
 {

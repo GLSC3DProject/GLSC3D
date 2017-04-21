@@ -11,11 +11,12 @@ WDR="GLSC3D_Working_Directory"
 mkdir -p ${WDR}
 open ${WDR}
 
-cp ${WDR}/GLSC3D/Out/libglsc3d.a ~/lib/
+cp ${WDR}/GLSC3D/Out/libglsc3d_3.a ~/lib/
 cp ${WDR}/GLSC3D/Install_file_and_script_and_fonts/ccg_mac ~/bin/ccg
+chmod +x ~/bin/ccg
 cp ${WDR}/GLSC3D/Install_file_and_script_and_fonts/Hello_GLSC3D.c ${WDR}/
-cp ${WDR}/GLSC3D/Include/glsc3d.h ~/include/
-cp ${WDR}/GLSC3D/Include/glsc3d_math.h ~/include/
+cp ${WDR}/GLSC3D/Include/glsc3d_3.h ~/include/
+cp ${WDR}/GLSC3D/Include/glsc3d_3_math.h ~/include/
 
 echo "Checking the PATH..."
 yourPATH=`echo $PATH`
