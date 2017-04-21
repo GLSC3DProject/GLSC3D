@@ -1,6 +1,6 @@
 #include "glsc3d_3_private.h"
 
-static const size_t VERTEX_BUFFER_SIZE = 3 << 16;
+static const size_t VERTEX_BUFFER_SIZE = 3 << 14;
 
 static const G_VECTOR g_vector_zero(0, 0, 0);
 
