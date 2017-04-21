@@ -22,7 +22,7 @@ int main()
 		g_circle_2D(up_x, up_y, 20, G_YES,G_YES);
 
 		g_text_size(24);
-		g_box_2D(545, 75, 150, 90, G_YES,G_NO);
+		g_box_center_2D(545, 75, 150, 90, G_YES, G_NO);
 		g_text_2D_virtual(500, 68, "Exit");
 		g_text_2D_virtual(500, 93, "Program");
 

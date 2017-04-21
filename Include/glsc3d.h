@@ -51,8 +51,7 @@ void g_init_core (
 	float r, float g, float b,
 	int enable_transparent,
 	int temporary_triangle_buffer_size,
-	int triangle_buffer_size
-);
+	int triangle_buffer_size);
 
 void g_init(const char *WindowName, int width, int height);
 
@@ -223,16 +222,33 @@ g_data_plot_f_3D(x0, x1, y0, y1, N_x, N_y, &data[0][0])
 // ------ g_box.c -----
 
 void g_box_2D(
+	double x_left, double x_right,
+	double y_bottom, double y_top,
+	G_BOOL Wire, G_BOOL Fill);
+
+void g_box_3D_core(
+	double x0, double x1,
+	double y0, double y1,
+	double z0, double z1,
+	int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+
+void g_box_3D(
+	double x0, double x1,
+	double y0, double y1,
+	double z0, double z1,
+	G_BOOL Wire, G_BOOL Fill);
+
+void g_box_center_2D(
 	double x, double y,
 	double width, double height,
 	G_BOOL WIRE, G_BOOL FILL);
 
-void g_box_3D_core(
+void g_box_center_3D_core(
 	double x, double y, double z,
 	double width, double height, double depth,
 	int DivideLevel, G_BOOL WIRE, G_BOOL FILL);
 
-void g_box_3D(
+void g_box_center_3D(
 	double x, double y, double z,
 	double width, double height, double depth,
 	G_BOOL WIRE, G_BOOL FILL);

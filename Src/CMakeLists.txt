@@ -28,7 +28,7 @@ add_library(glsc3d
 	g_area.cpp
 	g_arrow.cpp
 	g_bird_view_3D.cpp
-	g_box.c
+	g_box.cpp
 	g_camera.cpp
 	g_capture.c
 	g_circle.cpp
