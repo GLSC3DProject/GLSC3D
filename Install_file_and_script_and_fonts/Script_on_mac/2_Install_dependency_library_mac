@@ -22,6 +22,17 @@ echo "$comtemp is not installed"
 InstallCommand="${InstallCommand} $comtemp"
 fi
 
+comtemp="libfreetype"
+echo "Checking $comtemp...."
+libfreetype_existence=`port list | grep "freetype "`
+if [ ${#libfreetype_existence} -gt 0 ]
+then
+echo "$comtemp is installed"
+else
+echo "$comtemp is not installed"
+InstallCommand="${InstallCommand} $comtemp"
+fi
+
 comtemp="libsdl2"
 echo "Checking $comtemp...."
 sdl_existence=`port list | grep "libsdl2 "`
