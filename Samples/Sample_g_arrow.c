@@ -10,7 +10,6 @@ int main()
 {
 	g_init("Sample_g_arrow.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
-
 	g_def_scale_3D(0, -4, 4, -4, 4, -4, 4, WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y, 1, 1, 1, 1);
 	g_def_scale_2D(1, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
 
