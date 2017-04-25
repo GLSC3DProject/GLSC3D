@@ -931,7 +931,7 @@ void g_init_core(
 \begin{itembox}[l]{\texttt{g\_init\_core}関数の説明}
 描画するウィンドウを設定するための関数です．\texttt{g\_init}に比べて細かい制御が可能です．
 
-Since Ver 3.0: \verb|pos_x, pos_y|に\verb|G_WINDOW_CENTERED|を指定すると，ウインドウをディスプレイの中央に表示します．
+Ver 3.0 以降: \verb|pos_x, pos_y|に\verb|G_WINDOW_CENTERED|を指定すると，ウインドウをディスプレイの中央に表示します．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -2020,44 +2020,48 @@ Ver 3.0以降: GLSC3D Ver.2.xとは引数が変更されているので注意．
 \end{itembox}
 
 
-%%%%%%%%%%%%%%%%%%%%%g_box_center_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_box\_center\_3D}}
+%%%%%%%%%%%%%%%%%%%%%g_box_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_box\_3D}}
 
-\begin{itembox}[l]{\texttt{g\_box\_center\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_box\_3D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
-void g_box_center_3D(
-        double x, double y, double z,
-        double width, double height, double depth
+void g_box_3D(
+        double x0, double x1,
+        double x0, double x1,
+        double z0, double z1,
         G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|x,y,z| ; 重心の座標\\
-\verb|width,height,depth| ; 幅と高さと奥行き\\
+\verb|x0, x1| ; 両端のx座標\\
+\verb|y0, y1| ; 両端のy座標\\
+\verb|z0, z1| ; 両端のz座標\\
 \verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
 \verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_box\_center\_3D}関数の説明}
+\begin{itembox}[l]{\texttt{g\_box\_3D}関数の説明}
 直方体を描画する．
 \end{itembox}
 
-%%%%%%%%%%%%%%%%%%%%%g_box_center_3D_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_box\_center\_3D\_core}}
+%%%%%%%%%%%%%%%%%%%%%g_box_3D_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_box\_3D\_core}}
 
-\begin{itembox}[l]{\texttt{g\_box\_center\_3D\_core}関数}
+\begin{itembox}[l]{\texttt{g\_box\_3D\_core}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
-void g_box_center_3D_core(
-        double x, double y, double z,
-        double width, double height, double depth,
+void g_box_3D_core(
+        double x0, double x1,
+        double x0, double x1,
+        double z0, double z1,
         int DivideLevel,
         G_BOOL Wire, G_BOOL Fill);   
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|x,y,z| ; 重心の座標\\
-\verb|width,height,depth| ; 幅と高さと奥行き\\
+\verb|x0, x1| ; 両端のx座標\\
+\verb|y0, y1| ; 両端のy座標\\
+\verb|z0, z1| ; 両端のz座標\\
 \verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
 %\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
 \verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
@@ -2065,20 +2069,9 @@ void g_box_center_3D_core(
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_box\_center\_3D\_core}関数の説明}
-直方体を描画する．（より細かい設定が可能）
+\begin{itembox}[l]{\texttt{g\_box\_3D\_core}関数の説明}
+直方体を描画する．（\verb|DivideLevel|の設定が可能）
 \end{itembox}
-\begin{figure}[htb]
-\centering
-\includegraphics[width=100mm]{Canvas_g_box.eps}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
-\begin{figure}[htb]
-\centering
-\includegraphics[width=100mm]{Canvas_g_box2.eps}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -2154,7 +2147,7 @@ void g_box_center_3D_core(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_box\_center\_3D\_core}関数の説明}
-直方体を描画する．（より細かい設定が可能）
+直方体を描画する．（\verb|DivideLevel|の設定が可能）
 \end{itembox}
 \begin{figure}[htb]
 \centering
