@@ -1992,6 +1992,94 @@ void g_plot_3D(
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%%%%%%%%%%%%%%%%%%%%g_box_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\subsubsection{\texttt{g\_box\_2D}}
+
+\begin{itembox}[l]{\texttt{g\_box\_2D}関数}
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_box_2D(
+        double x_left, double x_right,
+        double y_bottom, double y_top,
+        G_BOOL Wire, G_BOOL Fill);    
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|x_left, x_right| ; 両端のx座標\\
+\verb|y_bottom, y_top| ; 両端のy座標\\
+%\verb|WireFill| ; 塗りつぶすか（1），塗りつぶさないか（0）\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_box\_2D}関数の説明}
+長方形を描画する．
+
+Ver 3.0以降: GLSC3D Ver.2.xとは引数が変更されているので注意．
+\end{itembox}
+
+
+%%%%%%%%%%%%%%%%%%%%%g_box_center_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_box\_center\_3D}}
+
+\begin{itembox}[l]{\texttt{g\_box\_center\_3D}関数}
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_box_center_3D(
+        double x, double y, double z,
+        double width, double height, double depth
+        G_BOOL Wire, G_BOOL Fill);   
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|x,y,z| ; 重心の座標\\
+\verb|width,height,depth| ; 幅と高さと奥行き\\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_box\_center\_3D}関数の説明}
+直方体を描画する．
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%%%g_box_center_3D_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_box\_center\_3D\_core}}
+
+\begin{itembox}[l]{\texttt{g\_box\_center\_3D\_core}関数}
+%%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_box_center_3D_core(
+        double x, double y, double z,
+        double width, double height, double depth,
+        int DivideLevel,
+        G_BOOL Wire, G_BOOL Fill);   
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|x,y,z| ; 重心の座標\\
+\verb|width,height,depth| ; 幅と高さと奥行き\\
+\verb|DivideLevel| ;面の三角形分割レベル（$4^{\verb|DivideLevel|}$倍ずつ三角形の分割数が増える）\\
+%\verb|WireFill| ; \verb|G_WIRE|:ワイヤーフレーム,\ \verb|G_FILL|:塗りつぶす \\
+\verb|Wire| ; \verb|G_YES|:枠線を描く, \verb|G_NO|:枠線を描かない \\
+\verb|Fill| ; \verb|G_YES|:塗りつぶす, \verb|G_NO|:塗りつぶさない
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_box\_center\_3D\_core}関数の説明}
+直方体を描画する．（より細かい設定が可能）
+\end{itembox}
+\begin{figure}[htb]
+\centering
+\includegraphics[width=100mm]{Canvas_g_box.eps}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
+\begin{figure}[htb]
+\centering
+\includegraphics[width=100mm]{Canvas_g_box2.eps}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 %%%%%%%%%%%%%%%%%%%%%g_box_center_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
