@@ -15,9 +15,8 @@
 \addtolength{\textwidth}{-40truemm}     % 右の余白も20mmに
 
 \usepackage{wrapfig}
-\usepackage[draft]{graphicx}
-%\usepackage[dvipdfmx]{graphicx}
-%\usepackage{graphicx}
+%\usepackage[draft]{graphicx}
+\usepackage[dvipdfmx]{graphicx}
 \graphicspath{{Figures/eps/}}
 
 \usepackage{url}
@@ -359,11 +358,6 @@ C++11の\verb|u8|プレフィックスを使用してみてください．(C++11
 \verb|g_text_virtual_3D(0, 0, 0, u8"あいうえお");|
 \end{center}
 
-\subsubsection{2Dの描画順の変更}
-以前のGLSC3Dでは2Dで先に描画したものが後に描画したものより優先して表示されていました．
-Ver 3.0以降では後に描画したものが優先して表示されるように変更しました．
-3Dモードの場合も奥行きが完全に一致したときには，同様の挙動になるように変更されています．
-
 \subsubsection{ウィンドウのサイズ変更・最大化と Apple Retina Display の対応}
 Ver 3.0以降ではウィンドウのサイズ変更・最大化と Apple Retina Display に対応しています．
 このため，GLSC3Dは内部的にスケールファクターを保持しており，\verb|g_init(_core)|に渡されたウインドウサイズに対する現在のサイズの比率(の水平方向と垂直方向の値の小さいほう)を使用します．
@@ -384,7 +378,6 @@ Apple Retina Display の対応はデフォルトでは無効になっていま�
 この場合，Retina Display で実行したときにはスケールファクターの初期値は2になります．\\
 それ以外の場合，スケールファクターの初期値は1です．
 
-\newpage
 \subsubsection{ワイヤーフレームとサーフェイス塗りつぶしの引数の変更}
 以前のGLSC3Dは各関数に\verb|WireFill|パラメータが存在しており，\verb|G_WIRE=0|(ワイヤーフレーム)または\verb|G_FILL=1|(サーフェイスを塗りつぶす)を指定できました．
 
@@ -393,6 +386,18 @@ GLSC 3.0では旧GLSCに近づけるため，\verb|Wire|パラメータと\verb|
 注意 : この変更は主に旧GLSCユーザーのためのものです．
 \verb|Wire|パラメータと\verb|Fill|パラメータの両方に\verb|G_YES|を指定した場合，線分と三角形が混合しパフォーマンスが低下します．
 できるだけワイヤーフレームの描画とサーフェイスの描画を分離してください．
+
+\newpage
+\subsubsection{2Dの描画順の変更}
+以前のGLSC3Dでは2Dで先に描画したものが後に描画したものより優先して表示されていました．
+Ver 3.0以降では後に描画したものが優先して表示されるように変更しました．
+3Dモードの場合も奥行きが完全に一致したときには，同様の挙動になるように変更されています．
+
+\subsubsection{\texttt{g\_box\_2D, g\_box\_3D(\_core)}関数の仕様変更}
+以前のGLSC3Dでは長方形や直方体を描画する\verb|g_box_2D, g_box_3D(_core)|関数には，中心と大きさを指定していました．
+
+Ver 3.0では旧GLSCと同様に両端の\verb|x,y (,z)|座標を指定するようにしました．
+以前のように中心と大きさを指定する場合，\verb|g_box_center_2D, g_box_center_3D(_core)|を使用してください．
 
 \subsubsection{マーカーの種類の追加}
 \verb|g_marker_type|として正方形，円のほかに球を指定できるようにしました．
@@ -403,6 +408,25 @@ GLSC 3.0では旧GLSCに近づけるため，\verb|Wire|パラメータと\verb|
 
 どの種類のマーカーでも，サイズは\verb|g_marker_size|によりピクセル単位の直径を指定できるほか，\verb|g_marker_radius|により仮想座標系での半径を指定することができます．
 
+\subsubsection{スムーズシェーディング用の関数，構造体を引数とする関数の追加}
+3Dの三角形を描画するときに，陰影をスムーズにするために頂点法線を指定できる関数\verb|g_triangle_3D_smooth(_core)|を追加しました．\\
+
+GLSC3D Ver 3.0 では色(\verb|r,g,b,a|)を保持する\verb|G_COLOR|構造体と座標(\verb|x,y,z|)を保持する\verb|G_VECTOR|構造体を公開しています．各成分は\verb|float|型です．\\
+
+\verb|G_COLOR|構造体は以下の関数で使用することができます．
+\begin{description}
+\item \verb|g_area_color_2D_s, g_area_color_3D_s|
+\item \verb|g_marker_color_s, g_line_color_s, g_text_color_s|
+\end{description}
+
+\verb|G_VECTOR|構造体は以下の関数で使用することができます．
+\begin{description}
+\item \verb|g_marker_s, g_move_s, g_plot_s|
+\item \verb|g_triangle_2D_s, g_triangle_3D_s, g_triangle_3D_core_s|
+\item \verb|g_triangle_3D_smooth_s, g_triangle_3D_smooth_core_s|
+\end{description}
+
+\newpage
 \subsubsection{その他}
 Ver 3.0以降ではライトの最大数を3つに変更しました．
 これは4つ以上のライトは不要と判断してのことですが，要望がある方は本マニュアルの ``おわりに'' をご覧ください．\\
@@ -479,9 +503,8 @@ $\alpha$ブレンディング法を実行するために3次元オブジェク�
 
 \noindent {\bf ステップ4：\verb|g_finish|が呼ばれた段階で，視点に対して遠い3角形から描画を行う}
 
-ステップ3までの処理で，\verb|TRIANGLE_BUFFER|には視点から遠い順番で三角形の描画命令が登録されています．これらの三角形は\verb|g_finish|関数が呼ばれた時点で描画されます．
+ステップ3までの処理で，\verb|TRIANGLE_BUFFER|には視点から遠い順番で三角形の描画命令が登録されています．これらの三角形は\verb|g_finish|関数が呼ばれた時点で描画されます．\\
 
-\vspace{10mm}
 GLSC3DではGLSCと同様に標準座標系の中に複数の仮想座標系を構築することができますが，このステップ1$\sim$4は複数の仮想座標系において自動的に適用されます．したがって，{\bf ユーザーは\verb|g_triangle_3D_core|を用いて描画さえすれば，特に何も意識しなくても，正しく透明化処理を行うことができます}．ただし，透明化処理を行う際には別の注意も必要です．それは「3次元オブジェクトの三角形分割は十分に細かくなければならない」という点です．ステップ3において，3次元オブジェクトを大きな三角形で分割すると，分割が荒いことが影響し視点に対する奥行き判定の際に，ミスが生じます．このことを防ぐためには，3次元オブジェクトの三角形分割は十分に細かくする必要があります．例えば，\verb|g_sphere|という関数は与えられ点を中心に，与えられた半径の球を描画する関数です．この関数にはその上位関数として\verb|g_sphere_core|が存在しますが，その引数として\verb|int DivideLevel|があります．この\verb|DivideLevel|を$0$として指定する場合は1つの3角形を描きますが，$1$を指定すると4個の3角形，$2$を指定すると16個の3角形という具合に親3角形をさらに小さな子三角形へと分解し描画します．このような機能はほぼすべての描画関数に対して存在しますので，有効に活用してください．
 
 透明化処理を行う際は，この点に注意いただくとともに，もし，さらに良いアイデアをお持ちの方がいましたら教えてください．
@@ -2026,6 +2049,8 @@ void g_box_2D(
 長方形を描画する．
 
 Ver 3.0以降: GLSC3D Ver.2.xとは引数が変更されているので注意．
+
+旧仕様は\verb|g_box_center_2D|
 \end{itembox}
 
 
@@ -2052,6 +2077,10 @@ void g_box_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_box\_3D}関数の説明}
 直方体を描画する．
+
+Ver 3.0以降: GLSC3D Ver.2.xとは引数が変更されているので注意．
+
+旧仕様は\verb|g_box_center_3D|
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%%%g_box_3D_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2080,6 +2109,10 @@ void g_box_3D_core(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_box\_3D\_core}関数の説明}
 直方体を描画する．（\verb|DivideLevel|の設定が可能）
+
+Ver 3.0以降: GLSC3D Ver.2.xとは引数が変更されているので注意．
+
+旧仕様は\verb|g_box_center_3D_core|
 \end{itembox}
 
 
@@ -3361,7 +3394,7 @@ void g_data_plot_3D(
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_data\_plot\_3D}関数の説明}
-2次元配列\verb|u|のデータをプロットする．（2次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
+2次元配列\verb|u|のデータをプロットする．（2次元配列化*に関しては前章をお読みください．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -3432,7 +3465,7 @@ void g_contln_2D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_contln\_2D}関数の説明}
 2次元配列\verb|u|に対して，値\verb|level|に等高線を描画する．
-（2次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
+（2次元配列化*に関しては前章をお読みください．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -3506,7 +3539,7 @@ void g_bird_view_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_bird\_view\_3D}関数の説明}
 2次元配列\verb|u|に対して鳥瞰図を描画する．\verb|y_top|$=$\verb|y_bottom|とするとy方向のスケーリングをせず，値をそのまま反映する．
-（2次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
+（2次元配列化*に関しては前章をお読みください．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -3578,7 +3611,7 @@ void g_isosurface_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_isosurface\_3D}関数の説明}
 3次元配列\verb|u|に対して与えられた高さ\verb|height|の位置でマーチングテトラへドン法を用いて，等値面を描画する．
-（フラットシェーディングのみサポートしている．フラットシェーディングはメモリ使用量が増大するため機能しない．3次元配列化*に関しては前章をお読みください．c++では使用不可であることに注意．）
+（フラットシェーディングのみサポートしている．フラットシェーディングはメモリ使用量が増大するため機能しない．3次元配列化*に関しては前章をお読みください．）
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -3798,12 +3831,12 @@ Manual以下にはマニュアルが存在します．あなたが読んでい�
 \subsection{描画処理}
 GLSC3Dはある程度の透明化処理をサポートしています．このため，全ての三角形描画は一旦保持され，最終的に視点から重心までの距離を用いてソートされます．このため，今後追加される描画関数は全て，このプロトコルに従うべきです．即ち，
 
-\begin{enumerate}
- \item \verb|G_POSITION|構造体，及び\verb|G_COLOR|構造体か\verb|G_MATERIAL|構造体から\verb|G_VERTEX|構造体を生成
- \item \verb|G_VERTEX|構造体から\verb|G_TRIANGLE|構造体を生成
- \item \verb|G_TRIANGLE|構造体を\verb|g_set_triangle|関数を用いて登録
-\end{enumerate}
+\begin{itemize}
+ \item \verb|g_triangle_3D(_smooth)(_core)(_s)|関数
+ \item \verb|g_triangle_3D_smooth_worker|関数
+ \item \verb|g_triangle_3D_flat_worker|関数
+\end{itemize}
 
-この手順は\verb|g_triangle_3D|関数か，そのコア関数を用いて代用しても構いません．
+のどれかを用いて描画するべきです．
 
 \end{document}

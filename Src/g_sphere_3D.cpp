@@ -10,7 +10,6 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 	double atmp, btmp, ctmp, dtmp;
 	double A = cos(dth), B = sin(dth), C = cos(dp), D = sin(dp);
 	G_VECTOR r0, r1, r2, r3, X(x,y,z);
-	float r_inv = 1 / (float)radius;
 
 	for (theta = 0; theta < Nt; theta++)
 	{
@@ -25,12 +24,12 @@ void g_sphere_3D_core(double x, double y, double z, double radius, int FaceNumbe
 
 			g_triangle_3D_smooth_core_s(
 					r0 + X,r1 + X,r3 + X,
-					r_inv * r0,r_inv * r1,r_inv * r3,
+					r0, r1, r3,
 					DivideLevel, Wire, Fill
 			);
 			g_triangle_3D_smooth_core_s(
 					r0 + X,r3 + X,r2 + X,
-					r_inv * r0,r_inv * r3,r_inv * r2,
+					r0, r3, r2,
 					DivideLevel, Wire, Fill
 			);
 			ctmp = c;

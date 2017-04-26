@@ -101,12 +101,17 @@ void g_bird_view_f_3D(
             normal_k[2] = normal(i+1,j+1);
             normal_k[3] = normal(i,j+1);
             
-            if(FILL) for(k = 0; k < 4; k++) g_triangle_3D_smooth_worker(rc, r_corner[k], r_corner[(k+1) % 4], g_normalize(rc_normal), normal_k[k], normal_k[(k+1)%4], 0);
+			if (FILL)
+			{
+				for (k = 0; k < 4; k++)
+					g_triangle_3D_smooth_worker(rc, r_corner[k], r_corner[(k + 1) % 4], rc_normal, normal_k[k], normal_k[(k + 1) % 4], 0);
+			}
             
-            if(WIRE)
+            if (WIRE)
             {
                 g_move_s(r_corner[3]);
-                for(k=0; k<4; k++) g_plot_s(r_corner[k]);
+				for (k = 0; k < 4; k++)
+					g_plot_s(r_corner[k]);
             }
         }
     }
