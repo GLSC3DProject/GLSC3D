@@ -15,7 +15,7 @@ struct G_COLOR
 {
 	float r, g, b, a;
 
-	G_COLOR() = default;
+	G_COLOR() {}
 	G_COLOR(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {}
 };
 
@@ -23,7 +23,7 @@ struct G_VECTOR
 {
 	float x, y, z;
 
-	G_VECTOR() = default;
+	G_VECTOR() {}
 	G_VECTOR(float x, float y, float z = 0) : x(x), y(y), z(z) {}
 
 	void operator +=(G_VECTOR v) { x += v.x, y += v.y, z += v.z; }
@@ -126,7 +126,7 @@ struct G_VECTOR4
 {
 	float x, y, z, w;
 
-	G_VECTOR4() = default;
+	G_VECTOR4() {}
 	G_VECTOR4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 	G_VECTOR4(G_VECTOR v, float w) : x(v.x), y(v.y), z(v.z), w(w) {}
 };
@@ -145,7 +145,7 @@ struct G_MATRIX
 {
 	G_VECTOR4 x, y, z, w;
 
-	G_MATRIX() = default;
+	G_MATRIX() {}
 	G_MATRIX(G_VECTOR4 x, G_VECTOR4 y, G_VECTOR4 z, G_VECTOR4 w)
 		: x(x), y(y), z(z), w(w) {}
 	G_MATRIX(
