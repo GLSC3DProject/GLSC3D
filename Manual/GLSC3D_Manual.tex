@@ -15,8 +15,8 @@
 \addtolength{\textwidth}{-40truemm}     % 右の余白も20mmに
 
 \usepackage{wrapfig}
-%\usepackage[draft]{graphicx}
-\usepackage[dvipdfmx]{graphicx}
+\usepackage[draft]{graphicx}
+%\usepackage[dvipdfmx]{graphicx}
 %\usepackage{graphicx}
 \graphicspath{{Figures/eps/}}
 
@@ -385,6 +385,15 @@ Apple Retina Display の対応はデフォルトでは無効になっていま�
 それ以外の場合，スケールファクターの初期値は1です．
 
 \newpage
+\subsubsection{ワイヤーフレームとサーフェイス塗りつぶしの引数の変更}
+以前のGLSC3Dは各関数に\verb|WireFill|パラメータが存在しており，\verb|G_WIRE=0|(ワイヤーフレーム)または\verb|G_FILL=1|(サーフェイスを塗りつぶす)を指定できました．
+
+GLSC 3.0では旧GLSCに近づけるため，\verb|Wire|パラメータと\verb|Fill|パラメータに分離し，それぞれに\verb|G_YES=1|または\verb|G_NO=0|を指定するようにしました．
+
+注意 : この変更は主に旧GLSCユーザーのためのものです．
+\verb|Wire|パラメータと\verb|Fill|パラメータの両方に\verb|G_YES|を指定した場合，線分と三角形が混合しパフォーマンスが低下します．
+できるだけワイヤーフレームの描画とサーフェイスの描画を分離してください．
+
 \subsubsection{マーカーの種類の追加}
 \verb|g_marker_type|として正方形，円のほかに球を指定できるようにしました．
 引数には定数\verb|G_MARKER_SQUARE=0, G_MARKER_CIRCLE=1, G_MARKER_SPHERE=2|を指定できます．
