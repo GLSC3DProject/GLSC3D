@@ -24,16 +24,22 @@ void g_arrow_2D(
 
 	switch (type) {
 	case 0:
-		g_begin_line_loop(); break;
+		g_plot_s(C);
+		g_plot_s(A);
+		g_plot_s(B);
+		break;
 	case 1:
-		g_begin_triangles(); break;
+		g_begin_triangles();
+		g_emit_vertex(A);
+		g_emit_vertex(B);
+		g_emit_vertex(C);
+		break;
 	case 2:
-		g_begin_line_strip(); break;
+		g_move_s(A);
+		g_plot_s(B);
+		g_plot_s(C);
+		break;
 	}
-
-	g_emit_vertex(A);
-	g_emit_vertex(B);
-	g_emit_vertex(C);
 }
 
 void g_arrow_3D_core(
