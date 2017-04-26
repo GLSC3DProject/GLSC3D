@@ -98,6 +98,7 @@ int main()
 	g_marker_type(G_MARKER_SPHERE);
 	g_line_width(2);
 	g_line_type(1);
+	g_text_size(18);
 
 	bool rotation_mode = false;
 	float theta = 0;
@@ -137,6 +138,9 @@ int main()
 		}
 
 		g_box_center_3D_core(0, 0, 0, 2, 2, 2, 0, G_YES, G_NO);
+
+		g_text_standard(0, 20, "Press space key to toggle rotation mode");
+		g_text_standard(0, 40, "Press 0, 1, 2 key to change marker type");
 
 		g_finish();
 	}
