@@ -211,9 +211,9 @@ void main () {
 	vec3 q = Input[1].position;
 	vec4 v = vec4(p.y - q.y, q.x - p.x, 0, 0);
 	vec4 r = normalize(v);
-	float c = length(p - q) * 4;
-	emit_vertices(0, r, 0);
-	emit_vertices(1, r, c);
+	float c = length(p - q) * 2;
+	emit_vertices(0u, r, -c);
+	emit_vertices(1u, r, +c);
 })";
 
 const char * const LINE_FRAGMENT_SHADER_SOURCE =
