@@ -4,9 +4,7 @@
 #include <stdlib.h>
 #include "basic.h"
 #include <float.h>
-#include "timer.h"
 #include <time.h>
-#include <sys/time.h>
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -27,7 +25,7 @@
 
 double	UseSeed = -1;
 double	DrawFurrowArea = 1.0;
-double  Capture = 2;//0 no: 1 capture every times:2 capture once time
+int		Capture = 0;//0 no: 1 capture every times:2 capture once time
 double	tolerance = 1.0e-8;
 double	Paraml = 0.5;
 double	Paramlx = 0.5;
@@ -386,32 +384,17 @@ int main(int argc, char *argv[])
 	Furrow = (FurrowStruct *)malloc(sizeof(FurrowStruct) * FurrowNumber);
 
 	//SetArea(Area, (int) FurrowType);
-	struct timeval myTime;
-	struct tm *time_st;
-	gettimeofday(&myTime, NULL);
-	time_st = localtime(&myTime.tv_sec);
-	char	FolderName[1024];
-	sprintf(FolderName,"%d%02d%02d%02d%02d%02d%02d%06d",     // 現在時刻
-			time_st->tm_year+1900,     // 年
-			time_st->tm_mon+1,         // 月
-			time_st->tm_mday,          // 日
-			time_st->tm_wday,			// 曜日
-			time_st->tm_hour,          // 時
-			time_st->tm_min,           // 分
-			time_st->tm_sec,           // 秒
-			myTime.tv_usec            // マイクロ秒
-			);
 
 	g_enable_highdpi();
 	g_set_antialiasing(2);
-	g_init_core("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y, 4000, 0, 1, 1, 1,G_FALSE,1<<20,1<<20);
+	g_init_core("GRAPH", WINDOW_SIZE_X, WINDOW_SIZE_Y, G_WINDOW_CENTERED, G_WINDOW_CENTERED, 1, 1, 1,G_FALSE,1<<20,1<<20);
 	if ((int)Capture == 1 || (int)Capture == 2)
-		g_capture_set(FolderName);
+		g_capture_set(NULL);
 	g_def_scale_2D(0, -XLEN / 2 - dx, XLEN / 2 + dx, -YLEN / 2 - dx, YLEN / 2 + dx, 20, 20, 780 * (XLEN / YLEN), 780);
 	g_def_scale_2D(1, -2.2, 2.2, -1.2, 1.2, 780 * (XLEN / YLEN) / 2 - 180, 800, 400, 200);
 
 	////////////////// Initial Condition ///////////////////////////////////////
-	unsigned long long seed = time(NULL) + myTime.tv_usec;
+	unsigned long long seed = time(NULL);
 	int		i_time;
 	if(UseSeed > 0)
 		seed = (int)UseSeed;
@@ -674,11 +657,7 @@ int main(int argc, char *argv[])
 
 			g_finish();
 
-			if ((int)Capture == 0)
-			{
-				g_sleep(0.05);
-			}
-			else if ((int)Capture == 1)
+			if ((int)Capture == 1)
 			{
 				g_capture();
 			}
