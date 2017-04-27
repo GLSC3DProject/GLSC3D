@@ -600,11 +600,6 @@ int main(int argc, char *argv[])
 				for(i = 0;i < Imax;i ++)
 				{
 					r.x = (i + 0.5) * dx - XLEN / 2;
-
-					//DrawMacroChaetae
-					g_area_color_2D(0.5, 0.5, 0.5, 1);
-					for(int k = 0;k < 4;k ++)
-						g_circle_2D(MacroChaetae[k].x, MacroChaetae[k].y, dx, 0,1);
 					//Cell
 					theta_color = theta_cut_off(theta(i, j));
 					double theta_calc = 1.5 * (theta_color / (2 * PI) + 0.75);
@@ -616,6 +611,11 @@ int main(int argc, char *argv[])
 					g_hexagon(geometry(i, j).r, dx / sqrt(3), 0,1);
 				}
 			}
+
+			//DrawMacroChaetae
+			g_area_color_2D(0.5, 0.5, 0.5, 1);
+			for(int k = 0;k < 4;k ++)
+				g_circle_2D(MacroChaetae[k].x, MacroChaetae[k].y, dx, 0,1);
 
 			if(DrawFurrowArea > 0)
 			{
