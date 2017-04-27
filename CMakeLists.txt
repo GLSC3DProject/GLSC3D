@@ -17,4 +17,4 @@ add_subdirectory(Src)
 add_subdirectory(Samples)
 add_subdirectory(Advanced)
 
-#add_subdirectory(Type11)
+add_subdirectory(Type11)
