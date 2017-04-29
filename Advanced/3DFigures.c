@@ -48,13 +48,13 @@ int main()
 		g_cylinder_3D_core(0, 0, 0, 0, 0, 1, 1, 2, t,24, 0, WIRE, FILL);
 
 		g_sel_scale_3D(4);
-		g_ellipse_3D_core(0, 0, 0, 1.5, 1, 0.75, c, s, 0, 8, 0, WIRE, FILL);
+		g_ellipse_3D_core(0, 0, 0, 1.5, 1, 0.75, c, s, 0, 16, 0, WIRE, FILL);
 
 		g_sel_scale_3D(5);
 		g_box_center_3D_core(0, 0, 0, 3, 2, 1.5, 0, WIRE, FILL);
 
 		g_sel_scale_3D(6);
-		g_sphere_3D_core(0, 0, 0, 1, 8, 0, WIRE, FILL);
+		g_sphere_3D_core(0, 0, 0, 1, 16, 0, WIRE, FILL);
 
 		g_sel_scale_3D(7);
 		g_rectangle_3D_core(0, 0, 0, c, s, 0, 3, 2, 0, 0, WIRE, FILL);
