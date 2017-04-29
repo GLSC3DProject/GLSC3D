@@ -1,15 +1,15 @@
 #include "glsc3d_3_private.h"
 
-#define GLSL_VERSION_DECL "#version 150 core\n"
+#define GLSL_VERSION_DECL "#version 330 core\n"
 
 #define MATRICES_UNIFORM_DECL \
 "uniform Matrices { mat4 proj, view; float pixel_scale, screen_scale; vec2 screen_size; };"
 
-// Vertex shader for rendering lines and 2D triangles
+// Vertex shader for rendering 2D triangles
 const char * const CONSTANT_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-in vec3 in_position;
-in vec4 in_color;
+layout(location = 0) in vec3 in_position;
+layout(location = 1) in vec4 in_color;
 out VS_TO_FS {
 	vec4 color;
 } Output;
@@ -18,7 +18,7 @@ void main() {
 	Output.color = in_color;
 })";
 
-// Fragment shader for rendering lines and 2D triangles
+// Fragment shader for rendering 2D triangles
 const char * const CONSTANT_FRAG_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
 in VS_TO_FS {
@@ -32,9 +32,9 @@ void main() { out_color = Input.color; })";
 // Vertex shader for rendering 3D triangles
 const char * const LIGHTING_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-in vec3 in_position;
-in vec4 in_color;
-in vec4 in_normal;
+layout(location = 0) in vec3 in_position;
+layout(location = 1) in vec4 in_color;
+layout(location = 2) in vec4 in_normal;
 out VS_TO_FS {
 	vec4 color, normal, position;
 } Output;
@@ -79,8 +79,8 @@ void main() {
 // Vertex shader for rendering markers (size = diameter in standard coordinates)
 const char * const MARKER_STANDARD_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-in vec4 in_position;
-in vec4 in_color;
+layout(location = 0) in vec4 in_position;
+layout(location = 1) in vec4 in_color;
 out VS_TO_FS {
 	vec4 color;
 	vec3 position;
@@ -99,8 +99,8 @@ void main () {
 // Vertex shader for rendering markers (size = radius in virtual coordinates)
 const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-in vec4 in_position;
-in vec4 in_color;
+layout(location = 0) in vec4 in_position;
+layout(location = 1) in vec4 in_color;
 out VS_TO_FS {
 	vec4 color;
 	vec3 position;
@@ -168,8 +168,8 @@ void main() {
 
 const char * const LINE_VERTEX_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-in vec4 in_position;
-in vec4 in_color;
+layout(location = 0) in vec4 in_position;
+layout(location = 1) in vec4 in_color;
 out VS_TO_GS {
 	vec4 color;
 	vec3 position;
@@ -239,7 +239,7 @@ void main() {
 // Vertex shader for rendering text
 const char * const TEXTURE_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
-in vec2 in_position;
+layout(location = 0) in vec2 in_position;
 out vec2 vary_texcoord;
 void main() {
 	gl_Position = vec4(in_position.xy, 0.0, 1.0);
