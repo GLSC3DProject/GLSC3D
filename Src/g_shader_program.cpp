@@ -1,6 +1,6 @@
 #include "glsc3d_3_private.h"
 
-#define GLSL_VERSION_DECL "#version 410 core\n"
+#define GLSL_VERSION_DECL "#version 150 core\n"
 
 #define MATRICES_UNIFORM_DECL \
 "uniform Matrices { mat4 proj, view; float pixel_scale, screen_scale; vec2 screen_size; };"
@@ -8,38 +8,42 @@
 // Vertex shader for rendering lines and 2D triangles
 const char * const CONSTANT_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-layout(location = 0) in vec3 in_position;
-layout(location = 1) in vec4 in_color;
-layout(location = 0) out vec4 vary_color;
+in vec3 in_position;
+in vec4 in_color;
+out VS_TO_FS {
+	vec4 color;
+} Output;
 void main() {
-	gl_Position = proj * (view * vec4(in_position, 1));
-	vary_color = in_color;
+	gl_Position = proj * (view * vec4(in_position, 1.0));
+	Output.color = in_color;
 })";
 
 // Fragment shader for rendering lines and 2D triangles
 const char * const CONSTANT_FRAG_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
-layout(location = 0) in vec4 vary_color;
+in VS_TO_FS {
+	vec4 color;
+} Input;
 out vec4 out_color;
-void main() { out_color = vary_color; })";
+void main() { out_color = Input.color; })";
 
 // ----------------------------------------------------------------
 
 // Vertex shader for rendering 3D triangles
 const char * const LIGHTING_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-layout(location = 0) in vec3 in_position;
-layout(location = 1) in vec4 in_color;
-layout(location = 2) in vec4 in_normal;
-layout(location = 0) out vec4 vary_color;
-layout(location = 1) out vec4 vary_normal;
-layout(location = 2) out vec4 vary_position;
+in vec3 in_position;
+in vec4 in_color;
+in vec4 in_normal;
+out VS_TO_FS {
+	vec4 color, normal, position;
+} Output;
 void main() {
-	vec4 view_pos = view * vec4(in_position, 1);
+	vec4 view_pos = view * vec4(in_position, 1.0);
 	gl_Position = proj * view_pos;
-	vary_color = in_color;
-	vary_normal = view * vec4(in_normal.xyz, 0);
-	vary_position = view_pos;
+	Output.color = in_color;
+	Output.normal = view * vec4(in_normal.xyz, 0.0);
+	Output.position = view_pos;
 })";
 
 // Fragment shader for rendering 3D triangles
@@ -47,18 +51,18 @@ const char * const LIGHTING_FRAG_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
 struct G_LIGHT { vec3 direction; float pad; float ambient, diffuse, specular, shininess; };
 uniform Lights { G_LIGHT lights[3]; int num_lights; };
-layout(location = 0) in vec4 vary_color;
-layout(location = 1) in vec4 vary_normal;
-layout(location = 2) in vec4 vary_position;
+in VS_TO_FS {
+	vec4 color, normal, position;
+} Input;
 out vec4 out_color;
 vec3 calc_light(vec3 normal, G_LIGHT light) {
-	vec3 half_vec = normalize(light.direction - normalize(vary_position.xyz));
-	float amb_dif = light.diffuse * max(dot(light.direction, normal), 0);
-	float spec = light.specular * pow(max(dot(normal, half_vec), 0), light.shininess);
-	return amb_dif * vary_color.rgb + spec;
+	vec3 half_vec = normalize(light.direction - normalize(Input.position.xyz));
+	float amb_dif = light.diffuse * max(dot(light.direction, normal), 0.0);
+	float spec = light.specular * pow(max(dot(normal, half_vec), 0.0), light.shininess);
+	return amb_dif * Input.color.rgb + spec;
 }
 void main() {
-	vec3 normal = normalize(vary_normal.xyz);
+	vec3 normal = normalize(Input.normal.xyz);
 	normal *= gl_FrontFacing ? 1.0 : -1.0;
 
 	vec3 color = calc_light(normal, lights[0]);
@@ -67,7 +71,7 @@ void main() {
 	if (num_lights >= 3)
 		color += calc_light(normal, lights[2]);
 
-	out_color = vec4(color, vary_color.a);
+	out_color = vec4(color, Input.color.a);
 })";
 
 // ----------------------------------------------------------------
@@ -75,15 +79,15 @@ void main() {
 // Vertex shader for rendering markers (size = diameter in standard coordinates)
 const char * const MARKER_STANDARD_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-layout(location = 0) in vec4 in_position;
-layout(location = 1) in vec4 in_color;
+in vec4 in_position;
+in vec4 in_color;
 out VS_TO_FS {
 	vec4 color;
 	vec3 position;
 	float radius;
 } Output;
 void main () {
-	vec4 view_pos = view * vec4(in_position.xyz, 1);
+	vec4 view_pos = view * vec4(in_position.xyz, 1.0);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
 	gl_PointSize = size * screen_scale;
@@ -95,15 +99,15 @@ void main () {
 // Vertex shader for rendering markers (size = radius in virtual coordinates)
 const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-layout(location = 0) in vec4 in_position;
-layout(location = 1) in vec4 in_color;
+in vec4 in_position;
+in vec4 in_color;
 out VS_TO_FS {
 	vec4 color;
 	vec3 position;
 	float radius;
 } Output;
 void main () {
-	vec4 view_pos = view * vec4(in_position.xyz, 1);
+	vec4 view_pos = view * vec4(in_position.xyz, 1.0);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
 	gl_PointSize = size * screen_scale * pixel_scale / gl_Position.w;
@@ -135,9 +139,9 @@ in VS_TO_FS {
 } Input;
 out vec4 out_color;
 void main() {
-	vec2 coord = gl_PointCoord * 2 - 1;
-	float discriminant = 1 - dot(coord, coord);
-	if (discriminant <= 0) discard;
+	vec2 coord = gl_PointCoord * 2.0 - 1.0;
+	float discriminant = 1.0 - dot(coord, coord);
+	if (discriminant <= 0.0) discard;
 	out_color = Input.color;
 })";
 
@@ -153,7 +157,7 @@ out vec4 out_color;
 void main() {
 	vec2 coord = gl_PointCoord * 2 - 1;
 	float discriminant = 1 - dot(coord, coord);
-	if (discriminant <= 0) discard;
+	if (discriminant <= 0.0) discard;
 	vec3 normal = vec3(coord, sqrt(discriminant));
 	vec4 pos = proj * vec4(Input.position + normal * Input.radius, 1);
 	out_color = vec4(Input.color.rgb * normal.z, Input.color.a);
@@ -164,15 +168,15 @@ void main() {
 
 const char * const LINE_VERTEX_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-layout(location = 0) in vec4 in_position;
-layout(location = 1) in vec4 in_color;
+in vec4 in_position;
+in vec4 in_color;
 out VS_TO_GS {
 	vec4 color;
 	vec3 position;
 	float half_width;
 } Output;
 void main () {
-	vec4 view_pos = view * vec4(in_position.xyz, 1);
+	vec4 view_pos = view * vec4(in_position.xyz, 1.0);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
 	Output.color = in_color;
@@ -209,9 +213,9 @@ void emit_vertices(uint id, vec4 r, float coord) {
 void main () {
 	vec3 p = Input[0].position;
 	vec3 q = Input[1].position;
-	vec4 v = vec4(p.y - q.y, q.x - p.x, 0, 0);
+	vec4 v = vec4(p.y - q.y, q.x - p.x, 0.0, 0.0);
 	vec4 r = normalize(v);
-	float c = length(p - q) * 2;
+	float c = length(p - q) * 2.0;
 	emit_vertices(0u, r, -c);
 	emit_vertices(1u, r, +c);
 })";
@@ -225,7 +229,7 @@ in GS_TO_FS {
 } Input;
 out vec4 out_color;
 void main() {
-	int i = int(fract(Input.coord) * 8);
+	int i = int(fract(Input.coord) * 8.0);
 	int a = (stipple >> i) & 1;
 	out_color = vec4(Input.color.rgb, Input.color.a * float(a));
 })";
@@ -235,10 +239,10 @@ void main() {
 // Vertex shader for rendering text
 const char * const TEXTURE_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
-layout(location = 0) in vec2 in_position;
-layout(location = 0) out vec2 vary_texcoord;
+in vec2 in_position;
+out vec2 vary_texcoord;
 void main() {
-	gl_Position = vec4(in_position.xy, 0, 1);
+	gl_Position = vec4(in_position.xy, 0.0, 1.0);
 	vary_texcoord = in_position * vec2(0.5, -0.5) + 0.5;
 })";
 
@@ -247,7 +251,7 @@ const char * const TEXTURE_FRAG_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
 uniform sampler2D tex;
 uniform vec4 color;
-layout(location = 0) in vec2 vary_texcoord;
+in vec2 vary_texcoord;
 out vec4 out_color;
 void main() {
 	out_color = vec4(color.rgb, color.a * texture(tex, vary_texcoord).r);
