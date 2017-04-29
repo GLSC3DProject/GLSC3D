@@ -18,7 +18,7 @@ int main()
 
 	g_enable_highdpi();
 	g_set_antialiasing(2);
-	g_init("Grid", Size * CountX, Size * CountY);
+	g_init_core("GLSC3D", Size * CountX, Size * CountY, G_WINDOW_CENTERED, G_WINDOW_CENTERED, 1, 1, 1, 0, 0, 0);
 
 	//g_line_type(1);
 

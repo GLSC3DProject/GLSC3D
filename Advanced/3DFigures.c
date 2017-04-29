@@ -5,12 +5,12 @@
 
 int main()
 {
-	const int Width = 240, Height = 240;
+	const int Size = 240;
 	const int CountX = 5, CountY = 2;
 
 	g_enable_highdpi();
 	g_set_antialiasing(2);
-	g_init("GLSC3D", Width * CountX, Height * CountY);
+	g_init_core("GLSC3D", Size * CountX, Size * CountY, G_WINDOW_CENTERED, G_WINDOW_CENTERED, 1, 1, 1, 0, 0, 0);
 
 	g_init_light(0, 1, -1, 1);
 	g_init_light_core(1, 0, 1, 2, 0.5f);
@@ -28,7 +28,7 @@ int main()
 	int id = 0;
 	for (int i = 0; i < CountX; i++)
 	for (int j = 0; j < CountY; j++)
-		g_def_scale_3D_core(id++, -1, 1, -1, 1, -1, 1, Width * i, Height * j, Width, Height, 0, 1, 1, 8, 0, 0, 1);
+		g_def_scale_3D_core(id++, -1, 1, -1, 1, -1, 1, Size * i, Size * j, Size, Size, 0, 1, 1, 8, 0, 0, 1);
 
 	for (double t = 0;; t += 1./128) {
 		double c = cos(t), s = sin(t);
