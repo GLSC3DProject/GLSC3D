@@ -124,9 +124,9 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	G_EMIT_GLEXT(G_INIT_GLEXT);
 #endif
 
-#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
+//	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
 	G_DECL_INIT_GLEXT(PFNGLDEBUGMESSAGECALLBACKPROC, glDebugMessageCallback);
 	glDebugMessageCallback(g_debug_callback, NULL);
 #endif
