@@ -8,7 +8,7 @@ mkdir -p ${WDR}
 open ${WDR}
 cd ${WDR}
 
-git clone https://github.com/GLSC3DProject/GLSC3D
+git --depth=1 clone https://github.com/GLSC3DProject/GLSC3D
 
 cd GLSC3D
 MyProject="MyProject"
