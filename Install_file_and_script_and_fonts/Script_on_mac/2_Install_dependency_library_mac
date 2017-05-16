@@ -1,5 +1,8 @@
 #!/bin/sh
 
+#anyway install libsdl2
+sudo port -N install libsdl2
+
 InstallCommand=""
 
 comtemp="cmake"
