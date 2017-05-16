@@ -736,6 +736,8 @@ GLSC3D Ver. 2.1.1を使用されることをお勧めします．
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Windowsの場合}
 
+32ビット版 Windows には対応しておりません．64ビット版 Windows をご使用ください．
+
 \noindent \textbf{(1) Visual Studio のインストール：} 
 
 GLSC3D を使用するには Visual Studio 2017 または 2015 が必要です．
@@ -783,11 +785,12 @@ Github から GLSC3D のバイナリをダウンロードしてください．
 \newpage
 \noindent \textbf{(5) プログラムのコンパイル：} 
 
-\verb|Bin|フォルダにある\verb|ccg.bat|を使用してコンパイルすることができます．例えば
+\verb|Bin|フォルダにある\verb|ccg.bat|を使用してコンパイルすることができます．
+例えば，\verb|Hello_GLSC3D.c|をコンパイルするには，それを含むフォルダをコマンドプロンプトで開き
 \begin{center}
 	\verb|ccg Hello_GLSC3D.c|
 \end{center}
-で\verb|Hello_GLSC3D.c|をコンパイルすることができます．
+とすると\verb|Hello_GLSC3D.c|をコンパイルすることができます．
 
 Visual Studio のプロジェクトから使用するときには，
 プロジェクトのプロパティからインクルードディレクトリとリンクライブラリを指定してください．
