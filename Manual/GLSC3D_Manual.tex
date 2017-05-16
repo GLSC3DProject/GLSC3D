@@ -20,6 +20,7 @@
 \graphicspath{{Figures/eps/}}
 
 \usepackage{url}
+%\usepackage[dvipdfmx]{hyperref}
 
 \usepackage[usenames]{color}
 %\usepackage{jumoline}
@@ -735,9 +736,80 @@ GLSC3D Ver. 2.1.1を使用されることをお勧めします．
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Windowsの場合}
 
-Windowsを使用する場合，Visual Studio 2017を使ってください．Visual Studio 2017ではCMakeがサポートされています．
-Community Editionは無料で使用することができます．
-インストールの際はC++によるデスクトップ開発にチェックを入れてください．
+\noindent \textbf{(1) Visual Studio のインストール：} 
+
+GLSC3D を使用するには Visual Studio 2017 または 2015 が必要です．
+Community Edition は無料で使用することができます．
+インストールされていない方は
+\begin{center}
+	\url{https://www.visualstudio.com}
+\end{center}
+からダウンロードしてください．\\
+インストールの際はC++によるデスクトップ開発にチェックを入れてください．\\
+
+\noindent \textbf{(2) GLSC3Dのダウンロード：} 
+
+Github から GLSC3D のバイナリをダウンロードしてください．
+\begin{center}
+	\url{https://github.com/GLSC3DProject/GLSC3D/releases}
+\end{center}
+から\verb|GLSC3D_3.zip|をダウンロードして展開します．
+
+生成された\verb|GLSC3D_3|フォルダを好きな場所に移動します(インストール先になります)．\\
+
+\noindent \textbf{(3) パスの設定：} 
+
+\verb|GLSC3D_3|フォルダ内にある\verb|Bin|フォルダの場所を環境変数\verb|Path|に追加します．
+\begin{enumerate}
+	\item \verb|Bin|フォルダのパスをコピーします．
+	\item エクスプローラーの左側にあるツリーで``PC''を右クリックして``プロパティ(R)''を選択します．
+		  ``システム''ウインドウが表示されます．
+	\item 左側にある`システムの詳細設定'を選択します．
+	\item ``環境変数(N)''をクリックします．
+	\item ユーザー環境変数の\verb|Path|をダブルクリックします．
+	\item ``新規(N)''をクリックします．
+	\item 入力欄に\verb|Bin|フォルダのパスを貼り付けします．
+\end{enumerate}
+
+\noindent \textbf{(4) フォントのインストール：} 
+
+フォント``Noto Sans CJK JP''をインストールします．
+
+同梱された\verb|NotoSansCJKjp-Regular.otf|を右クリックして``インストール(I)''を選択します．
+インストールが終わったらこのファイルは削除してかまいません．\\
+
+\textbf{以上で GLSC3D のインストールは終わりです．次のページでコンパイル方法を説明します．}
+
+\newpage
+\noindent \textbf{(5) プログラムのコンパイル：} 
+
+\verb|Bin|フォルダにある\verb|ccg.bat|を使用してコンパイルすることができます．例えば
+\begin{center}
+	\verb|ccg Hello_GLSC3D.c|
+\end{center}
+で\verb|Hello_GLSC3D.c|をコンパイルすることができます．
+
+Visual Studio のプロジェクトから使用するときには，
+プロジェクトのプロパティからインクルードディレクトリとリンクライブラリを指定してください．
+\verb|Lib|フォルダにある全てのファイルのほか，\verb|opengl32.lib, user32.lib|をリンクする必要があります．\\
+
+\noindent \textbf{(6) サンプルプログラムの実行：} 
+
+\verb|Samples|にある\verb|RunAllSamples.bat|を実行すれば，サンプルプログラムやアドバンスドプログラムをコンパイルして実行することができます
+(セキュリティーの警告が表示されることがあります)．
+実行するとサンプルプログラムとアドバンスドプログラムで各1回ずつ確認メッセージが表示されるので，\verb|Y/N|(小文字でも可)で答えてください．
+
+また，\verb|Clean.bat|を実行すれば，\verb|RunAllSamples.bat|の生成物である
+\verb|*.obj, *.exe|ファイルと\verb|Frames.*|フォルダーを一括で削除することができます．\\
+
+\noindent \textbf{(7) Windows 特有の注意点：} 
+
+Visual Studio のコンパイラにおいて，文字列リテラルのエンコードはデフォルトではShift-JISになります．
+GLSC3DはUTF-8以外には対応していないため，ASCII以外の文字(日本語など）を表示するときは必ずプログラムの先頭に
+\begin{center}
+	\verb|#pragma execution_character_set("UTF-8")|
+\end{center}
+と記述してください．(\verb|Sample_g_text.c|に例があります．)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%\newpage
