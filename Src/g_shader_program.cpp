@@ -64,12 +64,17 @@ vec3 calc_light(vec3 normal, G_LIGHT light) {
 void main() {
 	vec3 normal = normalize(Input.normal.xyz);
 	normal *= gl_FrontFacing ? 1.0 : -1.0;
-
 	vec3 color = calc_light(normal, lights[0]);
 	if (num_lights >= 2)
 		color += calc_light(normal, lights[1]);
 	if (num_lights >= 3)
 		color += calc_light(normal, lights[2]);
+
+//	vec3 color = calc_light(normal, lights[0]);
+//	for(int i = 1;i < num_lights;i++)
+//	{
+//		color += calc_light(normal, lights[i]);
+//	}
 
 	out_color = vec4(color, Input.color.a);
 })";
