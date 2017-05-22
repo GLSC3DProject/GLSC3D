@@ -1,7 +1,7 @@
 #!/bin/sh
 
-#anyway install libsdl2
-sudo port -N install libsdl2
+#anyway install all library
+sudo port -N install libsdl2 cmake libpng freetype
 
 InstallCommand=""
 
@@ -50,7 +50,7 @@ fi
 
 if [ ${#InstallCommand} -gt 0 ]
 then
-	sudo port -N install ${InstallCommand}
+	echo "Error Occurred! Please again this script..."
 else
 	echo "Next step is \"3_Test_GLSC3D_on_mac\""
 fi
