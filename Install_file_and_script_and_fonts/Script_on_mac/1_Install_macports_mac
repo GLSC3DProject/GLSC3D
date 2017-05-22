@@ -5,6 +5,11 @@ echo "Checking your system..."
 if type "port" > /dev/null 2>&1
 then
 echo "port command is already installed on your mac"
+echo "Install xcode command line tool"
+sudo xcode-select --install
+echo "update port command..."
+sudo port -q selfupdate
+sudo port upgrade outdated
 echo "Next step is \"2_Install_dependency_library_mac\""
 else
 echo "Please install macports on your mac..."
