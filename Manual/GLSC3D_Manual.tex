@@ -3914,4 +3914,19 @@ GLSC3Dはある程度の透明化処理をサポートしています．この�
 
 のどれかを用いて描画するべきです．
 
+\subsection{Future Works}
+\begin{enumerate}
+\item テキストのサイズとフォントを個別に指定．$\rightarrow$Ver2.2で実装!
+\item 日本語表示．$\rightarrow$Ver3.0で実装!
+\item 3次元描画における線の問題を解消．
+\item オフスクリーンレンダリング．$\rightarrow$Ver2.1で実装!
+\item \verb|g_def_scale|を自動化．
+\item triangle bufferを動的に変化．
+\item オフスクリーンレンダリング時，通常とキャプチャーしたファイルサイズが食い違います．\verb|g_off_screen.c/g_init_off_screen_rendering|内で用意しているバッファが原因かもしれません．書き出される画像は肉眼では違わないように見えます．
+\item Cの多次元配列を内部的に呼べるが，配列が転置されて表示されます．従って，将来的にはそのような関数は消します．
+\item OpenGLの最新規格への対応．シェーダの実装．バーテックスシェーダとフラグメントシェーダをOpenGLの\verb|glShaderSource|関数を用いて呼ぶことができる，従って，三角形を描画する場合にはこの関数を通してラップすればGLSLへの対応が可能となるはず．
+\item \verb|g_isosurface.c|のコードを書き直す
+\item 線分と三角形が混じるとき極端に遅くなる
+\end{enumerate}
+
 \end{document}
