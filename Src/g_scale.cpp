@@ -20,14 +20,20 @@ void G_SCALE::select()
 
 	glViewport(x, y, w, h);
 
-	G_TRANSFORM transform;
-	transform.camera = camera;
-	transform.pixel_scale = screen.height * camera.proj.y.y;
-	transform.screen_scale = g_screen_scale_factor;
-	transform.screen_width = screen.width;
-	transform.screen_height = screen.height;
+//	G_TRANSFORM transform;
+//	transform.camera = camera;
+//	transform.pixel_scale = screen.height * camera.proj.y.y;
+//	transform.screen_scale = g_screen_scale_factor;
+//	transform.screen_width = screen.width;
+//	transform.screen_height = screen.height;
+//
+//	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
 
-	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf((float *)&camera.proj);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf((float *)&camera.view);
 }
 
 void g_def_scale_2D(

@@ -3,7 +3,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-GLuint g_texture, g_sampler, g_quad_vao;
+GLuint g_texture, g_quad_vao;
 
 G_COLOR g_current_text_color;
 float g_current_text_size = 0;
@@ -46,17 +46,18 @@ void g_text_init()
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	glGenTextures(1, &g_texture);
-	glGenSamplers(1, &g_sampler);
+//	glGenSamplers(1, &g_sampler);
 
-	glSamplerParameteri(g_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glSamplerParameteri(g_sampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glSamplerParameteri(g_sampler, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glSamplerParameteri(g_sampler, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	glGenVertexArrays(1, &g_quad_vao);
-	glBindVertexArray(g_quad_vao);
+	glGenVertexArraysAPPLE(1, &g_quad_vao);
+	glBindVertexArrayAPPLE(g_quad_vao);
 
-	glEnableVertexAttribArray(0);
+//	glEnableVertexAttribArray(0);
+	glEnableClientState(GL_VERTEX_ARRAY);
 
 	GLuint g_quad_vbo;
 	glGenBuffers(1, &g_quad_vbo);
@@ -64,7 +65,7 @@ void g_text_init()
 
 	float vertices[] = {-1, -1,  +1, -1,  -1, +1,  +1, +1};
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexPointer(2, GL_FLOAT, 0, 0);
 
 	if (FT_Error error = FT_Init_FreeType(&library)){
 		fprintf(stderr, "Unable to init Freetype. Abort.\nError : %d\n", error);
@@ -87,9 +88,9 @@ void g_text_init()
 static void g_text_render(double x, double y, const char *str)
 {
 	glBindTexture(GL_TEXTURE_2D, g_texture);
-	glBindSampler(0, g_sampler);
+//	glBindSampler(0, g_sampler);
 	g_use_program(g_texture_program);
-	glBindVertexArray(g_quad_vao);
+	glBindVertexArrayAPPLE(g_quad_vao);
 
 	glUniform1i(g_texture_sampler_location, 0);
 	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
@@ -148,6 +149,8 @@ static void g_text_render(double x, double y, const char *str)
 		physical_x += glyph->advance.x / 64;
 		physical_y += glyph->advance.y / 64;
 	}
+	if (GLenum error = glGetError())
+		printf("%d\n", error);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 

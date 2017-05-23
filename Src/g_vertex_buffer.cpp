@@ -30,16 +30,16 @@ void g_vertex_buffer_init()
 
 	g_vertex_data_count = 0;
 
-	glGenVertexArrays(1, &g_vertex_array_id);
-	glBindVertexArray(g_vertex_array_id);
+	glGenVertexArraysAPPLE(1, &g_vertex_array_id);
+	glBindVertexArrayAPPLE(g_vertex_array_id);
 
 	glGenBuffers(1, &g_vertex_buffer_id);
 	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
 	glBufferData(GL_ARRAY_BUFFER, VERTEX_BUFFER_SIZE * sizeof(G_VERTEX), NULL, GL_STREAM_DRAW);
 
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
+//	glEnableVertexAttribArray(0);
+//	glEnableVertexAttribArray(1);
+//	glEnableVertexAttribArray(2);
 }
 
 void g_vertex_buffer_append(G_VERTEX vertex)
@@ -74,13 +74,13 @@ void g_vertex_buffer_flush()
 {
 	if (g_vertex_data_count == 0) return;
 
-	glBindVertexArray(g_vertex_array_id);
+	glBindVertexArrayAPPLE(g_vertex_array_id);
 	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, g_vertex_data_count * sizeof(G_VERTEX), g_vertex_data);
 	
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), 0);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_COLOR);
-	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_NORMAL);
+	glVertexPointer(4, GL_FLOAT, sizeof(G_VERTEX), 0);
+	glColorPointer(4, GL_FLOAT, sizeof(G_VERTEX), BUFFER_OFFSET_COLOR);
+	glNormalPointer(GL_FLOAT, sizeof(G_VERTEX), BUFFER_OFFSET_NORMAL);
 	
 	glDrawArrays(g_primitive_mode, 0, g_vertex_data_count);
 
@@ -104,18 +104,18 @@ void g_prepare_points()
 
 void g_prepare_lines()
 {
-	if (g_current_program != g_line_program)
-		g_need_line_stipple_updated = true;
+//	if (g_current_program != g_line_program)
+//		g_need_line_stipple_updated = true;
 
 	g_current_color = &g_current_line_color;
 	g_current_size = g_current_line_size;
-	g_use_program(g_line_program);
+	g_use_program(g_constant_program);
 
-	if (g_need_line_stipple_updated) {
-		g_vertex_buffer_flush();
-		glUniform1i(g_line_stipple_location, g_current_line_stipple);
-		g_need_line_stipple_updated = false;
-	}
+//	if (g_need_line_stipple_updated) {
+//		g_vertex_buffer_flush();
+//		glUniform1i(g_line_stipple_location, g_current_line_stipple);
+//		g_need_line_stipple_updated = false;
+//	}
 }
 
 void g_prepare_triangles()

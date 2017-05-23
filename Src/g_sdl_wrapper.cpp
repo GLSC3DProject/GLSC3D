@@ -76,15 +76,15 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG
-#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-		| SDL_GL_CONTEXT_DEBUG_FLAG
-#endif
-	);
+//	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+//	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG
+//#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
+//		| SDL_GL_CONTEXT_DEBUG_FLAG
+//#endif
+//	);
 
 	if (g_antialiasing_level > 0) {
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
@@ -124,7 +124,7 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	G_EMIT_GLEXT(G_INIT_GLEXT);
 #endif
 
-//	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
+	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
 	G_DECL_INIT_GLEXT(PFNGLDEBUGMESSAGECALLBACKPROC, glDebugMessageCallback);

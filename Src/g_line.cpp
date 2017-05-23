@@ -29,7 +29,7 @@ GLint g_stipple_type[] = {
 G_COLOR	g_current_line_color;
 float	g_current_line_size;
 int		g_current_line_stipple;
-bool	g_need_line_stipple_updated;
+//bool	g_need_line_stipple_updated;
 
 G_LINE_APPEARANCE glsc3D_g_def_line[TotalDisplayNumber];
 
@@ -59,7 +59,7 @@ void g_line_type(G_UINT type)
 
 	if (g_current_line_stipple != stipple) {
 		g_current_line_stipple = stipple;
-		g_need_line_stipple_updated = true;
+//		g_need_line_stipple_updated = true;
 	}
 }
 

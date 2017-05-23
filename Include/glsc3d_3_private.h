@@ -13,7 +13,7 @@
 #include <stdlib.h>
 
 #ifdef __APPLE__
-#include <OpenGL/gl3.h>
+#include <OpenGL/gl.h>
 #endif
 
 #ifdef _WIN32
@@ -195,7 +195,7 @@ void update_input_key_state(void);
 extern G_COLOR	g_current_line_color;
 extern float	g_current_line_size;
 extern int		g_current_line_stipple;
-extern bool		g_need_line_stipple_updated;
+//extern bool		g_need_line_stipple_updated;
 
 #endif
 
@@ -241,20 +241,20 @@ void g_quit(void);
 
 // ---- g_shader_program.cpp
 
-enum G_UNIFORM_BINDING { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
+//enum G_UNIFORM_BINDING { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
 enum G_MARKER_SIZE_TYPE { G_MARKER_SIZE_STANDARD, G_MARKER_SIZE_VIRTUAL, G_NUM_MARKER_SIZE_TYPES };
 
 extern GLuint g_constant_program, g_lighting_program;
 extern GLuint g_marker_programs[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
-extern GLuint g_line_program;
+//extern GLuint g_line_program;
 extern GLuint g_texture_program;
 extern GLuint g_current_program;
 
-extern GLint g_line_stipple_location;
+//extern GLint g_line_stipple_location;
 extern GLint g_texture_sampler_location, g_texture_color_location;
 
 void g_shader_program_init();
-void g_update_uniform(GLuint index, GLsizei size, const void *data);
+//void g_update_uniform(GLuint index, GLsizei size, const void *data);
 void g_use_program(GLuint program);
 
 // ---- g_vertex_buffer.c

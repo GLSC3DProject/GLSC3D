@@ -31,7 +31,7 @@ void g_init_core(
 	g_shader_program_init();
 	g_text_init();
 
-	glEnable(GL_PROGRAM_POINT_SIZE);
+	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
 
 	g_marker_size(1);
 	g_line_width(2);
