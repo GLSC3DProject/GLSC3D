@@ -17,6 +17,8 @@ struct G_COLOR
 
 	G_COLOR() {}
 	G_COLOR(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {}
+
+	operator const float *() const { return (const float *)this; }
 };
 
 struct G_VECTOR

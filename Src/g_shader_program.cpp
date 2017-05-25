@@ -247,8 +247,8 @@ GLSL_VERSION_DECL R"(
 //layout(location = 0) in vec2 in_position;
 varying vec2 vary_texcoord;
 void main() {
-//	gl_Position = vec4(gl_Vertex.xy, 0.0, 1.0);
-	vary_texcoord = gl_Position.xy * vec2(0.5, -0.5) + 0.5;
+	gl_Position = vec4(gl_Vertex.xy, 0.0, 1.0);
+	vary_texcoord = gl_Vertex.xy * vec2(0.5, -0.5) + 0.5;
 })";
 
 // Fragment shader for rendering text
@@ -260,6 +260,7 @@ varying vec2 vary_texcoord;
 //out vec4 out_color;
 void main() {
 	gl_FragColor = vec4(color.rgb, color.a * texture2D(tex, vary_texcoord).r);
+//	gl_FragColor = vec4(0, 0, 0, 1);
 })";
 
 GLuint g_constant_program, g_lighting_program;
@@ -408,7 +409,7 @@ void g_shader_program_init()
 
 	g_texture_sampler_location = glGetUniformLocation(g_texture_program, "tex");
 	g_texture_color_location = glGetUniformLocation(g_texture_program, "color");
-	printf("%d\n", g_texture_color_location);
+//	printf("%d, %d\n", g_texture_sampler_location, g_texture_color_location);
 }
 
 //void g_update_uniform(GLuint index, GLsizei size, const void *data)

@@ -10,7 +10,7 @@
 G_EMIT_GLEXT(G_DECL_GLEXT);
 
 // Uncomment to enable OpenGL debug messages
-//#define G_ENABLE_OPENGL_DEBUG_CALLBACK
+#define G_ENABLE_OPENGL_DEBUG_CALLBACK
 
 #endif // ifndef __APPLE__
 
@@ -80,11 +80,11 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
 //	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-//	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG
-//#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-//		| SDL_GL_CONTEXT_DEBUG_FLAG
-//#endif
-//	);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0 //SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
+		| SDL_GL_CONTEXT_DEBUG_FLAG
+#endif
+	);
 
 	if (g_antialiasing_level > 0) {
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);

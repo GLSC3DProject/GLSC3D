@@ -46,15 +46,17 @@ void g_text_init()
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	glGenTextures(1, &g_texture);
-//	glGenSamplers(1, &g_sampler);
+	glBindTexture(GL_TEXTURE_2D, g_texture);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	glGenVertexArraysAPPLE(1, &g_quad_vao);
-	glBindVertexArrayAPPLE(g_quad_vao);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glGenVertexArrays(1, &g_quad_vao);
+	glBindVertexArray(g_quad_vao);
 
 //	glEnableVertexAttribArray(0);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -66,6 +68,8 @@ void g_text_init()
 	float vertices[] = {-1, -1,  +1, -1,  -1, +1,  +1, +1};
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexPointer(2, GL_FLOAT, 0, 0);
+
+	glBindVertexArray(0);
 
 	if (FT_Error error = FT_Init_FreeType(&library)){
 		fprintf(stderr, "Unable to init Freetype. Abort.\nError : %d\n", error);
@@ -87,10 +91,10 @@ void g_text_init()
 
 static void g_text_render(double x, double y, const char *str)
 {
+	g_vertex_buffer_flush();
 	glBindTexture(GL_TEXTURE_2D, g_texture);
-//	glBindSampler(0, g_sampler);
 	g_use_program(g_texture_program);
-	glBindVertexArrayAPPLE(g_quad_vao);
+	glBindVertexArray(g_quad_vao);
 
 	glUniform1i(g_texture_sampler_location, 0);
 	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
@@ -149,10 +153,11 @@ static void g_text_render(double x, double y, const char *str)
 		physical_x += glyph->advance.x / 64;
 		physical_y += glyph->advance.y / 64;
 	}
-	if (GLenum error = glGetError())
-		printf("%d\n", error);
+//	if (GLenum error = glGetError())
+//		printf("%d\n", error);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindVertexArray(0);
 
 	glsc3D_inner_scale[g_current_scale_id].select();
 }

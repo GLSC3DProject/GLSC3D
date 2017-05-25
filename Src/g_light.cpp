@@ -32,8 +32,20 @@
 
 void g_init_light_core(G_UINT lightnum, float x, float y, float z, float power)
 {
-//	if (lightnum >= NUM_LIGHTS) return;
-//
+	if (lightnum >= NUM_LIGHTS) return;
+
+	G_COLOR vec_zero(0, 0, 0, 0);
+	G_COLOR vec_power(power, power, power, power);
+	G_VECTOR4 vec_pos(x, y, z, 0);
+
+	GLenum lightname = GL_LIGHT0 + lightnum;
+
+	glLightfv(lightname, GL_AMBIENT, (float *)&vec_zero);
+	glLightfv(lightname, GL_DIFFUSE, (float *)&vec_power);
+	glLightfv(lightname, GL_SPECULAR, (float *)&vec_power);
+	glLightfv(lightname, GL_POSITION, (float *)&vec_pos);
+
+	glEnable(lightname);
 //	G_LIGHT &target = lights[lightnum];
 //	target.direction = g_normalize(G_VECTOR(x, y, z));
 //	target.enabled = true;
@@ -47,7 +59,7 @@ void g_init_light_core(G_UINT lightnum, float x, float y, float z, float power)
 
 void g_init_light(G_UINT lightnum, float x, float y, float z)
 {
-//	g_init_light_core(lightnum, x, y, z, 1);
+	g_init_light_core(lightnum, x, y, z, 1);
 }
 
 void g_disable_light(G_UINT lightnum)

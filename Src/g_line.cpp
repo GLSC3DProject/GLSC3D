@@ -46,6 +46,8 @@ void g_line_color(float r, float g, float b, float a)
 void g_line_width(float size)
 {
 	g_current_line_size = size;
+	g_vertex_buffer_flush();
+	glLineWidth(size);
 }
 
 void g_line_type(G_UINT type)
@@ -59,11 +61,13 @@ void g_line_type(G_UINT type)
 
 	if (g_current_line_stipple != stipple) {
 		g_current_line_stipple = stipple;
+		g_vertex_buffer_flush();
+		glLineStipple(1, stipple);
 //		g_need_line_stipple_updated = true;
 	}
 }
 
-void g_def_line(int id, float r, float g, float b, float a, float width, int type)
+void g_def_line(int id, float r, float g, float b, float a, float width, G_UINT type)
 {
 	glsc3D_g_def_line[id].color = G_COLOR(r, g, b, a);
 	glsc3D_g_def_line[id].width = width;
