@@ -51,8 +51,8 @@ void g_vertex_buffer_init()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, G_COLOR(0, 0, 0, 0));
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, G_COLOR(1, 1, 1, 1));
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 64);
-	glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
-	glEnable(GL_COLOR_MATERIAL);
+	//glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+	//glEnable(GL_COLOR_MATERIAL);
 }
 
 void g_vertex_buffer_append(G_VERTEX vertex)
@@ -110,7 +110,7 @@ void g_vertex_buffer_flush()
 	}
 }
 
-typedef void g_prepare_func_type(void);
+typedef void (*g_prepare_func_type)(void);
 
 void g_set_primitive_mode(GLenum mode, bool always_flush, g_prepare_func_type prepare_func)
 {
@@ -138,7 +138,7 @@ void g_prepare_lines()
 	g_current_color = &g_current_line_color;
 	g_current_size = g_current_line_size;
 //	g_use_program(g_constant_program);
-	glDisable(GL_LIGHTING);
+	//glDisable(GL_LIGHTING);
 
 //	if (g_need_line_stipple_updated) {
 //		g_vertex_buffer_flush();
@@ -153,15 +153,15 @@ void g_prepare_triangles()
 		g_current_color = &g_current_area_color_3D;
 //		g_use_program(g_lighting_program);
 		if (!g_inside_glbegin) {
-			g_use_program(0);
-			glEnable(GL_LIGHTING);
+			g_use_program(g_lighting_program);
+			//glEnable(GL_LIGHTING);
 		}
 	} else {
 		g_current_color = &g_current_area_color_2D;
 //		g_use_program(g_constant_program);
 		if (!g_inside_glbegin) {
 			g_use_program(0);
-			glDisable(GL_LIGHTING);
+			//glDisable(GL_LIGHTING);
 		}
 	}
 	g_current_size = 0;
