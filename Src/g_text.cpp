@@ -3,7 +3,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-GLuint g_texture, g_quad_vao;
+GLuint g_texture, g_quad_vbo;
 
 G_COLOR g_current_text_color;
 float g_current_text_size = 0;
@@ -55,13 +55,13 @@ void g_text_init()
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glGenVertexArrays(1, &g_quad_vao);
-	glBindVertexArray(g_quad_vao);
+//	glGenVertexArrays(1, &g_quad_vao);
+//	glBindVertexArray(g_quad_vao);
 
 //	glEnableVertexAttribArray(0);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	GLuint g_quad_vbo;
+//	GLuint g_quad_vbo;
 	glGenBuffers(1, &g_quad_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
 
@@ -69,7 +69,8 @@ void g_text_init()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexPointer(2, GL_FLOAT, 0, 0);
 
-	glBindVertexArray(0);
+//	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	if (FT_Error error = FT_Init_FreeType(&library)){
 		fprintf(stderr, "Unable to init Freetype. Abort.\nError : %d\n", error);
@@ -94,7 +95,7 @@ static void g_text_render(double x, double y, const char *str)
 	g_vertex_buffer_flush();
 	glBindTexture(GL_TEXTURE_2D, g_texture);
 	g_use_program(g_texture_program);
-	glBindVertexArray(g_quad_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
 
 	glUniform1i(g_texture_sampler_location, 0);
 	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
@@ -157,7 +158,8 @@ static void g_text_render(double x, double y, const char *str)
 //		printf("%d\n", error);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindVertexArray(0);
+//	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glsc3D_inner_scale[g_current_scale_id].select();
 }

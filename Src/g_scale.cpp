@@ -87,8 +87,8 @@ void g_def_scale_3D_core(
 
 void g_sel_scale_private(int id, G_DIMENSION dimension, bool boundary)
 {
-	g_vertex_buffer_flush();
 	g_triangle_buffer_flush();
+	g_vertex_buffer_flush();
 
 	if (boundary) {
 		G_SCALE scale;

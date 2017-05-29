@@ -76,94 +76,71 @@ void main() {
 
 // ----------------------------------------------------------------
 
-/*
 // Vertex shader for rendering markers (size = diameter in standard coordinates)
-const char * const MARKER_STANDARD_VERT_SHADER_SOURCE =
-GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-layout(location = 0) in vec4 in_position;
-layout(location = 1) in vec4 in_color;
-out VS_TO_FS {
-	vec4 color;
-	vec3 position;
-	float radius;
-} Output;
+const char * const MARKER_STANDARD_VERT_SHADER_SOURCE = R"(
+varying vec4 color;
+varying vec3 position;
+varying float radius;
 void main () {
-	vec4 view_pos = view * vec4(in_position.xyz, 1.0);
-	float size = in_position.w;
-	gl_Position = proj * view_pos;
+	vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);
+	float size = gl_Vertex.w;
+	gl_Position = gl_ProjectionMatrix * view_pos;
 	gl_PointSize = size * screen_scale;
-	Output.color = in_color;
-	Output.position = view_pos.xyz;
-	Output.radius = size * gl_Position.w / pixel_scale;
+	color = gl_Color;
+	position = gl_Vertex.xyz;
+	radius = size * gl_Position.w / pixel_scale;
 })";
 
 // Vertex shader for rendering markers (size = radius in virtual coordinates)
-const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE =
-GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-layout(location = 0) in vec4 in_position;
-layout(location = 1) in vec4 in_color;
-out VS_TO_FS {
-	vec4 color;
-	vec3 position;
-	float radius;
-} Output;
+const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE = R"(
+varying vec4 color;
+varying vec3 position;
+varying float radius;
 void main () {
-	vec4 view_pos = view * vec4(in_position.xyz, 1.0);
-	float size = in_position.w;
-	gl_Position = proj * view_pos;
+	vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);
+	float size = gl_Vertex.w;
+	gl_Position = gl_ProjectionMatrix * view_pos;
 	gl_PointSize = size * screen_scale * pixel_scale / gl_Position.w;
-	Output.color = in_color;
-	Output.position = view_pos.xyz;
-	Output.radius = size;
+	color = gl_Color;
+	position = view_pos.xyz;
+	radius = size;
 })";
 
 // Fragment shader for rendering markers as 2D squares
-const char * const MARKER_SQUARE_FRAG_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(
-in VS_TO_FS {
-	vec4 color;
-	vec3 position;
-	float radius;
-} Input;
-out vec4 out_color;
+const char * const MARKER_SQUARE_FRAG_SHADER_SOURCE = R"(
+varying vec4 color;
+varying vec3 position;
+varying float radius;
 void main() {
-	out_color = Input.color;
+	gl_FragColor = color;
 })";
 
 // Fragment shader for rendering markers as 2D circles
-const char * const MARKER_CIRCLE_FRAG_SHADER_SOURCE =
-GLSL_VERSION_DECL R"(
-in VS_TO_FS {
-	vec4 color;
-	vec3 position;
-	float radius;
-} Input;
-out vec4 out_color;
+const char * const MARKER_CIRCLE_FRAG_SHADER_SOURCE = R"(
+varying vec4 color;
+varying vec3 position;
+varying float radius;
 void main() {
 	vec2 coord = gl_PointCoord * 2.0 - 1.0;
 	float discriminant = 1.0 - dot(coord, coord);
 	if (discriminant <= 0.0) discard;
-	out_color = Input.color;
+	gl_FragColor = color;
 })";
 
 // Fragment shader for rendering markers as 3D spheres
-const char * const MARKER_SPHERE_FRAG_SHADER_SOURCE =
-GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
-in VS_TO_FS {
-	vec4 color;
-	vec3 position;
-	float radius;
-} Input;
-out vec4 out_color;
+const char * const MARKER_SPHERE_FRAG_SHADER_SOURCE = R"(
+varying vec4 color;
+varying vec3 position;
+varying float radius;
 void main() {
 	vec2 coord = gl_PointCoord * 2 - 1;
 	float discriminant = 1 - dot(coord, coord);
 	if (discriminant <= 0.0) discard;
 	vec3 normal = vec3(coord, sqrt(discriminant));
-	vec4 pos = proj * vec4(Input.position + normal * Input.radius, 1);
-	out_color = vec4(Input.color.rgb * normal.z, Input.color.a);
+	vec4 pos = gl_ProjectionMatrix * vec4(position + normal * radius, 1);
+	gl_FragColor = vec4(color.rgb * normal.z, color.a);
 	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;
-})";*/
+})";
 
 // ----------------------------------------------------------------
 
@@ -372,7 +349,6 @@ void g_shader_program_init()
 	g_lighting_program = g_create_program(LIGHTING_VERT_SHADER_SOURCE, LIGHTING_FRAG_SHADER_SOURCE);
 //	g_bind_uniform_block(g_lighting_program, "Matrices", G_UNIFORM_MATRICES);
 
-/*
 	GLuint marker_vert_shaders[] = {
 		g_create_shader(GL_VERTEX_SHADER, MARKER_STANDARD_VERT_SHADER_SOURCE),
 		g_create_shader(GL_VERTEX_SHADER, MARKER_VIRTUAL_VERT_SHADER_SOURCE),
@@ -389,7 +365,6 @@ void g_shader_program_init()
 //			g_bind_uniform_block(g_marker_programs[i][j], "Matrices", G_UNIFORM_MATRICES);
 		}
 	}
-*/
 
 //	g_line_program = glCreateProgram();
 //	glAttachShader(g_line_program, g_create_shader(GL_VERTEX_SHADER, LINE_VERTEX_SHADER_SOURCE));

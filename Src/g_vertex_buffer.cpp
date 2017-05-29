@@ -47,12 +47,6 @@ void g_vertex_buffer_init()
 //	glEnableClientState(GL_VERTEX_ARRAY);
 //	glEnableClientState(GL_COLOR_ARRAY);
 //	glEnableClientState(GL_NORMAL_ARRAY);
-
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, G_COLOR(0, 0, 0, 0));
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, G_COLOR(1, 1, 1, 1));
-	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 64);
-	//glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
-	//glEnable(GL_COLOR_MATERIAL);
 }
 
 void g_vertex_buffer_append(G_VERTEX vertex)
@@ -73,7 +67,8 @@ void g_emit_vertex(G_VECTOR position)
 //	g_vertex_buffer_append({position, g_current_size, *g_current_color, g_vector_zero, 0});
 	glColor4fv((float *)g_current_color);
 //	glNormal3fv((float *)&vertex.normal);
-	glVertex3fv((float *)&position);
+//	glVertex3fv((float *)&position);
+	glVertex4f(position.x, position.y, position.z, g_current_size);
 }
 
 void g_emit_line(G_VECTOR p, G_VECTOR q)
@@ -114,7 +109,7 @@ typedef void (*g_prepare_func_type)(void);
 
 void g_set_primitive_mode(GLenum mode, bool always_flush, g_prepare_func_type prepare_func)
 {
-	if (g_primitive_mode != mode || always_flush) {
+	if (g_primitive_mode != mode || always_flush || !g_inside_glbegin) {
 		g_vertex_buffer_flush();
 		prepare_func();
 		glBegin(mode);
@@ -136,9 +131,8 @@ void g_prepare_lines()
 //		g_need_line_stipple_updated = true;
 
 	g_current_color = &g_current_line_color;
-	g_current_size = g_current_line_size;
+	g_current_size = 1;
 //	g_use_program(g_constant_program);
-	//glDisable(GL_LIGHTING);
 
 //	if (g_need_line_stipple_updated) {
 //		g_vertex_buffer_flush();
@@ -154,17 +148,15 @@ void g_prepare_triangles()
 //		g_use_program(g_lighting_program);
 		if (!g_inside_glbegin) {
 			g_use_program(g_lighting_program);
-			//glEnable(GL_LIGHTING);
 		}
 	} else {
 		g_current_color = &g_current_area_color_2D;
 //		g_use_program(g_constant_program);
 		if (!g_inside_glbegin) {
 			g_use_program(0);
-			//glDisable(GL_LIGHTING);
 		}
 	}
-	g_current_size = 0;
+	g_current_size = 1;
 }
 
 void g_begin_points()

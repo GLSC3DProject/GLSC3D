@@ -32,8 +32,10 @@ void update_lights()
 		}
 	}
 
+#ifndef __APPLE__
 	G_DECL_INIT_GLEXT(PFNGLUNIFORM3FVPROC, glUniform3fv);
 	G_DECL_INIT_GLEXT(PFNGLUNIFORM1FVPROC, glUniform1fv);
+#endif
 
 	glUseProgram(g_lighting_program);
 	glUniform1i(g_lighting_num_lights_location, num_lights);
