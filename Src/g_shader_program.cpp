@@ -1,6 +1,6 @@
 #include "glsc3d_3_private.h"
 
-//#define GLSL_VERSION_DECL "#version 330 core\n"
+#define GLSL_VERSION_DECL "#version 120"
 
 //#define MATRICES_UNIFORM_DECL \
 //"uniform Matrices { mat4 proj, view; float pixel_scale, screen_scale; vec2 screen_size; };"
@@ -32,7 +32,7 @@ void main() { out_color = Input.color; })";
 // ----------------------------------------------------------------
 
 // Vertex shader for rendering 3D triangles
-const char * const LIGHTING_VERT_SHADER_SOURCE = R"(
+const char * const LIGHTING_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 varying vec4 vary_color, vary_normal, vary_position;
 void main() {
 	vec4 view_pos = gl_ModelViewMatrix * gl_Vertex;
@@ -43,7 +43,7 @@ void main() {
 })";
 
 // Fragment shader for rendering 3D triangles
-const char * const LIGHTING_FRAG_SHADER_SOURCE = R"(
+const char * const LIGHTING_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 //struct G_LIGHT { vec3 direction; float pad; float ambient, diffuse, specular, shininess; };
 //uniform Lights { G_LIGHT lights[3]; int num_lights; };
 uniform int num_lights;
@@ -77,7 +77,7 @@ void main() {
 // ----------------------------------------------------------------
 
 // Vertex shader for rendering markers (size = diameter in standard coordinates)
-const char * const MARKER_STANDARD_VERT_SHADER_SOURCE = R"(
+const char * const MARKER_STANDARD_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 varying vec4 color;
 varying vec3 position;
 varying float radius;
@@ -92,7 +92,7 @@ void main () {
 })";
 
 // Vertex shader for rendering markers (size = radius in virtual coordinates)
-const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE = R"(
+const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 varying vec4 color;
 varying vec3 position;
 varying float radius;
@@ -107,7 +107,7 @@ void main () {
 })";
 
 // Fragment shader for rendering markers as 2D squares
-const char * const MARKER_SQUARE_FRAG_SHADER_SOURCE = R"(
+const char * const MARKER_SQUARE_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 varying vec4 color;
 varying vec3 position;
 varying float radius;
@@ -116,7 +116,7 @@ void main() {
 })";
 
 // Fragment shader for rendering markers as 2D circles
-const char * const MARKER_CIRCLE_FRAG_SHADER_SOURCE = R"(
+const char * const MARKER_CIRCLE_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 varying vec4 color;
 varying vec3 position;
 varying float radius;
@@ -128,16 +128,16 @@ void main() {
 })";
 
 // Fragment shader for rendering markers as 3D spheres
-const char * const MARKER_SPHERE_FRAG_SHADER_SOURCE = R"(
+const char * const MARKER_SPHERE_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 varying vec4 color;
 varying vec3 position;
 varying float radius;
 void main() {
-	vec2 coord = gl_PointCoord * 2 - 1;
-	float discriminant = 1 - dot(coord, coord);
+	vec2 coord = gl_PointCoord * 2.0 - 1.0;
+	float discriminant = 1.0 - dot(coord, coord);
 	if (discriminant <= 0.0) discard;
 	vec3 normal = vec3(coord, sqrt(discriminant));
-	vec4 pos = gl_ProjectionMatrix * vec4(position + normal * radius, 1);
+	vec4 pos = gl_ProjectionMatrix * vec4(position + normal * radius, 1.0);
 	gl_FragColor = vec4(color.rgb * normal.z, color.a);
 	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;
 })";
@@ -211,12 +211,13 @@ void main() {
 	int i = int(fract(Input.coord) * 8.0);
 	int a = (stipple >> i) & 1;
 	out_color = vec4(Input.color.rgb, Input.color.a * float(a));
-})";*/
+})";
+*/
 
 // ----------------------------------------------------------------
 
 // Vertex shader for rendering text
-const char * const TEXTURE_VERT_SHADER_SOURCE = R"(
+const char * const TEXTURE_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 //layout(location = 0) in vec2 in_position;
 varying vec2 vary_texcoord;
 void main() {
@@ -225,7 +226,7 @@ void main() {
 })";
 
 // Fragment shader for rendering text
-const char * const TEXTURE_FRAG_SHADER_SOURCE = R"(
+const char * const TEXTURE_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 uniform sampler2D tex;
 uniform vec4 color;
 varying vec2 vary_texcoord;
