@@ -12,10 +12,6 @@ struct G_LIGHT
 G_LIGHT lights[NUM_LIGHTS];
 bool lights_enabled[NUM_LIGHTS];
 
-extern GLint g_lighting_num_lights_location;
-extern GLint g_lighting_light_direction_location;
-extern GLint g_lighting_light_power_location;
-
 void update_lights()
 {
 	//G_LIGHT lights[NUM_LIGHTS];
@@ -37,7 +33,7 @@ void update_lights()
 	G_DECL_INIT_GLEXT(PFNGLUNIFORM1FVPROC, glUniform1fv);
 #endif
 
-	glUseProgram(g_lighting_program);
+	g_use_program(g_lighting_program);
 	glUniform1i(g_lighting_num_lights_location, num_lights);
 	glUniform3fv(g_lighting_light_direction_location, num_lights, (const float *)light_direction);
 	glUniform1fv(g_lighting_light_power_location, num_lights, light_power);
@@ -67,10 +63,6 @@ void g_init_light_core(G_UINT lightnum, float x, float y, float z, float power)
 	target.power = power;
 
 	lights_enabled[lightnum] = true;
-	//target.ambient = 0;
-	//target.diffuse = power;
-	//target.specular = power;
-	//target.shininess = 64;
 
 	update_lights();
 #endif

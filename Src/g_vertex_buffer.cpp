@@ -118,11 +118,19 @@ void g_set_primitive_mode(GLenum mode, bool always_flush, g_prepare_func_type pr
 	}
 }
 
+extern float g_current_pixel_scale;
+
 void g_prepare_points()
 {
 	g_current_color = &g_current_marker_color;
 	g_current_size = g_current_marker_size;
-	g_use_program(g_marker_programs[g_current_marker_size_type][g_current_marker_type]);
+	GLuint program = g_marker_programs[g_current_marker_size_type][g_current_marker_type];
+	if (program != g_current_program) {
+		g_use_program(program);
+//		glUniform1f(g_marker_pixel_scale_location[g_current_marker_size_type][g_current_marker_type], g_current_pixel_scale);
+		glUniform1f(0, g_current_pixel_scale);
+	}
+//	g_use_program(g_marker_programs[g_current_marker_size_type][g_current_marker_type]);
 }
 
 void g_prepare_lines()
@@ -133,6 +141,7 @@ void g_prepare_lines()
 	g_current_color = &g_current_line_color;
 	g_current_size = 1;
 //	g_use_program(g_constant_program);
+	g_use_program(0);
 
 //	if (g_need_line_stipple_updated) {
 //		g_vertex_buffer_flush();

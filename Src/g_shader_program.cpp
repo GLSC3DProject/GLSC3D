@@ -78,6 +78,7 @@ void main() {
 
 // Vertex shader for rendering markers (size = diameter in standard coordinates)
 const char * const MARKER_STANDARD_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
+uniform float pixel_scale;
 varying vec4 color;
 varying vec3 position;
 varying float radius;
@@ -85,7 +86,7 @@ void main () {
 	vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);
 	float size = gl_Vertex.w;
 	gl_Position = gl_ProjectionMatrix * view_pos;
-	gl_PointSize = size * screen_scale;
+	gl_PointSize = size;
 	color = gl_Color;
 	position = gl_Vertex.xyz;
 	radius = size * gl_Position.w / pixel_scale;
@@ -93,6 +94,7 @@ void main () {
 
 // Vertex shader for rendering markers (size = radius in virtual coordinates)
 const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
+uniform float pixel_scale;
 varying vec4 color;
 varying vec3 position;
 varying float radius;
@@ -100,7 +102,7 @@ void main () {
 	vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);
 	float size = gl_Vertex.w;
 	gl_Position = gl_ProjectionMatrix * view_pos;
-	gl_PointSize = size * screen_scale * pixel_scale / gl_Position.w;
+	gl_PointSize = size * pixel_scale / gl_Position.w;
 	color = gl_Color;
 	position = view_pos.xyz;
 	radius = size;
@@ -235,7 +237,7 @@ void main() {
 	gl_FragColor = vec4(color.rgb, color.a * texture2D(tex, vary_texcoord).r);
 })";
 
-GLuint g_constant_program, g_lighting_program;
+GLuint g_lighting_program;
 GLuint g_marker_programs[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
 //GLuint g_line_program;
 GLuint g_texture_program;
@@ -245,7 +247,9 @@ GLuint g_current_program;
 GLint g_lighting_num_lights_location;
 GLint g_lighting_light_direction_location;
 GLint g_lighting_light_power_location;
-GLint g_texture_sampler_location, g_texture_color_location;
+//GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
+GLint g_texture_sampler_location;
+GLint g_texture_color_location;
 
 //GLuint g_uniforms[G_NUM_UNIFORMS];
 
@@ -364,6 +368,8 @@ void g_shader_program_init()
 		for (GLuint j = 0; j < G_NUM_MARKER_TYPES; j++) {
 			g_marker_programs[i][j] = g_create_program(marker_vert_shaders[i], marker_frag_shaders[j]);
 //			g_bind_uniform_block(g_marker_programs[i][j], "Matrices", G_UNIFORM_MATRICES);
+//			g_marker_pixel_scale_location[i][j] = glGetUniformLocation(g_marker_programs[i][j], "pixel_scale");
+//			printf("%d\n", g_marker_pixel_scale_location[i][j]);
 		}
 	}
 

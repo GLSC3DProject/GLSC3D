@@ -244,14 +244,19 @@ void g_quit(void);
 //enum G_UNIFORM_BINDING { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
 enum G_MARKER_SIZE_TYPE { G_MARKER_SIZE_STANDARD, G_MARKER_SIZE_VIRTUAL, G_NUM_MARKER_SIZE_TYPES };
 
-extern GLuint g_constant_program, g_lighting_program;
+extern GLuint g_lighting_program;
 extern GLuint g_marker_programs[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
 //extern GLuint g_line_program;
 extern GLuint g_texture_program;
 extern GLuint g_current_program;
 
+extern GLint g_lighting_num_lights_location;
+extern GLint g_lighting_light_direction_location;
+extern GLint g_lighting_light_power_location;
 //extern GLint g_line_stipple_location;
-extern GLint g_texture_sampler_location, g_texture_color_location;
+extern GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
+extern GLint g_texture_sampler_location;
+extern GLint g_texture_color_location;
 
 void g_shader_program_init();
 //void g_update_uniform(GLuint index, GLsizei size, const void *data);

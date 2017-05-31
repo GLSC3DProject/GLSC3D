@@ -5,6 +5,8 @@ G_DIMENSION     g_scale_dim_flag;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
+float g_current_pixel_scale;
+
 struct G_TRANSFORM
 {
 	G_CAMERA camera;
@@ -20,14 +22,7 @@ void G_SCALE::select()
 
 	glViewport(x, y, w, h);
 
-//	G_TRANSFORM transform;
-//	transform.camera = camera;
-//	transform.pixel_scale = screen.height * camera.proj.y.y;
-//	transform.screen_scale = g_screen_scale_factor;
-//	transform.screen_width = screen.width;
-//	transform.screen_height = screen.height;
-//
-//	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
+	g_current_pixel_scale = screen.height * camera.proj.y.y;
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf((float *)&camera.proj);
