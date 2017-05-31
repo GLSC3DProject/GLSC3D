@@ -3,7 +3,7 @@
 #define GLSL_VERSION_DECL "#version 330 core\n"
 
 #define MATRICES_UNIFORM_DECL \
-"uniform Matrices { mat4 proj, view; float pixel_scale, screen_scale; vec2 screen_size; };"
+"uniform Matrices { mat4 proj, view; vec2 pixel_scale; float screen_scale; };"
 
 // Vertex shader for rendering 2D triangles
 const char * const CONSTANT_VERT_SHADER_SOURCE =
@@ -98,7 +98,7 @@ void main () {
 	gl_PointSize = size * screen_scale;
 	Output.color = in_color;
 	Output.position = view_pos.xyz;
-	Output.radius = size * gl_Position.w / pixel_scale;
+	Output.radius = size * gl_Position.w / pixel_scale.y;
 })";
 
 // Vertex shader for rendering markers (size = radius in virtual coordinates)
@@ -115,7 +115,7 @@ void main () {
 	vec4 view_pos = view * vec4(in_position.xyz, 1.0);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
-	gl_PointSize = size * screen_scale * pixel_scale / gl_Position.w;
+	gl_PointSize = size * screen_scale * pixel_scale.y / gl_Position.w;
 	Output.color = in_color;
 	Output.position = view_pos.xyz;
 	Output.radius = size;
@@ -178,7 +178,7 @@ layout(location = 1) in vec4 in_color;
 out VS_TO_GS {
 	vec4 color;
 	vec3 position;
-	float half_width;
+	vec2 half_width;
 } Output;
 void main () {
 	vec4 view_pos = view * vec4(in_position.xyz, 1.0);
@@ -196,17 +196,17 @@ layout(triangle_strip, max_vertices = 4) out;
 in VS_TO_GS {
 	vec4 color;
 	vec3 position;
-	float half_width;
+	vec2 half_width;
 } Input[2];
 out GS_TO_FS {
 	vec4 color;
 	noperspective float coord;
 } Output;
 
-void emit_vertices(uint id, vec4 r, float coord) {
+void emit_vertices(uint id, vec2 r, float coord) {
 	Output.color = Input[id].color;
 	vec4 center = gl_in[id].gl_Position;
-	vec4 offset = proj * (Input[id].half_width * r);
+	vec4 offset = proj * vec4(Input[id].half_width * r, 0.0, 0.0);
 	Output.coord = coord;
 
 	gl_Position = center + offset;
@@ -218,8 +218,7 @@ void emit_vertices(uint id, vec4 r, float coord) {
 void main () {
 	vec3 p = Input[0].position;
 	vec3 q = Input[1].position;
-	vec4 v = vec4(p.y - q.y, q.x - p.x, 0.0, 0.0);
-	vec4 r = normalize(v);
+	vec2 r = normalize(vec2(p.y - q.y, q.x - p.x));
 	float c = length(p - q) * 2.0;
 	emit_vertices(0u, r, -c);
 	emit_vertices(1u, r, +c);
