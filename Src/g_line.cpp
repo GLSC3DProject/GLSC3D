@@ -62,7 +62,13 @@ void g_line_type(G_UINT type)
 	if (g_current_line_stipple != stipple) {
 		g_current_line_stipple = stipple;
 		g_vertex_buffer_flush();
-		glLineStipple(1, stipple);
+		if (type != 0) {
+			glEnable(GL_LINE_STIPPLE);
+			glLineStipple(4, stipple << 8 | stipple);
+		}
+		else {
+			glDisable(GL_LINE_STIPPLE);
+		}
 //		g_need_line_stipple_updated = true;
 	}
 }

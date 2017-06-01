@@ -107,9 +107,9 @@ void g_vertex_buffer_flush()
 
 typedef void (*g_prepare_func_type)(void);
 
-void g_set_primitive_mode(GLenum mode, bool always_flush, g_prepare_func_type prepare_func)
+void g_set_primitive_mode(GLenum mode, g_prepare_func_type prepare_func)
 {
-	if (g_primitive_mode != mode || always_flush || !g_inside_glbegin) {
+	if (g_primitive_mode != mode || !g_inside_glbegin) {
 		g_vertex_buffer_flush();
 		prepare_func();
 		glBegin(mode);
@@ -124,13 +124,11 @@ void g_prepare_points()
 {
 	g_current_color = &g_current_marker_color;
 	g_current_size = g_current_marker_size;
-	GLuint program = g_marker_programs[g_current_marker_size_type][g_current_marker_type];
-	if (program != g_current_program) {
-		g_use_program(program);
-//		glUniform1f(g_marker_pixel_scale_location[g_current_marker_size_type][g_current_marker_type], g_current_pixel_scale);
-		glUniform1f(0, g_current_pixel_scale);
-	}
-//	g_use_program(g_marker_programs[g_current_marker_size_type][g_current_marker_type]);
+	g_use_program(g_marker_programs[g_current_marker_size_type][g_current_marker_type]);
+
+	GLint pixel_scale_location = g_marker_pixel_scale_location[g_current_marker_size_type][g_current_marker_type];
+	if (pixel_scale_location >= 0)
+		glUniform1f(pixel_scale_location, g_current_pixel_scale);
 }
 
 void g_prepare_lines()
@@ -171,41 +169,38 @@ void g_prepare_triangles()
 void g_begin_points()
 {
 //	g_prepare_points();
-	g_set_primitive_mode(GL_POINTS, false, g_prepare_points);
+	g_set_primitive_mode(GL_POINTS, g_prepare_points);
 }
 
 void g_begin_lines()
 {
 //	g_prepare_lines();
-	g_set_primitive_mode(GL_LINES, false, g_prepare_lines);
+	g_set_primitive_mode(GL_LINES, g_prepare_lines);
 }
 
 void g_begin_line_strip()
 {
 //	g_prepare_lines();
-	g_set_primitive_mode(GL_LINE_STRIP, true, g_prepare_lines);
+	g_vertex_buffer_flush();
+	g_set_primitive_mode(GL_LINE_STRIP, g_prepare_lines);
 }
 
 void g_begin_line_loop()
 {
 //	g_prepare_lines();
-	g_set_primitive_mode(GL_LINE_LOOP, true, g_prepare_lines);
+	g_vertex_buffer_flush();
+	g_set_primitive_mode(GL_LINE_LOOP, g_prepare_lines);
 }
 
 void g_begin_triangles()
 {
 //	g_prepare_triangles();
-	g_set_primitive_mode(GL_TRIANGLES, false, g_prepare_triangles);
-}
-
-void g_begin_triangle_strip()
-{
-//	g_set_primitive_mode(GL_TRIANGLE_STRIP, true);
-//	g_prepare_triangles();
+	g_set_primitive_mode(GL_TRIANGLES, g_prepare_triangles);
 }
 
 void g_begin_triangle_fan()
 {
 //	g_prepare_triangles();
-	g_set_primitive_mode(GL_TRIANGLE_FAN, true, g_prepare_triangles);
+	g_vertex_buffer_flush();
+	g_set_primitive_mode(GL_TRIANGLE_FAN, g_prepare_triangles);
 }

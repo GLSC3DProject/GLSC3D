@@ -247,7 +247,7 @@ GLuint g_current_program;
 GLint g_lighting_num_lights_location;
 GLint g_lighting_light_direction_location;
 GLint g_lighting_light_power_location;
-//GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
+GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
 GLint g_texture_sampler_location;
 GLint g_texture_color_location;
 
@@ -368,8 +368,7 @@ void g_shader_program_init()
 		for (GLuint j = 0; j < G_NUM_MARKER_TYPES; j++) {
 			g_marker_programs[i][j] = g_create_program(marker_vert_shaders[i], marker_frag_shaders[j]);
 //			g_bind_uniform_block(g_marker_programs[i][j], "Matrices", G_UNIFORM_MATRICES);
-//			g_marker_pixel_scale_location[i][j] = glGetUniformLocation(g_marker_programs[i][j], "pixel_scale");
-//			printf("%d\n", g_marker_pixel_scale_location[i][j]);
+			g_marker_pixel_scale_location[i][j] = glGetUniformLocation(g_marker_programs[i][j], "pixel_scale");
 		}
 	}
 

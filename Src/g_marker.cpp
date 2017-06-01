@@ -51,6 +51,7 @@ void g_marker_type(G_UINT type)
 	}
 
 	g_current_marker_type = type;
+	g_vertex_buffer_flush();
 }
 
 void g_marker_s(G_VECTOR position)

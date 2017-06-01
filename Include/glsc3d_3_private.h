@@ -75,6 +75,9 @@ Action(PFNGLGETUNIFORMBLOCKINDEXPROC,       glGetUniformBlockIndex) \
 Action(PFNGLUNIFORMBLOCKBINDINGPROC,        glUniformBlockBinding) \
 Action(PFNGLGETUNIFORMLOCATIONPROC,         glGetUniformLocation) \
 Action(PFNGLUNIFORM1IPROC,                  glUniform1i) \
+Action(PFNGLUNIFORM1FPROC,                  glUniform1f) \
+Action(PFNGLUNIFORM1FVPROC,                 glUniform1fv) \
+Action(PFNGLUNIFORM3FVPROC,                 glUniform3fv) \
 Action(PFNGLUNIFORM4FVPROC,                 glUniform4fv) \
 Action(PFNGLGENSAMPLERSPROC,                glGenSamplers) \
 Action(PFNGLBINDSAMPLERPROC,                glBindSampler) \
@@ -280,7 +283,6 @@ void g_begin_triangles(void);
 void g_begin_line_strip(void);
 void g_begin_line_loop(void);
 
-void g_begin_triangle_strip(void);
 void g_begin_triangle_fan(void);
 
 #ifdef __cplusplus

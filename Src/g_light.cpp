@@ -28,11 +28,6 @@ void update_lights()
 		}
 	}
 
-#ifndef __APPLE__
-	G_DECL_INIT_GLEXT(PFNGLUNIFORM3FVPROC, glUniform3fv);
-	G_DECL_INIT_GLEXT(PFNGLUNIFORM1FVPROC, glUniform1fv);
-#endif
-
 	g_use_program(g_lighting_program);
 	glUniform1i(g_lighting_num_lights_location, num_lights);
 	glUniform3fv(g_lighting_light_direction_location, num_lights, (const float *)light_direction);
