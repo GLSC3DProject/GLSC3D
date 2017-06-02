@@ -179,7 +179,41 @@ void g_poll_events()
 
 void g_sleep(double wait_time)
 {
-	SDL_Delay((Uint32)(wait_time * 1000));
+//	SDL_Delay((Uint32)(wait_time * 1000));
+
+	SDL_Event event;
+
+	if (wait_time == 0) {
+		g_poll_events();
+		return;
+	}
+	else if (wait_time > 0) {
+		Uint32 timeout = SDL_GetTicks() + (int)(wait_time * 1000);
+
+		while (true) {
+			int remaining_ms = (int)(timeout - SDL_GetTicks());
+			if (remaining_ms < 0) {
+				g_poll_events();
+				return;
+			}
+
+			SDL_WaitEventTimeout(&event, remaining_ms);
+
+			if (event.type == SDL_QUIT) {
+				g_quit();
+			}
+		}
+	}
+	else {
+		while (SDL_WaitEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				g_quit();
+			}
+			else if (event.type == SDL_KEYUP || event.type == SDL_MOUSEBUTTONUP) {
+				return;
+			}
+		}
+	}
 }
 
 void g_quit()

@@ -42,7 +42,7 @@ int main()
 
 		g_text_standard(x, y += dy, TEXT2);
 
-		g_text_standard(x, y += dy, "Elapsed time = %d", i_time / 16);
+		g_text_standard(x, y += dy, "Elapsed time = %d", i_time);
 
 		y += dy;
 
@@ -61,8 +61,8 @@ int main()
 		g_text_size(48);
 		g_text_standard(x, y += 48, "48pt");
 
-		g_sleep(1./16);
 		g_finish();
+		g_sleep(1.);
 	}
 	return 0;
 }
