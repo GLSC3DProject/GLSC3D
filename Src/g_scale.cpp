@@ -8,7 +8,11 @@ G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 struct G_TRANSFORM
 {
 	G_CAMERA camera;
+
+	// Conversion coefficients: (standard coord.) -> (virtual coord. / 2)
 	float pixel_scale_x, pixel_scale_y;
+
+	// g_screen_scale_factor
 	float screen_scale;
 };
 
@@ -23,8 +27,8 @@ void G_SCALE::select()
 
 	G_TRANSFORM transform;
 	transform.camera = camera;
-	transform.pixel_scale_x = screen.width * camera.proj.x.x;
-	transform.pixel_scale_y = screen.height * camera.proj.y.y;
+	transform.pixel_scale_x = 1 / (screen.width * camera.proj.x.x);
+	transform.pixel_scale_y = 1 / (screen.height * camera.proj.y.y);
 	transform.screen_scale = g_screen_scale_factor;
 
 	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);

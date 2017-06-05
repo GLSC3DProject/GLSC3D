@@ -98,7 +98,7 @@ void main () {
 	gl_PointSize = size * screen_scale;
 	Output.color = in_color;
 	Output.position = view_pos.xyz;
-	Output.radius = size * gl_Position.w / pixel_scale.y;
+	Output.radius = size * gl_Position.w * pixel_scale.y;
 })";
 
 // Vertex shader for rendering markers (size = radius in virtual coordinates)
@@ -115,7 +115,7 @@ void main () {
 	vec4 view_pos = view * vec4(in_position.xyz, 1.0);
 	float size = in_position.w;
 	gl_Position = proj * view_pos;
-	gl_PointSize = size * screen_scale * pixel_scale.y / gl_Position.w;
+	gl_PointSize = size * screen_scale / (pixel_scale.y * gl_Position.w);
 	Output.color = in_color;
 	Output.position = view_pos.xyz;
 	Output.radius = size;
@@ -186,7 +186,7 @@ void main () {
 	gl_Position = proj * view_pos;
 	Output.color = in_color;
 	Output.position = view_pos.xyz;
-	Output.half_width = size * gl_Position.w / pixel_scale;
+	Output.half_width = size * pixel_scale;
 })";
 
 const char * const LINE_GEOMETRY_SHADER_SOURCE =
@@ -206,7 +206,7 @@ out GS_TO_FS {
 void emit_vertices(uint id, vec2 r, float coord) {
 	Output.color = Input[id].color;
 	vec4 center = gl_in[id].gl_Position;
-	vec4 offset = proj * vec4(Input[id].half_width * r, 0.0, 0.0);
+	vec4 offset = proj * vec4(Input[id].half_width * r * center.w, 0.0, 0.0);
 	Output.coord = coord;
 
 	gl_Position = center + offset;
@@ -216,10 +216,13 @@ void emit_vertices(uint id, vec2 r, float coord) {
 	EmitVertex();
 }
 void main () {
-	vec3 p = Input[0].position;
-	vec3 q = Input[1].position;
-	vec2 r = normalize(vec2(p.y - q.y, q.x - p.x));
-	float c = length(p - q) * 2.0;
+	vec2 P = Input[0].position.xy / gl_in[0].gl_Position.w;
+	vec2 Q = Input[1].position.xy / gl_in[1].gl_Position.w;
+	vec2 r = normalize(vec2(P.y - Q.y, Q.x - P.x));
+
+	// stipple coordinate: 128 = 4 [px/bit] * 8 [bit/period] * 2 * 2
+	float c = length((P - Q) / pixel_scale) / 128.0;
+
 	emit_vertices(0u, r, -c);
 	emit_vertices(1u, r, +c);
 })";
@@ -233,7 +236,7 @@ in GS_TO_FS {
 } Input;
 out vec4 out_color;
 void main() {
-	int i = int(fract(Input.coord) * 8.0);
+	int i = int(fract(Input.coord) * 8.0); // stipple is 8-bit
 	int a = (stipple >> i) & 1;
 	out_color = vec4(Input.color.rgb, Input.color.a * float(a));
 })";
