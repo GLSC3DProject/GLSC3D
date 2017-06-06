@@ -88,7 +88,6 @@ int main()
 	std::vector<Particle> particles(NUM_PARTICLES);
 
 	g_enable_highdpi();
-	g_set_antialiasing(2);
 	g_init("GLSC3D", WINDOW_SIZE, WINDOW_SIZE);
 
 	//g_scr_color(1, 1, 1);
