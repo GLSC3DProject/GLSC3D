@@ -34,6 +34,8 @@ void g_init_core(
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
 	glEnable(GL_POINT_SPRITE);
 
+	glEnable(GL_NORMALIZE);
+
 	g_marker_size(1);
 	g_line_width(2);
 	g_line_type(0);

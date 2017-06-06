@@ -31,6 +31,7 @@ void main() { out_color = Input.color; })";
 
 // ----------------------------------------------------------------
 
+/*
 // Vertex shader for rendering 3D triangles
 const char * const LIGHTING_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 varying vec4 vary_color, vary_normal, vary_position;
@@ -73,6 +74,7 @@ void main() {
 
 	gl_FragColor = vec4(color, vary_color.a);
 })";
+*/
 
 // ----------------------------------------------------------------
 
@@ -351,8 +353,15 @@ void g_shader_program_init()
 //	g_constant_program = g_create_program(CONSTANT_VERT_SHADER_SOURCE, CONSTANT_FRAG_SHADER_SOURCE);
 //	g_bind_uniform_block(g_constant_program, "Matrices", G_UNIFORM_MATRICES);
 
-	g_lighting_program = g_create_program(LIGHTING_VERT_SHADER_SOURCE, LIGHTING_FRAG_SHADER_SOURCE);
+//	g_lighting_program = g_create_program(LIGHTING_VERT_SHADER_SOURCE, LIGHTING_FRAG_SHADER_SOURCE);
 //	g_bind_uniform_block(g_lighting_program, "Matrices", G_UNIFORM_MATRICES);
+	float zero[] = { 0, 0, 0, 0 };
+	float one[] = { 1, 1, 1, 1 };
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, zero);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, one);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 64);
+	glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+	glEnable(GL_COLOR_MATERIAL);
 
 	GLuint marker_vert_shaders[] = {
 		g_create_shader(GL_VERTEX_SHADER, MARKER_STANDARD_VERT_SHADER_SOURCE),

@@ -140,6 +140,7 @@ void g_prepare_lines()
 	g_current_size = 1;
 //	g_use_program(g_constant_program);
 	g_use_program(0);
+	glDisable(GL_LIGHTING);
 
 //	if (g_need_line_stipple_updated) {
 //		g_vertex_buffer_flush();
@@ -154,13 +155,15 @@ void g_prepare_triangles()
 		g_current_color = &g_current_area_color_3D;
 //		g_use_program(g_lighting_program);
 		if (!g_inside_glbegin) {
-			g_use_program(g_lighting_program);
+			g_use_program(0);
+			glEnable(GL_LIGHTING);
 		}
 	} else {
 		g_current_color = &g_current_area_color_2D;
 //		g_use_program(g_constant_program);
 		if (!g_inside_glbegin) {
 			g_use_program(0);
+			glDisable(GL_LIGHTING);
 		}
 	}
 	g_current_size = 1;

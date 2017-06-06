@@ -39,17 +39,17 @@ void g_init_light_core(G_UINT lightnum, float x, float y, float z, float power)
 {
 	if (lightnum >= NUM_LIGHTS) return;
 
-#if 0
-	G_COLOR vec_zero(0, 0, 0, 0);
-	G_COLOR vec_power(power, power, power, power);
-	G_VECTOR4 vec_pos(x, y, z, 0);
+#if 1
+	float vec_zero[] = { 0, 0, 0, 0 };
+	float vec_power[] = { power, power, power, 0 };
+	float vec_pos[] = { x, y, z, 0 };
 
 	GLenum lightname = GL_LIGHT0 + lightnum;
 
-	glLightfv(lightname, GL_AMBIENT, (float *)&vec_zero);
-	glLightfv(lightname, GL_DIFFUSE, (float *)&vec_power);
-	glLightfv(lightname, GL_SPECULAR, (float *)&vec_power);
-	glLightfv(lightname, GL_POSITION, (float *)&vec_pos);
+	glLightfv(lightname, GL_AMBIENT, vec_zero);
+	glLightfv(lightname, GL_DIFFUSE, vec_power);
+	glLightfv(lightname, GL_SPECULAR, vec_power);
+	glLightfv(lightname, GL_POSITION, vec_pos);
 
 	glEnable(lightname);
 #else
