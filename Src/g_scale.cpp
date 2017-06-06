@@ -1,17 +1,24 @@
 #include "glsc3d_3_private.h"
 
-int             g_current_scale_id;
-G_DIMENSION     g_scale_dim_flag;
+int  g_current_scale_id;
+G_DIMENSION g_scale_dim_flag;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
-float g_current_pixel_scale;
-
+#ifdef G_USE_CORE_PROFILE
 struct G_TRANSFORM
 {
 	G_CAMERA camera;
-	float pixel_scale, screen_scale, screen_width, screen_height;
+
+	// Conversion coefficients: (standard coord.) -> (virtual coord. / 2)
+	float pixel_scale_x, pixel_scale_y;
+
+	// g_screen_scale_factor
+	float screen_scale;
 };
+#else
+float g_current_pixel_scale;
+#endif
 
 void G_SCALE::select()
 {
@@ -21,14 +28,23 @@ void G_SCALE::select()
 	int h = (int)(g_screen_scale_factor * screen.height);
 
 	glViewport(x, y, w, h);
+#ifdef G_USE_CORE_PROFILE
+	G_TRANSFORM transform;
+	transform.camera = camera;
+	transform.pixel_scale_x = 1 / (screen.width * camera.proj.x.x);
+	transform.pixel_scale_y = 1 / (screen.height * camera.proj.y.y);
+	transform.screen_scale = g_screen_scale_factor;
 
-	g_current_pixel_scale = screen.height * camera.proj.y.y;
-
+	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
+#else
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf((float *)&camera.proj);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf((float *)&camera.view);
+
+	g_current_pixel_scale = 1 / (screen.height * camera.proj.y.y);
+#endif
 }
 
 void g_def_scale_2D(

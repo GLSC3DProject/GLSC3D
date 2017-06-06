@@ -9,8 +9,8 @@
 
 G_EMIT_GLEXT(G_DECL_GLEXT);
 
-// Uncomment to enable OpenGL debug messages
-//#define G_ENABLE_OPENGL_DEBUG_CALLBACK
+// Indicates to enable OpenGL debug messages (not available in Mac OS X)
+#define G_ENABLE_OPENGL_DEBUG_CALLBACK
 
 #endif // ifndef __APPLE__
 
@@ -76,15 +76,24 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
+	int context_flags = 0;
+
+#ifdef G_USE_CORE_PROFILE
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	context_flags |= SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG;
+#else
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-
-//	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0 //SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG
-#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
-		| SDL_GL_CONTEXT_DEBUG_FLAG
 #endif
-	);
+
+#ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
+	context_flags |= SDL_GL_CONTEXT_DEBUG_FLAG;
+#endif
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, context_flags);
 
 	if (g_antialiasing_level > 0) {
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
@@ -123,8 +132,6 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 #ifndef __APPLE__
 	G_EMIT_GLEXT(G_INIT_GLEXT);
 #endif
-
-	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 #ifdef G_ENABLE_OPENGL_DEBUG_CALLBACK
 	G_DECL_INIT_GLEXT(PFNGLDEBUGMESSAGECALLBACKPROC, glDebugMessageCallback);
@@ -179,7 +186,41 @@ void g_poll_events()
 
 void g_sleep(double wait_time)
 {
-	SDL_Delay((Uint32)(wait_time * 1000));
+//	SDL_Delay((Uint32)(wait_time * 1000));
+
+	SDL_Event event;
+
+	if (wait_time == 0) {
+		g_poll_events();
+		return;
+	}
+	else if (wait_time > 0) {
+		Uint32 timeout = SDL_GetTicks() + (int)(wait_time * 1000);
+
+		while (true) {
+			int remaining_ms = (int)(timeout - SDL_GetTicks());
+			if (remaining_ms < 0) {
+				g_poll_events();
+				return;
+			}
+
+			SDL_WaitEventTimeout(&event, remaining_ms);
+
+			if (event.type == SDL_QUIT) {
+				g_quit();
+			}
+		}
+	}
+	else {
+		while (SDL_WaitEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				g_quit();
+			}
+			else if (event.type == SDL_KEYUP || event.type == SDL_MOUSEBUTTONUP) {
+				return;
+			}
+		}
+	}
 }
 
 void g_quit()

@@ -2,44 +2,46 @@
 
 #define NUM_LIGHTS 3
 
+#ifdef G_USE_CORE_PROFILE
+
 struct G_LIGHT
 {
 	G_VECTOR direction;
 	float power;
-	//float ambient, diffuse, specular, shininess;
 };
 
 G_LIGHT lights[NUM_LIGHTS];
-bool lights_enabled[NUM_LIGHTS];
+bool is_lights_enabled[NUM_LIGHTS];
 
 void update_lights()
 {
-	//G_LIGHT lights[NUM_LIGHTS];
-	G_VECTOR light_direction[NUM_LIGHTS];
-	float light_power[NUM_LIGHTS];
-	int num_lights = 0;
+	G_LIGHT enabled_lights[NUM_LIGHTS];
+	int num_enabled_lights = 0;
 
 	for (int i = 0; i < NUM_LIGHTS; i++) {
-		if (lights_enabled[i]) {
-			G_LIGHT &light = lights[i];
-			light_direction[num_lights] = light.direction;
-			light_power[num_lights] = light.power;
-			num_lights++;
+		if (is_lights_enabled[i]) {
+			enabled_lights[num_enabled_lights++] = lights[i];
 		}
 	}
 
 	g_use_program(g_lighting_program);
-	glUniform1i(g_lighting_num_lights_location, num_lights);
-	glUniform3fv(g_lighting_light_direction_location, num_lights, (const float *)light_direction);
-	glUniform1fv(g_lighting_light_power_location, num_lights, light_power);
-	//g_update_uniform(G_UNIFORM_LIGHTS, sizeof(G_LIGHT_LIST), &enabled_lights);
+	g_update_uniform(G_UNIFORM_LIGHTS, sizeof(enabled_lights), &enabled_lights);
 }
+
+#endif
 
 void g_init_light_core(G_UINT lightnum, float x, float y, float z, float power)
 {
 	if (lightnum >= NUM_LIGHTS) return;
 
-#if 1
+#ifdef G_USE_CORE_PROFILE
+	is_lights_enabled[lightnum] = true;
+
+	lights[lightnum].direction = g_normalize(G_VECTOR(x, y, z));
+	lights[lightnum].power = power;
+
+	update_lights();
+#else
 	float vec_zero[] = { 0, 0, 0, 0 };
 	float vec_power[] = { power, power, power, 0 };
 	float vec_pos[] = { x, y, z, 0 };
@@ -52,14 +54,6 @@ void g_init_light_core(G_UINT lightnum, float x, float y, float z, float power)
 	glLightfv(lightname, GL_POSITION, vec_pos);
 
 	glEnable(lightname);
-#else
-	G_LIGHT &target = lights[lightnum];
-	target.direction = g_normalize(G_VECTOR(x, y, z));
-	target.power = power;
-
-	lights_enabled[lightnum] = true;
-
-	update_lights();
 #endif
 }
 
@@ -70,6 +64,11 @@ void g_init_light(G_UINT lightnum, float x, float y, float z)
 
 void g_disable_light(G_UINT lightnum)
 {
-	lights_enabled[lightnum] = false;
+#ifdef G_USE_CORE_PROFILE
+	is_lights_enabled[lightnum] = false;
 	update_lights();
+#else
+	GLenum lightname = GL_LIGHT0 + lightnum;
+	glDisable(lightname);
+#endif
 }

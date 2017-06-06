@@ -12,8 +12,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// If Enabled:  Use OpenGL 3.3 Core Profile with Vertex Arrays
+// If Disabled: Use OpenGL 2.1 with glBegin / glEnd
+//#define G_USE_CORE_PROFILE
+
 #ifdef __APPLE__
+#ifdef G_USE_CORE_PROFILE
+#include <OpenGL/gl3.h>
+#else
 #include <OpenGL/gl.h>
+#endif
 #endif
 
 #ifdef _WIN32
@@ -165,10 +173,10 @@ static inline G_TRIANGLE g_make_triangle_core(G_VERTEX v0, G_VERTEX v1, G_VERTEX
 
 // ---- g_init.cpp
 
-extern int				glsc3D_width;
-extern int				glsc3D_height;
-extern float			g_screen_scale_factor;
-extern float			g_retina_scale_factor;
+extern int glsc3D_width;
+extern int glsc3D_height;
+extern float g_screen_scale_factor;
+extern float g_retina_scale_factor;
 
 extern int g_enable_transparent;
 extern int TRIANGLE_BUFFER_SIZE;
@@ -181,8 +189,8 @@ void * GLSC3D_Array_Buffer(size_t array_size);
 
 // ---- g_scale.cpp
 
-extern int				g_current_scale_id;
-extern G_DIMENSION		g_scale_dim_flag;
+extern int g_current_scale_id;
+extern G_DIMENSION g_scale_dim_flag;
 
 // ---- g_input.c
 
@@ -198,7 +206,6 @@ void update_input_key_state(void);
 extern G_COLOR	g_current_line_color;
 extern float	g_current_line_size;
 extern int		g_current_line_stipple;
-//extern bool		g_need_line_stipple_updated;
 
 #endif
 
@@ -244,26 +251,32 @@ void g_quit(void);
 
 // ---- g_shader_program.cpp
 
-//enum G_UNIFORM_BINDING { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
 enum G_MARKER_SIZE_TYPE { G_MARKER_SIZE_STANDARD, G_MARKER_SIZE_VIRTUAL, G_NUM_MARKER_SIZE_TYPES };
 
-extern GLuint g_lighting_program;
 extern GLuint g_marker_programs[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
-//extern GLuint g_line_program;
 extern GLuint g_texture_program;
 extern GLuint g_current_program;
 
-extern GLint g_lighting_num_lights_location;
-extern GLint g_lighting_light_direction_location;
-extern GLint g_lighting_light_power_location;
-//extern GLint g_line_stipple_location;
-extern GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
+extern GLint g_line_stipple_location;
 extern GLint g_texture_sampler_location;
 extern GLint g_texture_color_location;
 
 void g_shader_program_init();
-//void g_update_uniform(GLuint index, GLsizei size, const void *data);
 void g_use_program(GLuint program);
+
+#ifdef G_USE_CORE_PROFILE
+enum G_UNIFORM_BINDING { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
+
+extern GLuint g_constant_program, g_lighting_program;
+extern GLuint g_line_program;
+
+extern G_BOOL g_need_line_stipple_updated;
+
+void g_update_uniform(GLuint index, GLsizei size, const void *data);
+#else
+extern GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
+extern float g_current_pixel_scale;
+#endif
 
 // ---- g_vertex_buffer.c
 

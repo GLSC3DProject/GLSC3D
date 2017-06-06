@@ -3,7 +3,13 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-GLuint g_texture, g_quad_vbo;
+GLuint g_texture;
+
+#ifdef G_USE_CORE_PROFILE
+GLuint g_sampler, g_quad_vao;
+#else
+GLuint g_quad_vbo;
+#endif
 
 G_COLOR g_current_text_color;
 float g_current_text_size = 0;
@@ -29,10 +35,6 @@ G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
 #define DEFAULT_FONT_NAME "NotoSansCJKjp-Regular.otf"
 
-//#ifdef __APPLE__
-//#define DEFAULT_FONT_FILE "/System/Library/Fonts/" DEFAULT_FONT_NAME
-//#endif
-
 #ifdef __linux__
 #define DEFAULT_FONT_FILE "/usr/share/fonts/opentype/noto/" DEFAULT_FONT_NAME
 #endif
@@ -46,6 +48,14 @@ void g_text_init()
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	glGenTextures(1, &g_texture);
+#ifdef G_USE_CORE_PROFILE
+	glGenSamplers(1, &g_sampler);
+
+	glSamplerParameteri(g_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glSamplerParameteri(g_sampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glSamplerParameteri(g_sampler, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glSamplerParameteri(g_sampler, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+#else
 	glBindTexture(GL_TEXTURE_2D, g_texture);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -54,23 +64,35 @@ void g_text_init()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+#endif
 
-//	glGenVertexArrays(1, &g_quad_vao);
-//	glBindVertexArray(g_quad_vao);
+	float vertices[] = {-1, -1,  +1, -1,  -1, +1,  +1, +1};
 
-//	glEnableVertexAttribArray(0);
-	glEnableClientState(GL_VERTEX_ARRAY);
+#ifdef G_USE_CORE_PROFILE
+	glGenVertexArrays(1, &g_quad_vao);
+	glBindVertexArray(g_quad_vao);
 
-//	GLuint g_quad_vbo;
+	glEnableVertexAttribArray(0);
+
+	GLuint g_quad_vbo;
 	glGenBuffers(1, &g_quad_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
 
-	float vertices[] = {-1, -1,  +1, -1,  -1, +1,  +1, +1};
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindVertexArray(0);
+#else
+	glGenBuffers(1, &g_quad_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexPointer(2, GL_FLOAT, 0, 0);
 
-//	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+#endif
 
 	if (FT_Error error = FT_Init_FreeType(&library)){
 		fprintf(stderr, "Unable to init Freetype. Abort.\nError : %d\n", error);
@@ -92,10 +114,15 @@ void g_text_init()
 
 static void g_text_render(double x, double y, const char *str)
 {
-	g_vertex_buffer_flush();
-	glBindTexture(GL_TEXTURE_2D, g_texture);
 	g_use_program(g_texture_program);
+	glBindTexture(GL_TEXTURE_2D, g_texture);
+
+#ifdef G_USE_CORE_PROFILE
+	glBindSampler(0, g_sampler);
+	glBindVertexArray(g_quad_vao);
+#else
 	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
+#endif
 
 	glUniform1i(g_texture_sampler_location, 0);
 	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
@@ -154,12 +181,14 @@ static void g_text_render(double x, double y, const char *str)
 		physical_x += glyph->advance.x / 64;
 		physical_y += glyph->advance.y / 64;
 	}
-//	if (GLenum error = glGetError())
-//		printf("%d\n", error);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-//	glBindVertexArray(0);
+
+#ifdef G_USE_CORE_PROFILE
+	glBindVertexArray(0);
+#else
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+#endif
 
 	glsc3D_inner_scale[g_current_scale_id].select();
 }
