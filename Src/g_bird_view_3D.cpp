@@ -15,13 +15,13 @@
         |___|___|___|
 ****************************************/
 
-#define     data(i, j)      data[(j)*N_x+(i)]
+#define     data(i, j)      data[(i)*N_y+(j)]
 
-#define     data_ext(i, j)  data_ext[(j)*(N_x+2)+(i)]
-#define     normal(i, j)    normal[(j)*N_x+(i)]
+#define     data_ext(i, j)  data_ext[(i)*(N_y+2)+(j)]
+#define     normal(i, j)    normal[(i)*N_y+(j)]
 
-#define		U2(i,j)     u2[(j) * (imax) + (i)]
-#define		U2_EXT(i,j) u2_ext[(j) * ((imax) + 2) + (i)]
+#define		U2(i,j)     u2[(i) * (jmax) + (j)]
+#define		U2_EXT(i,j) u2_ext[(i) * ((jmax) + 2) + (j)]
 
 // Bird_view用に境界条件を設定しているバルク部分はコピー, 境界部分は片側差分
 void Extend2Dim(int imax, int jmax, double *u2, double *u2_ext)
