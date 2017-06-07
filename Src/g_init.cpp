@@ -40,6 +40,7 @@ void g_init_core(
 	glEnable(GL_POINT_SPRITE);
 
 	glEnable(GL_NORMALIZE);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 #endif
 
 	g_marker_size(1);

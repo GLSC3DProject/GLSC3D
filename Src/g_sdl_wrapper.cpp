@@ -10,7 +10,7 @@
 G_EMIT_GLEXT(G_DECL_GLEXT);
 
 // Indicates to enable OpenGL debug messages (not available in Mac OS X)
-#define G_ENABLE_OPENGL_DEBUG_CALLBACK
+//#define G_ENABLE_OPENGL_DEBUG_CALLBACK
 
 #endif // ifndef __APPLE__
 
