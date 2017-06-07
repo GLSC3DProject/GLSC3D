@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <time.h>
 
-#define boxmember3D(i,j) (boxmember[(j)*N_x+(i)])
-#define trimember3D(i,j) (trimember[(j)*N_x+(i)])
-#define boxmember2D(i,j) (boxmember2D[(j)*N_x+(i)])
-#define trimember2D(i,j) (trimember2D[(j)*N_x+(i)])
-#define flag(i,j)        (flag[(j)*N_x+(i)])
-#define data2D(i, j)     data2D[(j)*N_x+(i)]
+#define boxmember3D(i,j) (boxmember[(i)*N_y+(j)])
+#define trimember3D(i,j) (trimember[(i)*N_y+(j)])
+#define boxmember2D(i,j) (boxmember2D[(i)*N_y+(j)])
+#define trimember2D(i,j) (trimember2D[(i)*N_y+(j)])
+#define flag(i,j)        (flag[(i)*N_y+(j)])
+#define data2D(i, j)     data2D[(i)*N_y+(j)]
 
 void g_contln_f_2D(
 	double x_left, double x_right,
