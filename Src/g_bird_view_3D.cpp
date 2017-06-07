@@ -15,7 +15,7 @@
         |___|___|___|
 ****************************************/
 
-#define     data(i, j)      data[(i)*N_y+(j)]
+#define     data(i, j)      data[(i)*N_y +(j)]
 
 #define     data_ext(i, j)  data_ext[(i)*(N_y+2)+(j)]
 #define     normal(i, j)    normal[(i)*N_y+(j)]
