@@ -15,17 +15,21 @@ bool is_lights_enabled[NUM_LIGHTS];
 
 void update_lights()
 {
-	G_LIGHT enabled_lights[NUM_LIGHTS];
-	int num_enabled_lights = 0;
+	struct {
+		G_LIGHT lights[NUM_LIGHTS];
+		int count;
+	} enabled_list;
+
+	memset(&enabled_list, 0, sizeof(enabled_list));
 
 	for (int i = 0; i < NUM_LIGHTS; i++) {
 		if (is_lights_enabled[i]) {
-			enabled_lights[num_enabled_lights++] = lights[i];
+			enabled_list.lights[enabled_list.count++] = lights[i];
 		}
 	}
 
 	g_use_program(g_lighting_program);
-	g_update_uniform(G_UNIFORM_LIGHTS, sizeof(enabled_lights), &enabled_lights);
+	g_update_uniform(G_UNIFORM_LIGHTS, sizeof(enabled_list), &enabled_list);
 }
 
 #endif

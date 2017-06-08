@@ -19,7 +19,7 @@ void g_init_core(
 {
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
-	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
+//	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
 
 	glDepthFunc(GL_LEQUAL);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
