@@ -6,11 +6,11 @@
 #define WINDOW_SIZE_X     (1024)
 #define WINDOW_SIZE_Y     (512)
 
-#define LEN         (2.0)
+#define LEN         (4.0)
 
 #define SIZE        (30)
 #define Imax        (2 * SIZE)
-#define Jmax        (SIZE)
+#define Jmax        (2 * SIZE)
 
 int main(void)
 {
@@ -35,7 +35,7 @@ int main(void)
 			yy = dy * (j + 0.5) - LEN / 2.0;
 			for (i = 0; i < Imax; i++) {
 				xx = dx * (i + 0.5) - LEN / 2.0;
-				array[j * Imax + i] = sin(2 * xx - t) * cos(3 * yy - t);
+				array[i * Jmax + j] = sin(2 * xx - t) * cos(3 * yy - t);
 			}
 		}
 		for (i = 0; i < Imax; i++)
@@ -44,15 +44,19 @@ int main(void)
 			for (j = 0; j < Jmax; j++)
 			{
 				yy = dy * (j + 0.5) - LEN/2.0;
-				array2[i][j] = sin(2*xx - t) * cos(3*yy - t) ;
+				array2[i][j] = sin(2*xx - t) * cos(3*yy - t);
 			}
 		}
 		g_cls();
 
-		g_sel_scale_3D(0);
+		g_line_width(4.0);
+		g_sel_scale_3D_boundary(0);
+
+		g_line_width(2.0);
 		g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, G_TRUE, G_FALSE);
 
-		g_sel_scale_3D(1);
+		g_line_width(4.0);
+		g_sel_scale_3D_boundary(1);
 		g_bird_view_f_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array, G_FALSE, G_TRUE);
 
 		g_finish();
