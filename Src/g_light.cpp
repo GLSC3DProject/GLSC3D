@@ -17,10 +17,8 @@ void update_lights()
 {
 	struct {
 		G_LIGHT lights[NUM_LIGHTS];
-		int count;
+		int count = 0;
 	} enabled_list;
-
-	memset(&enabled_list, 0, sizeof(enabled_list));
 
 	for (int i = 0; i < NUM_LIGHTS; i++) {
 		if (is_lights_enabled[i]) {

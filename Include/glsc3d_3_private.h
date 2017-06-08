@@ -14,7 +14,7 @@
 
 // If Enabled:  Use OpenGL 3.3 Core Profile with Vertex Arrays
 // If Disabled: Use OpenGL 2.1 with glBegin / glEnd
-//#define G_USE_CORE_PROFILE
+#define G_USE_CORE_PROFILE
 
 #ifdef __APPLE__
 #ifdef G_USE_CORE_PROFILE
