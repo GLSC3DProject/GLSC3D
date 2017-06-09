@@ -19,6 +19,8 @@ void g_init_core(
 {
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
+//	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
+
 	glDepthFunc(GL_LEQUAL);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
@@ -31,7 +33,15 @@ void g_init_core(
 	g_shader_program_init();
 	g_text_init();
 
+#ifdef G_USE_CORE_PROFILE
 	glEnable(GL_PROGRAM_POINT_SIZE);
+#else
+	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+	glEnable(GL_POINT_SPRITE);
+
+	glEnable(GL_NORMALIZE);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+#endif
 
 	g_marker_size(1);
 	g_line_width(2);

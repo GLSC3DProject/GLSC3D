@@ -1,10 +1,11 @@
 #include "glsc3d_3_private.h"
 
+#ifdef G_USE_CORE_PROFILE
+
 #define GLSL_VERSION_DECL "#version 330 core\n"
 
 #define MATRICES_UNIFORM_DECL \
 "uniform Matrices { mat4 proj, view; vec2 pixel_scale; float screen_scale; };"
-
 // Vertex shader for rendering 2D triangles
 const char * const CONSTANT_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
@@ -49,7 +50,7 @@ void main() {
 // Fragment shader for rendering 3D triangles
 const char * const LIGHTING_FRAG_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
-struct G_LIGHT { vec3 direction; float pad; float ambient, diffuse, specular, shininess; };
+struct G_LIGHT { vec3 direction; float power; };
 uniform Lights { G_LIGHT lights[3]; int num_lights; };
 in VS_TO_FS {
 	vec4 color, normal, position;
@@ -57,8 +58,8 @@ in VS_TO_FS {
 out vec4 out_color;
 vec3 calc_light(vec3 normal, G_LIGHT light) {
 	vec3 half_vec = normalize(light.direction - normalize(Input.position.xyz));
-	float amb_dif = light.diffuse * max(dot(light.direction, normal), 0.0);
-	float spec = light.specular * pow(max(dot(normal, half_vec), 0.0), light.shininess);
+	float amb_dif = light.power * max(dot(light.direction, normal), 0.0);
+	float spec = light.power * pow(max(dot(normal, half_vec), 0.0), 64 /*shininess*/);
 	return amb_dif * Input.color.rgb + spec;
 }
 void main() {
@@ -264,16 +265,121 @@ void main() {
 	out_color = vec4(color.rgb, color.a * texture(tex, vary_texcoord).r);
 })";
 
-GLuint g_constant_program, g_lighting_program;
+#else // G_USE_CORE_PROFILE
+
+#define GLSL_VERSION_DECL "#version 120"
+
+// Vertex shader for rendering markers (size = diameter in standard coordinates)
+const char * const MARKER_STANDARD_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
+uniform float pixel_scale;
+varying vec4 color;
+varying vec3 position;
+varying float radius;
+void main () {
+	vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);
+	float size = gl_Vertex.w;
+	gl_Position = gl_ProjectionMatrix * view_pos;
+	gl_PointSize = size;
+	color = gl_Color;
+	position = gl_Vertex.xyz;
+	radius = size * gl_Position.w * pixel_scale;
+})";
+
+// Vertex shader for rendering markers (size = radius in virtual coordinates)
+const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
+uniform float pixel_scale;
+varying vec4 color;
+varying vec3 position;
+varying float radius;
+void main () {
+	vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);
+	float size = gl_Vertex.w;
+	gl_Position = gl_ProjectionMatrix * view_pos;
+	gl_PointSize = size / (pixel_scale * gl_Position.w);
+	color = gl_Color;
+	position = view_pos.xyz;
+	radius = size;
+})";
+
+// Fragment shader for rendering markers as 2D squares
+const char * const MARKER_SQUARE_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
+varying vec4 color;
+varying vec3 position;
+varying float radius;
+void main() {
+	gl_FragColor = color;
+})";
+
+// Fragment shader for rendering markers as 2D circles
+const char * const MARKER_CIRCLE_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
+varying vec4 color;
+varying vec3 position;
+varying float radius;
+void main() {
+	vec2 coord = gl_PointCoord * 2.0 - 1.0;
+	float discriminant = 1.0 - dot(coord, coord);
+	if (discriminant <= 0.0) discard;
+	gl_FragColor = color;
+})";
+
+// Fragment shader for rendering markers as 3D spheres
+const char * const MARKER_SPHERE_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
+varying vec4 color;
+varying vec3 position;
+varying float radius;
+void main() {
+	vec2 coord = gl_PointCoord * 2.0 - 1.0;
+	float discriminant = 1.0 - dot(coord, coord);
+	if (discriminant <= 0.0) discard;
+	vec3 normal = vec3(coord, sqrt(discriminant));
+	vec4 pos = gl_ProjectionMatrix * vec4(position + normal * radius, 1.0);
+	gl_FragColor = vec4(color.rgb * normal.z, color.a);
+	gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;
+})";
+
+// ----------------------------------------------------------------
+
+// Vertex shader for rendering text
+const char * const TEXTURE_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
+//layout(location = 0) in vec2 in_position;
+varying vec2 vary_texcoord;
+void main() {
+	gl_Position = vec4(gl_Vertex.xy, 0.0, 1.0);
+	vary_texcoord = gl_Vertex.xy * vec2(0.5, -0.5) + 0.5;
+})";
+
+// Fragment shader for rendering text
+const char * const TEXTURE_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
+uniform sampler2D tex;
+uniform vec4 color;
+varying vec2 vary_texcoord;
+//out vec4 out_color;
+void main() {
+	gl_FragColor = vec4(color.rgb, color.a * texture2D(tex, vary_texcoord).r);
+})";
+
+#endif // G_USE_CORE_PROFILE
+
 GLuint g_marker_programs[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
-GLuint g_line_program;
 GLuint g_texture_program;
 GLuint g_current_program;
 
+GLint g_texture_sampler_location;
+GLint g_texture_color_location;
+
+#ifdef G_USE_CORE_PROFILE
+GLuint g_line_program;
+GLuint g_constant_program;
+GLuint g_lighting_program;
+
 GLint g_line_stipple_location;
-GLint g_texture_sampler_location, g_texture_color_location;
+
+G_BOOL g_need_line_stipple_updated;
 
 GLuint g_uniforms[G_NUM_UNIFORMS];
+#else
+GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
+#endif
 
 GLint g_get_shader_int(GLuint shader, GLenum pname)
 {
@@ -359,14 +465,25 @@ GLuint g_create_program(GLuint vert_shader, GLuint frag_shader)
 	return program;
 }
 
+#ifdef G_USE_CORE_PROFILE
+
 void g_bind_uniform_block(GLuint program, const GLchar *name, GLuint binding)
 {
 	GLuint uniform_block_index = glGetUniformBlockIndex(program, name);
 	glUniformBlockBinding(program, uniform_block_index, binding);
 }
 
+void g_update_uniform(GLuint index, GLsizei size, const void *data)
+{
+	glBindBufferBase(GL_UNIFORM_BUFFER, index, g_uniforms[index]);
+	glBufferData(GL_UNIFORM_BUFFER, size, data, GL_DYNAMIC_DRAW);
+}
+
+#endif
+
 void g_shader_program_init()
 {
+#ifdef G_USE_CORE_PROFILE
 	glGenBuffers(G_NUM_UNIFORMS, g_uniforms);
 	glBindBuffer(GL_UNIFORM_BUFFER, g_uniforms[G_UNIFORM_MATRICES]);
 
@@ -375,6 +492,15 @@ void g_shader_program_init()
 
 	g_lighting_program = g_create_program(LIGHTING_VERT_SHADER_SOURCE, LIGHTING_FRAG_SHADER_SOURCE);
 	g_bind_uniform_block(g_lighting_program, "Matrices", G_UNIFORM_MATRICES);
+#else
+	float zero[] = { 0, 0, 0, 0 };
+	float one[] = { 1, 1, 1, 1 };
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, zero);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, one);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 64);
+	glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+	glEnable(GL_COLOR_MATERIAL);
+#endif
 
 	GLuint marker_vert_shaders[] = {
 		g_create_shader(GL_VERTEX_SHADER, MARKER_STANDARD_VERT_SHADER_SOURCE),
@@ -389,10 +515,16 @@ void g_shader_program_init()
 	for (GLuint i = 0; i < G_NUM_MARKER_SIZE_TYPES; i++) {
 		for (GLuint j = 0; j < G_NUM_MARKER_TYPES; j++) {
 			g_marker_programs[i][j] = g_create_program(marker_vert_shaders[i], marker_frag_shaders[j]);
+
+#ifdef G_USE_CORE_PROFILE
 			g_bind_uniform_block(g_marker_programs[i][j], "Matrices", G_UNIFORM_MATRICES);
+#else
+			g_marker_pixel_scale_location[i][j] = glGetUniformLocation(g_marker_programs[i][j], "pixel_scale");
+#endif
 		}
 	}
 
+#ifdef G_USE_CORE_PROFILE
 	g_line_program = glCreateProgram();
 	glAttachShader(g_line_program, g_create_shader(GL_VERTEX_SHADER, LINE_VERTEX_SHADER_SOURCE));
 	glAttachShader(g_line_program, g_create_shader(GL_GEOMETRY_SHADER, LINE_GEOMETRY_SHADER_SOURCE));
@@ -401,19 +533,14 @@ void g_shader_program_init()
 	g_bind_uniform_block(g_line_program, "Matrices", G_UNIFORM_MATRICES);
 	g_line_stipple_location = glGetUniformLocation(g_line_program, "stipple");
 
-	g_texture_program = g_create_program(TEXTURE_VERT_SHADER_SOURCE, TEXTURE_FRAG_SHADER_SOURCE);
-
 	glBindBuffer(GL_UNIFORM_BUFFER, g_uniforms[G_UNIFORM_LIGHTS]);
 	g_bind_uniform_block(g_lighting_program, "Lights", G_UNIFORM_LIGHTS);
+#endif
+
+	g_texture_program = g_create_program(TEXTURE_VERT_SHADER_SOURCE, TEXTURE_FRAG_SHADER_SOURCE);
 
 	g_texture_sampler_location = glGetUniformLocation(g_texture_program, "tex");
 	g_texture_color_location = glGetUniformLocation(g_texture_program, "color");
-}
-
-void g_update_uniform(GLuint index, GLsizei size, const void *data)
-{
-	glBindBufferBase(GL_UNIFORM_BUFFER, index, g_uniforms[index]);
-	glBufferData(GL_UNIFORM_BUFFER, size, data, GL_DYNAMIC_DRAW);
 }
 
 void g_use_program(GLuint program)

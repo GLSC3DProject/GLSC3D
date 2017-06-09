@@ -155,7 +155,7 @@ void g_line_color(float r, float g, float b, float a);
 void g_line_width(float size);
 void g_line_type(G_UINT type);
 
-void g_def_line(int id, float r, float g, float b, float a, float width, int type);
+void g_def_line(int id, float r, float g, float b, float a, float width, G_UINT type);
 void g_sel_line(int id);
 
 // ---- g_text.cpp

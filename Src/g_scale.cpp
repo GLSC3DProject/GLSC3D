@@ -1,10 +1,11 @@
 #include "glsc3d_3_private.h"
 
-int             g_current_scale_id;
-G_DIMENSION     g_scale_dim_flag;
+int  g_current_scale_id;
+G_DIMENSION g_scale_dim_flag;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
+#ifdef G_USE_CORE_PROFILE
 struct G_TRANSFORM
 {
 	G_CAMERA camera;
@@ -15,6 +16,9 @@ struct G_TRANSFORM
 	// g_screen_scale_factor
 	float screen_scale;
 };
+#else
+float g_current_pixel_scale;
+#endif
 
 void G_SCALE::select()
 {
@@ -24,7 +28,7 @@ void G_SCALE::select()
 	int h = (int)(g_screen_scale_factor * screen.height);
 
 	glViewport(x, y, w, h);
-
+#ifdef G_USE_CORE_PROFILE
 	G_TRANSFORM transform;
 	transform.camera = camera;
 	transform.pixel_scale_x = 1 / (screen.width * camera.proj.x.x);
@@ -32,6 +36,15 @@ void G_SCALE::select()
 	transform.screen_scale = g_screen_scale_factor;
 
 	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
+#else
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf((float *)&camera.proj);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf((float *)&camera.view);
+
+	g_current_pixel_scale = 1 / (screen.height * camera.proj.y.y);
+#endif
 }
 
 void g_def_scale_2D(
@@ -85,8 +98,8 @@ void g_def_scale_3D_core(
 
 void g_sel_scale_private(int id, G_DIMENSION dimension, bool boundary)
 {
-	g_vertex_buffer_flush();
 	g_triangle_buffer_flush();
+	g_vertex_buffer_flush();
 
 	if (boundary) {
 		G_SCALE scale;
