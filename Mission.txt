@@ -14,3 +14,43 @@ Vertex Buffer の仕様を変更する？(線分用と三角形用を分離)
 マニュアルのミッション
 Sample_g_line の実行結果のスクリーンショットを修正する
 覚書のファイル構成を修正する
+
+----------------------------------------------------
+2017/6/9
+1-1: g_def_scale関係
+
+void g_def_scale_3D_core(
+	int id,
+	double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
+	double x_left_std, double y_top_std,
+	double width_std, double height_std,
+	double direction_x, double direction_y, double direction_z,
+	double r,
+	double up_x, double up_y, double up_z);
+>>>
+* scale_factor? or aspect ratio?
+
+void g_def_scale_3D_core(
+	int id,
+	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
+	double x_left_std, double y_top_std,
+	double width_std, double height_std,
+	double scale_x, double scale_y, double scale_z,
+	double direction_x, double direction_y, double direction_z,
+	double zoom,
+	double up_x, double up_y, double up_z);
+
+1-2:
+clipping >>>
+g_def_scale_3D_coreが呼ばれた段階で、
+MATRIX_Clipping_off, MATRIX_Clipping_on を計算する。
+
+g_clipping(G_NO) => MATRIX_Clipping_off を使う。
+g_clipping(G_YES) => MATRIX_Clipping_on を使う。
+* g_clippingの引数は初期設定で、G_YESである。
+
+2:
+void g_sel_scale_boundary(id) >>> 消去して別関数に置き換わる
+>>> g_scale_boundary();を新たに作成する。
+g_sel_scale(id);より後ろで呼ぶと、id番号のscaleの枠を描画するフラグを立てる。
+g_finish();の前で、フラグを見てid番号のscaleの枠を描画する。
