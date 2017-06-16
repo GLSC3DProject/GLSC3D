@@ -6,10 +6,10 @@ static const G_VECTOR g_vector_zero(0, 0, 0);
 
 GLenum g_primitive_mode;
 
-float g_current_dummy_size = 1; // dummy
+const float g_current_dummy_size = 1; // dummy
 
-G_COLOR	*g_current_color_ptr;
-float	*g_current_size_ptr;
+const G_COLOR *g_current_color_ptr;
+const float   *g_current_size_ptr;
 
 int g_vertex_data_count;
 
@@ -20,7 +20,9 @@ G_VERTEX *g_vertex_data;
 
 GLuint g_vertex_array_id, g_vertex_buffer_id;
 
+#ifndef G_USE_CORE_PROFILE
 bool g_inside_glbegin;
+#endif
 
 void g_vertex_buffer_init()
 {
@@ -115,16 +117,21 @@ typedef void (*g_prepare_func_type)(void);
 
 void g_set_primitive_mode(GLenum mode, g_prepare_func_type prepare_func)
 {
+#ifdef G_USE_CORE_PROFILE
+	prepare_func();
+	if (g_primitive_mode != mode) {
+		g_vertex_buffer_flush();
+		g_primitive_mode = mode;
+	}
+#else
 	if (g_primitive_mode != mode || !g_inside_glbegin) {
 		g_vertex_buffer_flush();
 		prepare_func();
-
-#ifndef G_USE_CORE_PROFILE
 		glBegin(mode);
-#endif
-		g_primitive_mode = mode;
 		g_inside_glbegin = true;
+		g_primitive_mode = mode;
 	}
+#endif
 }
 
 void g_prepare_points()

@@ -229,9 +229,9 @@ struct G_MATRIX
 		);
 	}
 
-	static G_MATRIX Perspective(float fov, float aspect, float near, float far)
+	static G_MATRIX Perspective(float c, float aspect, float near, float far)
 	{
-		float c = 1 / tan(fov / 2);
+		//float c = 1 / tan(fov / 2);
 
 		return G_MATRIX(
 			c / aspect, 0, 0, 0,

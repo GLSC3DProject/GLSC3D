@@ -10,7 +10,7 @@ int main()
 
 	g_enable_highdpi();
 	g_set_antialiasing(2);
-	g_init_core("GLSC3D", Size * CountX, Size * CountY, G_WINDOW_CENTERED, G_WINDOW_CENTERED, 1, 1, 1, 0, 0, 0);
+	g_init_core("GLSC3D", Size * CountX, Size * CountY, 0, 120, 1, 1, 1, 0, 0, 0);
 
 	g_init_light(0, 1, -1, 1);
 	g_init_light_core(1, 0, 1, 2, 0.5f);
@@ -25,10 +25,13 @@ int main()
 	//g_line_width(2);
 	//g_line_type(1);
 
+//	double a = 4 * sqrt(2);
+
 	int id = 0;
 	for (int i = 0; i < CountX; i++)
 	for (int j = 0; j < CountY; j++)
 		g_def_scale_3D_core(id++, -1, 1, -1, 1, -1, 1, Size * i, Size * j, Size, Size, 0, 1, 1, 8, 0, 0, 1);
+//		g_def_scale_3D_core(id++, -1, 1, -1, 1, -1, 1, Size * i, Size * j, Size, Size, 0, a, a, 1, 0, 0, 1);
 
 	for (double t = 0;; t += 1./128) {
 		double c = cos(t), s = sin(t);

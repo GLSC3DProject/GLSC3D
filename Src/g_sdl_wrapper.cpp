@@ -154,22 +154,25 @@ void g_swap_buffers()
 	SDL_GL_SwapWindow(g_window);
 }
 
+void g_check_quit_event(const SDL_Event *event)
+{
+	if (event->type == SDL_QUIT || (event->type == SDL_KEYDOWN && event->key.keysym.scancode == SDL_SCANCODE_ESCAPE)) {
+		g_quit();
+	}
+}
+
 void g_poll_events()
 {
 	update_input_key_state();
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
+		g_check_quit_event(&event);
+
 		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) {
 			g_update_drawable_size();
 		}
-		else if (event.type == SDL_QUIT) {
-			g_quit();
-		}
 		else if (event.type == SDL_KEYDOWN) {
-			if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-				g_quit();
-
 			g_keyboard_event(event.key.keysym, G_DOWN);
 		}
 		else if (event.type == SDL_KEYUP) {
@@ -206,17 +209,14 @@ void g_sleep(double wait_time)
 
 			SDL_WaitEventTimeout(&event, remaining_ms);
 
-			if (event.type == SDL_QUIT) {
-				g_quit();
-			}
+			g_check_quit_event(&event);
 		}
 	}
 	else {
 		while (SDL_WaitEvent(&event)) {
-			if (event.type == SDL_QUIT) {
-				g_quit();
-			}
-			else if (event.type == SDL_KEYUP || event.type == SDL_MOUSEBUTTONUP) {
+			g_check_quit_event(&event);
+
+			if (event.type == SDL_KEYUP || event.type == SDL_MOUSEBUTTONUP) {
 				return;
 			}
 		}
