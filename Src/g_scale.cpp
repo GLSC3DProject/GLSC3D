@@ -63,14 +63,14 @@ void g_def_scale_2D(
 
 void g_def_scale_3D(
 	int id,
-	double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far, //仮想座標系
+	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1, //仮想座標系
 	double x_left_std, double y_top_std,                          //ウィンドウの位置
 	double width_std, double height_std,                          //ウィンドウのサイズ
 	double direction_x, double direction_y, double direction_z,
-	double r)                                                     //視点位置
+	double zoom)                                                     //視点位置
 {
-	g_def_scale_3D_core_legacy(id, x_left, x_right, y_bottom, y_top, z_near, z_far, x_left_std, y_top_std, width_std,
-							   height_std, direction_x, direction_y, direction_z, r, 0, 1, 0);
+	g_def_scale_3D_core(id, x_0, x_1, y_0, y_1, z_0, z_1, x_left_std, y_top_std, width_std,
+						   height_std, 1, 1, 1, direction_x, direction_y, direction_z, zoom, 0, 1, 0);
 }
 
 void g_def_scale_3D_core(

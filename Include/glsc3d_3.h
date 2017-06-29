@@ -119,11 +119,11 @@ void g_def_scale_3D_core_legacy(
 
 void g_def_scale_3D(
 	int id,
-	double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
+	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
 	double x_left_std, double y_top_std,
 	double width_std, double height_std,
 	double direction_x, double direction_y, double direction_z,
-	double r);
+	double zoom);
 
 void g_sel_scale_2D(int id);
 void g_sel_scale_3D(int id);

@@ -61,7 +61,7 @@ int main()
 					-1, 1, -1, 1, -1, 1,
 					0, 0,
 					WINDOW_SIZE_X, WINDOW_SIZE_Y,
-					1, 1, 1,
+					4, 4, 4,
 					1);
 //	g_init_light_core(0,1,1,1,1);
 
