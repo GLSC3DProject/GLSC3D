@@ -9,7 +9,7 @@ int main(void) {
 
 	g_enable_highdpi();
 	g_set_antialiasing(2);
-	g_init_core("GLSC3D", Size * CountX, Size * CountY, 0, 120, 1, 1, 1, 0, 0, 0);
+	g_init("GLSC3D", Size * CountX, Size * CountY);
 
 	g_init_light(0, 1, -1, 1);
 	g_init_light_core(1, 0, 1, 2, 0.5f);
