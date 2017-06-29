@@ -5,7 +5,7 @@
 #define GLSL_VERSION_DECL "#version 330 core\n"
 
 #define MATRICES_UNIFORM_DECL \
-"uniform Matrices { mat4 proj, view; vec2 pixel_scale; float screen_scale; };"
+"uniform Matrices { mat4 proj, view, view_normal; vec2 pixel_scale; float screen_scale; };"
 // Vertex shader for rendering 2D triangles
 const char * const CONSTANT_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
@@ -43,7 +43,7 @@ void main() {
 	vec4 view_pos = view * vec4(in_position, 1.0);
 	gl_Position = proj * view_pos;
 	Output.color = in_color;
-	Output.normal = view * vec4(in_normal.xyz, 0.0);
+	Output.normal = normalize(view_normal * vec4(in_normal.xyz, 0.0));
 	Output.position = view_pos;
 })";
 
