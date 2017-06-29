@@ -17,7 +17,7 @@ Sample_g_line の実行結果のスクリーンショットを修正する
 
 ----------------------------------------------------
 2017/6/9
-1-1: g_def_scale関係
+1-1: g_def_scale関係 >>> 完了
 
 void g_def_scale_3D_core(
 	int id,
@@ -40,9 +40,38 @@ void g_def_scale_3D_core(
 	double zoom,
 	double up_x, double up_y, double up_z);
 
+1-1: g_def_scale依存関係
+Sample_g_area.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_g_arrow.c >>> g_def_scale_2D / g_def_scale_3D
+Smaple_g_bird_view.c >>> g_def_scale_3D_core_legacy (すでに変更済み)
+Sample_g_box.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_g_circle.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_g_cone.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_g_contln.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_g_cylinder.c >>> g_def_scale_3D
+Sample_g_data_plot.c >>> g_def_scale_2D / g_def_scale_3D_legacy
+Sample_g_ellipse.c >>> g_def_scale_3D
+Sample_g_fan.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_g_init.c >>> なし
+Sample_g_input.c >>> g_def_scale_2D
+Sample_g_isosurface.c >>> g_def_scale_3D
+Sample_g_light.c >>> g_def_scale_3D
+Sample_g_line.c >>> g_def_scale_2D
+Sample_g_marker.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_g_move_plot.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_g_polygon.c >>> g_def_scale_2D
+Sample_g_polylione.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_g_prism.c >>> g_def_scale_3D
+Sample_g_pyramid.c >>> g_def_scale_3D
+Sample_g_rectangle.c >>> g_def_scale_3D
+Sample_g_sphere.c >>> g_def_scale_3D
+Sample_g_text.c >>> g_def_scale_2D
+Sample_g_transparent.c >>> g_def_scale_3D_legacy
+Sample_g_triangle.c >>> g_def_scale_2D / g_def_scale_3D
+Sample_off_screen_rendaring.c >>> なし
+
 1-2:
-clipping >>>
-g_def_scale_3D_coreが呼ばれた段階で、
+clipping >>> g_def_scale_3D_coreが呼ばれた段階で、
 MATRIX_Clipping_off, MATRIX_Clipping_on を計算する。
 
 g_clipping(G_NO) => MATRIX_Clipping_off を使う。
