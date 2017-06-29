@@ -100,6 +100,16 @@ void g_def_scale_2D(
 
 void g_def_scale_3D_core(
 	int id,
+	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
+	double x_left_std, double y_top_std,
+	double width_std, double height_std,
+	double scale_x, double scale_y, double scale_z,
+	double direction_x, double direction_y, double direction_z,
+	double zoom,
+	double up_x, double up_y, double up_z);
+
+void g_def_scale_3D_core_legacy(
+	int id,
 	double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
 	double x_left_std, double y_top_std,
 	double width_std, double height_std,
