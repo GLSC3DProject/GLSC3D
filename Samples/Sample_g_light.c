@@ -14,7 +14,7 @@ int main()
 	g_def_scale_3D(0,
 		-2, 2, -2, 2, -2, 2,
 		0, 0, WINDOW_SIZE_X, WINDOW_SIZE_Y,
-		1, 1, 1, 1);
+		4, 4, 4, 1);
 
 	for (int i_time = 0; ; i_time++)
 	{

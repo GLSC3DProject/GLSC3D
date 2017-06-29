@@ -5,8 +5,8 @@ int main(void)
 	g_init("Sample_g_sphere.c", 640, 480);
 
 	double scale = 1;
-	g_def_scale_3D(0, -scale, scale, -scale, scale, -scale, scale, 0, 0, 320, 480, 1, 1, 1, scale*2);
-	g_def_scale_3D(1, -scale, scale, -scale, scale, -scale, scale, 320, 0, 320, 480, 1, 1, 1, scale*2);
+	g_def_scale_3D(0, -scale, scale, -scale, scale, -scale, scale, 0, 0, 320, 480, 4, 4, 4, scale);
+	g_def_scale_3D(1, -scale, scale, -scale, scale, -scale, scale, 320, 0, 320, 480, 4, 4, 4, scale);
 
 	while(1)
 	{
