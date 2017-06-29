@@ -215,6 +215,16 @@ struct G_MATRIX
 		);
 	}
 
+	static G_MATRIX Scaling(float x, float y, float z)
+	{
+		return G_MATRIX(
+			x, 0, 0, 0,
+			0, y, 0, 0,
+			0, 0, z, 0,
+			0, 0, 0, 1
+		);
+	}
+
 	static G_MATRIX Ortho(float left, float right, float bottom, float top, float near, float far)
 	{
 		float a = 1 / (right - left);

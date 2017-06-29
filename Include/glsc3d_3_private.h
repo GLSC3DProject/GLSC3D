@@ -117,7 +117,7 @@ struct G_SCREEN
 
 struct G_CAMERA
 {
-	G_MATRIX proj, view;
+	G_MATRIX proj, view, view_normal;
 };
 
 struct G_SCALE

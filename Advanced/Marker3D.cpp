@@ -83,110 +83,64 @@ public:
 	}
 };
 
-//int main()
-//{
-//	std::vector<Particle> particles(NUM_PARTICLES);
-//
-//	g_enable_highdpi();
-//	g_init("GLSC3D", WINDOW_SIZE, WINDOW_SIZE);
-//
-//	//g_scr_color(1, 1, 1);
-//	//g_line_color(0, 0, 0, 1);
-//
-//	g_def_scale_3D(0, -1, 1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE, 0, 0.75f, 1, 8);
-//
-//	g_marker_type(G_MARKER_SPHERE);
-//	g_line_width(2);
-//	g_line_type(1);
-//	g_text_size(18);
-//
-//	bool rotation_mode = false;
-//	float theta = 0;
-//
-//	while (true) {
-//		if (g_key_state(' ') == G_DOWN)
-//			rotation_mode = !rotation_mode;
-//
-//		if (g_key_state('0') == G_DOWN)
-//			g_marker_type(0);
-//
-//		if (g_key_state('1') == G_DOWN)
-//			g_marker_type(1);
-//
-//		if (g_key_state('2') == G_DOWN)
-//			g_marker_type(2);
-//
-//		g_cls();
-//
-//		if (rotation_mode) {
-//			theta += (float)M_PI / 720;
-//			g_def_scale_3D(0, -1, 1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE, sin(theta), 0.75f, cos(theta), 8);
-//		}
-//
-//		g_sel_scale_3D(0);
-//
-//		if (rotation_mode) {
-//			for (Particle &p : particles) {
-//				p.Render();
-//			}
-//		}
-//		else {
-//			for (Particle &p : particles) {
-//				p.Update();
-//				p.Render();
-//			}
-//		}
-//
-//		g_box_center_3D_core(0, 0, 0, 2, 2, 2, 0, G_YES, G_NO);
-//
-//		g_text_standard(0, 20, "Press space key to toggle rotation mode");
-//		g_text_standard(0, 40, "Press 0, 1, 2 key to change marker type");
-//
-//		g_finish();
-//	}
-//	return 0;
-//}
-
-#define WINDOW_SIZE_X     (500)
-#define WINDOW_SIZE_Y     (500)
-
 int main()
 {
-	g_init("Sample_g_ellipse.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
+	std::vector<Particle> particles(NUM_PARTICLES);
 
-//	g_init_light(0,0,1,1);
+	g_enable_highdpi();
+	g_init("GLSC3D", WINDOW_SIZE, WINDOW_SIZE);
 
-	double dt = 0.01;
+	//g_scr_color(1, 1, 1);
+	//g_line_color(0, 0, 0, 1);
 
-	float scale_x = 1.0, scale_y = 1.0, scale_z = 2.0;
-	float obj_scale_x = 1.0, obj_scale_y = 1.0, obj_scale_z = 1.0;
+	g_def_scale_3D(0, -1, 1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE, 0, 0.75f, 1, 8);
 
-	for (int i_time = 0;; i_time++)
-	{
-		double t = i_time * dt;
+	g_marker_type(G_MARKER_SPHERE);
+	g_line_width(2);
+	g_line_type(1);
+	g_text_size(18);
 
-		g_def_scale_3D_core(0, -2, 2, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X, WINDOW_SIZE_Y, scale_x, scale_y, scale_z, 4 *cos(t), 4*sin(t), 4*0.707, 1, 0, 0, 1);
-//		g_def_scale_3D_core_legacy(0, -2, 2, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X, WINDOW_SIZE_Y, 4 *cos(t), 4*sin(t), 4*0.707, 1, 0, 0, 1);
+	bool rotation_mode = false;
+	float theta = 0;
+
+	while (true) {
+		if (g_key_state(' ') == G_DOWN)
+			rotation_mode = !rotation_mode;
+
+		if (g_key_state('0') == G_DOWN)
+			g_marker_type(0);
+
+		if (g_key_state('1') == G_DOWN)
+			g_marker_type(1);
+
+		if (g_key_state('2') == G_DOWN)
+			g_marker_type(2);
 
 		g_cls();
 
+		if (rotation_mode) {
+			theta += (float)M_PI / 720;
+			g_def_scale_3D(0, -1, 1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE, sin(theta), 0.75f, cos(theta), 8);
+		}
+
 		g_sel_scale_3D(0);
 
-		float radius = 2.0;
+		if (rotation_mode) {
+			for (Particle &p : particles) {
+				p.Render();
+			}
+		}
+		else {
+			for (Particle &p : particles) {
+				p.Update();
+				p.Render();
+			}
+		}
 
-		G_VECTOR r[4] = { {radius*cosf(2*M_PI/3), radius*sinf(2*M_PI/3), 0},
-						  {radius*cosf(4*M_PI/3), radius*sinf(4*M_PI/3), 0},
-						  {radius*cosf(6*M_PI/3), radius*sinf(6*M_PI/3), 0},
-						  {0, 0, radius * obj_scale_z} };
-//		G_VECTOR g = (r[0]+r[1]+r[2]+r[3])/4;
-//		for(int i=0; i<4; i++){
-//			r[i] -= g;
-//		}
+		g_box_center_3D_core(0, 0, 0, 2, 2, 2, 0, G_YES, G_NO);
 
-		g_triangle_3D_s(r[0], r[1], r[2], 1, 1);
-		g_triangle_3D_s(r[0], r[1], r[3], 1, 1);
-		g_triangle_3D_s(r[1], r[2], r[3], 1, 1);
-		g_triangle_3D_s(r[0], r[2], r[3], 1, 1);
+		g_text_standard(0, 20, "Press space key to toggle rotation mode");
+		g_text_standard(0, 40, "Press 0, 1, 2 key to change marker type");
 
 		g_finish();
 	}

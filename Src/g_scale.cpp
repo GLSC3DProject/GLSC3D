@@ -97,21 +97,16 @@ void g_def_scale_3D_core(
 	G_VECTOR center = 0.5f * (lower + upper);
 	float sphere_r = g_norm(upper - lower) / 2;
 
-#if 1
 	float R = g_norm(direction);
 	G_VECTOR eye = center + direction;
 	float r_div_sr = R / sphere_r;
 	float c = sqrtf(r_div_sr * r_div_sr - 1) * zoom;
-#else
-	float r = zoom;
-	float R = (r > sphere_r*1.4) ? r : sphere_r*1.4;
-	G_VECTOR eye = center + R * g_normalize(direction);
-	float r_div_sr = R / sphere_r;
-	float c = sqrtf(r_div_sr * r_div_sr - 1);
-#endif
+
+	G_MATRIX look_at = G_MATRIX::LookAt(eye, center, up);
 
 	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Perspective(c, aspect, R*0.25f, R + sphere_r);
-	glsc3D_inner_scale[id].camera.view = G_MATRIX::LookAt(eye, center, up);
+	glsc3D_inner_scale[id].camera.view = G_MATRIX::Scaling(scale_x, scale_y, scale_z) * look_at;
+	glsc3D_inner_scale[id].camera.view_normal = G_MATRIX::Scaling(1/scale_x, 1/scale_y, 1/scale_z) * look_at;
 //	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 }
@@ -123,7 +118,7 @@ void g_def_scale_3D_core_legacy(
 	double x_left_std, double y_top_std,
 	double width_std, double height_std,
 	double direction_x, double direction_y, double direction_z,
-	double zoom,
+	double r,
 	double up_x, double up_y, double up_z)
 {
 	if (id >= TotalDisplayNumber) {
@@ -140,21 +135,16 @@ void g_def_scale_3D_core_legacy(
 	G_VECTOR center = 0.5f * (lower + upper);
 	float sphere_r = g_norm(upper - lower) / 2;
 
-#if 0
-	float R = g_norm(direction);
-	G_VECTOR eye = center + direction;
-	float r_div_sr = R / sphere_r;
-	float c = sqrtf(r_div_sr * r_div_sr - 1) * zoom;
-#else
-	float r = zoom;
 	float R = (r > sphere_r*1.4) ? r : sphere_r*1.4;
 	G_VECTOR eye = center + R * g_normalize(direction);
 	float r_div_sr = R / sphere_r;
 	float c = sqrtf(r_div_sr * r_div_sr - 1);
-#endif
+
+	G_MATRIX look_at = G_MATRIX::LookAt(eye, center, up);
 
 	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Perspective(c, aspect, R*0.25f, R + sphere_r);
-	glsc3D_inner_scale[id].camera.view = G_MATRIX::LookAt(eye, center, up);
+	glsc3D_inner_scale[id].camera.view = look_at;
+	glsc3D_inner_scale[id].camera.view_normal = look_at;
 //	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 }
