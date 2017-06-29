@@ -47,6 +47,12 @@ void G_SCALE::select()
 #endif
 }
 
+G_SCREEN g_make_screen(int x, int y, int width, int height)
+{
+	G_SCREEN screen = {x, y, width, height};
+	return screen;
+}
+
 void g_def_scale_2D(
 	int id,                                                         //id
 	double x_left, double x_right, double y_bottom, double y_top,   //仮想座標系
@@ -57,7 +63,8 @@ void g_def_scale_2D(
 		fprintf(stderr,"too large id number\n");
 		g_quit();
 	}
-	glsc3D_inner_scale[id].camera = g_make_camera_2D(x_left, x_right, y_bottom, y_top);
+	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Ortho(x_left, x_right, y_bottom, y_top, 1, -1);
+	glsc3D_inner_scale[id].camera.view = G_MATRIX::Identity();
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 }
 

@@ -128,13 +128,6 @@ struct G_SCALE
 	void select();
 };
 
-// ---- g_camera.cpp
-
-G_SCREEN g_make_screen(int x, int y, int width, int height);
-G_CAMERA g_make_camera_3D_core(G_VECTOR lower, G_VECTOR upper, G_VECTOR direction, float r, float aspect, G_VECTOR up);
-G_CAMERA g_make_camera_2D(float x_left, float x_right, float y_bottom, float y_top);
-//void g_camera_rotate(G_CAMERA *cam, G_ROTATE_DIRECTION dire, G_ROTATE_ANCHOR anc, float theta);
-
 // ---- g_screen.cpp
 
 extern G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
