@@ -52,7 +52,7 @@ int main()
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse up   x:%d y:%d", up_x, up_y);
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse state : %s", state_string[mouse_state]);
 
-		g_sleep(0.1);
+//		g_sleep(0.1);
 		g_finish();
 		fflush(stdout);
 	}
