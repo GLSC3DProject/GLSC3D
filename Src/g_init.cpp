@@ -1,4 +1,4 @@
-﻿#include "glsc3d_3_private.h"
+#include "glsc3d_3_private.h"
 
 int glsc3D_width;
 int glsc3D_height;

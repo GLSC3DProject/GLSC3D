@@ -3,8 +3,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Out)
 find_package(OpenGL)
 
 if (MSVC)
-	set(CMAKE_C_FLAGS	" /MP")
-	set(CMAKE_CXX_FLAGS	" /MP")
 	set(SDL_LIBRARY SDL2.lib)
 	set(PNG_LIBRARY libpng16.lib zlib.lib)
 	set(FREETYPE_LIBRARIES freetype271.lib)

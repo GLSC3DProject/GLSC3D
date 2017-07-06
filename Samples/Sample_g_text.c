@@ -1,12 +1,8 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include <math.h>
 #include "glsc3d_3.h"
-
-#ifdef _WIN32
-#pragma execution_character_set("UTF-8")
-#endif
 
 #define WINDOW_SIZE_X     (320)
 #define WINDOW_SIZE_Y     (320)

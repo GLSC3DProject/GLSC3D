@@ -1,4 +1,4 @@
-﻿#include "glsc3d_3_private.h"
+#include "glsc3d_3_private.h"
 
 void g_pyramid_3D_core(
 	double center_x, double center_y, double center_z,                      //中心座標
