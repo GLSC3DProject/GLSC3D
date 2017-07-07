@@ -7,8 +7,8 @@ G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
 G_BOOL g_clipping_enabled = G_YES;
 
-int g_num_scale_draw_boundary;
-int g_scale_draw_boundary[TotalDisplayNumber];
+int g_num_scale_boundaries;
+int g_scale_boundaries[TotalDisplayNumber];
 
 struct G_TRANSFORM
 {
@@ -176,30 +176,10 @@ void g_def_scale_3D_core_legacy(
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 }
 
-void g_sel_scale_private(int id, G_DIMENSION dimension, bool boundary)
+void g_sel_scale_private(int id, G_DIMENSION dimension)
 {
 	g_triangle_buffer_flush();
 	g_vertex_buffer_flush();
-
-	if (boundary) {
-		G_SCALE scale;
-		scale.screen = glsc3D_inner_scale[id].screen;
-		scale.camera.proj = G_MATRIX::Identity();
-		scale.camera.view = G_MATRIX::Identity();
-		scale.select();
-
-		float line_size = g_current_line_size;
-		g_line_width(line_size * 2);
-
-		g_move_2D(-1, -1);
-		g_plot_2D(+1, -1);
-		g_plot_2D(+1, +1);
-		g_plot_2D(-1, +1);
-		g_plot_2D(-1, -1);
-
-		g_vertex_buffer_flush();
-		g_line_width(line_size);
-	}
 
 	glsc3D_inner_scale[id].select();
 
@@ -214,22 +194,50 @@ void g_sel_scale_private(int id, G_DIMENSION dimension, bool boundary)
 
 void g_sel_scale_2D(int id)
 {
-	g_sel_scale_private(id, G_2D, false);
+	g_sel_scale_private(id, G_2D);
 }
 
 void g_sel_scale_3D(int id)
 {
-	g_sel_scale_private(id, G_3D, false);
+	g_sel_scale_private(id, G_3D);
 }
 
-void g_sel_scale_2D_boundary(int id)
+void g_boundary(void)
 {
-	g_sel_scale_private(id, G_2D, true);
+	g_scale_boundaries[g_num_scale_boundaries++] = g_current_scale_id;
 }
 
-void g_sel_scale_3D_boundary(int id)
+void g_clear_boundaries(void)
 {
-	g_sel_scale_private(id, G_3D, true);
+	g_num_scale_boundaries = 0;
+}
+
+void g_finish_boundaries(void)
+{
+	if (g_num_scale_boundaries == 0) return;
+
+	g_vertex_buffer_flush();
+
+	G_SCALE scale;
+	scale.screen = g_make_screen(0, 0, glsc3D_width, glsc3D_height);
+	scale.camera.proj = G_MATRIX::Ortho2D(0, glsc3D_width, glsc3D_height, 0);
+	scale.camera.view = G_MATRIX::Identity();
+	scale.camera.view_normal = G_MATRIX::Identity();
+
+	G_BOOL prev_clipping_state = g_clipping_enabled;
+	g_clipping_enabled = G_YES;
+	scale.select();
+
+	for (int i = 0; i < g_num_scale_boundaries; i++) {
+		G_SCREEN &s = glsc3D_inner_scale[g_scale_boundaries[i]].screen;
+		g_move_2D(s.x, s.y);
+		g_plot_2D(s.x + s.width, s.y);
+		g_plot_2D(s.x + s.width, s.y + s.height);
+		g_plot_2D(s.x, s.y + s.height);
+		g_plot_2D(s.x, s.y);
+	}
+
+	g_clipping_enabled = prev_clipping_state;
 }
 
 void g_clipping(G_BOOL value)

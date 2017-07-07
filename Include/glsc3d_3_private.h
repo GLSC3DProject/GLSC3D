@@ -185,6 +185,9 @@ void * GLSC3D_Array_Buffer(size_t array_size);
 extern int g_current_scale_id;
 extern G_DIMENSION g_scale_dim_flag;
 
+void g_clear_boundaries(void);
+void g_finish_boundaries(void);
+
 // ---- g_input.c
 
 void g_keyboard_func(G_KEY_CODE key, G_INPUT_STATE state);

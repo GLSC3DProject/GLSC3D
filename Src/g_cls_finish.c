@@ -8,12 +8,14 @@ void g_scr_color(float r, float g, float b)
 void g_cls()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	g_clear_boundaries();
 }
 
 void g_finish()
 {
 	g_triangle_buffer_flush();
 	g_triangle_buffer_draw();
+	g_finish_boundaries();
 	g_vertex_buffer_flush();
 
 	g_swap_buffers();

@@ -37,7 +37,8 @@ int main(void) {
 
 		g_cls();
 
-		g_sel_scale_3D_boundary(0);
+		g_sel_scale_3D(0);
+		g_boundary();
 		g_pyramid_3D_core (0, 0,-1, 0, 0, 1, 1, 2, t, 6, 0, WIRE, FILL);
 
 		g_sel_scale_3D(1);
@@ -46,7 +47,8 @@ int main(void) {
 		g_sel_scale_3D(2);
 		g_prism_3D_core   (0, 0, 0, 0, 0, 1, 1, 2, t, 6, 0, WIRE, FILL);
 
-		g_sel_scale_3D_boundary(3);
+		g_sel_scale_3D(3);
+		g_boundary();
 		g_cylinder_3D_core(0, 0, 0, 0, 0, 1, 1, 2, t,24, 0, WIRE, FILL);
 
 		g_sel_scale_3D(4);
