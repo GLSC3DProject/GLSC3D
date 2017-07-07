@@ -5,7 +5,11 @@ G_DIMENSION g_scale_dim_flag;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
-#ifdef G_USE_CORE_PROFILE
+G_BOOL g_clipping_enabled = G_YES;
+
+int g_num_scale_draw_boundary;
+int g_scale_draw_boundary[TotalDisplayNumber];
+
 struct G_TRANSFORM
 {
 	G_CAMERA camera;
@@ -16,6 +20,8 @@ struct G_TRANSFORM
 	// g_screen_scale_factor
 	float screen_scale;
 };
+
+#ifdef G_USE_CORE_PROFILE
 #else
 float g_current_pixel_scale;
 #endif
@@ -27,10 +33,24 @@ void G_SCALE::select()
 	int w = (int)(g_screen_scale_factor * screen.width);
 	int h = (int)(g_screen_scale_factor * screen.height);
 
-	glViewport(x, y, w, h);
-#ifdef G_USE_CORE_PROFILE
 	G_TRANSFORM transform;
 	transform.camera = camera;
+
+	if (g_clipping_enabled) {
+		glViewport(x, y, w, h);
+	}
+	else {
+		glViewport(0, 0, glsc3D_width, glsc3D_height);
+
+		float x0 = -2.f * screen.x / screen.width - 1.f;
+		float x1 = 2.f * glsc3D_width / w + x0;
+		float y1 = 2.f * screen.y / screen.height + 1.f;
+		float y0 = -2.f * glsc3D_height / h + y1;
+
+		transform.camera.proj *= G_MATRIX::Ortho2D(x0, x1, y0, y1);
+	}
+
+#ifdef G_USE_CORE_PROFILE
 	transform.pixel_scale_x = 1 / (screen.width * camera.proj.x.x);
 	transform.pixel_scale_y = 1 / (screen.height * camera.proj.y.y);
 	transform.screen_scale = g_screen_scale_factor;
@@ -38,10 +58,10 @@ void G_SCALE::select()
 	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
 #else
 	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf((float *)&camera.proj);
+	glLoadMatrixf((float *)&transform.camera.proj);
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf((float *)&camera.view);
+	glLoadMatrixf((float *)&transform.camera.view);
 
 	g_current_pixel_scale = 1 / (screen.height * camera.proj.y.y);
 #endif
@@ -63,7 +83,7 @@ void g_def_scale_2D(
 		fprintf(stderr,"too large id number\n");
 		g_quit();
 	}
-	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Ortho(x_left, x_right, y_bottom, y_top, 1, -1);
+	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Ortho2D(x_left, x_right, y_bottom, y_top);
 	glsc3D_inner_scale[id].camera.view = G_MATRIX::Identity();
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 }
@@ -76,8 +96,9 @@ void g_def_scale_3D(
 	double direction_x, double direction_y, double direction_z,
 	double zoom)                                                     //視点位置
 {
-	g_def_scale_3D_core(id, x_0, x_1, y_0, y_1, z_0, z_1, x_left_std, y_top_std, width_std,
-						   height_std, 1, 1, 1, direction_x, direction_y, direction_z, zoom, 0, 1, 0);
+	g_def_scale_3D_core(
+		id, x_0, x_1, y_0, y_1, z_0, z_1, x_left_std, y_top_std, width_std, height_std,
+		1, 1, 1, direction_x, direction_y, direction_z, zoom, 0, 1, 0);
 }
 
 void g_def_scale_3D_core(
@@ -117,7 +138,6 @@ void g_def_scale_3D_core(
 //	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
 }
-
 
 void g_def_scale_3D_core_legacy(
 	int id,
@@ -210,4 +230,10 @@ void g_sel_scale_2D_boundary(int id)
 void g_sel_scale_3D_boundary(int id)
 {
 	g_sel_scale_private(id, G_3D, true);
+}
+
+void g_clipping(G_BOOL value)
+{
+	g_clipping_enabled = value;
+	glsc3D_inner_scale[g_current_scale_id].select();
 }

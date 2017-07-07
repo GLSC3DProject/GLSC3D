@@ -225,17 +225,16 @@ struct G_MATRIX
 		);
 	}
 
-	static G_MATRIX Ortho(float left, float right, float bottom, float top, float near, float far)
+	static G_MATRIX Ortho2D(float left, float right, float bottom, float top)
 	{
 		float a = 1 / (right - left);
 		float b = 1 / (top - bottom);
-		float c = 1 / (far - near);
 
 		return G_MATRIX(
 			2*a, 0, 0, 0,
 			0, 2*b, 0, 0,
-			0, 0, -2*c, 0,
-			-(right+left)*a, -(top+bottom)*b, -(far+near)*c, 1
+			0, 0, 1, 0,
+			-(right+left)*a, -(top+bottom)*b, 0, 1
 		);
 	}
 
@@ -306,6 +305,11 @@ inline G_MATRIX operator *(const G_MATRIX &A, const G_MATRIX &B)
 		A.z.x * B.x + A.z.y * B.y + A.z.z * B.z + A.z.w * B.w,
 		A.w.x * B.x + A.w.y * B.y + A.w.z * B.z + A.w.w * B.w
 	);
+}
+
+inline void operator *=(G_MATRIX &A, const G_MATRIX &B)
+{
+	A = A * B;
 }
 
 #else

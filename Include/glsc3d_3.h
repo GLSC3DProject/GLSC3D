@@ -131,6 +131,8 @@ void g_sel_scale_3D(int id);
 void g_sel_scale_2D_boundary(int id);
 void g_sel_scale_3D_boundary(int id);
 
+void g_clipping(G_BOOL value);
+
 // ---- g_move_plot.c
 
 void g_move_s(G_VECTOR position);
