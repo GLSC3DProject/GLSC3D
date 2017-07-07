@@ -124,6 +124,7 @@ struct G_SCALE
 {
 	G_SCREEN screen;
 	G_CAMERA camera;
+	GLenum front_face;
 
 	void select();
 };

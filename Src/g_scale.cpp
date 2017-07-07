@@ -65,6 +65,8 @@ void G_SCALE::select()
 
 	g_current_pixel_scale = 1 / (screen.height * camera.proj.y.y);
 #endif
+
+	glFrontFace(front_face);
 }
 
 G_SCREEN g_make_screen(int x, int y, int width, int height)
@@ -90,11 +92,11 @@ void g_def_scale_2D(
 
 void g_def_scale_3D(
 	int id,
-	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1, //仮想座標系
-	double x_left_std, double y_top_std,                          //ウィンドウの位置
-	double width_std, double height_std,                          //ウィンドウのサイズ
+	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
+	double x_left_std, double y_top_std,
+	double width_std, double height_std,
 	double direction_x, double direction_y, double direction_z,
-	double zoom)                                                     //視点位置
+	double zoom)
 {
 	g_def_scale_3D_core(
 		id, x_0, x_1, y_0, y_1, z_0, z_1, x_left_std, y_top_std, width_std, height_std,
@@ -103,22 +105,27 @@ void g_def_scale_3D(
 
 void g_def_scale_3D_core(
 	int id,
-	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
-	double x_left_std, double y_top_std,
-	double width_std, double height_std,
-	double scale_x, double scale_y, double scale_z,
-	double direction_x, double direction_y, double direction_z,
-	double zoom,
-	double up_x, double up_y, double up_z)
+	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1, //仮想座標系の範囲
+	double x_left_std, double y_top_std,                                    //ウィンドウの位置
+	double width_std, double height_std,                                    //ウィンドウのサイズ
+	double scale_x, double scale_y, double scale_z,                         //仮想座標系の拡大率
+	double direction_x, double direction_y, double direction_z,             //直方体の中心から視点位置へのベクトル
+	double zoom,                                                            //表示の拡大率
+	double up_x, double up_y, double up_z)                                  //上向きベクトル
 {
 	if (id >= TotalDisplayNumber) {
 		fprintf(stderr,"too large id number\n");
 		g_quit();
 	}
-	G_VECTOR lower(x_0, y_0, z_0);
-	G_VECTOR upper(x_1, y_1, z_1);
-	G_VECTOR direction(direction_x, direction_y, direction_z);
-	G_VECTOR up(up_x, up_y, up_z);
+
+	if (x_0 > x_1) scale_x *= -1;
+	if (y_0 > y_1) scale_y *= -1;
+	if (z_0 > z_1) scale_z *= -1;
+
+	G_VECTOR lower(x_0 * scale_x, y_0 * scale_y, z_0 * scale_z);
+	G_VECTOR upper(x_1 * scale_x, y_1 * scale_y, z_1 * scale_z);
+	G_VECTOR direction(direction_x * scale_x, direction_y * scale_y, direction_z * scale_z);
+	G_VECTOR up(up_x * scale_x, up_y * scale_y, up_z * scale_z);
 
 	float aspect = (float)width_std / (float)height_std;
 
@@ -137,6 +144,7 @@ void g_def_scale_3D_core(
 	glsc3D_inner_scale[id].camera.view_normal = G_MATRIX::Scaling(1/scale_x, 1/scale_y, 1/scale_z) * look_at;
 //	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
+	glsc3D_inner_scale[id].front_face = (scale_x * scale_y * scale_z < 0) ? GL_CW : GL_CCW;
 }
 
 void g_def_scale_3D_core_legacy(
