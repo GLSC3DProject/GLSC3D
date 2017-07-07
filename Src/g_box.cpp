@@ -120,7 +120,7 @@ void g_box_center_3D_core(
 
 	g_box_3D_core(
 		x - dx, x + dx, y - dy, y + dy, z - dz, z + dz,
-		0, WIRE, FILL);
+		DivideLevel, WIRE, FILL);
 }
 
 void g_box_center_3D(
