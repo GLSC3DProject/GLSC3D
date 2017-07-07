@@ -181,6 +181,7 @@ void g_sel_scale_private(int id, G_DIMENSION dimension)
 	g_triangle_buffer_flush();
 	g_vertex_buffer_flush();
 
+	g_clipping_enabled = G_YES;
 	glsc3D_inner_scale[id].select();
 
 	if (dimension == G_3D)
@@ -224,7 +225,6 @@ void g_finish_boundaries(void)
 	scale.camera.view = G_MATRIX::Identity();
 	scale.camera.view_normal = G_MATRIX::Identity();
 
-	G_BOOL prev_clipping_state = g_clipping_enabled;
 	g_clipping_enabled = G_YES;
 	scale.select();
 
@@ -236,8 +236,6 @@ void g_finish_boundaries(void)
 		g_plot_2D(s.x, s.y + s.height);
 		g_plot_2D(s.x, s.y);
 	}
-
-	g_clipping_enabled = prev_clipping_state;
 }
 
 void g_clipping(G_BOOL value)
