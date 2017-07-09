@@ -42,7 +42,7 @@ void g_fan_3D_core(
 	int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill)
 {
 	int i,STEP=FaceNumberLevel;
-	double dtheta;
+	double dtheta = 0.5*angle / STEP;
 	double phi = g_direction_phi(g_vector3(direction_x, direction_y, direction_z));
 	double theta = g_direction_theta(g_vector3(direction_x, direction_y, direction_z));
 	G_VECTOR r0,r1,r2, nx;
@@ -52,7 +52,6 @@ void g_fan_3D_core(
 	{
 		for (i = 0; i < STEP; i++)
 		{
-			dtheta = 0.5*angle / STEP;
 			r1 = r0 + Ry(Rz(Rx(Ry(radius * nx, (2 * i - STEP)*dtheta), psi), phi), theta);
 			r2 = r0 + Ry(Rz(Rx(Ry(radius * nx, (2 * (i + 1) - STEP)*dtheta), psi), phi), theta);
 			g_triangle_3D_flat_worker(r0, r1, r2, DivideLevel);
@@ -64,7 +63,6 @@ void g_fan_3D_core(
 		g_begin_line_strip();
 		for (i = 0; i <= STEP; i++)
 		{
-			dtheta = 0.5*angle / STEP;
 			g_emit_vertex(r0 + Ry(Rz(Rx(Ry(radius * nx, (2 * i - STEP)*dtheta), psi), phi), theta));
 		}
 		g_emit_vertex(r0);
