@@ -15,8 +15,8 @@ void g_ellipse_3D_core(
 	double A = cos(dth), B = sin(dth), C = cos(dp), D = sin(dp);
 	double beta = g_direction_phi(G_VECTOR(direction_x, direction_y, direction_z));
 	double alpha = g_direction_theta(G_VECTOR(direction_x, direction_y, direction_z));
-	G_VECTOR r0, r1, r2, r3, X;
-	X = G_VECTOR( x, y, z );
+	G_VECTOR r0, r1, r2, r3;
+//	X = G_VECTOR( x, y, z );
 	G_VECTOR center = G_VECTOR(x, y, z);
 	G_VECTOR SCALE = G_VECTOR(Sx, Sy, Sz);
 	G_VECTOR n0, n1, n2, n3;
@@ -44,12 +44,12 @@ void g_ellipse_3D_core(
 			n3 = Scaling3Ds(r3, n_SCALE);
 
 			g_triangle_3D_smooth_core_s(
-					r0 + X,r1 + X,r3 + X,
+					r0,r1,r3,
 					n0, n1, n3,
 					DivideLevel, Wire, Fill
 			);
 			g_triangle_3D_smooth_core_s(
-					r0 + X,r3 + X,r2 + X,
+					r0,r3,r2,
 					n0, n3, n2,
 					DivideLevel, Wire, Fill
 			);
