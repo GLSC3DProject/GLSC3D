@@ -16,11 +16,22 @@ int main(void)
 {
 	g_init("Sample_g_bird_view.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
-	g_def_scale_3D_core(0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, 0, 0,
+#if 0
+	g_def_scale_3D_core_kobayashi(
+		0,
+		-LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0 * 2.0, LEN / 2.0 * 2.0,
+		-LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0,
+		4, 4, 2, 0, 0, 1, 1, 0, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
+
+	g_def_scale_3D_core(1, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0 * 2.0, LEN / 2.0 * 2.0, 0, 0,
+						WINDOW_SIZE_X / 2, WINDOW_SIZE_Y, 1, 1, 0.5, 4, 4, 4, 1, 0, 0, 1);
+#else
+	g_def_scale_3D_core(0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0 * 2.0, LEN / 2.0 * 2.0, 0, 0,
 						WINDOW_SIZE_X / 2, WINDOW_SIZE_Y, 1, 1, 0.5, 4, 4, 4, 1, 0, 0, 1);
 
-	g_def_scale_3D_core(1, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0,
+	g_def_scale_3D_core(1, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0 * 2.0, LEN / 2.0 * 2.0,
 						WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y, 1, 1, 0.5, 4, 4, 4, 1, 0, 0, 1);
+#endif
 
 	double dt = 0.03;
 	int i,j;

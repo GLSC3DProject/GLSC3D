@@ -108,6 +108,17 @@ void g_def_scale_3D_core(
 	double zoom,
 	double up_x, double up_y, double up_z);
 
+void g_def_scale_3D_core_kobayashi(
+	int id,
+	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
+	double x_0_f, double x_1_f, double y_0_f, double y_1_f, double z_0_f, double z_1_f,
+	double eye_x, double eye_y, double eye_z,
+	double up_x, double up_y, double up_z,
+	double zoom,
+	double x_left_std, double y_top_std,
+	double width_std, double height_std
+);
+
 void g_def_scale_3D_core_legacy(
 	int id,
 	double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
