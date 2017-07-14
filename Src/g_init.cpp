@@ -25,6 +25,8 @@ void g_init_core(
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
+	glEnable(GL_DEPTH_TEST);
+
 //	glEnable(GL_CULL_FACE);
 //	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 

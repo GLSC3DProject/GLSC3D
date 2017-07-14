@@ -7,9 +7,6 @@ G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
 G_BOOL g_clipping_enabled = G_YES;
 
-int g_num_scale_boundaries;
-int g_scale_boundaries[TotalDisplayNumber];
-
 struct G_TRANSFORM
 {
 	G_CAMERA camera;
@@ -192,11 +189,6 @@ void g_sel_scale_private(int id, G_DIMENSION dimension)
 	g_clipping_enabled = G_YES;
 	glsc3D_inner_scale[id].select();
 
-	if (dimension == G_3D)
-		glEnable(GL_DEPTH_TEST);
-	else
-		glDisable(GL_DEPTH_TEST);
-
 	g_scale_dim_flag = dimension;
 	g_current_scale_id = id;
 }
@@ -213,37 +205,29 @@ void g_sel_scale_3D(int id)
 
 void g_boundary(void)
 {
-	g_scale_boundaries[g_num_scale_boundaries++] = g_current_scale_id;
-}
-
-void g_clear_boundaries(void)
-{
-	g_num_scale_boundaries = 0;
-}
-
-void g_finish_boundaries(void)
-{
-	if (g_num_scale_boundaries == 0) return;
-
-	g_vertex_buffer_flush();
-
 	G_SCALE scale;
 	scale.screen = g_make_screen(0, 0, glsc3D_width, glsc3D_height);
 	scale.camera.proj = G_MATRIX::Ortho2D(0, glsc3D_width, glsc3D_height, 0);
 	scale.camera.view = G_MATRIX::Identity();
 	scale.camera.view_normal = G_MATRIX::Identity();
 
+	g_vertex_buffer_flush();
+
+	G_BOOL previous_clipping_state = g_clipping_enabled;
 	g_clipping_enabled = G_YES;
 	scale.select();
 
-	for (int i = 0; i < g_num_scale_boundaries; i++) {
-		G_SCREEN &s = glsc3D_inner_scale[g_scale_boundaries[i]].screen;
-		g_move_2D(s.x, s.y);
-		g_plot_2D(s.x + s.width, s.y);
-		g_plot_2D(s.x + s.width, s.y + s.height);
-		g_plot_2D(s.x, s.y + s.height);
-		g_plot_2D(s.x, s.y);
-	}
+	G_SCREEN &s = glsc3D_inner_scale[g_current_scale_id].screen;
+	g_move_3D(s.x, s.y, -1);
+	g_plot_3D(s.x + s.width, s.y, -1);
+	g_plot_3D(s.x + s.width, s.y + s.height, -1);
+	g_plot_3D(s.x, s.y + s.height, -1);
+	g_plot_3D(s.x, s.y, -1);
+
+	g_vertex_buffer_flush();
+
+	g_clipping_enabled = previous_clipping_state;
+	glsc3D_inner_scale[g_current_scale_id].select();
 }
 
 void g_clipping(G_BOOL value)
