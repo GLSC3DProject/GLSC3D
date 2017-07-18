@@ -1392,7 +1392,8 @@ void g_def_scale_3D(
         double y_f_0, double y_f_1, 
         double z_f_0, double z_f_1, 
         double eye_x, double eye_y, double eye_z,
-        double zoom, double up_x, double up_y, double up_z, 
+        double up_x, double up_y, double up_z, 
+        double zoom, 
         double x_left_std, double y_top_std,
         double width_std, double height_std);
 \end{verbatim}
@@ -1401,8 +1402,8 @@ void g_def_scale_3D(
 \verb|x_0|, \verb|x_1|, \verb|y_0|, \verb|y_1|, \verb|z_0|, \verb|z_1| ; 自由座標系における$x, y, z$の範囲の端点 \\
 \verb|x_f_0|, \verb|x_f_1|, \verb|y_f_0|, \verb|y_f_1|, \verb|z_f_0|, \verb|z_f_1| ; 固定座標系における$x, y, z$の範囲の端点 \\
 \verb|eye_x|, \verb|eye_y|, \verb|eye_z| ; 描画直方体$^*$の重心から視点位置までのベクトルの座標 \\
-\verb|zoom| ; 拡大率 \\
 \verb|up_x|, \verb|up_y|, \verb|up_z| ; 画面上方向を指定するべクトルの座標 \\
+\verb|zoom| ; 拡大率 \\
 \verb|x_left_std| ; 標準座標系に定義する描画枠の左端のx座標 \\
 \verb|y_top_std| ; 標準座標系に定義する描画枠の左端のy座標 \\
 \verb|width_std| ; 標準座標系に定義する描画枠の幅 \\
@@ -1446,7 +1447,8 @@ void g_def_scale_3D_fix(
         double y_0, double y_1,
         double z_0, double z_1,
         double eye_x, double eye_y, double eye_z,
-        double zoom, double up_x, double up_y, double up_z, 
+        double up_x, double up_y, double up_z, 
+        double zoom, 
         double x_left_std, double y_top_std,
         double width_std, double height_std);
 \end{verbatim}
@@ -1454,8 +1456,8 @@ void g_def_scale_3D_fix(
 \verb|id| ; スケール番号 \\
 \verb|x_0|, \verb|x_1|, \verb|y_0|, \verb|y_1|, \verb|z_0|, \verb|z_1| ; 固定(自由)座標系における$x, y, z$の範囲の端点 \\
 \verb|eye_x|, \verb|eye_y|, \verb|eye_z| ; 描画直方体の重心から視点位置までのベクトルの座標 \\
-\verb|zoom| ; 拡大率 \\
 \verb|up_x|, \verb|up_y|, \verb|up_z| ; 画面上方向を指定するべクトルの座標 \\
+\verb|zoom| ; 拡大率 \\
 \verb|x_left_std| ; 標準座標系に定義する描画枠の左端のx座標 \\
 \verb|y_top_std| ; 標準座標系に定義する描画枠の左端のy座標 \\
 \verb|width_std| ; 標準座標系に定義する描画枠の幅 \\
