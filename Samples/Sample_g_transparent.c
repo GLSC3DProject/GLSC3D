@@ -42,7 +42,7 @@ int main()
 		g_cls();
 		for(int id = 0;id < 4;id ++)
 		{
-			g_sel_scale_3D(id);
+			g_sel_scale(id);
 
 			g_arrow_3D(-2*scale, 0, 0, 1, 0, 0, 4*scale, 0.1*scale, G_NO, G_YES);
 

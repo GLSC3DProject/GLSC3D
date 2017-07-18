@@ -1,7 +1,6 @@
 #include "glsc3d_3_private.h"
 
 int  g_current_scale_id;
-G_DIMENSION g_scale_dim_flag;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
@@ -63,7 +62,7 @@ void G_SCALE::select()
 	g_current_pixel_scale = 1 / (screen.height * camera.proj.y.y);
 #endif
 
-	glFrontFace(front_face);
+	glFrontFace(is_left_handed ? GL_CW : GL_CCW);
 }
 
 G_SCREEN g_make_screen(int x, int y, int width, int height)
@@ -85,6 +84,8 @@ void g_def_scale_2D(
 	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Ortho2D(x_left, x_right, y_bottom, y_top);
 	glsc3D_inner_scale[id].camera.view = G_MATRIX::Identity();
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
+	glsc3D_inner_scale[id].is_3D = false;
+	glsc3D_inner_scale[id].is_left_handed = false;
 }
 
 void g_def_scale_3D(
@@ -141,7 +142,8 @@ void g_def_scale_3D_core(
 	glsc3D_inner_scale[id].camera.view_normal = G_MATRIX::Scaling(1/scale_x, 1/scale_y, 1/scale_z) * look_at;
 //	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
-	glsc3D_inner_scale[id].front_face = (scale_x * scale_y * scale_z < 0) ? GL_CW : GL_CCW;
+	glsc3D_inner_scale[id].is_3D = true;
+	glsc3D_inner_scale[id].is_left_handed = (scale_x * scale_y * scale_z < 0);
 }
 
 void g_def_scale_3D_core_kobayashi(
@@ -191,7 +193,8 @@ void g_def_scale_3D_core_kobayashi(
 	glsc3D_inner_scale[id].camera.view_normal = G_MATRIX::Scaling(1/scale_x, 1/scale_y, 1/scale_z) * trans * look_at;
 //	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
-	glsc3D_inner_scale[id].front_face = (scale_x * scale_y * scale_z < 0) ? GL_CW : GL_CCW;
+	glsc3D_inner_scale[id].is_3D = true;
+	glsc3D_inner_scale[id].is_left_handed = (scale_x * scale_y * scale_z < 0);
 }
 
 void g_def_scale_3D_core_legacy(
@@ -229,10 +232,11 @@ void g_def_scale_3D_core_legacy(
 	glsc3D_inner_scale[id].camera.view_normal = look_at;
 //	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
-	glsc3D_inner_scale[id].front_face = GL_CCW;
+	glsc3D_inner_scale[id].is_3D = true;
+	glsc3D_inner_scale[id].is_left_handed = false;
 }
 
-void g_sel_scale_private(int id, G_DIMENSION dimension)
+void g_sel_scale(int id)
 {
 	g_triangle_buffer_flush();
 	g_vertex_buffer_flush();
@@ -240,18 +244,7 @@ void g_sel_scale_private(int id, G_DIMENSION dimension)
 	g_clipping_enabled = G_YES;
 	glsc3D_inner_scale[id].select();
 
-	g_scale_dim_flag = dimension;
 	g_current_scale_id = id;
-}
-
-void g_sel_scale_2D(int id)
-{
-	g_sel_scale_private(id, G_2D);
-}
-
-void g_sel_scale_3D(int id)
-{
-	g_sel_scale_private(id, G_3D);
 }
 
 void g_boundary(void)

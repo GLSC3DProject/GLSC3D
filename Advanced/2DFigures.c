@@ -32,28 +32,28 @@ int main()
 
 		g_cls();
 
-		g_sel_scale_2D(0);
+		g_sel_scale(0);
 		g_boundary();
 		g_box_center_2D(0, 0, 2, 1, G_YES, G_NO);
 
-		g_sel_scale_2D(1);
+		g_sel_scale(1);
 		g_boundary();
 		g_circle_2D(0, 0, 1, G_YES, G_NO);
 
-		g_sel_scale_2D(2);
+		g_sel_scale(2);
 		g_text_size(24);
 		g_arrow_2D(0, 0, c, s, 1, 0.25, ARROW_TYPE);
 		g_arrow_2D(0, 0,-s, c, 1, 0.25, ARROW_TYPE);
 		g_text_2D_virtual( 1.1*c, 1.1*s, "x");
 		g_text_2D_virtual(-1.1*s, 1.1*c, "y");
 
-		g_sel_scale_2D(3);
+		g_sel_scale(3);
 		g_fan_2D(0, 0, c, s, 1, 2.0, G_YES, G_NO);
 
-		g_sel_scale_2D(4);
+		g_sel_scale(4);
 		g_polygon_2D(p, q, 5, G_NO, G_YES);
 
-		g_sel_scale_2D(5);
+		g_sel_scale(5);
 		g_polyline_2D(u, v, 6);
 
 		g_finish();

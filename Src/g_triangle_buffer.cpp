@@ -232,7 +232,7 @@ void g_triangle_buffer_draw()
 			{
 				DBG_WRITE("cc id : %d c id : %d", current_camera_id, camera_id[id]);
 				current_camera_id = camera_id[id];
-				g_sel_scale_3D(current_camera_id);
+				g_sel_scale(current_camera_id);
 			}
 			g_triangle_terminal(&triangle_buffer[final_index[id]]);
 		}

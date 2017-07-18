@@ -124,7 +124,9 @@ struct G_SCALE
 {
 	G_SCREEN screen;
 	G_CAMERA camera;
-	GLenum front_face;
+
+	bool is_3D;
+	bool is_left_handed;
 
 	void select();
 };
@@ -184,7 +186,6 @@ void * GLSC3D_Array_Buffer(size_t array_size);
 // ---- g_scale.cpp
 
 extern int g_current_scale_id;
-extern G_DIMENSION g_scale_dim_flag;
 
 // ---- g_input.c
 

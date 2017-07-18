@@ -16,12 +16,12 @@ int main()
 	{
 		g_cls();
 
-		g_sel_scale_2D(1);
+		g_sel_scale(1);
 		g_triangle_2D(-0.5, -1.5, -1.5, 1.5, -1.5, -1.5, G_YES, G_NO);
 		g_area_color_2D(1, 0, 0, 1);
 		g_triangle_2D(1, -1.5, 0, -1.5, 1, 1.5, G_NO, G_YES);
 
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 		g_triangle_3D(0, -2.5, 0, 0, 0.5, 2, 0, 2.5, 2, G_YES, G_NO);
 		g_triangle_3D_core(2, -0.5, 0, -2.5, 0, 0, 2, -0.5, 2, 0, G_NO, G_YES);
 

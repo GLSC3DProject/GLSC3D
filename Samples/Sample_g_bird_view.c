@@ -63,13 +63,13 @@ int main(void)
 		g_cls();
 
 		g_line_width(4.0);
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 
 		g_line_width(2.0);
 		g_bird_view_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array2, G_TRUE, G_FALSE);
 
 		g_line_width(4.0);
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_bird_view_f_3D(-LEN/2.0, LEN/2.0, -LEN/2.0, LEN/2.0, Imax, Jmax, array, G_FALSE, G_TRUE);
 
 		g_finish();

@@ -14,10 +14,10 @@ int main()
 	for(int i_time = 0;;i_time++)
 	{
 		g_cls();
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 		g_rectangle_3D(0, 0, 0, 1, 1, 0, 2, 4, 0.01*i_time, G_YES, G_NO);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_rectangle_3D_core(0, 0, 0, 1, 1, 0, 2, 4, 0.01*i_time, 0, G_NO, G_YES);
 
 		g_finish();

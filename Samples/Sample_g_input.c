@@ -13,7 +13,7 @@ int main()
 	g_init("Sample_g_input", 640, 480);
 
 	g_def_scale_2D(0, 0, 640, 480, 0, 0, 0, 640, 480);
-	g_sel_scale_2D(0);
+	g_sel_scale(0);
 
 	while (1)
 	{

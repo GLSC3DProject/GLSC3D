@@ -37,33 +37,33 @@ int main(void) {
 
 		g_cls();
 
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 		g_boundary();
 		g_pyramid_3D_core (0, 0,-1, 0, 0, 1, 1, 2, t, 6, 0, WIRE, FILL);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_cone_3D_core    (0, 0,-1, 0, 0, 1, 1, 2, 100, 0, WIRE, FILL);
 
-		g_sel_scale_3D(2);
+		g_sel_scale(2);
 		g_prism_3D_core   (0, 0, 0, 0, 0, 1, 1, 2, t, 6, 0, WIRE, FILL);
 
-		g_sel_scale_3D(3);
+		g_sel_scale(3);
 		g_boundary();
 		g_cylinder_3D_core(0, 0, 0, 0, 0, 1, 1, 2, t,24, 0, WIRE, FILL);
 
-		g_sel_scale_3D(4);
+		g_sel_scale(4);
 		g_ellipse_3D_core(0, 0, 0, 1.5, 1, 0.75, c, s, 0, 16, 0, WIRE, FILL);
 
-		g_sel_scale_3D(5);
+		g_sel_scale(5);
 		g_box_center_3D_core(0, 0, 0, 3, 2, 1.5, 0, WIRE, FILL);
 
-		g_sel_scale_3D(6);
+		g_sel_scale(6);
 		g_sphere_3D_core(0, 0, 0, 1, 16, 0, WIRE, FILL);
 
-		g_sel_scale_3D(7);
+		g_sel_scale(7);
 		g_rectangle_3D_core(0, 0, 0, c, s, 0, 3, 2, 0, 0, WIRE, FILL);
 
-		g_sel_scale_3D(8);
+		g_sel_scale(8);
 		g_text_size(24);
 		g_arrow_3D_core(0, 0, 0, c, s, 0, 1, 0.25, 100, 0, WIRE, FILL);
 		g_arrow_3D_core(0, 0, 0,-s, c, 0, 1, 0.25, 100, 0, WIRE, FILL);
@@ -72,7 +72,7 @@ int main(void) {
 		g_text_3D_virtual(-1.1*s, 1.1*c, 0, "y");
 		g_text_3D_virtual(0, 0, 1, "z");
 
-		g_sel_scale_3D(9);
+		g_sel_scale(9);
 		g_fan_3D_core(0, 0, 0, c, s, 0, 1, 2.0, 0, 16, 0, WIRE, FILL);
 
 		g_finish();

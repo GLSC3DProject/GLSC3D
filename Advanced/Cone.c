@@ -35,8 +35,8 @@ int main()
 		}
 		
 		g_cls();
-		
-		g_sel_scale_3D(0);
+
+		g_sel_scale(0);
 		
 		g_area_color_3D(0.5, 0.5, 0.75, 1);
 		g_rectangle_3D(0, h, 0, 1, 0, 0, 5, 4, 0, G_NO, G_YES);
@@ -46,7 +46,7 @@ int main()
 		g_cone_3D_core(2*c, 2*s, 0, -c, -s, 0, 2, 2, 100, 0, G_NO, G_YES);
 
 		g_line_color(0, 0, 0, 1);
-		g_sel_scale_2D(1);
+		g_sel_scale(1);
 		g_line_color(0, 0, 0, 1);
 		g_contln_f_2D(-2, 2, -1, 1, x_division, y_division, (double *)data, 0);
 		

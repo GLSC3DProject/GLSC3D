@@ -18,11 +18,11 @@ int main()
 	{
 		g_cls();
 		theta = 0.1*i_time*dt;
-		g_sel_scale_2D(0);
+		g_sel_scale(0);
 		g_fan_2D(-1, -1, cos(theta), sin(theta), 2, M_PI / 6, G_YES, G_NO);
 		g_fan_2D(0, 0, cos(theta), sin(theta), 1, M_PI / 6, G_NO, G_YES);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_fan_3D(
 			0, 0, 0,
 			0, -1, 0,

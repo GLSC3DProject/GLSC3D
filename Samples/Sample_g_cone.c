@@ -17,10 +17,10 @@ int main()
 	{
 		g_cls();
 
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 		g_cone_3D(0, -1, 0, 0, 1, 0, 1.5, 3, G_YES, G_NO);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_cone_3D(0, -1, 0, 0, 1, 0, 1.5, 3, G_NO, G_YES);
 
 		g_finish();

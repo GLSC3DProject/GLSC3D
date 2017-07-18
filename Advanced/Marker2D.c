@@ -19,7 +19,7 @@ int main()
 		double x = cos(t), y = sin(t);
 
 		g_cls();
-		g_sel_scale_2D(0);
+		g_sel_scale(0);
 
 		g_box_center_2D(0, 0, 2, 2, G_YES, G_NO);
 		

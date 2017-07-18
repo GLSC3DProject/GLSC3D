@@ -41,11 +41,11 @@ int main()
 		}
 		g_cls();
 
-		g_sel_scale_2D(0);
+		g_sel_scale(0);
 		g_marker_size(5); //Markerを大きく表示するため, デフォルト値から変更している
 		g_data_plot_2D(-2, 2, array3, 10);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_marker_size(1);
 		g_data_plot_3D(-2, 2, -2, 2, Imax, Jmax, array2);
 		//g_data_plot_f_3D(-2, 2, -2, 2, Imax, Jmax, array);
