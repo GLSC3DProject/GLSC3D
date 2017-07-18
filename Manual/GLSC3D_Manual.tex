@@ -1343,26 +1343,27 @@ if(g_input_state(G_MOUSE_LEFT, NULL, NULL) == G_DOWN)
 \begin{verbatim}
 void g_def_scale_2D(
         int id,
-        double x_left, double x_right,
-        double y_bottom, double y_top,
+        double x_0, double x_1,
+        double y_0, double y_1,
         double x_left_std, double y_top_std,
         double width_std, double height_std);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|id| ; スケール番号\\
-\verb|x_left| ; 仮想座標系のx座標左端\\
-\verb|x_right| ; 仮想座標系のx座標右端\\
-\verb|y_bottom| ; 仮想座標系のy座標下端\\
-\verb|y_top| ; 仮想座標系のy座標上端\\\
-\verb|x_left_std| ; 長方形の左辺の標準x座標\\
-\verb|y_top_std| ; 長方形の上辺の標準y座標\\
-\verb|width_std| ; 長方形の標準面上での幅\\
-\verb|height_std| ; 長方形の標準面上での高さ
+\verb|id| ; スケール番号 \\
+\verb|x_0| ; 自由座標系でのx座標左端 \\
+\verb|x_1| ; 自由座標系でのx座標右端 \\
+\verb|y_0| ; 自由座標系でのy座標下端 \\
+\verb|y_1| ; 自由座標系でのy座標上端 \\
+\verb|x_left_std| ; 標準(固定)座標系に定義する描画枠の左端のx座標 \\
+\verb|y_top_std| ; 標準(固定)座標系に定義する描画枠の左端のy座標 \\
+\verb|width_std| ; 標準(固定)座標系に定義する描画枠の幅 \\
+\verb|height_std| ; 標準(固定)座標系に定義する描画枠の高さ
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_def\_scale\_2D}関数の説明}
-標準面上に2次元描画用の仮想座標系を定義する．
+標準座標系上に二次元のオブジェクトを描画するための描画枠およびオブジェクトが定義される自由座標系を設定する．
+\verb|g_def_scale_2D|では標準座標系が固定座標系の役割を担う．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -1384,28 +1385,42 @@ void g_def_scale_2D(
 \begin{verbatim}
 void g_def_scale_3D(
         int id,
-        double x_left, double x_right,
-        double y_bottom, double y_top,
-        double z_near, double z_far,
+        double x_0, double x_1,
+        double y_0, double y_1,
+        double z_0, double z_1,
+        double x_f_0, double x_f_1, 
+        double y_f_0, double y_f_1, 
+        double z_f_0, double z_f_1, 
+        double eye_x, double eye_y, double eye_z,
+        double zoom, double up_x, double up_y, double up_z, 
         double x_left_std, double y_top_std,
-        double width_std, double height_std,
-        double direction_x, double direction_y, double direction_z
-        double r);
+        double width_std, double height_std);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|id| ; スケール番号\\
-\verb|x_left,x_right,y_bottom,y_top,z_near,z_far| ; 描画したいx,y,z方向の範囲\\
-\verb|x_left_std| ; 長方形の左辺の標準x座標\\
-\verb|y_top_std| ; 長方形の上辺の標準y座標\\
-\verb|width_std| ; 長方形の標準面上での幅\\
-\verb|height_std| ; 長方形の標準面上での高さ\\
-\verb|direction| ; 描画範囲で指定した直方体の重心に対する視点方向（図参照）\\
-\verb|r| ; 視点距離 
+\verb|id| ; スケール番号 \\
+\verb|x_0|, \verb|x_1|, \verb|y_0|, \verb|y_1|, \verb|z_0|, \verb|z_1| ; 自由座標系における$x, y, z$の範囲の端点 \\
+\verb|x_f_0|, \verb|x_f_1|, \verb|y_f_0|, \verb|y_f_1|, \verb|z_f_0|, \verb|z_f_1| ; 固定座標系における$x, y, z$の範囲の端点 \\
+\verb|eye_x|, \verb|eye_y|, \verb|eye_z| ; 描画直方体$^*$の重心から視点位置までのベクトルの座標 \\
+\verb|zoom| ; 拡大率 \\
+\verb|up_x|, \verb|up_y|, \verb|up_z| ; 画面上方向を指定するべクトルの座標 \\
+\verb|x_left_std| ; 標準座標系に定義する描画枠の左端のx座標 \\
+\verb|y_top_std| ; 標準座標系に定義する描画枠の左端のy座標 \\
+\verb|width_std| ; 標準座標系に定義する描画枠の幅 \\
+\verb|height_std| ; 標準座標系に定義する描画枠の高さ
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_def\_scale\_3D}関数の説明}
-標準面上に3次元描画用の仮想座標系を定義する．座標軸は右手系で，y軸正方向が画面上になるように設定されている．
+標準座標系上に三次元のオブジェクトを描画するための描画枠・描画するための固定座標系・オブジェクトが定義される自由座標系を設定する．
+$^*$描画するための固定座標系で指定される直方体を描画直方体と呼ぶ．
+
+\verb|eye|を指定することで，オブジェクトを見る視点位置を指定できる．
+
+\verb|up|を指定することで，描画直方体の上方向を指定できる．
+
+GLSC3Dでは，固定座標系ないし自由座標系の範囲を全て$\verb|*_0| < \verb|*_1|$のように定めると``右手系''として描画される．
+ただし，奇数個の範囲を$\verb|*_0| > \verb|*_1|$のように定めると``左手系''として描画される．
+偶数個であれば``右手系''として描画される．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
@@ -1420,51 +1435,50 @@ void g_def_scale_3D(
 
 %%%%%%%%%%%%%%%%%%%%%g_def_scale_3D_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\subsubsection{\texttt{g\_def\_scale\_3D\_core}}
+\subsubsection{\texttt{g\_def\_scale\_3D\_fix}}
 
-\begin{itembox}[l]{\texttt{g\_def\_scale\_3D\_core}関数}
+\begin{itembox}[l]{\texttt{g\_def\_scale\_3D\_fix}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
-void g_def_scale_3D_core(
+void g_def_scale_3D_fix(
         int id,
-        double x_left, double x_right,
-        double y_bottom, double y_top,
-        double z_near, double z_far,
+        double x_0, double x_1,
+        double y_0, double y_1,
+        double z_0, double z_1,
+        double eye_x, double eye_y, double eye_z,
+        double zoom, double up_x, double up_y, double up_z, 
         double x_left_std, double y_top_std,
-        double width_std, double height_std,
-        double direction_x, double direction_y, double direction_z,
-        double r, double up_x, double up_y, double up_z);
+        double width_std, double height_std);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|id| ; スケール番号\\
-\verb|x_left,x_right,y_bottom,y_top,z_near,z_far| ; 描画したいx,y,z方向の範囲\\
-\verb|x_left_std| ; 長方形の左辺の標準x座標\\
-\verb|y_top_std| ; 長方形の上辺の標準y座標\\
-\verb|width_std| ; 長方形の標準面上での幅\\
-\verb|height_std| ; 長方形の標準面上での高さ\\
-\verb|direction| ; 描画範囲で指定した直方体の重心に対する視点方向（図参照）\\
-\verb|r| ; 視点距離 \\
-\verb|up| ; 画面上方向の指定 
+\verb|id| ; スケール番号 \\
+\verb|x_0|, \verb|x_1|, \verb|y_0|, \verb|y_1|, \verb|z_0|, \verb|z_1| ; 固定(自由)座標系における$x, y, z$の範囲の端点 \\
+\verb|eye_x|, \verb|eye_y|, \verb|eye_z| ; 描画直方体の重心から視点位置までのベクトルの座標 \\
+\verb|zoom| ; 拡大率 \\
+\verb|up_x|, \verb|up_y|, \verb|up_z| ; 画面上方向を指定するべクトルの座標 \\
+\verb|x_left_std| ; 標準座標系に定義する描画枠の左端のx座標 \\
+\verb|y_top_std| ; 標準座標系に定義する描画枠の左端のy座標 \\
+\verb|width_std| ; 標準座標系に定義する描画枠の幅 \\
+\verb|height_std| ; 標準座標系に定義する描画枠の高さ
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_def\_scale\_3D\_core}関数の説明}
-標準面上に3次元描画用の仮想座標系を定義する．画面上方向が設定可能になっている．
+標準座標系上に三次元のオブジェクトを描画するための描画枠・描画するための固定(自由)座標系を設定する．
+\verb|g_def_scale_3D_fix|では，オブジェクトを定義する自由座標系が固定座標系と同じである．
 \end{itembox}
 
 
 
 
-%%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D, g_sel_scale_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%g_sel_scale%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\subsubsection{\texttt{g\_sel\_scale\_2D, g\_sel\_scale\_3D}}
+\subsubsection{\texttt{g\_sel\_scale}}
 
-\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D, g\_sel\_scale\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_sel\_scale}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
-void g_sel_scale_2D(
-        int id);
-void g_sel_scale_3D(
+void g_sel_scale(
         int id);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
@@ -1472,31 +1486,54 @@ void g_sel_scale_3D(
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D, g\_sel\_scale\_3D}関数の説明}
-仮想座標系を選択する．
+\begin{itembox}[l]{\texttt{g\_sel\_scale}関数の説明}
+定義された\verb|id|番号の座標系(\verb|g_def_scale_*|)を選択する．
 \end{itembox}
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%g_sel_scale_2D_boundary, g_sel_scale_3D_boundary%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}}
-
-\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}関数}
+%%\subsubsection{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}}
+%%
+%%\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
-\begin{verbatim}
-void g_sel_scale_2D_boundary(
-        int id);
-void g_sel_scale_3D_boundary(
-        int id);
-\end{verbatim}
+%%\begin{verbatim}
+%%void g_sel_scale_2D_boundary(
+%%        int id);
+%%void g_sel_scale_3D_boundary(
+%%        int id);
+%%\end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\verb|id| ; スケール番号
+%%\verb|id| ; スケール番号
+%%\end{itembox}
+%%
+%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}関数の説明}
+%%仮想座標系を選択し，選択された仮想座標系の枠を表示する．
+%%\end{itembox}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%g_clipping%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_clipping}}
+
+\begin{itembox}[l]{\texttt{g\_clipping}関数}
+%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_clipping(
+        G_BOOL value);
+\end{verbatim}
+%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|value| ; \verb|G_YES| or \verb|G_NO|
 \end{itembox}
 
-%%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
-\begin{itembox}[l]{\texttt{g\_sel\_scale\_2D\_boundary, g\_sel\_scale\_3D\_boundary}関数の説明}
-仮想座標系を選択し，選択された仮想座標系の枠を表示する．
+%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_clipping}関数の説明}
+デフォルトでは\verb|g_clipping(G_YES)|が設定されており，この場合は各スケール番号ごとに用意された標準座標系内においてオブジェクトが描画される．
+\verb|g_clipping(G_NO)|を\verb|g_sel_scale_*(id)|の後に呼ぶと，選ばれたスケール番号の描画が設定されたスクリーン全体に渡って描画される．
+\verb|g_sel_scale|が呼ばれると\verb|g_clipping(G_YES)|が選択されていることに注意．
 \end{itembox}
 
 
