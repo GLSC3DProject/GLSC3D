@@ -37,11 +37,11 @@ int main()
 		g_cls();
 
 		g_sel_scale(0);
-		
-		g_area_color_3D(0.5, 0.5, 0.75, 1);
+
+		g_area_color(0.5, 0.5, 0.75, 1);
 		g_rectangle_3D(0, h, 0, 1, 0, 0, 5, 4, 0, G_NO, G_YES);
 
-		g_area_color_3D(0.5, 0.75, 0.5, 1);
+		g_area_color(0.5, 0.75, 0.5, 1);
 		g_cone_3D_core(-2*c, -2*s, 0, c, s, 0, 2, 2, 100, 0, G_NO, G_YES);
 		g_cone_3D_core(2*c, 2*s, 0, -c, -s, 0, 2, 2, 100, 0, G_NO, G_YES);
 

@@ -18,7 +18,7 @@ int main()
 
 		g_sel_scale(1);
 		g_triangle_2D(-0.5, -1.5, -1.5, 1.5, -1.5, -1.5, G_YES, G_NO);
-		g_area_color_2D(1, 0, 0, 1);
+		g_area_color(1, 0, 0, 1);
 		g_triangle_2D(1, -1.5, 0, -1.5, 1, 1.5, G_NO, G_YES);
 
 		g_sel_scale(0);

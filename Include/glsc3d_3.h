@@ -56,16 +56,12 @@ void g_set_antialiasing(G_UINT level);
 
 // ----g_area.c
 
-void g_area_color_3D_s(G_COLOR color);
-void g_area_color_2D_s(G_COLOR color);
+void g_area_color_s(G_COLOR color);
 
-void g_area_color_3D(float r, float g, float b, float a);
-void g_area_color_2D(float r, float g, float b, float a);
+void g_area_color(float r, float g, float b, float a);
 
-void g_def_area_2D(int id, float r, float g, float b, float a);
-void g_sel_area_2D(int id);
-void g_def_area_3D(int id, float r, float g, float b, float a);
-void g_sel_area_3D(int id);
+void g_def_area(int id, float r, float g, float b, float a);
+void g_sel_area(int id);
 
 // ---- g_cls_finish.c
 

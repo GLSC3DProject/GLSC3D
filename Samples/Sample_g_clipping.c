@@ -37,11 +37,11 @@ int main(void)
 		g_clipping(G_NO);
 
 		g_sel_marker(0);
-		g_area_color_2D(1, 0, 0, 1);
+		g_area_color(1, 0, 0, 1);
 		g_circle_2D(r * cos(2*M_PI*t), r * sin(2*M_PI*t), 0.2, G_NO, G_YES);
 
 		g_sel_marker(1);
-		g_area_color_2D(0, 0, 1, 1);
+		g_area_color(0, 0, 1, 1);
 		g_circle_2D(cos(2*M_PI*t), sin(2*M_PI*t), 0.2, G_NO, G_YES);
 
 
@@ -49,11 +49,11 @@ int main(void)
 		g_boundary();
 		g_clipping(G_YES);
 
-		g_area_color_2D(1, 0, 0, 1);
+		g_area_color(1, 0, 0, 1);
 		g_circle_2D(r * cos(2*M_PI*t), r * sin(2*M_PI*t), 0.2, G_NO, G_YES);
 
 		g_sel_marker(1);
-		g_area_color_2D(0, 0, 1, 1);
+		g_area_color(0, 0, 1, 1);
 		g_circle_2D(cos(2*M_PI*t), sin(2*M_PI*t), 0.2, G_NO, G_YES);
 
 		g_sel_scale(2);

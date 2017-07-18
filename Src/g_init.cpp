@@ -55,8 +55,7 @@ void g_init_core(
 
 	g_marker_color(1, 0, 0, 1);
 	g_line_color(0, 0, 0, 1);
-	g_area_color_2D(1, 0, 0, 1);
-	g_area_color_3D(1, 0, 0, 1);
+	g_area_color(1, 0, 0, 1);
 	g_text_color(0, 0, 0, 1);
 
 	g_enable_transparent = enable_transparent;
