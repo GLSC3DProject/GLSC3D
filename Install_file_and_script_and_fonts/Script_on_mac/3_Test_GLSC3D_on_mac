@@ -3,7 +3,13 @@
 echo "Starting the Test GLSC3D Library on your mac!"
 
 cd
+
 WDR="GLSC3D_Working_Directory"
+if [ -s  ${WDR} ]
+then
+    mv ${WDR} $HOME/.Trash/
+fi
+
 mkdir -p ${WDR}
 open ${WDR}
 cd ${WDR}
