@@ -57,12 +57,7 @@ int main()
 	r0_y = 0.0;
 	r0_z = 0.0;
 
-	g_def_scale_3D(0,
-					-1, 1, -1, 1, -1, 1,
-					0, 0,
-					WINDOW_SIZE_X, WINDOW_SIZE_Y,
-					4, 4, 4,
-					1);
+	g_def_scale_3D_fix(0, -1, 1, -1, 1, -1, 1, 4, 4, 4, 0, 1, 0, 1, 0, 0, WINDOW_SIZE_X, WINDOW_SIZE_Y);
 //	g_init_light_core(0,1,1,1,1);
 
 	double t,dt = 1./32;

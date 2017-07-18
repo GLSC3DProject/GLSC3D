@@ -18,7 +18,7 @@ int main(void) {
 	//g_scr_color(1, 1, 1);
 	//g_scr_color(0.5, 0.5, 0.5);
 
-	g_area_color_3D(0.5, 0.75, 0.5, 1);
+	g_area_color(0.5, 0.75, 0.5, 1);
 	//g_line_color(0, 0, 0, 1);
 
 	//g_line_width(2);
@@ -30,7 +30,7 @@ int main(void) {
 	for (int i = 0; i < CountX; i++)
 	for (int j = 0; j < CountY; j++)
 //		g_def_scale_3D_core_legacy(id++, -1, 1, -1, 1, -1, 1, Size * i, Size * j, Size, Size, 0, 1, 1, 8, 0, 0, 1);
-		g_def_scale_3D_core(id++, -1, 1, -1, 1, -1, 1, Size * i, Size * j, Size, Size, 1, 1, 1, 0, a, a, 1, 0, 0, 1);
+			g_def_scale_3D_fix(id++, -1, 1, -1, 1, -1, 1, 0, a, a, 0, 0, 1, 1, Size * i, Size * j, Size, Size);
 
 	for (double t = 0;; t += 1./128) {
 		double c = cos(t), s = sin(t);

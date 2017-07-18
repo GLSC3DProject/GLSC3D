@@ -18,7 +18,7 @@ int main()
 	g_init_light(1,-1, 0, 1);
 	g_scr_color(1, 1, 1);
 
-	g_def_scale_3D(0, -2, +2, -2, +2, -1, +1, 0, 0, WIDTH, HEIGHT, 0, 8, 8, 1);
+	g_def_scale_3D_fix(0, -2, +2, -2, +2, -1, +1, 0, 8, 8, 0, 1, 0, 1, 0, 0, WIDTH, HEIGHT);
 	g_def_scale_2D(1, -2, +2, -1, +1, 0, HEIGHT, WIDTH, HEIGHT);
 	
 	for (double t = 0;; t += 1./128) {
@@ -37,11 +37,11 @@ int main()
 		g_cls();
 
 		g_sel_scale(0);
-		
-		g_area_color_3D(0.5, 0.5, 0.75, 1);
+
+		g_area_color(0.5, 0.5, 0.75, 1);
 		g_rectangle_3D(0, h, 0, 1, 0, 0, 5, 4, 0, G_NO, G_YES);
 
-		g_area_color_3D(0.5, 0.75, 0.5, 1);
+		g_area_color(0.5, 0.75, 0.5, 1);
 		g_cone_3D_core(-2*c, -2*s, 0, c, s, 0, 2, 2, 100, 0, G_NO, G_YES);
 		g_cone_3D_core(2*c, 2*s, 0, -c, -s, 0, 2, 2, 100, 0, G_NO, G_YES);
 

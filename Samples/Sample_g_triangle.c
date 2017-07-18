@@ -9,7 +9,7 @@ int main()
 {
 	g_init("Sample_g_triangle.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
-	g_def_scale_3D(0, -2, 2, -2, 2, -2, 2, WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y, 4, 4, 4, 1);
+	g_def_scale_3D_fix(0, -2, 2, -2, 2, -2, 2, 4, 4, 4, 0, 1, 0, 1, WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
 	g_def_scale_2D(1, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
 
 	for (int i_time = 0;; i_time++)
@@ -18,7 +18,7 @@ int main()
 
 		g_sel_scale(1);
 		g_triangle_2D(-0.5, -1.5, -1.5, 1.5, -1.5, -1.5, G_YES, G_NO);
-		g_area_color_2D(1, 0, 0, 1);
+		g_area_color(1, 0, 0, 1);
 		g_triangle_2D(1, -1.5, 0, -1.5, 1, 1.5, G_NO, G_YES);
 
 		g_sel_scale(0);

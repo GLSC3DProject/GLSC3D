@@ -13,25 +13,25 @@ int main()
 	g_init("Sample_g_area.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 	g_init_light(0, 1, 1, 1); // 立方体を確認するためにライトの位置を初期位置から変更
 
-	g_def_scale_3D(0, -2, 2, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2, 4, 4, 4, 1);
-	g_def_scale_3D(1, -2, 2, -2, 2, -2, 2, WINDOW_SIZE_X / 4, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2, 4, 4, 4, 1);
-	g_def_scale_3D(2, -2, 2, -2, 2, -2, 2, 2 * WINDOW_SIZE_X / 4, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2, 4, 4, 4, 1);
-	g_def_scale_3D(3, -2, 2, -2, 2, -2, 2, 3 * WINDOW_SIZE_X / 4, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2, 4, 4, 4, 1);
+	g_def_scale_3D_fix(0, -2, 2, -2, 2, -2, 2, 4, 4, 4, 0, 1, 0, 1, 0, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
+	g_def_scale_3D_fix(1, -2, 2, -2, 2, -2, 2, 4, 4, 4, 0, 1, 0, 1, WINDOW_SIZE_X / 4, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
+	g_def_scale_3D_fix(2, -2, 2, -2, 2, -2, 2, 4, 4, 4, 0, 1, 0, 1, 2 * WINDOW_SIZE_X / 4, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
+	g_def_scale_3D_fix(3, -2, 2, -2, 2, -2, 2, 4, 4, 4, 0, 1, 0, 1, 3 * WINDOW_SIZE_X / 4, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
 
 	g_def_scale_2D(4, -2, 2, -2, 2, 0, WINDOW_SIZE_Y / 2, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
 	g_def_scale_2D(5, -2, 2, -2, 2, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
 	g_def_scale_2D(6, -2, 2, -2, 2, 2 * WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
 	g_def_scale_2D(7, -2, 2, -2, 2, 3 * WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
 
-	g_def_area_3D(0, 1, 0, 0, 1);
-	g_def_area_3D(1, 0, 1, 0, 1);
-	g_def_area_3D(2, 0, 0, 1, 1);
-	g_def_area_3D(3, 1, 1, 1, 1);
+	g_def_area(0, 1, 0, 0, 1);
+	g_def_area(1, 0, 1, 0, 1);
+	g_def_area(2, 0, 0, 1, 1);
+	g_def_area(3, 1, 1, 1, 1);
 
-	g_def_area_2D(0, 1, 0, 0, 1);
-	g_def_area_2D(1, 0, 1, 0, 1);
-	g_def_area_2D(2, 0, 0, 1, 1);
-	g_def_area_2D(3, 1, 1, 1, 1);
+	g_def_area(0, 1, 0, 0, 1);
+	g_def_area(1, 0, 1, 0, 1);
+	g_def_area(2, 0, 0, 1, 1);
+	g_def_area(3, 1, 1, 1, 1);
 
 	for (int i_time = 0;; i_time++)
 	{
@@ -40,36 +40,36 @@ int main()
 			g_cls();
 
 			g_sel_scale(4);
-			g_sel_area_2D(0);
+			g_sel_area(0);
 
 			g_box_center_2D(0, 0, 1, 1, G_NO, G_YES);
 
 			g_sel_scale(5);
-			g_sel_area_2D(1);
+			g_sel_area(1);
 			g_box_center_2D(0, 0, 1, 1, G_NO, G_YES);
 
 			g_sel_scale(6);
-			g_sel_area_2D(2);
+			g_sel_area(2);
 			g_box_center_2D(0, 0, 1, 1, G_NO, G_YES);
 
 			g_sel_scale(7);
-			g_sel_area_2D(3);
+			g_sel_area(3);
 			g_box_center_2D(0, 0, 1, 1, G_NO, G_YES);
 
 			g_sel_scale(0);
-			g_sel_area_3D(0);
+			g_sel_area(0);
 			g_box_center_3D(0, 0, 0, 2, 2, 2, G_NO, G_YES);
 
 			g_sel_scale(1);
-			g_sel_area_3D(1);
+			g_sel_area(1);
 			g_box_center_3D(0, 0, 0, 2, 2, 2, G_NO, G_YES);
 
 			g_sel_scale(2);
-			g_sel_area_3D(2);
+			g_sel_area(2);
 			g_box_center_3D(0, 0, 0, 2, 2, 2, G_NO, G_YES);
 
 			g_sel_scale(3);
-			g_sel_area_3D(3);
+			g_sel_area(3);
 			g_box_center_3D(0, 0, 0, 2, 2, 2, G_NO, G_YES);
 
 			g_finish();
