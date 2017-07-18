@@ -15,10 +15,10 @@ int main()
 	for (int i_time = 0;; i_time++)
 	{
 		g_cls();
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 		g_prism_3D(0, 0, 0, 1, -1, 1, 2, 4, M_PI / 4, 10, G_YES, G_NO);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_prism_3D_core(0, 0, 0, 1, -1, 1, 2, 4, M_PI / 4, 10, 1, G_NO, G_YES);
 
 		g_finish();

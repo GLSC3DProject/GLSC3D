@@ -32,10 +32,6 @@ typedef int G_BOOL;
  G_3D   = 1,
  } G_DIMENSION; */
 
-typedef int G_DIMENSION;
-#define G_2D 0
-#define G_3D 1
-
 #define G_OFF_SCREEN		NULL
 
 #define G_WINDOW_CENTERED	0x2FFF0000
@@ -136,8 +132,7 @@ void g_def_scale_3D(
 	double direction_x, double direction_y, double direction_z,
 	double zoom);
 
-void g_sel_scale_2D(int id);
-void g_sel_scale_3D(int id);
+void g_sel_scale(int id);
 
 void g_boundary(void);
 void g_clipping(G_BOOL value);

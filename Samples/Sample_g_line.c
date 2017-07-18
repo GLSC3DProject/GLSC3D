@@ -29,7 +29,7 @@ int main()
 		if (i_time%INTV == 0)
 		{
 			g_cls();
-			g_sel_scale_2D(0);
+			g_sel_scale(0);
 			g_sel_line(0);
 			g_move_2D(-2, -1.9);
 			g_plot_2D(2, -1.9);

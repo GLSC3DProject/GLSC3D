@@ -98,7 +98,7 @@ int main()
 		}
 
 		g_cls();
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 		
 #ifndef USE_MULTIDIMENSIONAL_ARRAY
 		g_isosurface_f_3D(-XLEN / 2 + 0.5 * d_x, XLEN / 2 - 0.5 * d_x,

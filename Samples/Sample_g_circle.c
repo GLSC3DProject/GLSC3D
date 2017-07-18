@@ -16,12 +16,12 @@ int main()
     for(i_time = 0;;i_time++)
     {
         g_cls();
-        g_sel_scale_2D(0);
+        g_sel_scale(0);
         g_circle_2D(1, 1, 1, G_YES, G_NO);
 
         g_circle_2D(-1, -1, 1, G_NO, G_YES);
-        
-        g_sel_scale_3D(1);
+
+        g_sel_scale(1);
         g_circle_3D(0, 0, 0, 1, 0.01*i_time, 0, G_NO, G_YES);
         g_circle_3D(0, 0, 0, 1, -0.01*i_time, 0, G_YES, G_NO);
         

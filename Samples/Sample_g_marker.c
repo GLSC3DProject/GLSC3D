@@ -34,7 +34,7 @@ int main()
 	for (int i_time = 0;; i_time++)
 	{
 		g_cls();
-		g_sel_scale_2D(0);
+		g_sel_scale(0);
 		g_sel_marker(0);
 		g_marker_2D(0, -1.5);
 
@@ -56,7 +56,7 @@ int main()
 		g_sel_marker(6);
 		g_marker_2D(0, 1.5);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_line_width(2);
 		g_line_type(3);
 		g_box_center_3D(0, 0, 0, 3.8, 3.8, 3.8, G_YES, G_NO);

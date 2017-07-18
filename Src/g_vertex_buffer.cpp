@@ -174,7 +174,7 @@ void g_prepare_lines()
 
 void g_prepare_triangles()
 {
-	if (g_scale_dim_flag == G_3D) {
+	if (glsc3D_inner_scale[g_current_scale_id].is_3D) {
 		g_current_color_ptr = &g_current_area_color_3D;
 
 #ifdef G_USE_CORE_PROFILE

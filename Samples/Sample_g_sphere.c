@@ -12,10 +12,10 @@ int main(void)
 	{
 		g_cls();
 
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 		g_sphere_3D(0, 0, 0, scale, G_YES, G_NO);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_sphere_3D_core(0, 0, 0, scale, 10, 0, G_NO, G_YES);
 
 		g_finish();

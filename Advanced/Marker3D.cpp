@@ -123,7 +123,7 @@ int main()
 			g_def_scale_3D(0, -1, 1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE, 4 * sin(theta), 3, 4 * cos(theta), 1);
 		}
 
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 
 		if (rotation_mode) {
 			for (Particle &p : particles) {

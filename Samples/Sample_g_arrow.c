@@ -18,12 +18,12 @@ int main()
 	{
 		g_cls();
 
-		g_sel_scale_2D(0);
+		g_sel_scale(0);
 		g_arrow_2D(-2, 0, 2, 0, 4, 0.5, 0);
 		g_arrow_2D(-1.4, -1.4, 1, 1, 4, 0.5, 2);
 		g_arrow_2D(0, -2, 0, 2, 4, 0.5, 1);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_arrow_3D(-4, 0, 0, 4, 0, 0, 8, 1, G_NO, G_YES);
 		g_arrow_3D(0, -4, 0, 0, 4, 0, 8, 1, G_NO, G_YES);
 		g_arrow_3D(0, 0, -4, 0, 0, 4, 8, 1, G_NO, G_YES);

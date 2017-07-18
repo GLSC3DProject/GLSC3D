@@ -23,10 +23,10 @@ int main(void)
 	for (int i_time = 0;; i_time++)
 	{
 		g_cls();
-		g_sel_scale_3D(0);
+		g_sel_scale(0);
 		g_pyramid_3D(0, -2, 0, 0, 1, 0, 2, 4, M_PI / 8, 10, G_YES, G_NO);
 
-		g_sel_scale_3D(1);
+		g_sel_scale(1);
 		g_pyramid_3D_core(0, -2, 0, 0, 1, 0, 2, 4, M_PI / 8, 10, 4, G_NO, G_YES);
 
 		g_finish();
