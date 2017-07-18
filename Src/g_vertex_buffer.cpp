@@ -175,8 +175,6 @@ void g_prepare_lines()
 void g_prepare_triangles()
 {
 	if (glsc3D_inner_scale[g_current_scale_id].is_3D) {
-		g_current_color_ptr = &g_current_area_color_3D;
-
 #ifdef G_USE_CORE_PROFILE
 		g_use_program(g_lighting_program);
 #else
@@ -186,8 +184,6 @@ void g_prepare_triangles()
 		}
 #endif
 	} else {
-		g_current_color_ptr = &g_current_area_color_2D;
-
 #ifdef G_USE_CORE_PROFILE
 		g_use_program(g_constant_program);
 #else
@@ -197,6 +193,7 @@ void g_prepare_triangles()
 		}
 #endif
 	}
+	g_current_color_ptr = &g_current_area_color;
 	g_current_size_ptr = &g_current_dummy_size;
 }
 

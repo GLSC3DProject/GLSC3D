@@ -153,11 +153,11 @@ typedef struct
 
 // ---- g_area.cpp
 
-extern G_COLOR g_current_area_color_3D, g_current_area_color_2D;
+extern G_COLOR g_current_area_color;
 
 static inline G_VERTEX g_make_vertex(G_POSITION position, G_VECTOR normal)
 {
-	G_VERTEX v = {position, 0, g_current_area_color_3D, normal, 0};
+	G_VERTEX v = {position, 0, g_current_area_color, normal, 0};
 	return v;
 }
 

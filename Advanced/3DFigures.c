@@ -18,7 +18,7 @@ int main(void) {
 	//g_scr_color(1, 1, 1);
 	//g_scr_color(0.5, 0.5, 0.5);
 
-	g_area_color_3D(0.5, 0.75, 0.5, 1);
+	g_area_color(0.5, 0.75, 0.5, 1);
 	//g_line_color(0, 0, 0, 1);
 
 	//g_line_width(2);
