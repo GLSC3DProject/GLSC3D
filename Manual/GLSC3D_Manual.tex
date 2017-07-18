@@ -365,12 +365,12 @@ Ver 3.0以降ではウィンドウのサイズ変更・最大化と Apple Retina
 このため，GLSC3Dは内部的にスケールファクターを保持しており，\verb|g_init(_core)|に渡されたウインドウサイズに対する現在のサイズの比率(の水平方向と垂直方向の値の小さいほう)を使用します．
 スケールの対象になるのは次の関数です．
 \begin{itemize}
-	\item \verb|g_sel_scale_2D, g_sel_scale_3D|
+	\item \verb|g_sel_scale|
 	\item \verb|g_marker_size, g_line_width, g_text_size|
 	\item \verb|g_text_standard|
 	\item \verb|g_input_state| (マウス座標の逆変換)
 \end{itemize}
-Ver 3.0以降では\verb|g_sel_scale_2D, g_sel_scale_3D|を(最初に1回だけ呼ぶのではなく)ループ内で使用することをお勧めします．
+Ver 3.0以降では\verb|g_sel_scale|を(最初に1回だけ呼ぶのではなく)ループ内で使用することをお勧めします．
 これによりウインドウサイズの変更に適切に対応できるようになります．
 
 \verb|g_capture|を用いる場合，ウインドウサイズの変更は行わないでください．\\
@@ -401,6 +401,9 @@ Ver 3.0以降では後に描画したものが優先して表示されるよう�
 Ver 3.0では旧GLSCと同様に両端の\verb|x,y (,z)|座標を指定するようにしました．
 以前のように中心と大きさを指定する場合，\verb|g_box_center_2D, g_box_center_3D(_core)|を使用してください．
 
+\subsubsection{\texttt{g\_area\_color}関数の仕様変更}
+以前のGLSC3Dでは\texttt{g\_area\_color\_2D}関数，\texttt{g\_area\_color\_3D}関数がありましたが，2Dでも3Dでも面の色の指定法は同じ指定方法の方が簡便であると考え，この関数を廃止しました．新しい関数は\texttt{g\_area\_color}となりますので，ご注意ください．
+
 \subsubsection{マーカーの種類の追加}
 \verb|g_marker_type|として正方形，円のほかに球を指定できるようにしました．
 引数には定数\verb|G_MARKER_SQUARE=0, G_MARKER_CIRCLE=1, G_MARKER_SPHERE=2|を指定できます．
@@ -417,7 +420,7 @@ GLSC3D Ver 3.0 では色(\verb|r,g,b,a|)を保持する\verb|G_COLOR|構造体�
 
 \verb|G_COLOR|構造体は以下の関数で使用することができます．
 \begin{description}
-\item \verb|g_area_color_2D_s, g_area_color_3D_s|
+\item \verb|g_area_color_s|
 \item \verb|g_marker_color_s, g_line_color_s, g_text_color_s|
 \end{description}
 
@@ -928,14 +931,14 @@ int main()
     g_cls();						//用紙を背景色で塗りつぶす
    
     //仮想座標系を選択→属性を指定→描画関数で描画．
-    g_sel_scale_3D(0);			//0番の仮想座標系を選択(以下，0番の仮想座標系に描かれる．)	
-    g_area_color_3D(...);			//塗りつぶしの色を指定
+    g_sel_scale(0);			//0番の仮想座標系を選択(以下，0番の仮想座標系に描かれる．)	
+    g_area_color(...);			//塗りつぶしの色を指定
     g_box_3D(...);				//3次元空間にboxを描画
     ...
     
     //仮想座標系を選択→属性を指定→描画関数で描画．
-    g_sel_scale_3D(1);			//1番の仮想座標系を選択(以下，1番の仮想座標系に描かれる．)
-    g_area_color_3D(...);			//塗りつぶしの色を指定
+    g_sel_scale(1);			//1番の仮想座標系を選択(以下，1番の仮想座標系に描かれる．)
+    g_area_color(...);			//塗りつぶしの色を指定
     g_sphere_3D(...);				//3次元空間にsphereを描画
     ...
            
@@ -1810,16 +1813,14 @@ void g_sel_line(
 
 
 
-%%%%%%%%%%%%%%%%%%%%%g_area_color_2D, g_area_color_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%g_area_color%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
-\subsubsection{\texttt{g\_area\_color\_2D, g\_area\_color\_3D}}
+\subsubsection{\texttt{g\_area\_color}}
 
-\begin{itembox}[l]{\texttt{g\_area\_color\_2D, g\_area\_color\_3D}関数}
+\begin{itembox}[l]{\texttt{g\_area\_color}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
 \begin{verbatim}
-void g_area_color_2D(
-        float r, float g, float b, float a);
-void g_area_color_3D(
+void g_area_color(
         float r, float g, float b, float a);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
