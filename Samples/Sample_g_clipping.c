@@ -11,26 +11,24 @@ int main(void)
 {
 	g_init("Sample_g_clipping.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
-	g_def_scale_2D(0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, WINDOW_SIZE_X/8, WINDOW_SIZE_Y/4,
-				   WINDOW_SIZE_X*(2.0/8), WINDOW_SIZE_Y*(2.0/4));
+	g_def_scale_2D(0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0,
+		WINDOW_SIZE_X/8, WINDOW_SIZE_Y/4, WINDOW_SIZE_X*(2.0/8), WINDOW_SIZE_Y*(2.0/4));
 
-	g_def_scale_2D(1, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, WINDOW_SIZE_X*(5.0/8), WINDOW_SIZE_Y/4,
-				   WINDOW_SIZE_X*(2.0/8), WINDOW_SIZE_Y*(2.0/4));
+	g_def_scale_2D(1, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0,
+		WINDOW_SIZE_X*(5.0/8), WINDOW_SIZE_Y/4, WINDOW_SIZE_X*(2.0/8), WINDOW_SIZE_Y*(2.0/4));
 
-	g_def_scale_2D(2, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, 0.0, 0.0,
-				   WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
+	g_def_scale_2D(2, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0,
+		0.0, 0.0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
 
-	g_def_scale_2D(3, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, WINDOW_SIZE_X/2, 0.0,
-				   WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
+	g_def_scale_2D(3, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0,
+		WINDOW_SIZE_X/2, 0.0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
 
-	double t = 0.0;
 	double dt = 0.002;
-
 	double r = 2.5;
 
 	for(int i_time = 0; ; i_time++)
 	{
-		t = dt*i_time;
+		double t = dt*i_time;
 
 		g_cls();
 

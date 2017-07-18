@@ -21,18 +21,14 @@ int main()
 			eye[id].y = sin(t);
 			eye[id].z = cos(t + id / 4.0 * 2 * PI);
 		}
-		g_def_scale_3D_core(0, -scale, scale, -scale, scale, -scale, scale, 0, 0, 640, 480,
-							1, 1, 1,
-							4*scale*eye[0].x, 4*scale*eye[0].y, 4*scale*eye[0].z, 1, 0, 0, 1);
-		g_def_scale_3D_core(1, -scale, scale, -scale, scale, -scale, scale, 640, 0, 640, 480,
-							1, 1, 1,
-							4*scale*eye[1].x, 4*scale*eye[1].y, 4*scale*eye[1].z, 1, 0, 0, 1);
-		g_def_scale_3D_core(2, -scale, scale, -scale, scale, -scale, scale, 0, 480, 640, 480,
-							1, 1, 1,
-							4*scale*eye[2].x, 4*scale*eye[2].y, 4*scale*eye[2].z, 1, 0, 0, 1);
-		g_def_scale_3D_core(3, -scale, scale, -scale, scale, -scale, scale, 640, 480, 640, 480,
-							1, 1, 1,
-							4*scale*eye[3].x, 4*scale*eye[3].y, 4*scale*eye[3].z, 1, 0, 0, 1);
+		g_def_scale_3D_fix(0, -scale, scale, -scale, scale, -scale, scale,
+			4 * scale * eye[0].x, 4 * scale * eye[0].y, 4 * scale * eye[0].z, 0, 0, 1, 1, 0, 0, 640, 480);
+		g_def_scale_3D_fix(1, -scale, scale, -scale, scale, -scale, scale,
+			4 * scale * eye[1].x, 4 * scale * eye[1].y, 4 * scale * eye[1].z, 0, 0, 1, 1, 640, 0, 640, 480);
+		g_def_scale_3D_fix(2, -scale, scale, -scale, scale, -scale, scale,
+			4 * scale * eye[2].x, 4 * scale * eye[2].y, 4 * scale * eye[2].z, 0, 0, 1, 1, 0, 480, 640, 480);
+		g_def_scale_3D_fix(3, -scale, scale, -scale, scale, -scale, scale,
+			4 * scale * eye[3].x, 4 * scale * eye[3].y, 4 * scale * eye[3].z, 0, 0, 1, 1, 640, 480, 640, 480);
 
 		g_init_light_core(0,1,1,1,1); //透明化処理のため, デフォルトから初期値を変更
 		g_init_light_core(1,-1,-1,-1,1); //透明化処理のため, デフォルトから初期値を変更

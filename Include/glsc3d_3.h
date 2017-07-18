@@ -94,17 +94,14 @@ void g_def_scale_2D(
 	double x_left_std, double y_top_std,
 	double width_std, double height_std);
 
-void g_def_scale_3D_core(
-	int id,
+void g_def_scale_3D_fix(int id,
 	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
-	double x_left_std, double y_top_std,
-	double width_std, double height_std,
-	double scale_x, double scale_y, double scale_z,
-	double direction_x, double direction_y, double direction_z,
+	double eye_x, double eye_y, double eye_z,
+	double up_x, double up_y, double up_z,
 	double zoom,
-	double up_x, double up_y, double up_z);
+	double x_left_std, double y_top_std, double width_std, double height_std);
 
-void g_def_scale_3D_core_kobayashi(
+void g_def_scale_3D(
 	int id,
 	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
 	double x_0_f, double x_1_f, double y_0_f, double y_1_f, double z_0_f, double z_1_f,
@@ -123,14 +120,6 @@ void g_def_scale_3D_core_legacy(
 	double direction_x, double direction_y, double direction_z,
 	double r,
 	double up_x, double up_y, double up_z);
-
-void g_def_scale_3D(
-	int id,
-	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
-	double x_left_std, double y_top_std,
-	double width_std, double height_std,
-	double direction_x, double direction_y, double direction_z,
-	double zoom);
 
 void g_sel_scale(int id);
 

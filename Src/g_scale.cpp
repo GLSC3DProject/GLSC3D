@@ -88,73 +88,31 @@ void g_def_scale_2D(
 	glsc3D_inner_scale[id].is_left_handed = false;
 }
 
-void g_def_scale_3D(
-	int id,
+void g_def_scale_3D_fix(int id,
 	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
-	double x_left_std, double y_top_std,
-	double width_std, double height_std,
-	double direction_x, double direction_y, double direction_z,
-	double zoom)
+	double eye_x, double eye_y, double eye_z,
+	double up_x, double up_y, double up_z,
+	double zoom,
+	double x_left_std, double y_top_std, double width_std, double height_std)
 {
-	g_def_scale_3D_core(
-		id, x_0, x_1, y_0, y_1, z_0, z_1, x_left_std, y_top_std, width_std, height_std,
-		1, 1, 1, direction_x, direction_y, direction_z, zoom, 0, 1, 0);
+	g_def_scale_3D(id,
+		x_0, x_1, y_0, y_1, z_0, z_1,
+		x_0, x_1, y_0, y_1, z_0, z_1,
+		eye_x, eye_y, eye_z,
+		up_x, up_y, up_z,
+		zoom,
+		x_left_std, y_top_std, width_std, height_std
+	);
 }
 
-void g_def_scale_3D_core(
-	int id,
-	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1, //仮想座標系の範囲
-	double x_left_std, double y_top_std,                                    //ウィンドウの位置
-	double width_std, double height_std,                                    //ウィンドウのサイズ
-	double scale_x, double scale_y, double scale_z,                         //仮想座標系の拡大率
-	double direction_x, double direction_y, double direction_z,             //直方体の中心から視点位置へのベクトル
-	double zoom,                                                            //表示の拡大率
-	double up_x, double up_y, double up_z)                                  //上向きベクトル
-{
-	if (id >= TotalDisplayNumber) {
-		fprintf(stderr,"too large id number\n");
-		g_quit();
-	}
-
-	if (x_0 > x_1) scale_x *= -1;
-	if (y_0 > y_1) scale_y *= -1;
-	if (z_0 > z_1) scale_z *= -1;
-
-	G_VECTOR lower(x_0 * scale_x, y_0 * scale_y, z_0 * scale_z);
-	G_VECTOR upper(x_1 * scale_x, y_1 * scale_y, z_1 * scale_z);
-	G_VECTOR direction(direction_x * scale_x, direction_y * scale_y, direction_z * scale_z);
-	G_VECTOR up(up_x * scale_x, up_y * scale_y, up_z * scale_z);
-
-	float aspect = (float)width_std / (float)height_std;
-
-	G_VECTOR center = 0.5f * (lower + upper);
-	float sphere_r = g_norm(upper - lower) / 2;
-
-	float R = g_norm(direction);
-	G_VECTOR eye = center + direction;
-	float r_div_sr = R / sphere_r;
-	float c = sqrtf(r_div_sr * r_div_sr - 1) * zoom;
-
-	G_MATRIX look_at = G_MATRIX::LookAt(eye, center, up);
-
-	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Perspective(c, aspect, R*0.25f, R + sphere_r);
-	glsc3D_inner_scale[id].camera.view = G_MATRIX::Scaling(scale_x, scale_y, scale_z) * look_at;
-	glsc3D_inner_scale[id].camera.view_normal = G_MATRIX::Scaling(1/scale_x, 1/scale_y, 1/scale_z) * look_at;
-//	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
-	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
-	glsc3D_inner_scale[id].is_3D = true;
-	glsc3D_inner_scale[id].is_left_handed = (scale_x * scale_y * scale_z < 0);
-}
-
-void g_def_scale_3D_core_kobayashi(
+void g_def_scale_3D(
 	int id,
 	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
 	double x_0_f, double x_1_f, double y_0_f, double y_1_f, double z_0_f, double z_1_f,
 	double eye_x, double eye_y, double eye_z,
 	double up_x, double up_y, double up_z,
 	double zoom,
-	double x_left_std, double y_top_std,
-	double width_std, double height_std
+	double x_left_std, double y_top_std, double width_std, double height_std
 )
 {
 	if (id >= TotalDisplayNumber) {
