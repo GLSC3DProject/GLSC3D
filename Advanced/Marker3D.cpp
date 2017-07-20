@@ -93,7 +93,7 @@ int main()
 	//g_scr_color(1, 1, 1);
 	//g_line_color(0, 0, 0, 1);
 
-	g_def_scale_3D_fix(0, -1, 1, -1, 1, -1, 1, 0, 3, 4, 0, 1, 0, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE);
+	g_def_scale_3D_fix(0, -1, 1, -1, 1, -1, 1, 0, 4, 6, 0, 1, 0, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE);
 
 	g_marker_type(G_MARKER_SPHERE);
 	g_line_width(2);
@@ -120,7 +120,7 @@ int main()
 
 		if (rotation_mode) {
 			theta += (float)M_PI / 720;
-			g_def_scale_3D_fix(0, -1, 1, -1, 1, -1, 1, 4 * sin(theta), 3, 4 * cos(theta), 0, 1, 0, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE);
+			g_def_scale_3D_fix(0, -1, 1, -1, 1, -1, 1, 6 * sin(theta), 4, 6 * cos(theta), 0, 1, 0, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE);
 		}
 
 		g_sel_scale(0);
