@@ -270,6 +270,7 @@ extern G_BOOL g_need_line_stipple_updated;
 void g_update_uniform(GLuint index, GLsizei size, const void *data);
 #else
 extern GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
+extern GLint g_marker_screen_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
 extern float g_current_pixel_scale;
 #endif
 

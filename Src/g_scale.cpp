@@ -17,8 +17,7 @@ struct G_TRANSFORM
 	float screen_scale;
 };
 
-#ifdef G_USE_CORE_PROFILE
-#else
+#ifndef G_USE_CORE_PROFILE
 float g_current_pixel_scale;
 #endif
 

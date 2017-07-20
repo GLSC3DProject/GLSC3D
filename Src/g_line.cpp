@@ -45,10 +45,10 @@ void g_line_color(float r, float g, float b, float a)
 void g_line_width(float size)
 {
 	g_current_line_size = size;
-#ifdef G_USE_CORE_PROFILE
-#else
+
+#ifndef G_USE_CORE_PROFILE
 	g_vertex_buffer_flush();
-	glLineWidth(size);
+	glLineWidth(size * g_screen_scale_factor);
 #endif
 }
 

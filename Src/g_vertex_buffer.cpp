@@ -144,6 +144,9 @@ void g_prepare_points()
 	GLint pixel_scale_location = g_marker_pixel_scale_location[g_current_marker_size_type][g_current_marker_type];
 	if (pixel_scale_location >= 0)
 		glUniform1f(pixel_scale_location, g_current_pixel_scale);
+	GLint screen_scale_location = g_marker_screen_scale_location[g_current_marker_size_type][g_current_marker_type];
+	if (screen_scale_location >= 0)
+		glUniform1f(screen_scale_location, g_screen_scale_factor);
 #endif
 }
 

@@ -6,6 +6,7 @@
 
 #define MATRICES_UNIFORM_DECL \
 "uniform Matrices { mat4 proj, view, view_normal; vec2 pixel_scale; float screen_scale; };"
+
 // Vertex shader for rendering 2D triangles
 const char * const CONSTANT_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL MATRICES_UNIFORM_DECL R"(
@@ -271,7 +272,7 @@ void main() {
 
 // Vertex shader for rendering markers (size = diameter in standard coordinates)
 const char * const MARKER_STANDARD_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
-uniform float pixel_scale;
+uniform float pixel_scale, screen_scale;
 varying vec4 color;
 varying vec3 position;
 varying float radius;
@@ -279,7 +280,7 @@ void main () {
 	vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);
 	float size = gl_Vertex.w;
 	gl_Position = gl_ProjectionMatrix * view_pos;
-	gl_PointSize = size;
+	gl_PointSize = size * screen_scale;
 	color = gl_Color;
 	position = gl_Vertex.xyz;
 	radius = size * gl_Position.w * pixel_scale;
@@ -287,7 +288,7 @@ void main () {
 
 // Vertex shader for rendering markers (size = radius in virtual coordinates)
 const char * const MARKER_VIRTUAL_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
-uniform float pixel_scale;
+uniform float pixel_scale, screen_scale;
 varying vec4 color;
 varying vec3 position;
 varying float radius;
@@ -295,7 +296,7 @@ void main () {
 	vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);
 	float size = gl_Vertex.w;
 	gl_Position = gl_ProjectionMatrix * view_pos;
-	gl_PointSize = size / (pixel_scale * gl_Position.w);
+	gl_PointSize = size * screen_scale / (pixel_scale * gl_Position.w);
 	color = gl_Color;
 	position = view_pos.xyz;
 	radius = size;
@@ -379,6 +380,7 @@ G_BOOL g_need_line_stipple_updated;
 GLuint g_uniforms[G_NUM_UNIFORMS];
 #else
 GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
+GLint g_marker_screen_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
 #endif
 
 GLint g_get_shader_int(GLuint shader, GLenum pname)
@@ -520,6 +522,7 @@ void g_shader_program_init()
 			g_bind_uniform_block(g_marker_programs[i][j], "Matrices", G_UNIFORM_MATRICES);
 #else
 			g_marker_pixel_scale_location[i][j] = glGetUniformLocation(g_marker_programs[i][j], "pixel_scale");
+			g_marker_screen_scale_location[i][j] = glGetUniformLocation(g_marker_programs[i][j], "screen_scale");
 #endif
 		}
 	}
