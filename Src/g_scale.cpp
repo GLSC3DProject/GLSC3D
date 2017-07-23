@@ -4,6 +4,17 @@ int  g_current_scale_id;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
+typedef struct
+{
+	G_VECTOR r_0, r_1;
+	G_VECTOR r_0_f, r_1_f;
+	G_VECTOR eye;
+	G_VECTOR up;
+	double zoom;
+	double x_left_std,  y_top_std,  width_std,  height_std;
+} def_scale_struct;
+def_scale_struct def_scale[TotalDisplayNumber];
+
 G_BOOL g_clipping_enabled = G_YES;
 
 struct G_TRANSFORM
@@ -89,29 +100,18 @@ void g_def_scale_2D(
 
 void g_def_scale_3D_fix(int id,
 	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
-	double eye_x, double eye_y, double eye_z,
-	double up_x, double up_y, double up_z,
-	double zoom,
 	double x_left_std, double y_top_std, double width_std, double height_std)
 {
+
 	g_def_scale_3D(id,
 		x_0, x_1, y_0, y_1, z_0, z_1,
 		x_0, x_1, y_0, y_1, z_0, z_1,
-		eye_x, eye_y, eye_z,
-		up_x, up_y, up_z,
-		zoom,
 		x_left_std, y_top_std, width_std, height_std
 	);
 }
 
-void g_def_scale_3D(
-	int id,
-	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
-	double x_0_f, double x_1_f, double y_0_f, double y_1_f, double z_0_f, double z_1_f,
-	double eye_x, double eye_y, double eye_z,
-	double up_x, double up_y, double up_z,
-	double zoom,
-	double x_left_std, double y_top_std, double width_std, double height_std
+void g_calc_matrix(
+	int id, def_scale_struct *tmp_def_scale
 )
 {
 	if (id >= TotalDisplayNumber) {
@@ -119,28 +119,30 @@ void g_def_scale_3D(
 		g_quit();
 	}
 
-	G_VECTOR lower(x_0_f, y_0_f, z_0_f);
-	G_VECTOR upper(x_1_f, y_1_f, z_1_f);
-	G_VECTOR eye(eye_x, eye_y, eye_z);
-	G_VECTOR up(up_x , up_y, up_z);
+	G_VECTOR lower = tmp_def_scale[id].r_0_f;
+	G_VECTOR upper = tmp_def_scale[id].r_1_f;
+	G_VECTOR eye = tmp_def_scale[id].eye;
+	G_VECTOR up = tmp_def_scale[id].up;
 
-	float aspect = (float)width_std / (float)height_std;
+	float aspect = (float)tmp_def_scale[id].width_std / (float)tmp_def_scale[id].height_std;
 
 	G_VECTOR center = 0.5f * (lower + upper);
 	float sphere_r = g_norm(upper - lower) / 2;
 
 	float R = g_norm(eye - center);
-//	G_VECTOR eye = center + direction;
 	float r_div_sr = R / sphere_r;
-	float c = sqrtf(r_div_sr * r_div_sr - 1) * zoom;
+	float c = sqrtf(r_div_sr * r_div_sr - 1) * tmp_def_scale[id].zoom;
 
-	float scale_x = (x_1_f - x_0_f) / (x_1 - x_0);
-	float scale_y = (y_1_f - y_0_f) / (y_1 - y_0);
-	float scale_z = (z_1_f - z_0_f) / (z_1 - z_0);
+	G_VECTOR r_10 = tmp_def_scale[id].r_1 - tmp_def_scale[id].r_0;
+	G_VECTOR r_10_f = tmp_def_scale[id].r_1_f - tmp_def_scale[id].r_0_f;
 
-	float trans_x = (x_1*x_0_f - x_0*x_1_f) / (x_1 - x_0);
-	float trans_y = (y_1*y_0_f - y_0*y_1_f) / (y_1 - y_0);
-	float trans_z = (z_1*z_0_f - z_0*z_1_f) / (z_1 - z_0);
+	float scale_x = r_10_f.x / r_10.x;
+	float scale_y = r_10_f.y / r_10.y;
+	float scale_z = r_10_f.z / r_10.z;
+
+	float trans_x = (tmp_def_scale[id].r_1.x*tmp_def_scale[id].r_0_f.x - tmp_def_scale[id].r_0.x*tmp_def_scale[id].r_1_f.x) / r_10.x;
+	float trans_y = (tmp_def_scale[id].r_1.y*tmp_def_scale[id].r_0_f.y - tmp_def_scale[id].r_0.y*tmp_def_scale[id].r_1_f.y) / r_10.y;
+	float trans_z = (tmp_def_scale[id].r_1.z*tmp_def_scale[id].r_0_f.z - tmp_def_scale[id].r_0.z*tmp_def_scale[id].r_1_f.z) / r_10.z;
 
 	G_MATRIX trans = G_MATRIX::Translation(G_VECTOR(trans_x, trans_y, trans_z));
 	G_MATRIX look_at = G_MATRIX::LookAt(eye, center, up);
@@ -148,49 +150,65 @@ void g_def_scale_3D(
 	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Perspective(c, aspect, R*0.25f, R + sphere_r);
 	glsc3D_inner_scale[id].camera.view = G_MATRIX::Scaling(scale_x, scale_y, scale_z) * trans * look_at;
 	glsc3D_inner_scale[id].camera.view_normal = G_MATRIX::Scaling(1/scale_x, 1/scale_y, 1/scale_z) * trans * look_at;
-//	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
-	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
+	glsc3D_inner_scale[id].screen = g_make_screen(tmp_def_scale[id].x_left_std, tmp_def_scale[id].y_top_std, tmp_def_scale[id].width_std, tmp_def_scale[id].height_std);
 	glsc3D_inner_scale[id].is_3D = true;
 	glsc3D_inner_scale[id].is_left_handed = (scale_x * scale_y * scale_z < 0);
 }
 
-void g_def_scale_3D_core_legacy(
+void g_def_scale_3D(
 	int id,
-	double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
-	double x_left_std, double y_top_std,
-	double width_std, double height_std,
-	double direction_x, double direction_y, double direction_z,
-	double r,
-	double up_x, double up_y, double up_z)
+	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
+	double x_0_f, double x_1_f, double y_0_f, double y_1_f, double z_0_f, double z_1_f,
+	double x_left_std, double y_top_std, double width_std, double height_std
+)
 {
-	if (id >= TotalDisplayNumber) {
-		fprintf(stderr,"too large id number\n");
-		g_quit();
-	}
-	G_VECTOR lower(x_left, y_bottom, z_near);
-	G_VECTOR upper(x_right, y_top, z_far);
-	G_VECTOR direction(direction_x, direction_y, direction_z);
-	G_VECTOR up(up_x, up_y, up_z);
+	if (x_0_f > x_1_f) printf("ERROR: GLSC3D requires the condition x_0_f < x_1_f: EXIT...\n"), exit(0);
+	if (y_0_f > y_1_f) printf("ERROR: GLSC3D requires the condition y_0_f < y_1_f: EXIT...\n"), exit(0);
+	if (z_0_f > z_1_f) printf("ERROR: GLSC3D requires the condition z_0_f < z_1_f: EXIT...\n"), exit(0);
 
-	float aspect = (float)width_std / (float)height_std;
+	def_scale[id].r_0.x = x_0,
+	def_scale[id].r_0.y = y_0,
+	def_scale[id].r_0.z = z_0,
+	def_scale[id].r_1.x = x_1,
+	def_scale[id].r_1.y = y_1,
+	def_scale[id].r_1.z = z_1,
 
-	G_VECTOR center = 0.5f * (lower + upper);
-	float sphere_r = g_norm(upper - lower) / 2;
+	def_scale[id].r_0_f.x = x_0_f,
+	def_scale[id].r_0_f.y = y_0_f,
+	def_scale[id].r_0_f.z = z_0_f,
+	def_scale[id].r_1_f.x = x_1_f,
+	def_scale[id].r_1_f.y = y_1_f,
+	def_scale[id].r_1_f.z = z_1_f;
 
-	float R = (r > sphere_r*1.4) ? r : sphere_r*1.4;
-	G_VECTOR eye = center + R * g_normalize(direction);
-	float r_div_sr = R / sphere_r;
-	float c = sqrtf(r_div_sr * r_div_sr - 1);
+	G_VECTOR eye, up;
+	double zoom;
 
-	G_MATRIX look_at = G_MATRIX::LookAt(eye, center, up);
+	eye.x = 5 * (x_1_f - x_0_f);
+	eye.y = 1 * (y_1_f - y_0_f);
+	eye.z = 2 * (z_1_f - z_0_f);
+	up.x = 0; up.y = 0; up.z = 1;
+	zoom = 1;
 
-	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Perspective(c, aspect, R*0.25f, R + sphere_r);
-	glsc3D_inner_scale[id].camera.view = look_at;
-	glsc3D_inner_scale[id].camera.view_normal = look_at;
-//	glsc3D_inner_scale[id].camera = g_make_camera_3D_core(lower, upper, g_normalize(direction), zoom, aspect, up);
-	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
-	glsc3D_inner_scale[id].is_3D = true;
-	glsc3D_inner_scale[id].is_left_handed = false;
+	def_scale[id].eye.x = eye.x, def_scale[id].eye.y = eye.y, def_scale[id].eye.z = eye.z;
+	def_scale[id].up.x = up.x, def_scale[id].up.y = up.y, def_scale[id].up.z = up.z;
+	def_scale[id].zoom = zoom,
+	def_scale[id].x_left_std = x_left_std, def_scale[id].y_top_std = y_top_std, def_scale[id].width_std = width_std, def_scale[id].height_std = height_std;
+
+	g_calc_matrix(id, def_scale);
+}
+
+void g_vision(
+	int id,
+	double eye_x, double eye_y, double eye_z,
+	double up_x, double up_y, double up_z,
+	double zoom
+)
+{
+	def_scale[id].eye.x = eye_x, def_scale[id].eye.y = eye_y, def_scale[id].eye.z = eye_z;
+	def_scale[id].up.x = up_x, def_scale[id].up.y = up_y, def_scale[id].up.z = up_z;
+	def_scale[id].zoom = zoom;
+
+	g_calc_matrix(id, def_scale);
 }
 
 void g_sel_scale(int id)

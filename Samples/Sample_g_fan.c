@@ -10,7 +10,8 @@ int main()
 
 	g_def_scale_2D(0, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
 
-	g_def_scale_3D_fix(1, -2, 2, -2, 2, -2, 2, 4, 4, 4, 0, 1, 0, 1, WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
+	g_def_scale_3D(1, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
+	g_vision(1, 4, 4, 4, 0, 1, 0, 1);
 
 	double dt = 0.1;
 	double theta;
