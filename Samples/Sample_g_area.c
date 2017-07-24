@@ -14,13 +14,9 @@ int main()
 	g_init_light(0, 1, 1, 1); // 立方体を確認するためにライトの位置を初期位置から変更
 
 	g_def_scale_3D(0, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
-	g_vision(0, 4, 4, 4, 0, 1, 0, 1);
 	g_def_scale_3D(1, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, WINDOW_SIZE_X / 4, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
-	g_vision(1, 4, 4, 4, 0, 1, 0, 1);
 	g_def_scale_3D(2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, 2 * WINDOW_SIZE_X / 4, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
-	g_vision(2, 4, 4, 4, 0, 1, 0, 1);
 	g_def_scale_3D(3, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, 3 * WINDOW_SIZE_X / 4, 0, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
-	g_vision(3, 4, 4, 4, 0, 1, 0, 1);
 
 	g_def_scale_2D(4, -2, 2, -2, 2, 0, WINDOW_SIZE_Y / 2, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);
 	g_def_scale_2D(5, -2, 2, -2, 2, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2, WINDOW_SIZE_X / 4, WINDOW_SIZE_Y / 2);

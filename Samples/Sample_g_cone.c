@@ -10,10 +10,7 @@ int main()
 	g_init("Sample_g_cone.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
 	g_def_scale_3D(0, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
-	g_vision(0, 4, 4, 4, 0, 1, 0, 1);
-
 	g_def_scale_3D(1, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
-	g_vision(1, 4, 4, 4, 0, 1, 0, 1);
 
 	int i_time;
 	for(i_time = 0;;i_time++)
@@ -21,10 +18,10 @@ int main()
 		g_cls();
 
 		g_sel_scale(0);
-		g_cone_3D(0, -1, 0, 0, 1, 0, 1.5, 3, G_YES, G_NO);
+		g_cone_3D(0, -1, 0, 0, 0, 1, 1.5, 3, G_YES, G_NO);
 
 		g_sel_scale(1);
-		g_cone_3D(0, -1, 0, 0, 1, 0, 1.5, 3, G_NO, G_YES);
+		g_cone_3D(0, -1, 0, 0, 0, 1, 1.5, 3, G_NO, G_YES);
 
 		g_finish();
 	}

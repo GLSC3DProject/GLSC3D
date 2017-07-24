@@ -183,9 +183,9 @@ void g_def_scale_3D(
 	G_VECTOR eye, up;
 	double zoom;
 
-	eye.x = 5 * (x_1_f - x_0_f);
-	eye.y = 1 * (y_1_f - y_0_f);
-	eye.z = 2 * (z_1_f - z_0_f);
+	eye.x = 1.3 * (x_1_f - x_0_f);
+	eye.y = -2.4 * (y_1_f - y_0_f);
+	eye.z = 2.0 * (z_1_f - z_0_f);
 	up.x = 0; up.y = 0; up.z = 1;
 	zoom = 1;
 

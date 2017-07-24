@@ -20,12 +20,10 @@ int main(void)
 		-LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0 * 2.0, LEN / 2.0 * 2.0,
 		-LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0,
 		0, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
-	g_vision(0, 4, 4, 2, 0, 0, 1, 1);
 	g_def_scale_3D(1,
 		-LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0 * 2.0, LEN / 2.0 * 2.0,
 		-LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0,
 		WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
-	g_vision(1, 4, 4, 2, 0, 0, 1, 1);
 
 	double dt = 0.03;
 	int i,j;

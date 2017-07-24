@@ -14,7 +14,6 @@ int main()
 		0, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
 
 	g_def_scale_3D(1, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
-	g_vision(1, 2, 3, 4, 0, 1, 0, 1);
 
 	g_def_marker(0, 1, 0, 0, 1, 0, 10);
 	g_def_marker(1, 0, 1, 0, 1, 1, 15);

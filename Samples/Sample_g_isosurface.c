@@ -58,8 +58,6 @@ int main()
 	r0_z = 0.0;
 
 	g_def_scale_3D(0, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE_X, WINDOW_SIZE_Y);
-	g_vision(0, 4, 4, 4, 0, 1, 0, 1);
-//	g_init_light_core(0,1,1,1,1);
 
 	double t,dt = 1./32;
 	for(int i_time = 0;;i_time++)

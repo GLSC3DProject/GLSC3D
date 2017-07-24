@@ -93,8 +93,7 @@ int main()
 	//g_scr_color(1, 1, 1);
 	//g_line_color(0, 0, 0, 1);
 
-	g_def_scale_3D(0, -1, 1, -1, 1, -1, 1,
-		1, -1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE);
+	g_def_scale_3D(0, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, 0, 0, WINDOW_SIZE, WINDOW_SIZE);
 	g_vision(0, 0, 4, 6, 0, 1, 0, 1);
 
 	g_marker_type(G_MARKER_SPHERE);

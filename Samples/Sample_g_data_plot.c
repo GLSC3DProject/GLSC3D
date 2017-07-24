@@ -14,7 +14,6 @@ int main()
 	g_init("Sample_g_data_plot.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 	g_def_scale_2D(0, -2, 2, -2, 2, 0, 0,WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
 	g_def_scale_3D(1, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
-	g_vision(1, 4, 4, 4, 0, 0, 1, 1);
 
 	int i,j;
 	double xx,yy,dx=4.0/Imax,dy=4.0/Jmax;
