@@ -166,31 +166,20 @@ void g_def_scale_3D(
 	if (y_0_f > y_1_f) printf("ERROR: GLSC3D requires the condition y_0_f < y_1_f: EXIT...\n"), exit(0);
 	if (z_0_f > z_1_f) printf("ERROR: GLSC3D requires the condition z_0_f < z_1_f: EXIT...\n"), exit(0);
 
-	def_scale[id].r_0.x = x_0,
-	def_scale[id].r_0.y = y_0,
-	def_scale[id].r_0.z = z_0,
-	def_scale[id].r_1.x = x_1,
-	def_scale[id].r_1.y = y_1,
-	def_scale[id].r_1.z = z_1,
-
-	def_scale[id].r_0_f.x = x_0_f,
-	def_scale[id].r_0_f.y = y_0_f,
-	def_scale[id].r_0_f.z = z_0_f,
-	def_scale[id].r_1_f.x = x_1_f,
-	def_scale[id].r_1_f.y = y_1_f,
-	def_scale[id].r_1_f.z = z_1_f;
+	def_scale[id].r_0 = G_VECTOR (x_0,y_0,z_0);
+	def_scale[id].r_1 = G_VECTOR (x_1,y_1,z_1);
+	def_scale[id].r_0_f = G_VECTOR (x_0_f,y_0_f,z_0_f);
+	def_scale[id].r_1_f = G_VECTOR (x_1_f,y_1_f,z_1_f);
 
 	G_VECTOR eye, up;
 	double zoom;
 
-	eye.x = 1.3 * (x_1_f - x_0_f);
-	eye.y = -2.4 * (y_1_f - y_0_f);
-	eye.z = 2.0 * (z_1_f - z_0_f);
-	up.x = 0; up.y = 0; up.z = 1;
+	eye = G_VECTOR (1.3 * (x_1_f - x_0_f), -2.4 * (y_1_f - y_0_f), 2.0 * (z_1_f - z_0_f));
+	up = G_VECTOR (0,0,1);
 	zoom = 1;
 
-	def_scale[id].eye.x = eye.x, def_scale[id].eye.y = eye.y, def_scale[id].eye.z = eye.z;
-	def_scale[id].up.x = up.x, def_scale[id].up.y = up.y, def_scale[id].up.z = up.z;
+	def_scale[id].eye = eye;
+	def_scale[id].up = up;
 	def_scale[id].zoom = zoom,
 	def_scale[id].x_left_std = x_left_std, def_scale[id].y_top_std = y_top_std, def_scale[id].width_std = width_std, def_scale[id].height_std = height_std;
 
@@ -204,8 +193,8 @@ void g_vision(
 	double zoom
 )
 {
-	def_scale[id].eye.x = eye_x, def_scale[id].eye.y = eye_y, def_scale[id].eye.z = eye_z;
-	def_scale[id].up.x = up_x, def_scale[id].up.y = up_y, def_scale[id].up.z = up_z;
+	def_scale[id].eye = G_VECTOR(eye_x, eye_y, eye_z);
+	def_scale[id].up = G_VECTOR(up_x, up_y, up_z);
 	def_scale[id].zoom = zoom;
 
 	g_calc_matrix(id, def_scale);
