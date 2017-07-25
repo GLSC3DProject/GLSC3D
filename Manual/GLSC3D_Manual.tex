@@ -1495,22 +1495,19 @@ void g_def_scale_3D(
         double x_0, double x_1,
         double y_0, double y_1,
         double z_0, double z_1,
-        double x_f_0, double x_f_1, 
-        double y_f_0, double y_f_1, 
-        double z_f_0, double z_f_1, 
-        double eye_x, double eye_y, double eye_z,
-        double up_x, double up_y, double up_z, 
-        double zoom, 
+        double x_0_f, double x_1_f, 
+        double y_0_f, double y_1_f, 
+        double z_0_f, double z_1_f, 
         double x_left_std, double y_top_std,
         double width_std, double height_std);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; スケール番号 \\
 \verb|x_0|, \verb|x_1|, \verb|y_0|, \verb|y_1|, \verb|z_0|, \verb|z_1| ; 自由座標系における$x, y, z$の範囲の端点 \\
-\verb|x_f_0|, \verb|x_f_1|, \verb|y_f_0|, \verb|y_f_1|, \verb|z_f_0|, \verb|z_f_1| ; 固定座標系における$x, y, z$の範囲の端点 \\
-\verb|eye_x|, \verb|eye_y|, \verb|eye_z| ; 描画直方体$^*$の重心から視点位置までのベクトルの座標 \\
-\verb|up_x|, \verb|up_y|, \verb|up_z| ; 画面上方向を指定するべクトルの座標 \\
-\verb|zoom| ; 拡大率 \\
+\verb|x_0_f|, \verb|x_1_f|, \verb|y_0_f|, \verb|y_1_f|, \verb|z_0_f|, \verb|z_1_f| ; 固定座標系における$x, y, z$の範囲の端点 \\
+%%\verb|eye_x|, \verb|eye_y|, \verb|eye_z| ; 描画直方体$^*$の重心から視点位置までのベクトルの座標 \\
+%%\verb|up_x|, \verb|up_y|, \verb|up_z| ; 画面上方向を指定するべクトルの座標 \\
+%%\verb|zoom| ; 拡大率 \\
 \verb|x_left_std| ; 標準座標系に定義する描画枠の左端のx座標 \\
 \verb|y_top_std| ; 標準座標系に定義する描画枠の左端のy座標 \\
 \verb|width_std| ; 標準座標系に定義する描画枠の幅 \\
@@ -1520,28 +1517,31 @@ void g_def_scale_3D(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_def\_scale\_3D}関数の説明}
 標準座標系上に三次元のオブジェクトを描画するための描画枠・描画するための固定座標系・オブジェクトが定義される自由座標系を設定する．
-$^*$描画するための固定座標系で指定される直方体を描画直方体と呼ぶ．
 
-\verb|eye|を指定することで，オブジェクトを見る視点位置を指定できる．
+\verb|g_def_scale_3D|では，オブジェクトを見るための視点位置・画面上方向・拡大率のデフォルト値が次のように与えられている．\\
+視点位置: $\verb|eye| = (1.3(\verb|x_1_f|-\verb|x_0_f|), -2.4(\verb|y_1_f|-\verb|y_0_f|), 2(\verb|z_1_f|-\verb|z_0_f|))$. \\
+画面上方向: $\verb|up| = (0, 0, 1)$. \\
+拡大率: $\verb|zoom| = 1$. 
 
-\verb|up|を指定することで，描画直方体の上方向を指定できる．
-
-GLSC3Dでは，固定座標系ないし自由座標系の範囲を全て$\verb|*_0| < \verb|*_1|$のように定めると``右手系''として描画される．
-ただし，奇数個の範囲を$\verb|*_0| > \verb|*_1|$のように定めると``左手系''として描画される．
+GLSC3Dでは，自由座標系の範囲を全て$\verb|x_0| < \verb|x_1|$のように定めると``右手系''として描画される．
+ただし，奇数個の範囲を$\verb|x_0| > \verb|x_1|$のように定めると``左手系''として描画される．
 偶数個であれば``右手系''として描画される．
+
+固定座標系の範囲を全て$\verb|x_0_f| < \verb|x_1_f|$のように定めなければならない．
+$\verb|x_0_f| \geq \verb|x_1_f|$のように設定するとエラーになる．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{Canvas_g_def_scale_3D.eps}
+\includegraphics[width=100mm]{Canvas_g_def_scale_3D_3.eps}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
 
-%%%%%%%%%%%%%%%%%%%%%g_def_scale_3D_core%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%g_def_scale_3D_fix%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_def\_scale\_3D\_fix}}
 
@@ -1553,18 +1553,12 @@ void g_def_scale_3D_fix(
         double x_0, double x_1,
         double y_0, double y_1,
         double z_0, double z_1,
-        double eye_x, double eye_y, double eye_z,
-        double up_x, double up_y, double up_z, 
-        double zoom, 
         double x_left_std, double y_top_std,
         double width_std, double height_std);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; スケール番号 \\
 \verb|x_0|, \verb|x_1|, \verb|y_0|, \verb|y_1|, \verb|z_0|, \verb|z_1| ; 固定(自由)座標系における$x, y, z$の範囲の端点 \\
-\verb|eye_x|, \verb|eye_y|, \verb|eye_z| ; 描画直方体の重心から視点位置までのベクトルの座標 \\
-\verb|up_x|, \verb|up_y|, \verb|up_z| ; 画面上方向を指定するべクトルの座標 \\
-\verb|zoom| ; 拡大率 \\
 \verb|x_left_std| ; 標準座標系に定義する描画枠の左端のx座標 \\
 \verb|y_top_std| ; 標準座標系に定義する描画枠の左端のy座標 \\
 \verb|width_std| ; 標準座標系に定義する描画枠の幅 \\
@@ -1575,6 +1569,34 @@ void g_def_scale_3D_fix(
 \begin{itembox}[l]{\texttt{g\_def\_scale\_3D\_core}関数の説明}
 標準座標系上に三次元のオブジェクトを描画するための描画枠・描画するための固定(自由)座標系を設定する．
 \verb|g_def_scale_3D_fix|では，オブジェクトを定義する自由座標系が固定座標系と同じである．
+視点位置・画面上方向・拡大率は\verb|g_def_scale_3D|と同じである．
+\end{itembox}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%g_vision%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\texttt{g\_vision}}
+
+\begin{itembox}[l]{\texttt{g\_vision}関数}
+%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
+\begin{verbatim}
+void g_vision(
+        int id,
+        double eye_x, double eye_y, double eye_z,
+        double up_x, double up_y, double up_z, 
+        double zoom);
+\end{verbatim}
+%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\verb|id| ; スケール番号 \\
+\verb|eye_x|, \verb|eye_y|, \verb|eye_z| ; 視点位置を指定するべクトルの座標 \\
+\verb|up_x|, \verb|up_y|, \verb|up_z| ; 画面上方向を指定するべクトルの座標 \\
+\verb|zoom| ; 拡大率 
+\end{itembox}
+
+%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itembox}[l]{\texttt{g\_vision}関数の説明}
+\verb|g_def_scale_3D|もしくは\verb|g_def_scale_3D_fix|で定められているデフォルトの視点位置・画面上方向・拡大率を任意に変更できる．
 \end{itembox}
 
 

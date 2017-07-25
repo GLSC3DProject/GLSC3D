@@ -162,9 +162,9 @@ void g_def_scale_3D(
 	double x_left_std, double y_top_std, double width_std, double height_std
 )
 {
-	if (x_0_f > x_1_f) printf("ERROR: GLSC3D requires the condition x_0_f < x_1_f: EXIT...\n"), exit(0);
-	if (y_0_f > y_1_f) printf("ERROR: GLSC3D requires the condition y_0_f < y_1_f: EXIT...\n"), exit(0);
-	if (z_0_f > z_1_f) printf("ERROR: GLSC3D requires the condition z_0_f < z_1_f: EXIT...\n"), exit(0);
+	if (x_0_f >= x_1_f) printf("ERROR: GLSC3D requires the condition x_0_f < x_1_f: EXIT...\n"), exit(0);
+	if (y_0_f >= y_1_f) printf("ERROR: GLSC3D requires the condition y_0_f < y_1_f: EXIT...\n"), exit(0);
+	if (z_0_f >= z_1_f) printf("ERROR: GLSC3D requires the condition z_0_f < z_1_f: EXIT...\n"), exit(0);
 
 	def_scale[id].r_0 = G_VECTOR (x_0,y_0,z_0);
 	def_scale[id].r_1 = G_VECTOR (x_1,y_1,z_1);
