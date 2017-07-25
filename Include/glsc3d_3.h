@@ -91,7 +91,7 @@ void g_def_scale_2D(
 	double width_std, double height_std);
 
 void g_def_scale_3D_fix(int id,
-	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
+	double x_0_f, double x_1_f, double y_0_f, double y_1_f, double z_0_f, double z_1_f,
 	double x_left_std, double y_top_std, double width_std, double height_std);
 
 void g_def_scale_3D(

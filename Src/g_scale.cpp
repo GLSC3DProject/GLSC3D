@@ -99,13 +99,12 @@ void g_def_scale_2D(
 }
 
 void g_def_scale_3D_fix(int id,
-	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
+	double x_0_f, double x_1_f, double y_0_f, double y_1_f, double z_0_f, double z_1_f,
 	double x_left_std, double y_top_std, double width_std, double height_std)
 {
-
 	g_def_scale_3D(id,
-		x_0, x_1, y_0, y_1, z_0, z_1,
-		x_0, x_1, y_0, y_1, z_0, z_1,
+		x_0_f, x_1_f, y_0_f, y_1_f, z_0_f, z_1_f,
+		x_0_f, x_1_f, y_0_f, y_1_f, z_0_f, z_1_f,
 		x_left_std, y_top_std, width_std, height_std
 	);
 }
