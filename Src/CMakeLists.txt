@@ -30,7 +30,7 @@ add_library(glsc3d_3
 	g_capture.c
 	g_circle.cpp
 	g_cone.cpp
-	g_contln_2D.c
+	g_contln_2D.cpp
 	g_cylinder_3D.cpp
 	g_data_plot.c
 	g_ellipse_3D.cpp
