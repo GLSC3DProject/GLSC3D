@@ -48,8 +48,8 @@
 \author{\Large{構想・制作・監督：秋山 正和}\\\vspace{5mm}
 北海道大学 電子科学研究所 \vspace{1zw} \\
 \includegraphics[width=100mm]{CoverPage.eps} \vspace{1zw} \\
-\Large{制作(Ver. 2.2.1以降)：舘入 数磨$^*$，須志田 隆道$^\dagger$，小林　亮$^\nabla$} \\
-$^*$北海道大学大学院 理学院 数学専攻,  $^\dagger$北海道大学 電子科学研究所,  \\$^\nabla$広島大学　数理分子生命理学専攻
+\Large{制作(Ver. 2.2.1以降)：舘入 数磨$^{*_1}$，須志田 隆道$^{*_2}$，小林 亮$^{*_3}$} \\
+$^*$北海道大学大学院 理学院 数学専攻,  $^{*_2}$北海道大学 電子科学研究所,  \\$^{*_3}$広島大学 数理分子生命理学専攻
 \vspace{1zw}\\ 
 \Large{制作(Ver. 2.2.1まで)：平芳 悠人，岡本 守} \\
 北海道大学 理学部 数学科\\
@@ -1534,7 +1534,15 @@ $\verb|x_0_f| \geq \verb|x_1_f|$のように設定するとエラーになる．
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{Canvas_g_def_scale_3D_3.eps}
+\includegraphics[width=50mm]{g_def_scale.png.eps}
+ \hspace{0.5zw}
+\includegraphics[width=50mm]{g_def_scale_left_hand.png.eps}
+
+\begin{flushleft}
+左図はGLSC3Dが提供する標準的な\verb|g_def_scale_3D|による描画例．
+右図は左図に対して，自由座標系を$\verb|x_0| > \verb|x_1|$となるように定めた場合の描画例であり，
+左手系として描画されていることを確認できる．
+\end{flushleft}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1599,6 +1607,80 @@ void g_vision(
 \verb|g_def_scale_3D|もしくは\verb|g_def_scale_3D_fix|で定められているデフォルトの視点位置・画面上方向・拡大率を任意に変更できる．
 \end{itembox}
 
+%%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
+\begin{figure}[htb]
+\centering
+(a)
+\includegraphics[width=40mm]{g_vision_eye_04.png.eps}
+(b)
+\includegraphics[width=40mm]{g_vision_eye_05.png.eps}
+(c)
+\includegraphics[width=40mm]{g_vision_eye_06.png.eps}
+
+\vspace{0.5zw}
+(d)
+\includegraphics[width=40mm]{g_vision_eye_03.png.eps}
+(e)
+\includegraphics[width=40mm]{g_vision_eye_09.png.eps}
+(f)
+\includegraphics[width=40mm]{g_vision_eye_07.png.eps}
+
+\vspace{0.5zw}
+(g)
+\includegraphics[width=40mm]{g_vision_eye_02.png.eps}
+(h)
+\includegraphics[width=40mm]{g_vision_eye_01.png.eps}
+(i)
+\includegraphics[width=40mm]{g_vision_eye_08.png.eps}
+
+\begin{flushleft}
+デフォルトの視点位置を$(\verb|eye_std_x|, \verb|eye_std_y|, \verb|eye_std_z|)$として，\\
+(a) $(-\verb|eye_std_x|, -\verb|eye_std_y|, -\verb|eye_std_z|)$. \\
+(b) $(0,-1, 0)$. \\
+(c) $(\verb|eye_std_x|, -\verb|eye_std_y|, \verb|eye_std_z|)$. \\
+(d) $(-1, 0, 0)$. \\
+(e) $(0 + \varepsilon, 0 + \varepsilon, 1)$. 
+視点位置を真上や真下に設定するときには, 多少ずらさなければならない.
+(f) $(1, 0, 0)$. \\
+(g) $(-\verb|eye_std_x|, \verb|eye_std_y|, \verb|eye_std_z|)$. \\
+(h) $(0, 1, 0)$. \\
+(i) $(\verb|eye_std_x|, \verb|eye_std_y|, \verb|eye_std_z|)$.
+\end{flushleft}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+(a)
+\includegraphics[width=40mm]{g_vision_up_01.png.eps}
+(b)
+\includegraphics[width=40mm]{g_vision_up_02.png.eps}
+(c)
+\includegraphics[width=40mm]{g_vision_up_03.png.eps}
+
+\begin{flushleft}
+(a) デフォルトの画面上方向は$(0, 0, 1)$である.
+(b) $(0, 1, 0)$に設定した状態. 
+(c) $(1, 0, 0)$に設定した状態. 
+(b)と(c)は, (a)と同じ見た目になるように視点方向がデフォルトから変更されている.
+\end{flushleft}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+(a)
+\includegraphics[width=40mm]{g_vision_zoom_01.png.eps}
+(b)
+\includegraphics[width=40mm]{g_vision_zoom_02.png.eps}
+(c)
+\includegraphics[width=40mm]{g_vision_zoom_03.png.eps}
+
+\begin{flushleft}
+(a) デフォルトの$\verb|zoom|=1$で描画された球体.
+(b) $\verb|zoom|=2$で描画された球体. 球体が$2$倍に拡大される.
+(c) $\verb|zoom|=0.5$で描画された球体. 球体が$0.5$倍に縮小される.
+\end{flushleft}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
