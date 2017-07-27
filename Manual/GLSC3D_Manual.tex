@@ -1534,14 +1534,27 @@ $\verb|x_0_f| \geq \verb|x_1_f|$のように設定するとエラーになる．
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
 \begin{figure}[htb]
 \centering
-\includegraphics[width=50mm]{g_def_scale.png.eps}
+\includegraphics[width=50mm]{g_def_scale.eps}
  \hspace{0.5zw}
-\includegraphics[width=50mm]{g_def_scale_left_hand.png.eps}
+\includegraphics[width=50mm]{g_def_scale_left_hand.eps}
 
 \begin{flushleft}
 左図はGLSC3Dが提供する標準的な\verb|g_def_scale_3D|による描画例．
 右図は左図に対して，自由座標系を$\verb|x_0| > \verb|x_1|$となるように定めた場合の描画例であり，
 左手系として描画されていることを確認できる．
+\end{flushleft}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=50mm]{g_def_scale_sphere.eps}
+ \hspace{0.5zw}
+\includegraphics[width=50mm]{g_def_scale_sphere_z*2.eps}
+
+\begin{flushleft}
+左図は固定座標系が定める直方体の縦横比が$1:1:1$の描画例.
+右図は左図に対して，固定座標系における$z$の範囲を$2*\verb|z_0_f| \leq z \leq 2*\verb|z_1_f|$とした描画例.
+固定座標系における$z$方向の範囲が$2$倍になるので，球体は$z$方向に$2$倍だけ引き延ばされる.
 \end{flushleft}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1558,15 +1571,15 @@ $\verb|x_0_f| \geq \verb|x_1_f|$のように設定するとエラーになる．
 \begin{verbatim}
 void g_def_scale_3D_fix(
         int id,
-        double x_0, double x_1,
-        double y_0, double y_1,
-        double z_0, double z_1,
+        double x_0_f, double x_1_f,
+        double y_0_f, double y_1_f,
+        double z_0_f, double z_1_f,
         double x_left_std, double y_top_std,
         double width_std, double height_std);
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; スケール番号 \\
-\verb|x_0|, \verb|x_1|, \verb|y_0|, \verb|y_1|, \verb|z_0|, \verb|z_1| ; 固定(自由)座標系における$x, y, z$の範囲の端点 \\
+\verb|x_0_f|, \verb|x_1_f|, \verb|y_0_f|, \verb|y_1_f|, \verb|z_0_f|, \verb|z_1_f| ; 固定(自由)座標系における$x, y, z$の範囲の端点 \\
 \verb|x_left_std| ; 標準座標系に定義する描画枠の左端のx座標 \\
 \verb|y_top_std| ; 標準座標系に定義する描画枠の左端のy座標 \\
 \verb|width_std| ; 標準座標系に定義する描画枠の幅 \\
@@ -1611,27 +1624,27 @@ void g_vision(
 \begin{figure}[htb]
 \centering
 (a)
-\includegraphics[width=40mm]{g_vision_eye_04.png.eps}
+\includegraphics[width=40mm]{g_vision_eye_04.eps}
 (b)
-\includegraphics[width=40mm]{g_vision_eye_05.png.eps}
+\includegraphics[width=40mm]{g_vision_eye_05.eps}
 (c)
-\includegraphics[width=40mm]{g_vision_eye_06.png.eps}
+\includegraphics[width=40mm]{g_vision_eye_06.eps}
 
 \vspace{0.5zw}
 (d)
-\includegraphics[width=40mm]{g_vision_eye_03.png.eps}
+\includegraphics[width=40mm]{g_vision_eye_03.eps}
 (e)
-\includegraphics[width=40mm]{g_vision_eye_09.png.eps}
+\includegraphics[width=40mm]{g_vision_eye_09.eps}
 (f)
-\includegraphics[width=40mm]{g_vision_eye_07.png.eps}
+\includegraphics[width=40mm]{g_vision_eye_07.eps}
 
 \vspace{0.5zw}
 (g)
-\includegraphics[width=40mm]{g_vision_eye_02.png.eps}
+\includegraphics[width=40mm]{g_vision_eye_02.eps}
 (h)
-\includegraphics[width=40mm]{g_vision_eye_01.png.eps}
+\includegraphics[width=40mm]{g_vision_eye_01.eps}
 (i)
-\includegraphics[width=40mm]{g_vision_eye_08.png.eps}
+\includegraphics[width=40mm]{g_vision_eye_08.eps}
 
 \begin{flushleft}
 デフォルトの視点位置を$(\verb|eye_std_x|, \verb|eye_std_y|, \verb|eye_std_z|)$として，\\
@@ -1651,11 +1664,11 @@ void g_vision(
 \begin{figure}[htb]
 \centering
 (a)
-\includegraphics[width=40mm]{g_vision_up_01.png.eps}
+\includegraphics[width=40mm]{g_vision_up_01.eps}
 (b)
-\includegraphics[width=40mm]{g_vision_up_02.png.eps}
+\includegraphics[width=40mm]{g_vision_up_02.eps}
 (c)
-\includegraphics[width=40mm]{g_vision_up_03.png.eps}
+\includegraphics[width=40mm]{g_vision_up_03.eps}
 
 \begin{flushleft}
 (a) デフォルトの画面上方向は$(0, 0, 1)$である.
@@ -1668,11 +1681,11 @@ void g_vision(
 \begin{figure}[htb]
 \centering
 (a)
-\includegraphics[width=40mm]{g_vision_zoom_01.png.eps}
+\includegraphics[width=40mm]{g_vision_zoom_01.eps}
 (b)
-\includegraphics[width=40mm]{g_vision_zoom_02.png.eps}
+\includegraphics[width=40mm]{g_vision_zoom_02.eps}
 (c)
-\includegraphics[width=40mm]{g_vision_zoom_03.png.eps}
+\includegraphics[width=40mm]{g_vision_zoom_03.eps}
 
 \begin{flushleft}
 (a) デフォルトの$\verb|zoom|=1$で描画された球体.
