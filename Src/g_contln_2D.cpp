@@ -1,232 +1,262 @@
 #include "glsc3d_3_private.h"
 #include <stdio.h>
 #include <time.h>
-
-#define boxmember3D(i,j) (boxmember[(i)*N_y+(j)])
-#define trimember3D(i,j) (trimember[(i)*N_y+(j)])
-#define boxmember2D(i,j) (boxmember2D[(i)*N_y+(j)])
-#define trimember2D(i,j) (trimember2D[(i)*N_y+(j)])
-#define flag(i,j)        (flag[(i)*N_y+(j)])
 #define data2D(i, j)     data2D[(i)*N_y+(j)]
+#define			MyPrintf2D(name)	printf("%s.x = %f %s.y = %f \n",#name,name.x,#name,name.y);
 
 /********************************** 2D ****************************************/
-//typedef struct
-//{
-//	double          x, y;
-//}               Vector2D;
-//inline Vector2D operator + (Vector2D u,Vector2D v)
-//{
-//	Vector2D w =
-//    {
-//        u.x + v.x,
-//        u.y + v.y
-//    };
-//
-//	return w;
-//}
-//inline Vector2D& operator += (Vector2D& u,Vector2D v)
-//{
-//    u.x += v.x;
-//    u.y += v.y;
-//
-//    return u;
-//}
-//inline Vector2D operator - (Vector2D u,Vector2D v)
-//{
-//	Vector2D w =
-//    {
-//        u.x - v.x,
-//        u.y - v.y
-//	};
-//
-//	return w;
-//}
-//inline Vector2D& operator -= (Vector2D& u,Vector2D v)
-//{
-//    u.x -= v.x;
-//    u.y -= v.y;
-//
-//    return u;
-//}
-//inline Vector2D operator * (double a,Vector2D u)
-//{
-//	Vector2D w =
-//    {
-//        a * u.x,
-//        a * u.y
-//    };
-//
-//	return w;
-//}
-//inline Vector2D operator * (Vector2D u,double a)
-//{
-//	Vector2D w =
-//    {
-//        a * u.x,
-//        a * u.y
-//    };
-//
-//	return w;
-//}
-//inline Vector2D& operator - (Vector2D& u)
-//{
-//	u.x *= - 1;
-//	u.y *= - 1;
-//
-//	return u;
-//}
-//inline Vector2D operator / (Vector2D u,double a)
-//{
-//	Vector2D w =
-//	{
-//        u.x / a,
-//        u.y / a
-//    };
-//
-//	return w;
-//}
-//inline Vector2D& operator /= (Vector2D& u,double a)
-//{
-//	u.x /= a;
-//	u.y /= a;
-//
-//	return u;
-//}
-//
-///* Naiseki */
-//inline double operator * (Vector2D u,Vector2D v)
-//{
-//	return u.x * v.x + u.y * v.y;
-//}
-//inline double Dot2D (Vector2D u,Vector2D v)
-//{
-//	return u * v;
-//}
-///* Cross */
-//inline double operator ^ (Vector2D u,Vector2D v)
-//{
-//	double  w;
-//
-//    w = u.x * v.y - v.x * u.y;
-//
-//	return w;
-//}
-//inline double Cross2D (Vector2D u,Vector2D v)
-//{
-//    return u ^ v;
-//}
-///* Norm */
-//inline double operator ~ (Vector2D u)
-//{
-//	return sqrt(u.x * u.x + u.y * u.y);
-//}
-//inline double Norm2D (Vector2D u)
-//{
-//	return ~u;
-//}
-//const   static  Vector2D    Zero2D = {0.0,0.0};
-///********************************** 2D ****************************************/
+typedef struct
+{
+	double          x, y;
+}               Vector2D;
 
+inline Vector2D operator + (Vector2D u,Vector2D v)
+{
+	Vector2D w =
+	{
+		u.x + v.x,
+		u.y + v.y
+	};
+
+	return w;
+}
+inline Vector2D& operator += (Vector2D& u,Vector2D v)
+{
+	u.x += v.x;
+	u.y += v.y;
+
+	return u;
+}
+inline Vector2D operator - (Vector2D u,Vector2D v)
+{
+	Vector2D w =
+	{
+		u.x - v.x,
+		u.y - v.y
+	};
+
+	return w;
+}
+inline Vector2D& operator -= (Vector2D& u,Vector2D v)
+{
+	u.x -= v.x;
+	u.y -= v.y;
+
+	return u;
+}
+inline Vector2D operator * (double a,Vector2D u)
+{
+	Vector2D w =
+	{
+		a * u.x,
+		a * u.y
+	};
+
+	return w;
+}
+inline Vector2D operator * (Vector2D u,double a)
+{
+	Vector2D w =
+	{
+		a * u.x,
+		a * u.y
+	};
+
+	return w;
+}
+inline Vector2D& operator - (Vector2D& u)
+{
+	u.x *= - 1;
+	u.y *= - 1;
+
+	return u;
+}
+inline Vector2D operator / (Vector2D u,double a)
+{
+	Vector2D w =
+	{
+		u.x / a,
+		u.y / a
+	};
+
+	return w;
+}
+inline Vector2D& operator /= (Vector2D& u,double a)
+{
+	u.x /= a;
+	u.y /= a;
+
+	return u;
+}
+
+/* Naiseki */
+inline double operator * (Vector2D u,Vector2D v)
+{
+	return u.x * v.x + u.y * v.y;
+}
+inline double Dot2D (Vector2D u,Vector2D v)
+{
+	return u * v;
+}
+/* Cross */
+inline double operator ^ (Vector2D u,Vector2D v)
+{
+	double  w;
+
+	w = u.x * v.y - v.x * u.y;
+
+	return w;
+}
+inline double Cross2D (Vector2D u,Vector2D v)
+{
+	return u ^ v;
+}
+/* Norm */
+inline double operator ~ (Vector2D u)
+{
+	return sqrt(u.x * u.x + u.y * u.y);
+}
+inline double Norm2D (Vector2D u)
+{
+	return ~u;
+}
+const   static  Vector2D    Zero2D = {0.0,0.0};
+/********************************** 2D ****************************************/
+#define SQ(i)		((i) * (i))
+#include <float.h>
+void g_move_2Ds(Vector2D u){g_move_2D(u.x,u.y);}
+void g_plot_2Ds(Vector2D u){g_plot_2D(u.x,u.y);}
+void g_arrow_2Ds(Vector2D u, Vector2D d, double arrow_size, double head_size, int type){
+	g_arrow_2D(u.x, u.y, d.x, d.y, arrow_size, head_size, type);
+}
+typedef struct
+{
+	int flag;
+	Vector2D r,n;
+} Edge_2D_struct;
+
+Edge_2D_struct do_contln_2D_Edge(Vector2D ra,Vector2D rb,double fa,double fb)
+{
+	double eps = DBL_EPSILON;
+	Edge_2D_struct ans;
+	if(fa * fb > 0) ans.flag = 0;
+	else
+	{
+		ans.flag = 1;
+		Vector2D nabla_f;
+		double s = fb / (fb - fa);
+		Vector2D r = rb + s * (ra - rb);
+		ans.r = r;
+		Vector2D a = ra - r;
+		Vector2D b = rb - r;
+		Vector2D pm = {1, 1};
+		if(a.x < b.x) pm.x = -1;
+		if(a.y < b.y) pm.y = -1;
+
+		Vector2D ex = {1, 0};
+		Vector2D ey = {0, 1};
+		Vector2D ax = (a * ex) * ex;
+		Vector2D ay = (a * ey) * ey;
+		Vector2D bx = (b * ex) * ex;
+		Vector2D by = (b * ey) * ey;
+
+		double U = ~ax + ~bx;//U := 1 / u
+		double V = ~ay + ~by;//V := 1 / u
+
+		if(U < eps) nabla_f = {0, (fa - fb) / V};
+		if(V < eps) nabla_f = {(fa - fb) / U, 0};
+		else
+		{
+			double fax = (a * ax) / (a * a) * fa;
+			double fay = (a * ay) / (a * a) * fa;
+			double fbx = (b * bx) / (b * b) * fb;
+			double fby = (b * by) / (b * b) * fb;
+			nabla_f = {(fax - fbx) / U, (fay - fby) / V};
+		}
+		nabla_f = {pm.x * nabla_f.x, pm.y * nabla_f.y};
+		ans.n = nabla_f / ~nabla_f;
+	}
+	return ans;
+}
+void do_contln_2D(Vector2D r0,Vector2D r1,Vector2D r2,
+				  double f0,double f1,double f2
+				  )
+{
+	Edge_2D_struct Edge_2D[3];
+	Edge_2D[0] = do_contln_2D_Edge(r0,r1,f0,f1);
+	Edge_2D[1] = do_contln_2D_Edge(r1,r2,f1,f2);
+	Edge_2D[2] = do_contln_2D_Edge(r2,r0,f2,f0);
+
+	Vector2D p0,p1;
+	if (Edge_2D[0].flag == 1)
+	{
+		p0 = Edge_2D[0].r;
+		g_move_2Ds(p0);
+		p1 = Edge_2D[1].flag * Edge_2D[1].r + Edge_2D[2].flag * Edge_2D[2].r;
+		g_plot_2Ds(p1);
+	}
+	if (Edge_2D[1].flag == 1)
+	{
+		p0 = Edge_2D[1].r;
+		g_move_2Ds(p0);
+		p1 = Edge_2D[2].r;
+		g_plot_2Ds(p1);
+	}
+
+//	Vector2D n;
+//	if (Edge_2D[0].flag == 1)
+//	{
+//		p0 = Edge_2D[0].r;
+//		n = Edge_2D[0].n;
+//		g_arrow_2Ds(p0, n, 0.3, 0.02, 2);
+//	}
+//	if (Edge_2D[1].flag == 1)
+//	{
+//		p0 = Edge_2D[1].r;
+//		n = Edge_2D[1].n;
+//		g_arrow_2Ds(p0, n, 0.3, 0.02, 2);
+//	}
+//	if (Edge_2D[2].flag == 1)
+//	{
+//		p0 = Edge_2D[2].r;
+//		n = Edge_2D[2].n;
+//		g_arrow_2Ds(p0, n, 0.3, 0.02, 2);
+//	}
+}
 
 void g_contln_f_2D(
-	double x_left, double x_right,
-	double y_bottom, double y_top,
-	int N_x, int N_y,
-	double *data2D,
-	double level)
+				   double x_left, double x_right,
+				   double y_bottom, double y_top,
+				   int N_x, int N_y,
+				   double *data2D,
+				   double level)
 {
-
-	int i,j,k,l;
 	double xl = x_right-x_left,yl = y_top-y_bottom;
-	double s;
-	double dxx = xl/N_x, dyy = yl/N_y;
-
-	G_VECTOR trimember2D[3];
-	G_VECTOR trimember[4][3];
-	int flag[3], dflag;
-
-	for(i=0; i<N_x-1; i++)
+	Vector2D d = {xl/N_x, yl/N_y};
+	for(int i = 0;i < N_x - 1;i ++)
 	{
-		for(j=0; j<N_y-1; j++)
+		for(int j = 0;j < N_y - 1;j ++)
 		{
-			//三角格子の各頂点に値を代入
-			trimember[0][0] = g_vector3(x_left+(i+0.5)*dxx, y_bottom+(j+0.5)*dyy, data2D(i, j));
-			trimember[1][0] = g_vector3(x_left+(i+1.5)*dxx, y_bottom+(j+0.5)*dyy, data2D(i+1, j));
-			trimember[2][0] = g_vector3(x_left+(i+1.5)*dxx, y_bottom+(j+1.5)*dyy, data2D(i+1, j+1));
-			trimember[3][0] = g_vector3(x_left+(i+0.5)*dxx, y_bottom+(j+1.5)*dyy, data2D(i, j+1));
-
-			trimember[0][1] = trimember[1][0];
-			trimember[1][1] = trimember[2][0];
-			trimember[2][1] = trimember[3][0];
-			trimember[3][1] = trimember[0][0];
-
-			trimember[0][2] = g_multi(0.25,g_plus(g_plus(trimember[0][0], trimember[1][0]),g_plus(trimember[2][0], trimember[3][0])));
-			trimember[1][2] = trimember[0][2];
-			trimember[2][2] = trimember[0][2];
-			trimember[3][2] = trimember[0][2];
-			for(k=0; k<4; k++)
-			{
-				//各頂点の(x,y)座標
-				for(l=0; l<3; l++)
-					trimember2D[l] = g_vector2(trimember[k][l].x,trimember[k][l].y);
-
-				dflag = 0;
-				//フラグを立てる
-				for(l=0; l<3; l++)
-				{
-					if(trimember[k][l].z == level)
-					{
-						flag[l] = 0;
-					}else if(trimember[k][l].z > level)
-					{
-						flag[l] = 1;
-						dflag = dflag == 0 ? 1 : dflag == 3 ? 2 : dflag;
-					}else if(trimember[k][l].z < level)
-					{
-						flag[l] = -1;
-						dflag = dflag == 0 ? 3 : dflag == 1 ? 2 : dflag;
-					}else
-					{
-						fprintf(stderr, "given data has invalid data.\nyour code may have any bug!\n");
-						return;
-					}
-				}
-				if(dflag == 2)
-				{
-					g_begin_lines();
-					//等高線描写
-					if(flag[0]*flag[1] < 0)
-					{
-						s = (level - trimember[k][0].z)/(trimember[k][1].z - trimember[k][0].z);
-						g_emit_vertex(g_plus(g_multi(1 - s, trimember2D[0]), g_multi(s, trimember2D[1])));
-						if(flag[2] == 0)
-						{
-							g_emit_vertex(trimember2D[2]);
-							continue;
-						}
-					}
-					if(flag[1]*flag[2] < 0)
-					{
-						s = (level - trimember[k][1].z)/(trimember[k][2].z - trimember[k][1].z);
-						g_emit_vertex(g_plus(g_multi(1 - s, trimember2D[1]), g_multi(s, trimember2D[2])));
-						if(flag[0] == 0)
-						{
-							g_emit_vertex(trimember2D[0]);
-							continue;
-						}
-					}
-					if(flag[2]*flag[0] < 0)
-					{
-						s = (level - trimember[k][2].z)/(trimember[k][0].z - trimember[k][2].z);
-						g_emit_vertex(g_plus(g_multi(1 - s, trimember2D[2]), g_multi(s, trimember2D[0])));
-						if(flag[1] == 0)
-						{
-							g_emit_vertex(trimember2D[1]);
-							continue;
-						}
-					}
-				}
-			}
+			Vector2D r[5];
+			r[0] = {x_left + (i + 0.5) * d.x,y_bottom + (j + 0.5) * d.y};
+			r[1] = {x_left + (i + 1.5) * d.x,y_bottom + (j + 0.5) * d.y};
+			r[2] = {x_left + (i + 1.5) * d.x,y_bottom + (j + 1.5) * d.y};
+			r[3] = {x_left + (i + 0.5) * d.x,y_bottom + (j + 1.5) * d.y};
+			r[4] = (r[0] + r[1] + r[2] + r[3]) / 4;
+			double f[5];
+			f[0] = data2D(i + 0, j + 0) - level;
+			f[1] = data2D(i + 1, j + 0) - level;
+			f[2] = data2D(i + 1, j + 1) - level;
+			f[3] = data2D(i + 0, j + 1) - level;
+			f[4] = (f[0] + f[1] + f[2] + f[3]) / 4;
+			do_contln_2D(r[0],r[1],r[4],
+						 f[0],f[1],f[4]);
+			do_contln_2D(r[1],r[2],r[4],
+						 f[1],f[2],f[4]);
+			do_contln_2D(r[2],r[3],r[4],
+						 f[2],f[3],f[4]);
+			do_contln_2D(r[3],r[0],r[4],
+						 f[3],f[0],f[4]);
 		}
 	}
 }

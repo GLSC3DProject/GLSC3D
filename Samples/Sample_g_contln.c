@@ -12,8 +12,7 @@
 
 #define SIZE        (40)
 #define Imax        (SIZE)
-#define Jmax        (SIZE*2)
-#define Kmax        (SIZE)
+#define Jmax        (2 * SIZE)
 
 int main()
 {
@@ -22,7 +21,7 @@ int main()
 	g_def_scale_2D(0, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
 	int i, j;
-	double xx, yy, dx = 4.0 / Imax, dy = 4.0 / Jmax;
+	double xx, yy, dx = 2 * M_PI / Imax, dy = 2 * M_PI / Jmax;
 
 	double array[Imax*Jmax];
 	double array2[Imax][Jmax];
@@ -31,14 +30,13 @@ int main()
 	{
 		for (i = 0; i < Imax; i++)
 		{
-			xx = dx * i;
+			xx = dx * (i + 0.5) - M_PI;
 			for (j = 0; j < Jmax; j++)
 			{
-				yy = dy * j;
-				//printf("x = %f, y = %f\n", xx, yy);
-				array[i*Jmax + j] = sin(2 * xx - 1) * cos(3 * yy - 0.5);
-				//array[i*Jmax + j] = xx*xx + yy*yy;
-				array2[i][j] = sin(2 * xx - 1) * cos(3 * yy - 0.5);
+				yy = dy * (j + 0.5) - M_PI;
+				double tmp = sin(xx) * cos(2 * yy);
+				//tmp = xx * xx + yy * yy - 2;
+				array[i*Jmax + j] = array2[i][j] = tmp;
 			}
 		}
 
@@ -50,6 +48,7 @@ int main()
 		g_contln_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array2, 0.5);
 
 		g_finish();
+		g_sleep(10);
 	}
 	return 0;
 }

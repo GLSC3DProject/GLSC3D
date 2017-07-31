@@ -13,7 +13,6 @@
 \setlength{\oddsidemargin}{-5.4truemm}  % 左の余白を20mm(=1inch-5.4mm)に
 \setlength{\evensidemargin}{-5.4truemm} % 
 \addtolength{\textwidth}{-40truemm}     % 右の余白も20mmに
-
 \usepackage{wrapfig}
 %\usepackage[draft]{graphicx}
 \usepackage[dvipdfmx]{graphicx}
@@ -988,9 +987,8 @@ int main()
 \caption{\small{描画オブジェクト空間と固定座標系 $(x^{f}, y^{f}, z^{f})$. この座標系は等縮尺で右手系です．
 なお，この図では $y^{f}$ 軸が上を向いているように見えますが，描画オブジェクト空間自体
 には上下という概念はありません．オブジェクトをどう見るかを決める段階で上下が生じます．
-（p.**  参照）}}
+（P.\pageref{g_vision}を参照ください．）}}
 \end{figure}
-
 
 \noindent
 {\bf 自由座標系}
@@ -1013,7 +1011,7 @@ $z$座標には対応していない場合がほとんどです（$f(x, y)$ が�
 	\frac{y - y_{0}}{ y_{1} - y_{0}} = \frac{y^{f} - y^{f}_{0}}{ y^{f}_{1} - y^{f}_{0}}, \;\;\;\;\;
 	\frac{z - z_{0}}{z_{1} - z_{0}} = \frac{z^{f} - z^{f}_{0}}{ z^{f}_{1} - z^{f}_{0}}
 \end{eqnarray*}
-この自由座標系の定義は \verb|g_def_scale_3D| という重要な関数を用いて行います（p.** ）．
+この自由座標系の定義は \verb|g_def_scale_3D| という重要な関数を用いて行います（P.\pageref{g_def_scale_3D}を参照ください．）．
 
 \begin{figure}[htb]
 \centering
@@ -1023,7 +1021,7 @@ $z$座標には対応していない場合がほとんどです（$f(x, y)$ が�
 
 なお，この座標系は旧GLSCでは仮想座標系と呼ばれていたもので，おなじみの概念ではありますが，
 GLSC3Dにおける２次元グラフィクスにおいても，対応する座標系を自由座標系と呼ぶことにします．
-２次元グラフィクスにおける自由座標系の定義に関しては  \verb|g_def_scale_2D| を参照してください（p.***）\\
+２次元グラフィクスにおける自由座標系の定義に関しては  \verb|g_def_scale_2D| を参照してください（P.\pageref{g_def_scale_2D}を参照ください．）\\
 
 %・固定座標系：3Dオブジェクトが描画される座標系です．GLSC2Dではこの概念はありませんので，GLSC2Dユーザは注意をしてください．\footnote{正確には，2Dでは固定座標系と標準座標系を同一視することができるため，わざわざ固定座標系という概念を持ち出さなくても，標準座標系だけで話が完結していましたが，GLSC3D 3.0.0以降では，本概念が必須となりました．}
 
@@ -1444,6 +1442,7 @@ if(g_input_state(G_MOUSE_LEFT, NULL, NULL) == G_DOWN)
 
 %%%%%%%%%%%%%%%%%%%%%g_def_scale_2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\texttt{g\_def\_scale\_2D}}
+\label{g_def_scale_2D}
 
 \begin{itembox}[l]{\texttt{g\_def\_scale\_2D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
@@ -1486,6 +1485,7 @@ void g_def_scale_2D(
 %%%%%%%%%%%%%%%%%%%%%g_def_scale_3D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \clearpage
 \subsubsection{\texttt{g\_def\_scale\_3D}}
+\label{g_def_scale_3D}
 
 \begin{itembox}[l]{\texttt{g\_def\_scale\_3D}関数}
 %%%%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
@@ -1597,7 +1597,7 @@ void g_def_scale_3D_fix(
 
 
 %%%%%%%%%%%%%%%%%%%g_vision%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{\texttt{g\_vision}}
+\subsubsection{\texttt{g\_vision}}\label{g_vision}
 
 \begin{itembox}[l]{\texttt{g\_vision}関数}
 %%%%%%%%%%%%%%%%%ここにプロトタイプ宣言を書く%%%%%%%%%%%%%%%%%%%
