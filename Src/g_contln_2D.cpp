@@ -120,7 +120,7 @@ inline double Norm2D (Vector2D u)
 {
 	return ~u;
 }
-const   static  Vector2D    Zero2D = {0.0,0.0};
+//const   static  Vector2D    Zero2D = {0.0,0.0};
 /********************************** 2D ****************************************/
 #define SQ(i)		((i) * (i))
 #include <float.h>
@@ -196,7 +196,7 @@ void do_contln_2D(Vector2D r0,Vector2D r1,Vector2D r2,
 	Edge_2D[0] = do_contln_2D_Edge(r0,r1,f0,f1);
 	Edge_2D[1] = do_contln_2D_Edge(r1,r2,f1,f2);
 	Edge_2D[2] = do_contln_2D_Edge(r2,r0,f2,f0);
-	
+
 	if (Edge_2D[0].flag == 1)
 	{
 		g_move_2Ds(Edge_2D[0].r);
