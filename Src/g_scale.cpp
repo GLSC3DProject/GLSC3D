@@ -170,10 +170,11 @@ void g_def_scale_3D(
 	def_scale[id].r_0_f = G_VECTOR (x_0_f,y_0_f,z_0_f);
 	def_scale[id].r_1_f = G_VECTOR (x_1_f,y_1_f,z_1_f);
 
+	G_VECTOR center = (def_scale[id].r_0_f + def_scale[id].r_1_f) * 0.5f;
 	G_VECTOR eye, up;
 	double zoom;
 
-	eye = G_VECTOR (1.3 * (x_1_f - x_0_f), -2.4 * (y_1_f - y_0_f), 2.0 * (z_1_f - z_0_f));
+	eye = G_VECTOR (1.3 * (x_1_f - x_0_f), -2.4 * (y_1_f - y_0_f), 2.0 * (z_1_f - z_0_f)) + center;
 	up = G_VECTOR (0,0,1);
 	zoom = 1;
 
@@ -192,7 +193,9 @@ void g_vision(
 	double zoom
 )
 {
-	def_scale[id].eye = G_VECTOR(eye_x, eye_y, eye_z);
+	G_VECTOR center = (def_scale[id].r_0_f + def_scale[id].r_1_f) * 0.5f;
+
+	def_scale[id].eye = G_VECTOR(eye_x, eye_y, eye_z) + center;
 	def_scale[id].up = G_VECTOR(up_x, up_y, up_z);
 	def_scale[id].zoom = zoom;
 
