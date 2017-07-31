@@ -35,7 +35,7 @@ int main()
 			{
 				yy = dy * (j + 0.5) - M_PI;
 				double tmp = sin(xx) * cos(2 * yy);
-				//tmp = xx * xx + yy * yy - 2;
+//				tmp = xx * xx + yy * yy - 2;
 				array[i*Jmax + j] = array2[i][j] = tmp;
 			}
 		}

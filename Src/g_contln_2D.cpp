@@ -133,49 +133,59 @@ typedef struct
 {
 	int flag;
 	Vector2D r,n;
+//	Vector2D r;
 } Edge_2D_struct;
 
-Edge_2D_struct do_contln_2D_Edge(Vector2D ra,Vector2D rb,double fa,double fb)
-{
-	double eps = DBL_EPSILON;
+Edge_2D_struct do_contln_2D_Edge(Vector2D ra,Vector2D rb,double fa,double fb) {
 	Edge_2D_struct ans;
 	if(fa * fb > 0) ans.flag = 0;
 	else
 	{
 		ans.flag = 1;
-		Vector2D nabla_f;
 		double s = fb / (fb - fa);
 		Vector2D r = rb + s * (ra - rb);
 		ans.r = r;
-		Vector2D a = ra - r;
-		Vector2D b = rb - r;
-		Vector2D pm = {1, 1};
-		if(a.x < b.x) pm.x = -1;
-		if(a.y < b.y) pm.y = -1;
-
-		Vector2D ex = {1, 0};
-		Vector2D ey = {0, 1};
-		Vector2D ax = (a * ex) * ex;
-		Vector2D ay = (a * ey) * ey;
-		Vector2D bx = (b * ex) * ex;
-		Vector2D by = (b * ey) * ey;
-
-		double U = ~ax + ~bx;//U := 1 / u
-		double V = ~ay + ~by;//V := 1 / u
-
-		if(U < eps) nabla_f = {0, (fa - fb) / V};
-		if(V < eps) nabla_f = {(fa - fb) / U, 0};
-		else
-		{
-			double fax = (a * ax) / (a * a) * fa;
-			double fay = (a * ay) / (a * a) * fa;
-			double fbx = (b * bx) / (b * b) * fb;
-			double fby = (b * by) / (b * b) * fb;
-			nabla_f = {(fax - fbx) / U, (fay - fby) / V};
-		}
-		nabla_f = {pm.x * nabla_f.x, pm.y * nabla_f.y};
-		ans.n = nabla_f / ~nabla_f;
 	}
+	return  ans;
+//	double eps = DBL_EPSILON;
+//	Edge_2D_struct ans;
+//	if(fa * fb > 0) ans.flag = 0;
+//	else
+//	{
+//		ans.flag = 1;
+//		Vector2D nabla_f;
+//		double s = fb / (fb - fa);
+//		Vector2D r = rb + s * (ra - rb);
+//		ans.r = r;
+//		Vector2D a = ra - r;
+//		Vector2D b = rb - r;
+//		Vector2D pm = {1, 1};
+//		if(a.x < b.x) pm.x = -1;
+//		if(a.y < b.y) pm.y = -1;
+//
+//		Vector2D ex = {pm.x, 0};
+//		Vector2D ey = {0, pm.y};
+//		Vector2D ax = (a * ex) * ex;
+//		Vector2D ay = (a * ey) * ey;
+//		Vector2D bx = (b * ex) * ex;
+//		Vector2D by = (b * ey) * ey;
+//
+//		double U = ~ax + ~bx;//U := 1 / u
+//		double V = ~ay + ~by;//V := 1 / u
+//
+//		if(U < eps) nabla_f = {0, (fa - fb) / V};
+//		else if(V < eps) nabla_f = {(fa - fb) / U, 0};
+//		else
+//		{
+//			double fax = (a * ax) / (a * a) * fa;
+//			double fay = (a * ay) / (a * a) * fa;
+//			double fbx = (b * bx) / (b * b) * fb;
+//			double fby = (b * by) / (b * b) * fb;
+//			nabla_f = {(fax - fbx) / U, (fay - fby) / V};
+//		}
+//		nabla_f = {pm.x * nabla_f.x, pm.y * nabla_f.y};
+//		ans.n = nabla_f;
+//	}
 	return ans;
 }
 void do_contln_2D(Vector2D r0,Vector2D r1,Vector2D r2,
@@ -188,20 +198,42 @@ void do_contln_2D(Vector2D r0,Vector2D r1,Vector2D r2,
 	Edge_2D[2] = do_contln_2D_Edge(r2,r0,f2,f0);
 
 	Vector2D p0,p1;
+
 	if (Edge_2D[0].flag == 1)
 	{
-		p0 = Edge_2D[0].r;
-		g_move_2Ds(p0);
-		p1 = Edge_2D[1].flag * Edge_2D[1].r + Edge_2D[2].flag * Edge_2D[2].r;
-		g_plot_2Ds(p1);
+		g_move_2Ds(Edge_2D[0].r);
+		if (Edge_2D[1].flag == 1) g_plot_2Ds(Edge_2D[1].r);
+		if (Edge_2D[2].flag == 1) g_plot_2Ds(Edge_2D[2].r);
+
 	}
 	if (Edge_2D[1].flag == 1)
 	{
-		p0 = Edge_2D[1].r;
-		g_move_2Ds(p0);
-		p1 = Edge_2D[2].r;
-		g_plot_2Ds(p1);
+		g_move_2Ds(Edge_2D[1].r);
+		if (Edge_2D[2].flag == 1) g_plot_2Ds(Edge_2D[2].r);
+
 	}
+//	if (Edge_2D[0].flag == 1)
+//	{
+//		p0 = Edge_2D[0].r;
+//		g_move_2Ds(p0);
+//		if (Edge_2D[1].flag == 1)
+//		{
+//			p1 = Edge_2D[1].r;
+//			g_plot_2Ds(p1);
+//		}
+//		else if(Edge_2D[2].flag == 1)
+//		{
+//			p1 = Edge_2D[2].r;
+//			g_plot_2Ds(p1);
+//		}
+//	}
+//	else if (Edge_2D[1].flag == 1)
+//	{
+//		p0 = Edge_2D[1].r;
+//		g_move_2Ds(p0);
+//		p1 = Edge_2D[2].r;
+//		g_plot_2Ds(p1);
+//	}
 
 //	Vector2D n;
 //	if (Edge_2D[0].flag == 1)
