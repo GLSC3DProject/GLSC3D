@@ -1012,7 +1012,7 @@ $z$座標には対応していない場合がほとんどです（$f(x, y)$ が�
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=100mm]{Def_Scale.eps}
+\includegraphics[width=120mm]{Def_Scale.eps}
 \caption{\small{左図：固定座標で定めた直方体\hspace{5mm} 右図：同じ直方体の自由座標での表現}}
 \end{figure}
 
@@ -1521,11 +1521,11 @@ void g_def_scale_3D(
 描画オブジェクト空間をどの方向を上として描画するかを決める: $\verb|up| = (0, 0, 1)$. \\
 拡大率: $\verb|zoom| = 1$. 
 
-GLSC3Dでは，自由座標系を\begin{center}{$\verb|x_0| < \verb|x_1|, \verb|y_0| < \verb|y_1|, \verb|z_0| < \verb|z_1|$}\end{center}のように定めると``右手系''として定義される．
+GLSC3Dでは，自由座標系を\begin{center}{$\verb|x_0| < \verb|x_1|,\quad \verb|y_0| < \verb|y_1|,\quad \verb|z_0| < \verb|z_1|$}\end{center}のように定めると``右手系''として定義される．
 ただし，例えば，$\verb|x_0| > \verb|x_1|$のようにある範囲の大小関係を逆転させると，``左手系''として定義される．
 同様に，この逆転の個数が奇数個であれば``左手系''として描画され，偶数個であれば``右手系''として描画される．
 
-GLSC3Dでは固定座標系はいつも``右手系''で定められている．従って，いつも\begin{center}{$\verb|x_0_f| < \verb|x_1_f|, \verb|y_0_f| < \verb|y_1_f|, \verb|z_0_f| < \verb|z_1_f|$}\end{center}となるように設定する必要があることに注意せよ．
+GLSC3Dでは固定座標系はいつも``右手系''で定められている．従って，いつも\begin{center}{$\verb|x_0_f| < \verb|x_1_f|,\quad \verb|y_0_f| < \verb|y_1_f|, \quad \verb|z_0_f| < \verb|z_1_f|$}\end{center}となるように設定する必要があることに注意せよ．
 （※$\verb|x_0_f| \geq \verb|x_1_f|$のように設定するとエラーとなり強制的に終了する）
 \end{itembox}
 
@@ -1577,7 +1577,7 @@ void g_def_scale_3D_fix(
 \end{verbatim}
 %%%%%%%%%%%%%%%%%%%ここに引数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \verb|id| ; スケール番号 \\
-\verb|x_0_f|, \verb|x_1_f|, \verb|y_0_f|, \verb|y_1_f|, \verb|z_0_f|, \verb|z_1_f| ; 固定(自由)座標系における$x, y, z$の範囲の端点 \\
+\verb|x_0_f|, \verb|x_1_f|, \verb|y_0_f|, \verb|y_1_f|, \verb|z_0_f|, \verb|z_1_f| ; 固定座標系における$x, y, z$の範囲の端点 \\
 \verb|x_left_std| ; 標準座標系に定義する描画枠の左端のx座標 \\
 \verb|y_top_std| ; 標準座標系に定義する描画枠の左端のy座標 \\
 \verb|width_std| ; 標準座標系に定義する描画枠の幅 \\
@@ -1587,7 +1587,7 @@ void g_def_scale_3D_fix(
 %%%%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_def\_scale\_3D\_core}関数の説明}
 標準座標系上に三次元のオブジェクトを描画するための描画枠・描画するための固定座標系を設定する．
-\verb|g_def_scale_3D_fix|では，\verb|g_def_scale_3D|に比べて引数が少ない．これは，オブジェクトを定義する自由座標系を内部的に，固定座標系として設定しているためである．従って，\verb|g_def_scale_3D|と同様に，固定座標系は\begin{center}{$\verb|x_0_f| < \verb|x_1_f|, \verb|y_0_f| < \verb|y_1_f|, \verb|z_0_f| < \verb|z_1_f|$}\end{center}となるように設定する必要があることに注意せよ．このことからわかるように，\verb|g_def_scale_3D_fix|では``右手系"の描画オブジェクト空間のみ設定できる．
+\verb|g_def_scale_3D_fix|では，\verb|g_def_scale_3D|に比べて引数が少ない．これは，オブジェクトを定義する自由座標系を内部的に，固定座標系として設定しているためである．従って，\verb|g_def_scale_3D|と同様に，固定座標系は\begin{center}{$\verb|x_0_f| < \verb|x_1_f|,\quad \verb|y_0_f| < \verb|y_1_f|, \quad\verb|z_0_f| < \verb|z_1_f|$}\end{center}となるように設定する必要があることに注意せよ．このことからわかるように，\verb|g_def_scale_3D_fix|では``右手系"の描画オブジェクト空間のみ設定できる．
 視点位置・画面上方向・拡大率は\verb|g_def_scale_3D|と同じである．
 \end{itembox}
 
@@ -1615,7 +1615,7 @@ void g_vision(
 
 %%%%%%%%%%%%%%%%%ここに関数の説明を書く%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itembox}[l]{\texttt{g\_vision}関数の説明}
-\verb|g_def_scale_3D|もしくは\verb|g_def_scale_3D_fix|で定められているデフォルトの視点位置・画面上方向・拡大率を任意に変更できる．視点位置は固定座標系の重心位置$\Vec{g}$からの相対位置であることに注意せよ．また，画面上方向と視点位置は平行であってはならないことにも注意せよ．
+\verb|g_def_scale_3D|もしくは\verb|g_def_scale_3D_fix|で定められているデフォルトの視点位置・画面上方向・拡大率を任意に変更できる．視点位置は固定座標系の重心位置$\Vec{g}$からの相対位置であることに注意せよ(次のページの図(e)参照)．また，画面上方向と視点位置は平行であってはならないことにも注意せよ．
 \end{itembox}
 
 %%%%%%%%%%%%%%%%%%%ここに関数の説明に使う絵を載せる．%%%%%%%%%%%%%%%%
