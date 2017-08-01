@@ -25,7 +25,7 @@ int main(void)
 		-LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0, -LEN / 2.0, LEN / 2.0,
 		WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
 
-	double dt = 0.03;
+	double dt = 0.04;
 	int i,j;
 	double xx,yy,dx=LEN/Imax,dy=LEN/Jmax;
 
