@@ -805,15 +805,6 @@ Visual Studio のプロジェクトから使用するときには，
 また，\verb|Clean.bat|を実行すれば，\verb|RunAllSamples.bat|の生成物である
 \verb|*.obj, *.exe|ファイルと\verb|Frames.*|フォルダーを一括で削除することができます．\\
 
-\noindent \textbf{(7) Windows 特有の注意点：} 
-
-Visual Studio のコンパイラにおいて，文字列リテラルのエンコードはデフォルトではShift-JISになります．
-GLSC3DはUTF-8以外には対応していないため，ASCII以外の文字(日本語など）を表示するときは必ずプログラムの先頭に
-\begin{center}
-	\verb|#pragma execution_character_set("UTF-8")|
-\end{center}
-と記述してください．(\verb|Sample_g_text.c|に例があります．)
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%\newpage
 %%\section{GLSC3Dのインストールとテスト}
