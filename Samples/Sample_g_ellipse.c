@@ -29,7 +29,7 @@ int main()
 			1, 0, 0,
 			G_NO, G_YES);
 
-		g_cls();
+		/* 試験中 g_ellipse_3D_Euler (core仕様) */
 		g_sel_scale(1);
 		g_box_center_3D(0,0,0, 4,4,4, G_YES, G_NO);
 		g_ellipse_3D_Euler(
@@ -39,7 +39,6 @@ int main()
 			6, 0,
 			G_YES, G_YES);
 
-		/* 試験中 g_ellipse_3D_Euler (core仕様) */
 		G_VECTOR r0 = {0,0,1};
 		G_VECTOR r1 = Rz(Rx(Rz(r0, 2.7646),2.33734), 0);
 		g_arrow_3D(
