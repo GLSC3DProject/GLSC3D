@@ -261,6 +261,12 @@ void g_ellipse_3D(
 	double direction_x, double direction_y, double direction_z,
 	G_BOOL Wire, G_BOOL Fill);
 
+void g_ellipse_3D_Euler(
+	double x, double y, double z,
+	double Sx, double Sy, double Sz,
+	double angle_alpha, double angle_beta, double angle_gamma,
+	int FaceNumberLevel, int DivideLevel, G_BOOL Wire, G_BOOL Fill);
+
 void g_prism_3D_core(
 	double center_x, double center_y, double center_z,
 	double direction_x, double direction_y, double direction_z,
