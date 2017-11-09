@@ -18,7 +18,7 @@ int main()
 {
 	g_init("Sample_g_contln.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
-	g_def_scale_2D(0, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X, WINDOW_SIZE_Y);
+	g_def_scale_2D(0, -M_PI, M_PI, -M_PI, M_PI, 0, 0, WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
 	int i, j;
 	double xx, yy, dx = 2 * M_PI / Imax, dy = 2 * M_PI / Jmax;
@@ -43,9 +43,9 @@ int main()
 		g_cls();
 		g_sel_scale(0);
 		g_line_color(1.0, 0.0, 0.0, 1.0);
-		g_contln_f_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array, -0.5);
+		g_contln_f_2D(-M_PI, M_PI, -M_PI, M_PI, Imax, Jmax, array, -0.5);
 		g_line_color(0.0, 1.0, 0.0, 1.0);
-		g_contln_2D(-1.9, 1.9, -1.9, 1.9, Imax, Jmax, array2, 0.5);
+		g_contln_2D(-M_PI, M_PI, -M_PI, M_PI, Imax, Jmax, array2, 0.5);
 
 		g_finish();
 		g_sleep(10);
