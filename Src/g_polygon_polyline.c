@@ -6,8 +6,8 @@ void g_polygon_2D(double *xx, double *yy, int n, G_BOOL WIRE, G_BOOL FILL)
 		g_begin_triangles();
 		for (int i = 2; i < n; i++) {
 			g_emit_vertex(g_vector2(xx[0], yy[0]));
-			g_emit_vertex(g_vector2(xx[i-1], yy[i-1]));
-			g_emit_vertex(g_vector2(xx[i], yy[i]));
+			g_emit_vertex(g_vector2(xx[i - 1], yy[i - 1]));
+			g_emit_vertex(g_vector2(xx[i - 0], yy[i - 0]));
 		}
 	}
 	if (WIRE)
