@@ -42,10 +42,11 @@ int main()
 
 		g_cls();
 		g_sel_scale(0);
+
 		g_line_color(1.0, 0.0, 0.0, 1.0);
-		g_contln_f_2D(-M_PI, M_PI, -M_PI, M_PI, Imax, Jmax, array, -0.5);
+		g_contln_f_2D(-M_PI + dx * 0.5, M_PI - dx * 0.5, -M_PI + dy * 0.5, M_PI - dy * 0.5, Imax, Jmax, array, -0.5);
 		g_line_color(0.0, 1.0, 0.0, 1.0);
-		g_contln_2D(-M_PI, M_PI, -M_PI, M_PI, Imax, Jmax, array2, 0.5);
+		g_contln_2D(-M_PI + dx * 0.5, M_PI - dx * 0.5, -M_PI + dy * 0.5, M_PI - dy * 0.5, Imax, Jmax, array2, 0.5);
 
 		g_finish();
 		g_sleep(10);

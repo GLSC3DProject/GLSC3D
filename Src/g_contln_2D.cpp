@@ -13,10 +13,10 @@ typedef struct
 inline Vector2D operator + (Vector2D u,Vector2D v)
 {
 	Vector2D w =
-	{
-		u.x + v.x,
-		u.y + v.y
-	};
+		{
+			u.x + v.x,
+			u.y + v.y
+		};
 
 	return w;
 }
@@ -30,10 +30,10 @@ inline Vector2D& operator += (Vector2D& u,Vector2D v)
 inline Vector2D operator - (Vector2D u,Vector2D v)
 {
 	Vector2D w =
-	{
-		u.x - v.x,
-		u.y - v.y
-	};
+		{
+			u.x - v.x,
+			u.y - v.y
+		};
 
 	return w;
 }
@@ -47,20 +47,20 @@ inline Vector2D& operator -= (Vector2D& u,Vector2D v)
 inline Vector2D operator * (double a,Vector2D u)
 {
 	Vector2D w =
-	{
-		a * u.x,
-		a * u.y
-	};
+		{
+			a * u.x,
+			a * u.y
+		};
 
 	return w;
 }
 inline Vector2D operator * (Vector2D u,double a)
 {
 	Vector2D w =
-	{
-		a * u.x,
-		a * u.y
-	};
+		{
+			a * u.x,
+			a * u.y
+		};
 
 	return w;
 }
@@ -74,10 +74,10 @@ inline Vector2D& operator - (Vector2D& u)
 inline Vector2D operator / (Vector2D u,double a)
 {
 	Vector2D w =
-	{
-		u.x / a,
-		u.y / a
-	};
+		{
+			u.x / a,
+			u.y / a
+		};
 
 	return w;
 }
@@ -189,8 +189,8 @@ Edge_2D_struct do_contln_2D_Edge(Vector2D ra,Vector2D rb,double fa,double fb) {
 	return ans;
 }
 void do_contln_2D(Vector2D r0,Vector2D r1,Vector2D r2,
-				  double f0,double f1,double f2
-				  )
+	double f0,double f1,double f2
+)
 {
 	Edge_2D_struct Edge_2D[3];
 	Edge_2D[0] = do_contln_2D_Edge(r0,r1,f0,f1);
@@ -255,23 +255,23 @@ void do_contln_2D(Vector2D r0,Vector2D r1,Vector2D r2,
 }
 
 void g_contln_f_2D(
-				   double x_left, double x_right,
-				   double y_bottom, double y_top,
-				   int N_x, int N_y,
-				   double *data2D,
-				   double level)
+	double x_left, double x_right,
+	double y_bottom, double y_top,
+	int N_x, int N_y,
+	double *data2D,
+	double level)
 {
 	double xl = x_right-x_left,yl = y_top-y_bottom;
-	Vector2D d = {xl/N_x, yl/N_y};
+	Vector2D d = {xl/(N_x-1), yl/(N_y-1)};
 	for(int i = 0;i < N_x - 1;i ++)
 	{
 		for(int j = 0;j < N_y - 1;j ++)
 		{
 			Vector2D r[5];
-			r[0] = {x_left + (i + 0.5) * d.x,y_bottom + (j + 0.5) * d.y};
-			r[1] = {x_left + (i + 1.5) * d.x,y_bottom + (j + 0.5) * d.y};
-			r[2] = {x_left + (i + 1.5) * d.x,y_bottom + (j + 1.5) * d.y};
-			r[3] = {x_left + (i + 0.5) * d.x,y_bottom + (j + 1.5) * d.y};
+			r[0] = {x_left + (i + 0) * d.x,y_bottom + (j + 0) * d.y};
+			r[1] = {x_left + (i + 1) * d.x,y_bottom + (j + 0) * d.y};
+			r[2] = {x_left + (i + 1) * d.x,y_bottom + (j + 1) * d.y};
+			r[3] = {x_left + (i + 0) * d.x,y_bottom + (j + 1) * d.y};
 			r[4] = (r[0] + r[1] + r[2] + r[3]) / 4;
 			double f[5];
 			f[0] = data2D(i + 0, j + 0) - level;
@@ -280,13 +280,13 @@ void g_contln_f_2D(
 			f[3] = data2D(i + 0, j + 1) - level;
 			f[4] = (f[0] + f[1] + f[2] + f[3]) / 4;
 			do_contln_2D(r[0],r[1],r[4],
-						 f[0],f[1],f[4]);
+				f[0],f[1],f[4]);
 			do_contln_2D(r[1],r[2],r[4],
-						 f[1],f[2],f[4]);
+				f[1],f[2],f[4]);
 			do_contln_2D(r[2],r[3],r[4],
-						 f[2],f[3],f[4]);
+				f[2],f[3],f[4]);
 			do_contln_2D(r[3],r[0],r[4],
-						 f[3],f[0],f[4]);
+				f[3],f[0],f[4]);
 		}
 	}
 }
