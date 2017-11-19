@@ -8,85 +8,17 @@ g_captureでJPGを吐き出すようにする．(保留)
 モダン OpenGL への対応 (解決)
 g_isosurface.cのコードを書き直す >>> 秋山先生の仕事
 
-2017/04/27 追記
-Vertex Buffer の仕様を変更する？(線分用と三角形用を分離)
-
 マニュアルのミッション
-Sample_g_line の実行結果のスクリーンショットを修正する
+Sample_g_line の実行結果のスクリーンショットを修正する (解決)
 覚書のファイル構成を修正する
 
 ----------------------------------------------------
-2017/6/9
-1-1: g_def_scale関係 >>> 完了
-
-void g_def_scale_3D_core(
-	int id,
-	double x_left, double x_right, double y_bottom, double y_top, double z_near, double z_far,
-	double x_left_std, double y_top_std,
-	double width_std, double height_std,
-	double direction_x, double direction_y, double direction_z,
-	double r,
-	double up_x, double up_y, double up_z);
->>>
-* scale_factor? or aspect ratio?
-
-void g_def_scale_3D_core(
-	int id,
-	double x_0, double x_1, double y_0, double y_1, double z_0, double z_1,
-	double x_left_std, double y_top_std,
-	double width_std, double height_std,
-	double scale_x, double scale_y, double scale_z,
-	double direction_x, double direction_y, double direction_z,
-	double zoom,
-	double up_x, double up_y, double up_z);
-
-1-1: g_def_scale依存関係
-Sample_g_area.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_g_arrow.c >>> g_def_scale_2D / g_def_scale_3D
-Smaple_g_bird_view.c >>> g_def_scale_3D_core_legacy (すでに変更済み)
-Sample_g_box.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_g_circle.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_g_cone.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_g_contln.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_g_cylinder.c >>> g_def_scale_3D
-Sample_g_data_plot.c >>> g_def_scale_2D / g_def_scale_3D_legacy
-Sample_g_ellipse.c >>> g_def_scale_3D
-Sample_g_fan.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_g_init.c >>> なし
-Sample_g_input.c >>> g_def_scale_2D
-Sample_g_isosurface.c >>> g_def_scale_3D
-Sample_g_light.c >>> g_def_scale_3D
-Sample_g_line.c >>> g_def_scale_2D
-Sample_g_marker.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_g_move_plot.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_g_polygon.c >>> g_def_scale_2D
-Sample_g_polylione.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_g_prism.c >>> g_def_scale_3D
-Sample_g_pyramid.c >>> g_def_scale_3D
-Sample_g_rectangle.c >>> g_def_scale_3D
-Sample_g_sphere.c >>> g_def_scale_3D
-Sample_g_text.c >>> g_def_scale_2D
-Sample_g_transparent.c >>> g_def_scale_3D_legacy
-Sample_g_triangle.c >>> g_def_scale_2D / g_def_scale_3D
-Sample_off_screen_rendaring.c >>> なし
-
-1-2:
-clipping >>> g_def_scale_3D_coreが呼ばれた段階で、
-MATRIX_Clipping_off, MATRIX_Clipping_on を計算する。
-
-g_clipping(G_NO) => MATRIX_Clipping_off を使う。
-g_clipping(G_YES) => MATRIX_Clipping_on を使う。
-* g_clippingの引数は初期設定で、G_YESである。
-
-2:
-void g_sel_scale_boundary(id) >>> 消去して別関数に置き換わる
->>> g_draw_boundary();を新たに作成する。
-g_sel_scale(id);より後ろで呼ぶと、id番号のscaleの枠を描画するフラグを立てる。
-g_finish();の前で、フラグを見てid番号のscaleの枠を描画する。
-
-----------------------------------------------------
-2017/8/17
-1. g_init_lightでy軸が上になっているか？要修正
-
-2017/10/31
-1. figure png g_def_scale_z*2.png >>> g_def_scale_z_2
+2017/11/19
+1. g_text_virtual_2D >>> g_text_2D_virtual マニュアル内変更
+2. マニュアルでリンク
+3. Windowsバージョンの調整
+4. macのwarningを消す
+5. g_data_plot
+6. 添え字 上付き 下付き
+7. gmail メーリングリスト
+8. config デフォルト値の設定
