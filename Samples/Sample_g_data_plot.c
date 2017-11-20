@@ -17,7 +17,7 @@ int main()
 
 	int i,j;
 	double xx,yy,dx=4.0/Imax,dy=4.0/Jmax;
-	double array[Imax*Jmax];
+//	double array[Imax*Jmax];
 	double array2[Imax][Jmax];
 	double array3[10];
 
@@ -42,13 +42,10 @@ int main()
 
 		g_sel_scale(0);
 		g_marker_size(5); //Markerを大きく表示するため, デフォルト値から変更している
-		g_line_color(0,0,1,0.5);
-		g_line_width(6);
 		g_data_plot_2D(-2, 2, array3, 10);
 
 		g_sel_scale(1);
-		g_marker_size(1);
-		g_marker_color(0,0,1,1);
+		g_marker_size(0.5);
 		g_data_plot_3D(-2, 2, -2, 2, Imax, Jmax, array2);
 		//g_data_plot_f_3D(-2, 2, -2, 2, Imax, Jmax, array);
 
