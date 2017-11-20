@@ -29,7 +29,7 @@ int main()
 			for (j = 0; j < Jmax; j++)
 			{
 				yy = dy * j;
-				array[i*Jmax+j] = sin(2*xx - 1) * cos(3*yy - 0.5);
+//				array[i*Jmax+j] = sin(2*xx - 1) * cos(3*yy - 0.5);
 				array2[i][j] = sin(2*xx - 1) * cos(3*yy - 0.5);
 			}
 		}
@@ -42,10 +42,13 @@ int main()
 
 		g_sel_scale(0);
 		g_marker_size(5); //Markerを大きく表示するため, デフォルト値から変更している
+		g_line_color(0,0,1,0.5);
+		g_line_width(6);
 		g_data_plot_2D(-2, 2, array3, 10);
 
 		g_sel_scale(1);
 		g_marker_size(1);
+		g_marker_color(0,0,1,1);
 		g_data_plot_3D(-2, 2, -2, 2, Imax, Jmax, array2);
 		//g_data_plot_f_3D(-2, 2, -2, 2, Imax, Jmax, array);
 

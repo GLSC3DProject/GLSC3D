@@ -14,11 +14,11 @@ Sample_g_line の実行結果のスクリーンショットを修正する (解�
 
 ----------------------------------------------------
 2017/11/19
-1. g_text_virtual_2D >>> g_text_2D_virtual マニュアル内変更
-2. マニュアルでリンク
+1. g_text_virtual_2D >>> g_text_2D_virtual マニュアル内変更 >>> OK
+2. マニュアルでリンク >>> OK
 3. Windowsバージョンの調整
-4. macのwarningを消す
+4. macのwarningを消す >>> Akiyama
 5. g_data_plot
 6. 添え字 上付き 下付き
-7. gmail メーリングリスト
+7. gmail メーリングリスト >>> OK
 8. config デフォルト値の設定
