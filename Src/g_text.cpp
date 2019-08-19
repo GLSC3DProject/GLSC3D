@@ -33,7 +33,7 @@ struct G_TEXT_APPEARANCE
 
 G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
-#define DEFAULT_FONT_NAME "NotoSansCJKjp-Regular.otf"
+#define DEFAULT_FONT_NAME "Consola.ttf"
 
 #ifdef __linux__
 #define DEFAULT_FONT_FILE "/usr/share/fonts/opentype/noto/" DEFAULT_FONT_NAME
