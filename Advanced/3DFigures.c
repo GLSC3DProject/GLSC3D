@@ -1,6 +1,6 @@
 #include "glsc3d_3.h"
 
-#define WIRE G_NO
+#define WIRE G_YES
 #define FILL G_YES
 
 int main(void) {

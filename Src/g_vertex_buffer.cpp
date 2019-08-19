@@ -11,14 +11,72 @@ const float g_current_dummy_size = 1; // dummy
 const G_COLOR *g_current_color_ptr;
 const float   *g_current_size_ptr;
 
-int g_vertex_data_count;
-
-G_VERTEX *g_vertex_data;
+#ifdef G_USE_CORE_PROFILE
 
 #define BUFFER_OFFSET_COLOR  ((void *)(sizeof(float) * 4))
 #define BUFFER_OFFSET_NORMAL ((void *)(sizeof(float) * 8))
 
-GLuint g_vertex_array_id, g_vertex_buffer_id;
+struct G_VERTEX_BUFFER
+{
+	G_VERTEX *data;
+	int count;
+	GLuint vertex_array_id, vertex_buffer_id;
+
+	void init()
+	{
+		data = (G_VERTEX *)malloc(VERTEX_BUFFER_SIZE * sizeof(G_VERTEX));
+
+		if (data == nullptr) {
+			fprintf(stderr, "failed to allocate memory\a\n");
+			fprintf(stderr, "GLSC3D will abort\n");
+			g_quit();
+		}
+
+		count = 0;
+
+		glGenVertexArrays(1, &vertex_array_id);
+		glBindVertexArray(vertex_array_id);
+
+		glGenBuffers(1, &vertex_buffer_id);
+		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
+		glBufferData(GL_ARRAY_BUFFER, VERTEX_BUFFER_SIZE * sizeof(G_VERTEX), NULL, GL_STREAM_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
+	}
+
+	void append(G_VERTEX vertex)
+	{
+		data[count] = vertex;
+		count++;
+
+		if (count == VERTEX_BUFFER_SIZE)
+			flush();
+	}
+
+	void flush()
+	{
+		if (count == 0) return;
+
+		glBindVertexArray(vertex_array_id);
+		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, count * sizeof(G_VERTEX), data);
+
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), 0);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_COLOR);
+		glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_NORMAL);
+
+		glDrawArrays(g_primitive_mode, 0, count);
+
+		count = 0;
+	}
+};
+
+G_VERTEX_BUFFER g_vertex_buffer_points, g_vertex_buffer_lines, g_vertex_buffer_triangles;
+G_VERTEX_BUFFER *g_current_vertex_buffer;
+
+#endif
 
 #ifndef G_USE_CORE_PROFILE
 bool g_inside_glbegin;
@@ -26,39 +84,15 @@ bool g_inside_glbegin;
 
 void g_vertex_buffer_init()
 {
-#ifdef G_USE_CORE_PROFILE
-	g_vertex_data = (G_VERTEX *)malloc(VERTEX_BUFFER_SIZE * sizeof(G_VERTEX));
-
-	if (g_vertex_data == nullptr) {
-		fprintf(stderr, "failed to allocate memory\a\n");
-		fprintf(stderr, "GLSC3D will abort\n");
-		g_quit();
-	}
-
-	g_vertex_data_count = 0;
-
-	glGenVertexArrays(1, &g_vertex_array_id);
-	glBindVertexArray(g_vertex_array_id);
-
-	glGenBuffers(1, &g_vertex_buffer_id);
-	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
-	glBufferData(GL_ARRAY_BUFFER, VERTEX_BUFFER_SIZE * sizeof(G_VERTEX), NULL, GL_STREAM_DRAW);
-
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-#endif
+	g_vertex_buffer_points.init();
+	g_vertex_buffer_lines.init();
+	g_vertex_buffer_triangles.init();
 }
 
 void g_vertex_buffer_append(G_VERTEX vertex)
 {
 #ifdef G_USE_CORE_PROFILE
-	g_vertex_data[g_vertex_data_count] = vertex;
-
-	g_vertex_data_count++;
-
-	if (g_vertex_data_count == VERTEX_BUFFER_SIZE)
-		g_vertex_buffer_flush();
+	g_current_vertex_buffer->append(vertex);
 #else
 	glColor4fv((float *)&vertex.color);
 	glNormal3fv((float *)&vertex.normal);
@@ -92,19 +126,7 @@ void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r)
 void g_vertex_buffer_flush()
 {
 #ifdef G_USE_CORE_PROFILE
-	if (g_vertex_data_count == 0) return;
-
-	glBindVertexArray(g_vertex_array_id);
-	glBindBuffer(GL_ARRAY_BUFFER, g_vertex_buffer_id);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, g_vertex_data_count * sizeof(G_VERTEX), g_vertex_data);
-
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), 0);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_COLOR);
-	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(G_VERTEX), BUFFER_OFFSET_NORMAL);
-
-	glDrawArrays(g_primitive_mode, 0, g_vertex_data_count);
-
-	g_vertex_data_count = 0;
+	g_current_vertex_buffer->flush();
 #else
 	if (g_inside_glbegin) {
 		glEnd();
