@@ -74,7 +74,7 @@ struct G_VERTEX_BUFFER
 };
 
 G_VERTEX_BUFFER g_vertex_buffer_points, g_vertex_buffer_lines, g_vertex_buffer_triangles;
-G_VERTEX_BUFFER *g_current_vertex_buffer;
+G_VERTEX_BUFFER *g_current_vertex_buffer_ptr;
 
 #endif
 
@@ -92,7 +92,8 @@ void g_vertex_buffer_init()
 void g_vertex_buffer_append(G_VERTEX vertex)
 {
 #ifdef G_USE_CORE_PROFILE
-	g_current_vertex_buffer->append(vertex);
+	if (g_current_vertex_buffer_ptr)
+		g_current_vertex_buffer_ptr->append(vertex);
 #else
 	glColor4fv((float *)&vertex.color);
 	glNormal3fv((float *)&vertex.normal);
@@ -126,7 +127,8 @@ void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r)
 void g_vertex_buffer_flush()
 {
 #ifdef G_USE_CORE_PROFILE
-	g_current_vertex_buffer->flush();
+	//if (g_current_vertex_buffer_ptr)
+	//	g_current_vertex_buffer_ptr->flush();
 #else
 	if (g_inside_glbegin) {
 		glEnd();
@@ -158,9 +160,10 @@ void g_set_primitive_mode(GLenum mode, g_prepare_func_type prepare_func)
 
 void g_prepare_points()
 {
+	g_current_vertex_buffer_ptr = &g_vertex_buffer_points;
 	g_current_color_ptr = &g_current_marker_color;
 	g_current_size_ptr = &g_current_marker_size;
-	g_use_program(g_marker_programs[g_current_marker_size_type][g_current_marker_type]);
+	//g_use_program(g_marker_programs[g_current_marker_size_type][g_current_marker_type]);
 
 #ifndef G_USE_CORE_PROFILE
 	GLint pixel_scale_location = g_marker_pixel_scale_location[g_current_marker_size_type][g_current_marker_type];
@@ -175,21 +178,22 @@ void g_prepare_points()
 void g_prepare_lines()
 {
 #ifdef G_USE_CORE_PROFILE
-	if (g_current_program != g_line_program)
-		g_need_line_stipple_updated = true;
+	//if (g_current_program != g_line_program)
+	//	g_need_line_stipple_updated = true;
 #endif
 
+	g_current_vertex_buffer_ptr = &g_vertex_buffer_lines;
 	g_current_color_ptr = &g_current_line_color;
 
 #ifdef G_USE_CORE_PROFILE
 	g_current_size_ptr = &g_current_line_size;
-	g_use_program(g_line_program);
+	//g_use_program(g_line_program);
 
-	if (g_need_line_stipple_updated) {
-		g_vertex_buffer_flush();
-		glUniform1i(g_line_stipple_location, g_current_line_stipple);
-		g_need_line_stipple_updated = false;
-	}
+	//if (g_need_line_stipple_updated) {
+	//	g_vertex_buffer_flush();
+	//	glUniform1i(g_line_stipple_location, g_current_line_stipple);
+	//	g_need_line_stipple_updated = false;
+	//}
 #else
 	g_current_size_ptr = &g_current_dummy_size;
 	g_use_program(0);
@@ -199,25 +203,26 @@ void g_prepare_lines()
 
 void g_prepare_triangles()
 {
-	if (glsc3D_inner_scale[g_current_scale_id].is_3D) {
-#ifdef G_USE_CORE_PROFILE
-		g_use_program(g_lighting_program);
-#else
-		if (!g_inside_glbegin) {
-			g_use_program(0);
-			glEnable(GL_LIGHTING);
-		}
-#endif
-	} else {
-#ifdef G_USE_CORE_PROFILE
-		g_use_program(g_constant_program);
-#else
-		if (!g_inside_glbegin) {
-			g_use_program(0);
-			glDisable(GL_LIGHTING);
-		}
-#endif
-	}
+//	if (glsc3D_inner_scale[g_current_scale_id].is_3D) {
+//#ifdef G_USE_CORE_PROFILE
+//		g_use_program(g_lighting_program);
+//#else
+//		if (!g_inside_glbegin) {
+//			g_use_program(0);
+//			glEnable(GL_LIGHTING);
+//		}
+//#endif
+//	} else {
+//#ifdef G_USE_CORE_PROFILE
+//		g_use_program(g_constant_program);
+//#else
+//		if (!g_inside_glbegin) {
+//			g_use_program(0);
+//			glDisable(GL_LIGHTING);
+//		}
+//#endif
+//	}
+	g_current_vertex_buffer_ptr = &g_vertex_buffer_triangles;
 	g_current_color_ptr = &g_current_area_color;
 	g_current_size_ptr = &g_current_dummy_size;
 }
