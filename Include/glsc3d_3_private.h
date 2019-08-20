@@ -274,10 +274,14 @@ extern GLint g_marker_screen_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKE
 extern float g_current_pixel_scale;
 #endif
 
-// ---- g_vertex_buffer.c
+// ---- g_vertex_buffer.cpp
 
 void g_vertex_buffer_init();
-void g_vertex_buffer_append(G_VERTEX vertex);
+
+#ifdef __cplusplus
+void g_vertex_buffer_append(const G_VERTEX &vertex);
+#endif
+
 void g_emit_vertex(G_VECTOR position);
 
 void g_emit_line(G_VECTOR p, G_VECTOR q);
