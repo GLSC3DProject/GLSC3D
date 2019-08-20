@@ -7,33 +7,32 @@ void g_rectangle_3D_core(
 	double psi, int DivideLevel,
 	G_BOOL WIRE, G_BOOL FILL)
 {
-	G_VECTOR r[4], center, r0, r1, r2, r3;
-	center = g_vector3(x,y,z);
+	G_VECTOR center(x,y,z);
 	double phi = g_direction_phi(g_vector3(direction_x, direction_y, direction_z));
 	double theta = g_direction_theta(g_vector3(direction_x, direction_y, direction_z));
 
-	r[0] = g_vector3(-width/2, 0, -depth/2);
-	r[1] = g_vector3(width/2, 0, -depth/2);
-	r[2] = g_vector3(width/2, 0, depth/2);
-	r[3] = g_vector3(-width/2, 0, depth/2);
+	G_VECTOR p0(-width/2, 0, -depth/2);
+	G_VECTOR p1(width/2, 0, -depth/2);
+	G_VECTOR p2(width/2, 0, depth/2);
+	G_VECTOR p3(-width/2, 0, depth/2);
+
+	G_VECTOR r0 = center + Ry(Rz(Rx(p0, psi), phi), theta);
+	G_VECTOR r1 = center + Ry(Rz(Rx(p1, psi), phi), theta);
+	G_VECTOR r2 = center + Ry(Rz(Rx(p2, psi), phi), theta);
+	G_VECTOR r3 = center + Ry(Rz(Rx(p3, psi), phi), theta);
 
 	if(FILL)
 	{
-		r0 = g_plus(center, Ry(Rz(Rx(r[0], psi), phi), theta));
-		r1 = g_plus(center, Ry(Rz(Rx(r[1], psi), phi), theta));
-		r2 = g_plus(center, Ry(Rz(Rx(r[2], psi), phi), theta));
-		r3 = g_plus(center, Ry(Rz(Rx(r[3], psi), phi), theta));
-
 		g_triangle_3D_flat_worker(r0, r1, r2, DivideLevel);
 		g_triangle_3D_flat_worker(r0, r2, r3, DivideLevel);
 	}
 	if(WIRE)
 	{
-		g_begin_line_loop();
-		for(int i=0;i<4;i++)
-		{
-			g_emit_vertex(g_plus(center,Ry(Rz(Rx(r[i],psi),phi),theta)));
-		}
+		g_move_s(r0);
+		g_plot_s(r1);
+		g_plot_s(r2);
+		g_plot_s(r3);
+		g_plot_s(r0);
 	}
 }
 

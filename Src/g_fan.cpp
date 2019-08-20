@@ -45,28 +45,26 @@ void g_fan_3D_core(
 	double dtheta = 0.5*angle / STEP;
 	double phi = g_direction_phi(g_vector3(direction_x, direction_y, direction_z));
 	double theta = g_direction_theta(g_vector3(direction_x, direction_y, direction_z));
-	G_VECTOR r0,r1,r2, nx;
-	r0 = g_vector3(center_x, center_y, center_z);
-	nx = g_vector3(1,0,0);
+	G_VECTOR r0(center_x, center_y, center_z);
+	G_VECTOR nx(1,0,0);
 	if (Fill)
 	{
 		for (i = 0; i < STEP; i++)
 		{
-			r1 = r0 + Ry(Rz(Rx(Ry(radius * nx, (2 * i - STEP)*dtheta), psi), phi), theta);
-			r2 = r0 + Ry(Rz(Rx(Ry(radius * nx, (2 * (i + 1) - STEP)*dtheta), psi), phi), theta);
+			G_VECTOR r1 = r0 + Ry(Rz(Rx(Ry(radius * nx, (2 * i - STEP)*dtheta), psi), phi), theta);
+			G_VECTOR r2 = r0 + Ry(Rz(Rx(Ry(radius * nx, (2 * (i + 1) - STEP)*dtheta), psi), phi), theta);
 			g_triangle_3D_flat_worker(r0, r1, r2, DivideLevel);
 		}
 	}
 
 	if (Wire)
 	{
-		g_begin_line_strip();
+		g_move_s(r0);
 		for (i = 0; i <= STEP; i++)
 		{
-			g_emit_vertex(r0 + Ry(Rz(Rx(Ry(radius * nx, (2 * i - STEP)*dtheta), psi), phi), theta));
+			g_plot_s(r0 + Ry(Rz(Rx(Ry(radius * nx, (2 * i - STEP)*dtheta), psi), phi), theta));
 		}
-		g_emit_vertex(r0);
-		g_emit_vertex(r0 + Ry(Rz(Rx(Ry(radius * nx, (-STEP)*dtheta), psi), phi), theta));
+		g_plot_s(r0);
 	}
 }
 
