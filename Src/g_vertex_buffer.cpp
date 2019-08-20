@@ -217,8 +217,8 @@ void g_prepare_points()
 void g_prepare_lines()
 {
 #ifdef G_USE_CORE_PROFILE
-	//if (g_current_program != g_line_program)
-	//	g_need_line_stipple_updated = true;
+	if (g_current_program != g_line_program)
+		g_need_line_stipple_updated = true;
 #endif
 
 	//g_current_vertex_buffer_ptr = &g_vertex_buffer_lines;
@@ -230,11 +230,11 @@ void g_prepare_lines()
 	g_primitive_mode = G_PRIMITIVE_MODE::LINE;
 	g_vertex_buffer_lines.set_shader_program(g_line_program);
 
-	//if (g_need_line_stipple_updated) {
-	//	g_vertex_buffer_flush();
-	//	glUniform1i(g_line_stipple_location, g_current_line_stipple);
-	//	g_need_line_stipple_updated = false;
-	//}
+	if (g_need_line_stipple_updated) {
+		g_vertex_buffer_lines.flush();
+		glUniform1i(g_line_stipple_location, g_current_line_stipple);
+		g_need_line_stipple_updated = false;
+	}
 #else
 	g_current_size_ptr = &g_current_dummy_size;
 	g_use_program(0);
