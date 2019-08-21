@@ -8,29 +8,28 @@ void g_fan_2D(
 	G_BOOL Wire, G_BOOL Fill)
 {
 	int i,STEP=8;
-	double dtheta;
+	double dtheta = 0.5 * angle / STEP;
 	G_VECTOR direction = g_vector2(direction_x, direction_y);
 	direction = g_normalize(direction);
-	G_VECTOR center = g_vector2(center_x, center_y);
+	G_VECTOR center(center_x, center_y);
 	if (Fill)
 	{
-		g_begin_triangle_fan();
-		g_emit_vertex(center);
-		for (i = 0; i <= STEP; i++) {
-			dtheta = 0.5 * angle / STEP;
-			g_emit_vertex(center + Rx2D(radius * direction, (2 * i - STEP) * dtheta));
+		g_begin_triangles();
+		G_VECTOR r1 = center + Rx2D(radius * direction, (-STEP) * dtheta);
+		for (i = 1; i <= STEP; i++) {
+			G_VECTOR r2 = center + Rx2D(radius * direction, (2 * i - STEP) * dtheta);
+			g_emit_triangle(center, r1, r2);
+			r1 = r2;
 		}
 	}
 	if (Wire)
 	{
-		g_begin_line_strip();
+		g_move_s(center);
 		for (i = 0; i <= STEP; i++)
 		{
-			dtheta = 0.5*angle / STEP;
-			g_emit_vertex(center + Rx2D(radius * direction, (2 * i - STEP)*dtheta));
+			g_plot_s(center + Rx2D(radius * direction, (2 * i - STEP)*dtheta));
 		}
-		g_emit_vertex(center);
-		g_emit_vertex(center + Rx2D(radius * direction, (-STEP)*dtheta));
+		g_plot_s(center);
 	}
 }
 

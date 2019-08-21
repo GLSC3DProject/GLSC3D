@@ -22,10 +22,10 @@ void g_data_plot_2D(double x_left, double x_right,
 	double dx=(x_right-x_left)/n;
 	int i;
 
-	g_begin_line_strip();
+	g_move_s(g_vector2(x_left, yy[0]));
 
-	for(i=0;i<n;i++)
-		g_emit_vertex(g_vector2(x_left+i*dx, yy[i]));
+	for(i=1;i<n;i++)
+		g_plot_s(g_vector2(x_left+i*dx, yy[i]));
 
 	for(i=0;i<n;i++)
 		g_marker_2D(x_left+i*dx, yy[i]);
