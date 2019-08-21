@@ -16,8 +16,8 @@ class G_VERTEX_BUFFER
 {
 	G_VERTEX *data = nullptr;
 	int count = 0;
-	GLuint vertex_array_id, vertex_buffer_id;
-	GLuint shader_program;
+	GLuint vertex_array_id = 0, vertex_buffer_id = 0;
+	GLuint shader_program = 0;
 	GLenum primitive_mode;
 
 public:
@@ -32,8 +32,6 @@ public:
 			fprintf(stderr, "GLSC3D will abort\n");
 			g_quit();
 		}
-
-		count = 0;
 
 		glGenVertexArrays(1, &vertex_array_id);
 		glBindVertexArray(vertex_array_id);
@@ -282,25 +280,7 @@ void g_begin_lines()
 	g_set_primitive_mode(GL_LINES, g_prepare_lines);
 }
 
-void g_begin_line_strip()
-{
-	g_vertex_buffer_flush();
-	g_set_primitive_mode(GL_LINE_STRIP, g_prepare_lines);
-}
-
-void g_begin_line_loop()
-{
-	g_vertex_buffer_flush();
-	g_set_primitive_mode(GL_LINE_LOOP, g_prepare_lines);
-}
-
 void g_begin_triangles()
 {
 	g_set_primitive_mode(GL_TRIANGLES, g_prepare_triangles);
-}
-
-void g_begin_triangle_fan()
-{
-	g_vertex_buffer_flush();
-	g_set_primitive_mode(GL_TRIANGLE_FAN, g_prepare_triangles);
 }

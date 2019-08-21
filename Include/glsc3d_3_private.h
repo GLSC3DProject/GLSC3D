@@ -293,11 +293,6 @@ void g_begin_points(void);
 void g_begin_lines(void);
 void g_begin_triangles(void);
 
-void g_begin_line_strip(void);
-void g_begin_line_loop(void);
-
-void g_begin_triangle_fan(void);
-
 #ifdef __cplusplus
 }
 #endif
