@@ -265,8 +265,6 @@ enum G_UNIFORM_BINDING { G_UNIFORM_MATRICES, G_UNIFORM_LIGHTS, G_NUM_UNIFORMS };
 extern GLuint g_constant_program, g_lighting_program;
 extern GLuint g_line_program;
 
-extern G_BOOL g_need_line_stipple_updated;
-
 void g_update_uniform(GLuint index, GLsizei size, const void *data);
 #else
 extern GLint g_marker_pixel_scale_location[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
@@ -286,6 +284,12 @@ void g_emit_vertex(G_VECTOR position);
 
 void g_emit_line(G_VECTOR p, G_VECTOR q);
 void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r);
+
+#ifdef G_USE_CORE_PROFILE
+void g_vertex_buffer_points_flush(void);
+void g_vertex_buffer_lines_flush(void);
+void g_vertex_buffer_triangles_flush(void);
+#endif
 
 void g_vertex_buffer_flush(void);
 

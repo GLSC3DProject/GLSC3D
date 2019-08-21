@@ -62,10 +62,8 @@ void g_line_type(G_UINT type)
 	int stipple = g_stipple_type[type];
 
 	if (g_current_line_stipple != stipple) {
-		g_current_line_stipple = stipple;
-
 #ifdef G_USE_CORE_PROFILE
-		g_need_line_stipple_updated = true;
+		g_vertex_buffer_lines_flush();
 #else
 		g_vertex_buffer_flush();
 		if (type != 0) {
@@ -76,6 +74,8 @@ void g_line_type(G_UINT type)
 			glDisable(GL_LINE_STIPPLE);
 		}
 #endif
+
+		g_current_line_stipple = stipple;
 	}
 }
 
