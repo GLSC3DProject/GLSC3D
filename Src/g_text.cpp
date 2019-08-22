@@ -114,6 +114,7 @@ void g_text_init()
 
 static void g_text_render(double x, double y, const char *str)
 {
+	g_vertex_buffer_flush();
 	g_use_program(g_texture_program);
 	glBindTexture(GL_TEXTURE_2D, g_texture);
 
