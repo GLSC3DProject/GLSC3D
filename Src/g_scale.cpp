@@ -234,7 +234,6 @@ void g_boundary(void)
 	scale.camera.proj = G_MATRIX::Ortho2D(0, glsc3D_width, glsc3D_height, 0);
 	scale.camera.view = G_MATRIX::Identity();
 	scale.camera.view_normal = G_MATRIX::Identity();
-	printf("%d, %d\n", glsc3D_width, glsc3D_height);
 
 	g_vertex_buffer_flush();
 
