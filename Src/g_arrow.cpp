@@ -30,9 +30,7 @@ void g_arrow_2D(
 		break;
 	case 1:
 		g_begin_triangles();
-		g_emit_vertex(A);
-		g_emit_vertex(B);
-		g_emit_vertex(C);
+		g_emit_triangle(A, B, C);
 		break;
 	case 2:
 		g_move_s(A);
@@ -40,22 +38,6 @@ void g_arrow_2D(
 		g_plot_s(C);
 		break;
 	}
-
-//	switch (type) {
-//	case 0:
-//		g_begin_line_loop();
-//		break;
-//	case 1:
-//		g_begin_triangles();
-//		break;
-//	case 2:
-//		g_begin_line_strip();
-//		break;
-//	}
-//
-//	g_emit_vertex(A);
-//	g_emit_vertex(B);
-//	g_emit_vertex(C);
 }
 
 void g_arrow_3D_core(

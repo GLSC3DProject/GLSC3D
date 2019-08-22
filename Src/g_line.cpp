@@ -62,10 +62,9 @@ void g_line_type(G_UINT type)
 	int stipple = g_stipple_type[type];
 
 	if (g_current_line_stipple != stipple) {
-#ifdef G_USE_CORE_PROFILE
-		g_vertex_buffer_lines_flush();
-#else
 		g_vertex_buffer_flush();
+
+#ifndef G_USE_CORE_PROFILE
 		if (type != 0) {
 			glEnable(GL_LINE_STIPPLE);
 			glLineStipple(4, stipple << 8 | stipple);

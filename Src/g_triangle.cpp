@@ -157,9 +157,7 @@ void g_triangle_2D_s(G_VECTOR r0, G_VECTOR r1, G_VECTOR r2, G_BOOL Wire, G_BOOL 
 	}
 	if (Fill) {
 		g_begin_triangles();
-		g_emit_vertex(r0);
-		g_emit_vertex(r1);
-		g_emit_vertex(r2);
+		g_emit_triangle(r0, r1, r2);
 	}
 }
 

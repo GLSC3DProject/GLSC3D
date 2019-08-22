@@ -4,7 +4,7 @@ int  g_current_scale_id;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
-typedef struct
+struct G_SCALE_STRUCT
 {
 	G_VECTOR r_0, r_1;
 	G_VECTOR r_0_f, r_1_f;
@@ -12,8 +12,8 @@ typedef struct
 	G_VECTOR up;
 	double zoom;
 	double x_left_std,  y_top_std,  width_std,  height_std;
-} def_scale_struct;
-def_scale_struct def_scale[TotalDisplayNumber];
+};
+G_SCALE_STRUCT def_scale[TotalDisplayNumber];
 
 G_BOOL g_clipping_enabled = G_YES;
 
@@ -110,7 +110,7 @@ void g_def_scale_3D_fix(int id,
 }
 
 void g_calc_matrix(
-	int id, def_scale_struct *tmp_def_scale
+	int id, G_SCALE_STRUCT *tmp_def_scale
 )
 {
 	if (id >= TotalDisplayNumber) {

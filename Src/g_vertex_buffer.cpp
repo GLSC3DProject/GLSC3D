@@ -1,11 +1,9 @@
 #include "glsc3d_3_private.h"
 
-static const size_t VERTEX_BUFFER_SIZE = 3 << 14;
-
 static const G_VECTOR g_vector_zero(0, 0, 0);
 
-enum struct G_PRIMITIVE_MODE { POINT, LINE, TRIANGLE };
-G_PRIMITIVE_MODE g_primitive_mode;
+enum struct G_PRIMITIVE_MODE { POINT, LINE, TRIANGLE, UNDEFINED = -1 };
+G_PRIMITIVE_MODE g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED;
 
 #ifdef G_USE_CORE_PROFILE
 
@@ -15,17 +13,17 @@ G_PRIMITIVE_MODE g_primitive_mode;
 class G_VERTEX_BUFFER
 {
 	G_VERTEX *data = nullptr;
-	int count = 0;
+	G_UINT size, count = 0;
 	GLuint vertex_array_id = 0, vertex_buffer_id = 0;
 	GLuint shader_program = 0;
 	G_PRIMITIVE_MODE primitive_mode;
 
 public:
-	G_VERTEX_BUFFER(G_PRIMITIVE_MODE primitive_mode) : primitive_mode(primitive_mode) {}
+	G_VERTEX_BUFFER(G_PRIMITIVE_MODE primitive_mode, G_UINT size) : primitive_mode(primitive_mode), size(size) {}
 
 	void init()
 	{
-		data = (G_VERTEX *)malloc(VERTEX_BUFFER_SIZE * sizeof(G_VERTEX));
+		data = (G_VERTEX *)malloc(size * sizeof(G_VERTEX));
 
 		if (data == nullptr) {
 			fprintf(stderr, "failed to allocate memory\a\n");
@@ -38,7 +36,7 @@ public:
 
 		glGenBuffers(1, &vertex_buffer_id);
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
-		glBufferData(GL_ARRAY_BUFFER, VERTEX_BUFFER_SIZE * sizeof(G_VERTEX), NULL, GL_STREAM_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size * sizeof(G_VERTEX), NULL, GL_STREAM_DRAW);
 
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
@@ -54,13 +52,15 @@ public:
 		data[count] = vertex;
 		count++;
 
-		if (count == VERTEX_BUFFER_SIZE)
+		if (count == size)
 			flush();
 	}
 
 	void flush()
 	{
 		if (count == 0) return;
+
+		assert(g_primitive_mode != G_PRIMITIVE_MODE::UNDEFINED);
 
 		g_use_program(shader_program);
 
@@ -84,22 +84,18 @@ public:
 	}
 };
 
-G_VERTEX_BUFFER g_vertex_buffer_points(G_PRIMITIVE_MODE::POINT);
-G_VERTEX_BUFFER g_vertex_buffer_lines(G_PRIMITIVE_MODE::LINE);
-G_VERTEX_BUFFER g_vertex_buffer_triangles(G_PRIMITIVE_MODE::TRIANGLE);
+// all buffers can contain (1 << 14) primitives
+
+G_VERTEX_BUFFER g_vertex_buffer_points(G_PRIMITIVE_MODE::POINT, 1 << 14);
+G_VERTEX_BUFFER g_vertex_buffer_lines(G_PRIMITIVE_MODE::LINE, 2 << 14);
+G_VERTEX_BUFFER g_vertex_buffer_triangles(G_PRIMITIVE_MODE::TRIANGLE, 3 << 14);
+
+// must be greater than 3 << 14, (the number of buffers) * (the number of primitives per buffer)
+#define G_2D_DEPTH_DIVISOR (1 << 16)
+
+G_UINT g_current_2d_depth;
 
 #endif
-
-#ifndef G_USE_CORE_PROFILE
-bool g_inside_glbegin;
-#endif
-
-void g_vertex_buffer_init()
-{
-	//g_vertex_buffer_points.init();
-	//g_vertex_buffer_lines.init();
-	//g_vertex_buffer_triangles.init();
-}
 
 // for 3D triangle
 void g_vertex_buffer_append(const G_VERTEX &vertex)
@@ -115,13 +111,15 @@ void g_vertex_buffer_append(const G_VERTEX &vertex)
 }
 
 // for points, lines and 2D triangle
-void g_emit_vertex(G_VECTOR position)
+void g_emit_vertex(const G_VECTOR &position)
 {
 #ifdef G_USE_CORE_PROFILE
 	G_VERTEX vertex;
 	vertex.position = position;
-	//vertex.normal = g_vector_zero;
-	//vertex.pad = 0;
+	if (!glsc3D_inner_scale[g_current_scale_id].is_3D)
+		vertex.position.z = (float)g_current_2d_depth / G_2D_DEPTH_DIVISOR;
+	vertex.normal = g_vector_zero;
+	vertex.pad = 0;
 
 	switch (g_primitive_mode) {
 	case G_PRIMITIVE_MODE::POINT:
@@ -158,10 +156,23 @@ void g_emit_vertex(G_VECTOR position)
 #endif
 }
 
+void g_emit_point(G_VECTOR p)
+{
+	g_emit_vertex(p);
+
+#ifdef G_USE_CORE_PROFILE
+	g_current_2d_depth++;
+#endif
+}
+
 void g_emit_line(G_VECTOR p, G_VECTOR q)
 {
 	g_emit_vertex(p);
 	g_emit_vertex(q);
+
+#ifdef G_USE_CORE_PROFILE
+	g_current_2d_depth++;
+#endif
 }
 
 void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r)
@@ -169,48 +180,35 @@ void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r)
 	g_emit_vertex(p);
 	g_emit_vertex(q);
 	g_emit_vertex(r);
-}
 
 #ifdef G_USE_CORE_PROFILE
-
-void g_vertex_buffer_points_flush(void)
-{
-	g_vertex_buffer_points.flush();
-}
-
-void g_vertex_buffer_lines_flush(void)
-{
-	g_vertex_buffer_lines.flush();
-}
-
-void g_vertex_buffer_triangles_flush(void)
-{
-	g_vertex_buffer_triangles.flush();
-}
-
+	g_current_2d_depth++;
 #endif
+}
 
 void g_vertex_buffer_flush()
 {
 #ifdef G_USE_CORE_PROFILE
-	g_vertex_buffer_points_flush();
-	g_vertex_buffer_lines_flush();
-	g_vertex_buffer_triangles_flush();
+	g_vertex_buffer_points.flush();
+	g_vertex_buffer_lines.flush();
+	g_vertex_buffer_triangles.flush();
+
+	g_current_2d_depth = 0;
 #else
-	if (g_inside_glbegin) {
+	if (g_primitive_mode != G_PRIMITIVE_MODE::UNDEFINED) {
 		glEnd();
-		g_inside_glbegin = false;
 	}
 #endif
+	g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED;
 }
 
 void g_prepare_points()
 {
-	//g_current_vertex_buffer_ptr = &g_vertex_buffer_points;
-	//g_current_color_ptr = &g_current_marker_color;
-	//g_current_size_ptr = &g_current_marker_size;
-
 #ifdef G_USE_CORE_PROFILE
+	if (!glsc3D_inner_scale[g_current_scale_id].is_3D && g_current_marker_type == G_MARKER_TYPE::G_MARKER_SPHERE) {
+		printf("Sphere marker cannot be used in 2D\n");
+		g_quit();
+	}
 	g_vertex_buffer_points.set_shader_program(g_marker_programs[g_current_marker_size_type][g_current_marker_type]);
 #else
 	g_use_program(g_marker_programs[g_current_marker_size_type][g_current_marker_type]);
@@ -225,12 +223,7 @@ void g_prepare_points()
 
 void g_prepare_lines()
 {
-	//g_current_vertex_buffer_ptr = &g_vertex_buffer_lines;
-	//g_current_color_ptr = &g_current_line_color;
-
 #ifdef G_USE_CORE_PROFILE
-	//g_current_size_ptr = &g_current_line_size;
-	//g_use_program(g_line_program);
 	g_primitive_mode = G_PRIMITIVE_MODE::LINE;
 	g_vertex_buffer_lines.set_shader_program(g_line_program);
 #else
@@ -241,35 +234,26 @@ void g_prepare_lines()
 
 void g_prepare_triangles()
 {
-	//g_current_vertex_buffer_ptr = &g_vertex_buffer_triangles;
-	//g_current_color_ptr = &g_current_area_color;
-	//g_current_size_ptr = &g_current_dummy_size;
-
+#ifdef G_USE_CORE_PROFILE
 	if (glsc3D_inner_scale[g_current_scale_id].is_3D) {
-#ifdef G_USE_CORE_PROFILE
-		//g_use_program(g_lighting_program);
 		g_vertex_buffer_triangles.set_shader_program(g_lighting_program);
-#else
-		if (!g_inside_glbegin) {
-			g_use_program(0);
-			glEnable(GL_LIGHTING);
-		}
-#endif
 	} else {
-#ifdef G_USE_CORE_PROFILE
-		//g_use_program(g_constant_program);
 		g_vertex_buffer_triangles.set_shader_program(g_constant_program);
-#else
-		if (!g_inside_glbegin) {
-			g_use_program(0);
-			glDisable(GL_LIGHTING);
-		}
-#endif
 	}
+#else
+	g_use_program(0);
+	if (glsc3D_inner_scale[g_current_scale_id].is_3D) {
+		glEnable(GL_LIGHTING);
+	} else {
+		glDisable(GL_LIGHTING);
+	}
+#endif
 }
 
 void g_set_primitive_mode(G_PRIMITIVE_MODE mode)
 {
+	if (g_primitive_mode == mode) return;
+
 #ifdef G_USE_CORE_PROFILE
 	switch (mode) {
 	case G_PRIMITIVE_MODE::POINT:
@@ -283,25 +267,23 @@ void g_set_primitive_mode(G_PRIMITIVE_MODE mode)
 		break;
 	}
 #else
-	if (g_primitive_mode != mode || !g_inside_glbegin) {
-		g_vertex_buffer_flush();
-		switch (mode) {
-		case G_PRIMITIVE_MODE::POINT:
-			g_prepare_points();
-			glBegin(GL_POINTS);
-			break;
-		case G_PRIMITIVE_MODE::LINE:
-			g_prepare_lines();
-			glBegin(GL_LINES);
-			break;
-		case G_PRIMITIVE_MODE::TRIANGLE:
-			g_prepare_triangles();
-			glBegin(GL_TRIANGLES);
-			break;
-		}
-		g_inside_glbegin = true;
+	g_vertex_buffer_flush();
+	switch (mode) {
+	case G_PRIMITIVE_MODE::POINT:
+		g_prepare_points();
+		glBegin(GL_POINTS);
+		break;
+	case G_PRIMITIVE_MODE::LINE:
+		g_prepare_lines();
+		glBegin(GL_LINES);
+		break;
+	case G_PRIMITIVE_MODE::TRIANGLE:
+		g_prepare_triangles();
+		glBegin(GL_TRIANGLES);
+		break;
 	}
 #endif
+
 	g_primitive_mode = mode;
 }
 

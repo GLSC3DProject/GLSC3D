@@ -274,22 +274,13 @@ extern float g_current_pixel_scale;
 
 // ---- g_vertex_buffer.cpp
 
-void g_vertex_buffer_init();
-
 #ifdef __cplusplus
 void g_vertex_buffer_append(const G_VERTEX &vertex);
 #endif
 
-void g_emit_vertex(G_VECTOR position);
-
+void g_emit_point(G_VECTOR p);
 void g_emit_line(G_VECTOR p, G_VECTOR q);
 void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r);
-
-#ifdef G_USE_CORE_PROFILE
-void g_vertex_buffer_points_flush(void);
-void g_vertex_buffer_lines_flush(void);
-void g_vertex_buffer_triangles_flush(void);
-#endif
 
 void g_vertex_buffer_flush(void);
 

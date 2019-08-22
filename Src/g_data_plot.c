@@ -14,10 +14,10 @@ void g_data_plot_f_3D(
 
 	for (j = 0; j < N_y; ++j)
 		for (i = 0; i < N_x; ++i)
-			g_emit_vertex(g_vector3(x0 + dx*i, y0 + dy*j, data(i, j)));
+			g_emit_point(g_vector3(x0 + dx*i, y0 + dy*j, data(i, j)));
 }
-void g_data_plot_2D(double x_left, double x_right,
-		double *yy, int n)
+
+void g_data_plot_2D(double x_left, double x_right, double *yy, int n)
 {
 	double dx=(x_right-x_left)/n;
 	int i;

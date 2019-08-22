@@ -30,8 +30,6 @@ void g_init_core(
 //	glEnable(GL_CULL_FACE);
 //	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	g_vertex_buffer_init();
-
 	g_shader_program_init();
 	g_text_init();
 

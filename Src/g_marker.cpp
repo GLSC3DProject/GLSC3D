@@ -50,11 +50,7 @@ void g_marker_type(G_UINT type)
 		return;
 	}
 
-#ifdef G_USE_CORE_PROFILE
-	g_vertex_buffer_points_flush();
-#else
 	g_vertex_buffer_flush();
-#endif
 
 	g_current_marker_type = type;
 }
@@ -62,7 +58,7 @@ void g_marker_type(G_UINT type)
 void g_marker_s(G_VECTOR position)
 {
 	g_begin_points();
-	g_emit_vertex(position);
+	g_emit_point(position);
 }
 
 void g_marker_3D(double x, double y, double z)

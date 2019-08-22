@@ -20,9 +20,7 @@ void g_move_2D(double x, double y)
 
 void g_plot_s(G_VECTOR position)
 {
-	g_emit_vertex(current_position);
-	g_emit_vertex(position);
-
+	g_emit_line(current_position, position);
 	current_position = position;
 }
 
