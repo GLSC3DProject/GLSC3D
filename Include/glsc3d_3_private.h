@@ -128,6 +128,7 @@ struct G_SCALE
 	bool is_3D;
 	bool is_left_handed;
 
+	G_SCREEN viewport();
 	void select();
 };
 

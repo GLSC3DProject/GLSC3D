@@ -33,26 +33,37 @@ struct G_TRANSFORM
 float g_current_pixel_scale;
 #endif
 
+G_SCREEN G_SCALE::viewport()
+{
+	G_SCREEN v;
+	v.x = (int)(g_screen_scale_factor * screen.x);
+	v.y = glsc3D_height - (int)(g_screen_scale_factor * (screen.height + screen.y));
+	v.width = (int)(g_screen_scale_factor * screen.width);
+	v.height = (int)(g_screen_scale_factor * screen.height);
+	return v;
+}
+
 void G_SCALE::select()
 {
-	int x = (int)(g_screen_scale_factor * screen.x);
-	int y = glsc3D_height - (int)(g_screen_scale_factor * (screen.height + screen.y));
-	int w = (int)(g_screen_scale_factor * screen.width);
-	int h = (int)(g_screen_scale_factor * screen.height);
+	//int x = (int)(g_screen_scale_factor * screen.x);
+	//int y = glsc3D_height - (int)(g_screen_scale_factor * (screen.height + screen.y));
+	//int w = (int)(g_screen_scale_factor * screen.width);
+	//int h = (int)(g_screen_scale_factor * screen.height);
+	G_SCREEN v = viewport();
 
 	G_TRANSFORM transform;
 	transform.camera = camera;
 
 	if (g_clipping_enabled) {
-		glViewport(x, y, w, h);
+		glViewport(v.x, v.y, v.width, v.height);
 	}
 	else {
 		glViewport(0, 0, glsc3D_width, glsc3D_height);
 
 		float x0 = -2.f * screen.x / screen.width - 1.f;
-		float x1 = 2.f * glsc3D_width / w + x0;
+		float x1 = 2.f * glsc3D_width / v.width + x0;
 		float y1 = 2.f * screen.y / screen.height + 1.f;
-		float y0 = -2.f * glsc3D_height / h + y1;
+		float y0 = -2.f * glsc3D_height / v.height + y1;
 
 		transform.camera.proj *= G_MATRIX::Ortho2D(x0, x1, y0, y1);
 	}
@@ -90,8 +101,9 @@ void g_def_scale_2D(
 {
 	if (id >= TotalDisplayNumber) {
 		fprintf(stderr,"too large id number\n");
-		g_quit();
+		exit(0);
 	}
+
 	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Ortho2D(x_left, x_right, y_bottom, y_top);
 	glsc3D_inner_scale[id].camera.view = G_MATRIX::Identity();
 	glsc3D_inner_scale[id].screen = g_make_screen(x_left_std, y_top_std, width_std, height_std);
@@ -116,7 +128,7 @@ void g_calc_matrix(
 {
 	if (id >= TotalDisplayNumber) {
 		fprintf(stderr,"too large id number\n");
-		g_quit();
+		exit(0);
 	}
 
 	G_VECTOR lower = tmp_def_scale[id].r_0_f;
@@ -222,6 +234,7 @@ void g_boundary(void)
 	scale.camera.proj = G_MATRIX::Ortho2D(0, glsc3D_width, glsc3D_height, 0);
 	scale.camera.view = G_MATRIX::Identity();
 	scale.camera.view_normal = G_MATRIX::Identity();
+	printf("%d, %d\n", glsc3D_width, glsc3D_height);
 
 	g_vertex_buffer_flush();
 
@@ -230,11 +243,11 @@ void g_boundary(void)
 	scale.select();
 
 	G_SCREEN &s = g_current_scale_ptr->screen;
-	g_move_3D(s.x, s.y, -1);
-	g_plot_3D(s.x + s.width, s.y, -1);
-	g_plot_3D(s.x + s.width, s.y + s.height, -1);
-	g_plot_3D(s.x, s.y + s.height, -1);
-	g_plot_3D(s.x, s.y, -1);
+	g_move_3D(s.x, s.y, 0);
+	g_plot_3D(s.x + s.width, s.y, 0);
+	g_plot_3D(s.x + s.width, s.y + s.height, 0);
+	g_plot_3D(s.x, s.y + s.height, 0);
+	g_plot_3D(s.x, s.y, 0);
 
 	g_vertex_buffer_flush();
 

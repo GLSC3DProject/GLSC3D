@@ -45,6 +45,8 @@ public:
 
 	void set_shader_program(GLuint program) { shader_program = program; }
 
+	bool is_empty() { return count == 0; }
+
 	void append(const G_VERTEX &vertex)
 	{
 		if (data == nullptr) init();
@@ -193,6 +195,10 @@ void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r)
 void g_vertex_buffer_flush()
 {
 #ifdef G_USE_CORE_PROFILE
+	if (g_vertex_buffer_points.is_empty() &&
+		g_vertex_buffer_lines.is_empty() &&
+		g_vertex_buffer_triangles.is_empty()) return;
+
 	g_vertex_buffer_triangles.flush();
 	g_vertex_buffer_lines.flush();
 	g_vertex_buffer_points.flush();
@@ -200,7 +206,11 @@ void g_vertex_buffer_flush()
 	g_current_2d_depth = 0;
 
 	if (g_current_scale_ptr != nullptr && !g_current_scale_ptr->is_3D) {
+		G_SCREEN viewport = g_current_scale_ptr->viewport();
+		glEnable(GL_SCISSOR_TEST);
+		glScissor(viewport.x, viewport.y, viewport.width, viewport.height);
 		glClear(GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_SCISSOR_TEST);
 	}
 #else
 	if (g_primitive_mode != G_PRIMITIVE_MODE::UNDEFINED) {
