@@ -191,7 +191,7 @@ static void g_text_render(double x, double y, const char *str)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 #endif
 
-	glsc3D_inner_scale[g_current_scale_id].select();
+	g_current_scale_ptr->select();
 }
 
 void g_text_standard_v(double x, double y, const char *format, va_list args)
@@ -204,7 +204,7 @@ void g_text_standard_v(double x, double y, const char *format, va_list args)
 
 void g_text_3D_virtual_v(double x, double y, double z, const char *format, va_list args)
 {
-	G_SCALE& scale = glsc3D_inner_scale[g_current_scale_id];
+	G_SCALE& scale = *g_current_scale_ptr;
 
 	G_VECTOR4 p = G_VECTOR4(x, y, z, 1) * scale.camera.view * scale.camera.proj;
 	float std_x = scale.screen.x + 0.5f * (1 + p.x / p.w) * scale.screen.width;

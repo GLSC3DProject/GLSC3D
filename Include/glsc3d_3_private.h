@@ -185,7 +185,10 @@ void * GLSC3D_Array_Buffer(size_t array_size);
 
 // ---- g_scale.cpp
 
+#ifdef __cplusplus
 extern int g_current_scale_id;
+extern G_SCALE *g_current_scale_ptr;
+#endif
 
 // ---- g_input.c
 

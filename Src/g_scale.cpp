@@ -1,10 +1,11 @@
 #include "glsc3d_3_private.h"
 
-int  g_current_scale_id;
+int g_current_scale_id;
+G_SCALE *g_current_scale_ptr = nullptr;
 
 G_SCALE glsc3D_inner_scale[TotalDisplayNumber];
 
-struct G_SCALE_STRUCT
+struct G_DEF_SCALE
 {
 	G_VECTOR r_0, r_1;
 	G_VECTOR r_0_f, r_1_f;
@@ -13,7 +14,7 @@ struct G_SCALE_STRUCT
 	double zoom;
 	double x_left_std,  y_top_std,  width_std,  height_std;
 };
-G_SCALE_STRUCT def_scale[TotalDisplayNumber];
+G_DEF_SCALE def_scale[TotalDisplayNumber];
 
 G_BOOL g_clipping_enabled = G_YES;
 
@@ -110,7 +111,7 @@ void g_def_scale_3D_fix(int id,
 }
 
 void g_calc_matrix(
-	int id, G_SCALE_STRUCT *tmp_def_scale
+	int id, G_DEF_SCALE *tmp_def_scale
 )
 {
 	if (id >= TotalDisplayNumber) {
@@ -208,9 +209,10 @@ void g_sel_scale(int id)
 	g_vertex_buffer_flush();
 
 	g_clipping_enabled = G_YES;
-	glsc3D_inner_scale[id].select();
 
 	g_current_scale_id = id;
+	g_current_scale_ptr = &glsc3D_inner_scale[id];
+	g_current_scale_ptr->select();
 }
 
 void g_boundary(void)
@@ -227,7 +229,7 @@ void g_boundary(void)
 	g_clipping_enabled = G_YES;
 	scale.select();
 
-	G_SCREEN &s = glsc3D_inner_scale[g_current_scale_id].screen;
+	G_SCREEN &s = g_current_scale_ptr->screen;
 	g_move_3D(s.x, s.y, -1);
 	g_plot_3D(s.x + s.width, s.y, -1);
 	g_plot_3D(s.x + s.width, s.y + s.height, -1);
@@ -237,11 +239,11 @@ void g_boundary(void)
 	g_vertex_buffer_flush();
 
 	g_clipping_enabled = previous_clipping_state;
-	glsc3D_inner_scale[g_current_scale_id].select();
+	g_current_scale_ptr->select();
 }
 
 void g_clipping(G_BOOL value)
 {
 	g_clipping_enabled = value;
-	glsc3D_inner_scale[g_current_scale_id].select();
+	g_current_scale_ptr->select();
 }
