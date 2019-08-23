@@ -29,6 +29,25 @@ struct G_TRANSFORM
 	float screen_scale;
 };
 
+void G_CAMERA::select(float screen_width, float screen_height)
+{
+#ifdef G_USE_CORE_PROFILE
+	G_TRANSFORM transform;
+	transform.camera = *this;
+	transform.pixel_scale_x = 1 / (screen_width * proj.x.x);
+	transform.pixel_scale_y = 1 / (screen_height * proj.y.y);
+	transform.screen_scale = g_screen_scale_factor;
+
+	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
+#else
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf((float *)&proj);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf((float *)&view);
+#endif
+}
+
 #ifndef G_USE_CORE_PROFILE
 float g_current_pixel_scale;
 #endif
@@ -51,11 +70,9 @@ void G_SCALE::select()
 	//int h = (int)(g_screen_scale_factor * screen.height);
 	G_SCREEN v = viewport();
 
-	G_TRANSFORM transform;
-	transform.camera = camera;
-
 	if (g_clipping_enabled) {
 		glViewport(v.x, v.y, v.width, v.height);
+		camera.select(screen.width, screen.height);
 	}
 	else {
 		glViewport(0, 0, glsc3D_width, glsc3D_height);
@@ -65,22 +82,13 @@ void G_SCALE::select()
 		float y1 = 2.f * screen.y / screen.height + 1.f;
 		float y0 = -2.f * glsc3D_height / v.height + y1;
 
-		transform.camera.proj *= G_MATRIX::Ortho2D(x0, x1, y0, y1);
+		G_CAMERA c = camera;
+
+		c.proj *= G_MATRIX::Ortho2D(x0, x1, y0, y1);
+		c.select(screen.width, screen.height);
 	}
 
-#ifdef G_USE_CORE_PROFILE
-	transform.pixel_scale_x = 1 / (screen.width * camera.proj.x.x);
-	transform.pixel_scale_y = 1 / (screen.height * camera.proj.y.y);
-	transform.screen_scale = g_screen_scale_factor;
-
-	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
-#else
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf((float *)&transform.camera.proj);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf((float *)&transform.camera.view);
-
+#ifndef G_USE_CORE_PROFILE
 	g_current_pixel_scale = 1 / (screen.height * camera.proj.y.y);
 #endif
 
@@ -229,17 +237,19 @@ void g_sel_scale(int id)
 
 void g_boundary(void)
 {
-	G_SCALE scale;
-	scale.screen = g_make_screen(0, 0, glsc3D_width, glsc3D_height);
-	scale.camera.proj = G_MATRIX::Ortho2D(0, glsc3D_width, glsc3D_height, 0);
-	scale.camera.view = G_MATRIX::Identity();
-	scale.camera.view_normal = G_MATRIX::Identity();
-
 	g_vertex_buffer_flush();
 
-	G_BOOL previous_clipping_state = g_clipping_enabled;
-	g_clipping_enabled = G_YES;
-	scale.select();
+	glViewport(0, 0, glsc3D_width, glsc3D_height);
+
+	float screen_width = glsc3D_width / g_screen_scale_factor;
+	float screen_height = glsc3D_height / g_screen_scale_factor;
+
+	G_CAMERA camera;
+	camera.proj = G_MATRIX::Ortho2D(0, screen_width, screen_height, 0);
+	camera.view = G_MATRIX::Identity();
+	camera.view_normal = G_MATRIX::Identity();
+
+	camera.select(screen_width, screen_height);
 
 	G_SCREEN &s = g_current_scale_ptr->screen;
 	g_move_3D(s.x, s.y, 0);
@@ -250,7 +260,6 @@ void g_boundary(void)
 
 	g_vertex_buffer_flush();
 
-	g_clipping_enabled = previous_clipping_state;
 	g_current_scale_ptr->select();
 }
 

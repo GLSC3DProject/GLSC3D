@@ -118,6 +118,8 @@ struct G_SCREEN
 struct G_CAMERA
 {
 	G_MATRIX proj, view, view_normal;
+
+	void select(float screen_width, float screen_height);
 };
 
 struct G_SCALE
