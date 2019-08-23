@@ -114,7 +114,7 @@ void g_vertex_buffer_append(const G_VERTEX &vertex)
 #endif
 }
 
-// for points, lines and 2D triangle
+// for point, line and 2D triangle
 void g_emit_vertex(const G_VECTOR &position)
 {
 #ifdef G_USE_CORE_PROFILE
@@ -242,7 +242,6 @@ void g_prepare_points()
 void g_prepare_lines()
 {
 #ifdef G_USE_CORE_PROFILE
-	g_primitive_mode = G_PRIMITIVE_MODE::LINE;
 	g_vertex_buffer_lines.set_shader_program(g_line_program);
 #else
 	g_use_program(0);
