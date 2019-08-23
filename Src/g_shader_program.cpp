@@ -240,7 +240,8 @@ out vec4 out_color;
 void main() {
 	int i = int(fract(Input.coord) * 8.0); // stipple is 8-bit
 	int a = (stipple >> i) & 1;
-	out_color = vec4(Input.color.rgb, Input.color.a * float(a));
+	if (a == 0) discard;
+	out_color = vec4(Input.color.rgb, Input.color.a);
 })";
 
 // ----------------------------------------------------------------
