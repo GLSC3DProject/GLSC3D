@@ -64,10 +64,6 @@ G_SCREEN G_SCALE::viewport()
 
 void G_SCALE::select()
 {
-	//int x = (int)(g_screen_scale_factor * screen.x);
-	//int y = glsc3D_height - (int)(g_screen_scale_factor * (screen.height + screen.y));
-	//int w = (int)(g_screen_scale_factor * screen.width);
-	//int h = (int)(g_screen_scale_factor * screen.height);
 	G_SCREEN v = viewport();
 
 	if (g_clipping_enabled) {
