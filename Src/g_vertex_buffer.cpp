@@ -12,11 +12,13 @@ G_PRIMITIVE_MODE g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED;
 
 class G_VERTEX_BUFFER
 {
-	G_VERTEX *data = nullptr;
-	G_UINT size, count = 0;
-	GLuint vertex_array_id = 0, vertex_buffer_id = 0;
-	GLuint shader_program = 0;
 	G_PRIMITIVE_MODE primitive_mode;
+	G_UINT size;
+	G_VERTEX *data = nullptr;
+	G_UINT count = 0;
+	GLuint vertex_array_id = 0;
+	GLuint vertex_buffer_id = 0;
+	GLuint shader_program = 0;
 
 public:
 	G_VERTEX_BUFFER(G_PRIMITIVE_MODE primitive_mode, G_UINT size) : primitive_mode(primitive_mode), size(size) {}
