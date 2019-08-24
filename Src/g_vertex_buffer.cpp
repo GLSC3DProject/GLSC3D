@@ -269,6 +269,11 @@ void g_prepare_triangles()
 
 void g_set_primitive_mode(G_PRIMITIVE_MODE mode)
 {
+	if (g_current_scale_ptr == nullptr) {
+		printf("Call g_sel_scale before drawing\n");
+		g_quit();
+	}
+
 	if (g_primitive_mode == mode) return;
 
 #ifdef G_USE_CORE_PROFILE

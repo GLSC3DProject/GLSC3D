@@ -191,7 +191,8 @@ static void g_text_render(double x, double y, const char *str)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 #endif
 
-	g_current_scale_ptr->select();
+	if (g_current_scale_ptr != nullptr)
+		g_current_scale_ptr->select();
 }
 
 void g_text_standard_v(double x, double y, const char *format, va_list args)
@@ -204,6 +205,11 @@ void g_text_standard_v(double x, double y, const char *format, va_list args)
 
 void g_text_3D_virtual_v(double x, double y, double z, const char *format, va_list args)
 {
+	if (g_current_scale_ptr == nullptr) {
+		printf("Call g_sel_scale before g_text_2D_virtual/g_text_3D_virtual\n");
+		g_quit();
+	}
+
 	G_SCALE& scale = *g_current_scale_ptr;
 
 	G_VECTOR4 p = G_VECTOR4(x, y, z, 1) * scale.camera.view * scale.camera.proj;

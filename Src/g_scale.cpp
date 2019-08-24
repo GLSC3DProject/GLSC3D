@@ -233,6 +233,11 @@ void g_sel_scale(int id)
 
 void g_boundary(void)
 {
+	if (g_current_scale_ptr == nullptr) {
+		printf("Call g_sel_scale before g_boundary\n");
+		g_quit();
+	}
+
 	g_vertex_buffer_flush();
 
 	glViewport(0, 0, glsc3D_width, glsc3D_height);
@@ -261,6 +266,11 @@ void g_boundary(void)
 
 void g_clipping(G_BOOL value)
 {
+	if (g_current_scale_ptr == nullptr) {
+		printf("Call g_sel_scale before g_clipping\n");
+		g_quit();
+	}
+
 	g_clipping_enabled = value;
 	g_current_scale_ptr->select();
 }
