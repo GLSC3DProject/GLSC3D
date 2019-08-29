@@ -10,13 +10,6 @@ G_PRIMITIVE_MODE g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED;
 #define BUFFER_OFFSET_COLOR  ((void *)(sizeof(float) * 4))
 #define BUFFER_OFFSET_NORMAL ((void *)(sizeof(float) * 8))
 
-// actual depth value is given by (1.f - (float)g_current_2d_depth / G_2D_DEPTH_DIVISOR)
-// must be greater than or equal to (3 << 14), (the number of buffers) * (the number of primitives per buffer)
-// must be less than or equal to (1 << 24), the depth buffer is 24bit
-#define G_2D_DEPTH_DIVISOR (1 << 16)
-
-G_UINT g_current_2d_depth;
-
 class G_VERTEX_BUFFER
 {
 	G_PRIMITIVE_MODE primitive_mode;
@@ -55,6 +48,7 @@ public:
 	void set_shader_program(GLuint program) { shader_program = program; }
 
 	bool is_empty() { return count == 0; }
+	bool is_full() { return count == size; }
 
 	void append(const G_VERTEX &vertex)
 	{
@@ -62,9 +56,6 @@ public:
 
 		data[count] = vertex;
 		count++;
-
-		if (count == size)
-			flush();
 	}
 
 	void flush()
@@ -92,8 +83,6 @@ public:
 		glDrawArrays(opengl_primitive_modes[(int)primitive_mode], 0, count);
 
 		count = 0;
-
-		g_current_2d_depth = 0;
 	}
 };
 
@@ -103,6 +92,13 @@ G_VERTEX_BUFFER g_vertex_buffer_points(G_PRIMITIVE_MODE::POINT, 1 << 14);
 G_VERTEX_BUFFER g_vertex_buffer_lines(G_PRIMITIVE_MODE::LINE, 2 << 14);
 G_VERTEX_BUFFER g_vertex_buffer_triangles(G_PRIMITIVE_MODE::TRIANGLE, 3 << 14);
 
+// actual depth value is given by (1.f - (float)g_current_2d_depth / G_2D_DEPTH_DIVISOR)
+// must be greater than or equal to (3 << 14), (the number of buffers) * (the number of primitives per buffer)
+// must be less than or equal to (1 << 24), the depth buffer is 24bit
+#define G_2D_DEPTH_DIVISOR (1 << 16)
+
+G_UINT g_current_2d_depth;
+
 #endif
 
 // for 3D triangle
@@ -111,6 +107,8 @@ void g_vertex_buffer_append(const G_VERTEX &vertex)
 #ifdef G_USE_CORE_PROFILE
 	//assert(g_primitive_mode == G_PRIMITIVE_MODE::TRIANGLE);
 	g_vertex_buffer_triangles.append(vertex);
+	if (g_vertex_buffer_triangles.is_full())
+		g_vertex_buffer_flush();
 #else
 	glColor4fv((float *)&vertex.color);
 	glNormal3fv((float *)&vertex.normal);
@@ -136,16 +134,22 @@ void g_emit_vertex(const G_VECTOR &position)
 		vertex.size = g_current_marker_size;
 		vertex.color = g_current_marker_color;
 		g_vertex_buffer_points.append(vertex);
+		if (g_vertex_buffer_points.is_full())
+			g_vertex_buffer_flush();
 		break;
 	case G_PRIMITIVE_MODE::LINE:
 		vertex.size = g_current_line_size;
 		vertex.color = g_current_line_color;
 		g_vertex_buffer_lines.append(vertex);
+		if (g_vertex_buffer_lines.is_full())
+			g_vertex_buffer_flush();
 		break;
 	case G_PRIMITIVE_MODE::TRIANGLE:
 		vertex.size = 1;
 		vertex.color = g_current_area_color;
 		g_vertex_buffer_triangles.append(vertex);
+		if (g_vertex_buffer_triangles.is_full())
+			g_vertex_buffer_flush();
 		break;
 	}
 #else
