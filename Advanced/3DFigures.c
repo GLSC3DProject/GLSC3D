@@ -1,4 +1,5 @@
 #include "glsc3d_3.h"
+#include <stdlib.h>
 
 #define WIRE G_YES
 #define FILL G_YES
@@ -27,8 +28,8 @@ int main(void) {
 	double a = 4 * sqrt(2);
 
 	int id = 0;
-	for (int i = 0; i < CountX; i++)
-	for (int j = 0; j < CountY; j++) {
+	for (int j = 0; j < CountY; j++)
+	for (int i = 0; i < CountX; i++) {
 //		g_def_scale_3D_core_legacy(id++, -1, 1, -1, 1, -1, 1, Size * i, Size * j, Size, Size, 0, 1, 1, 8, 0, 0, 1);
 		g_def_scale_3D(id, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, Size * i, Size * j, Size, Size);
 		g_vision(id++, 0, a, a, 0, 0, 1, 1);
@@ -77,7 +78,27 @@ int main(void) {
 		g_sel_scale(9);
 		g_fan_3D_core(0, 0, 0, c, s, 0, 1, 2.0, 0, 16, 0, WIRE, FILL);
 
+		/*
+		g_sel_scale(10);
+		{
+			int Imax = 1 << 16;
+			for(int i = 0;i < Imax;i ++)
+			{
+				double x = 0;
+				double y = 0;
+				double z = 0;
+				double dx = 2.0 * (rand() / (RAND_MAX + 1.0) - 0.5);
+				double dy = 2.0 * (rand() / (RAND_MAX + 1.0) - 0.5);
+				double dz = 2.0 * (rand() / (RAND_MAX + 1.0) - 0.5);
+
+				double arrow_size = 1;
+				double head_size = 0.5;
+				g_arrow_3D(x,y,z,dx,dy,dz,arrow_size,head_size,0,FILL);
+			}
+
+		}
+		 */
 		g_finish();
-	}
-	return 0;
+}
+return 0;
 }
