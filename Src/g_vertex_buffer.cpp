@@ -3,7 +3,7 @@
 static const G_VECTOR g_vector_zero(0, 0, 0);
 
 enum struct G_PRIMITIVE_MODE { POINT, LINE, TRIANGLE };
-G_PRIMITIVE_MODE g_primitive_mode = G_PRIMITIVE_MODE::POINT;
+G_PRIMITIVE_MODE g_primitive_mode = (G_PRIMITIVE_MODE)(-1); // initialize by "UNDEFINED" value
 
 #ifdef G_USE_CORE_PROFILE
 
