@@ -28,7 +28,6 @@ Sample_g_line の実行結果のスクリーンショットを修正する (解�
 ・g_data_plot_2dの右端問題
 ・g_def_are_2Dとg_def_are_3Dはg_def_areaに統一すべき？
 ・g_polygon_2Dで星型
-・p35のyfはzfの間違い
 ・描画エリアと描画枠の言葉の統一
 ・しすいたいなどの絵を載せる．
 ・g_rectangle_3Dをアップデートする．
