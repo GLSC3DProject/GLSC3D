@@ -40,13 +40,11 @@ int main()
 			g_area_color_s(color);
 			g_line_color_s(color);
 
-			double x = 0;
-			double y = 0;
 			double dr = 1.0 / Imax;
 			double r = 1 - dr * i;
 			double theta = 5 * 2 * PI * i / Imax;
-			x = r * cos(theta);
-			y = r * sin(theta);
+			double x = r * cos(theta);
+			double y = r * sin(theta);
 			g_circle_2D(x, y, 50 * dr, 0, 1);
 		}
 
