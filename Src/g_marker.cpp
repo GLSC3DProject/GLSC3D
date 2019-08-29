@@ -33,14 +33,22 @@ void g_marker_color(float r, float g, float b, float a)
 
 void g_marker_size(float size)
 {
+	if (g_current_marker_size_type != G_MARKER_SIZE_STANDARD) {
+		g_vertex_buffer_flush();
+		g_current_marker_size_type = G_MARKER_SIZE_STANDARD;
+	}
+
 	g_current_marker_size = size;
-	g_current_marker_size_type = G_MARKER_SIZE_STANDARD;
 }
 
 void g_marker_radius(float size)
 {
+	if (g_current_marker_size_type != G_MARKER_SIZE_VIRTUAL) {
+		g_vertex_buffer_flush();
+		g_current_marker_size_type = G_MARKER_SIZE_VIRTUAL;
+	}
+
 	g_current_marker_size = size;
-	g_current_marker_size_type = G_MARKER_SIZE_VIRTUAL;
 }
 
 void g_marker_type(G_UINT type)
