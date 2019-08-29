@@ -35,6 +35,7 @@ void g_marker_size(float size)
 {
 	if (g_current_marker_size_type != G_MARKER_SIZE_STANDARD) {
 		g_vertex_buffer_flush();
+		g_reset_primitive_mode();
 		g_current_marker_size_type = G_MARKER_SIZE_STANDARD;
 	}
 
@@ -45,6 +46,7 @@ void g_marker_radius(float size)
 {
 	if (g_current_marker_size_type != G_MARKER_SIZE_VIRTUAL) {
 		g_vertex_buffer_flush();
+		g_reset_primitive_mode();
 		g_current_marker_size_type = G_MARKER_SIZE_VIRTUAL;
 	}
 
@@ -60,6 +62,7 @@ void g_marker_type(G_UINT type)
 
 	if (g_current_marker_type != type) {
 		g_vertex_buffer_flush();
+		g_reset_primitive_mode();
 		g_current_marker_type = type;
 	}
 }
