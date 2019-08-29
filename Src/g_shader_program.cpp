@@ -550,8 +550,6 @@ void g_shader_program_init()
 void g_use_program(GLuint program)
 {
 	if (g_current_program != program) {
-		//g_vertex_buffer_flush();
-
 		glUseProgram(program);
 		g_current_program = program;
 	}

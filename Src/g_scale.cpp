@@ -223,6 +223,7 @@ void g_sel_scale(int id)
 {
 	g_triangle_buffer_flush();
 	g_vertex_buffer_flush();
+	g_reset_primitive_mode();
 
 	g_clipping_enabled = G_YES;
 

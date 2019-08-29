@@ -2,8 +2,8 @@
 
 static const G_VECTOR g_vector_zero(0, 0, 0);
 
-enum struct G_PRIMITIVE_MODE { POINT, LINE, TRIANGLE };
-G_PRIMITIVE_MODE g_primitive_mode = (G_PRIMITIVE_MODE)(-1); // initialize by "UNDEFINED" value
+enum struct G_PRIMITIVE_MODE { POINT, LINE, TRIANGLE, UNDEFINED = -1 };
+G_PRIMITIVE_MODE g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED; // initialize by "UNDEFINED" value
 
 #ifdef G_USE_CORE_PROFILE
 
@@ -98,10 +98,6 @@ G_VERTEX_BUFFER g_vertex_buffer_triangles(G_PRIMITIVE_MODE::TRIANGLE, 3 << 14);
 #define G_2D_DEPTH_DIVISOR (1 << 16)
 
 G_UINT g_current_2d_depth;
-
-#else
-
-bool g_inside_glbegin;
 
 #endif
 
@@ -217,11 +213,16 @@ void g_vertex_buffer_flush()
 		glDisable(GL_SCISSOR_TEST);
 	}
 #else
-	if (g_inside_glbegin) {
+	if (g_primitive_mode != G_PRIMITIVE_MODE::UNDEFINED) {
 		glEnd();
-		g_inside_glbegin = false;
+		g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED;
 	}
 #endif
+}
+
+void g_reset_primitive_mode(void)
+{
+	g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED;
 }
 
 void g_prepare_points()
@@ -278,9 +279,9 @@ void g_set_primitive_mode(G_PRIMITIVE_MODE mode)
 		g_quit();
 	}
 
-#ifdef G_USE_CORE_PROFILE
 	if (g_primitive_mode == mode) return;
 
+#ifdef G_USE_CORE_PROFILE
 	switch (mode) {
 	case G_PRIMITIVE_MODE::POINT:
 		g_prepare_points();
@@ -293,8 +294,6 @@ void g_set_primitive_mode(G_PRIMITIVE_MODE mode)
 		break;
 	}
 #else
-	if (g_inside_glbegin && g_primitive_mode == mode) return;
-
 	g_vertex_buffer_flush();
 	switch (mode) {
 	case G_PRIMITIVE_MODE::POINT:

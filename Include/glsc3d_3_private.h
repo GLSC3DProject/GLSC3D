@@ -289,6 +289,7 @@ void g_emit_line(G_VECTOR p, G_VECTOR q);
 void g_emit_triangle(G_VECTOR p, G_VECTOR q, G_VECTOR r);
 
 void g_vertex_buffer_flush(void);
+void g_reset_primitive_mode(void);
 
 void g_begin_points(void);
 void g_begin_lines(void);
