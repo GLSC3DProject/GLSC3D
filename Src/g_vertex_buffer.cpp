@@ -2,8 +2,8 @@
 
 static const G_VECTOR g_vector_zero(0, 0, 0);
 
-enum struct G_PRIMITIVE_MODE { POINT, LINE, TRIANGLE, UNDEFINED = -1 };
-G_PRIMITIVE_MODE g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED;
+enum struct G_PRIMITIVE_MODE { POINT, LINE, TRIANGLE };
+G_PRIMITIVE_MODE g_primitive_mode = G_PRIMITIVE_MODE::POINT;
 
 #ifdef G_USE_CORE_PROFILE
 
@@ -48,7 +48,6 @@ public:
 	void set_shader_program(GLuint program) { shader_program = program; }
 
 	bool is_empty() { return count == 0; }
-	bool is_full() { return count == size; }
 
 	void append(const G_VERTEX &vertex)
 	{
@@ -56,13 +55,14 @@ public:
 
 		data[count] = vertex;
 		count++;
+
+		if (count == size)
+			g_vertex_buffer_flush();
 	}
 
 	void flush()
 	{
 		if (count == 0) return;
-
-		assert(g_primitive_mode != G_PRIMITIVE_MODE::UNDEFINED);
 
 		g_use_program(shader_program);
 
@@ -99,6 +99,10 @@ G_VERTEX_BUFFER g_vertex_buffer_triangles(G_PRIMITIVE_MODE::TRIANGLE, 3 << 14);
 
 G_UINT g_current_2d_depth;
 
+#else
+
+bool g_inside_glbegin;
+
 #endif
 
 // for 3D triangle
@@ -107,8 +111,6 @@ void g_vertex_buffer_append(const G_VERTEX &vertex)
 #ifdef G_USE_CORE_PROFILE
 	//assert(g_primitive_mode == G_PRIMITIVE_MODE::TRIANGLE);
 	g_vertex_buffer_triangles.append(vertex);
-	if (g_vertex_buffer_triangles.is_full())
-		g_vertex_buffer_flush();
 #else
 	glColor4fv((float *)&vertex.color);
 	glNormal3fv((float *)&vertex.normal);
@@ -134,22 +136,16 @@ void g_emit_vertex(const G_VECTOR &position)
 		vertex.size = g_current_marker_size;
 		vertex.color = g_current_marker_color;
 		g_vertex_buffer_points.append(vertex);
-		if (g_vertex_buffer_points.is_full())
-			g_vertex_buffer_flush();
 		break;
 	case G_PRIMITIVE_MODE::LINE:
 		vertex.size = g_current_line_size;
 		vertex.color = g_current_line_color;
 		g_vertex_buffer_lines.append(vertex);
-		if (g_vertex_buffer_lines.is_full())
-			g_vertex_buffer_flush();
 		break;
 	case G_PRIMITIVE_MODE::TRIANGLE:
 		vertex.size = 1;
 		vertex.color = g_current_area_color;
 		g_vertex_buffer_triangles.append(vertex);
-		if (g_vertex_buffer_triangles.is_full())
-			g_vertex_buffer_flush();
 		break;
 	}
 #else
@@ -221,11 +217,11 @@ void g_vertex_buffer_flush()
 		glDisable(GL_SCISSOR_TEST);
 	}
 #else
-	if (g_primitive_mode != G_PRIMITIVE_MODE::UNDEFINED) {
+	if (g_inside_glbegin) {
 		glEnd();
+		g_inside_glbegin = false;
 	}
 #endif
-	g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED;
 }
 
 void g_prepare_points()
@@ -282,9 +278,9 @@ void g_set_primitive_mode(G_PRIMITIVE_MODE mode)
 		g_quit();
 	}
 
+#ifdef G_USE_CORE_PROFILE
 	if (g_primitive_mode == mode) return;
 
-#ifdef G_USE_CORE_PROFILE
 	switch (mode) {
 	case G_PRIMITIVE_MODE::POINT:
 		g_prepare_points();
@@ -297,6 +293,8 @@ void g_set_primitive_mode(G_PRIMITIVE_MODE mode)
 		break;
 	}
 #else
+	if (g_inside_glbegin && g_primitive_mode == mode) return;
+
 	g_vertex_buffer_flush();
 	switch (mode) {
 	case G_PRIMITIVE_MODE::POINT:
