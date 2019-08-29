@@ -10,6 +10,13 @@ G_PRIMITIVE_MODE g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED;
 #define BUFFER_OFFSET_COLOR  ((void *)(sizeof(float) * 4))
 #define BUFFER_OFFSET_NORMAL ((void *)(sizeof(float) * 8))
 
+// actual depth value is given by (1.f - (float)g_current_2d_depth / G_2D_DEPTH_DIVISOR)
+// must be greater than or equal to (3 << 14), (the number of buffers) * (the number of primitives per buffer)
+// must be less than or equal to (1 << 24), the depth buffer is 24bit
+#define G_2D_DEPTH_DIVISOR (1 << 16)
+
+G_UINT g_current_2d_depth;
+
 class G_VERTEX_BUFFER
 {
 	G_PRIMITIVE_MODE primitive_mode;
@@ -85,6 +92,8 @@ public:
 		glDrawArrays(opengl_primitive_modes[(int)primitive_mode], 0, count);
 
 		count = 0;
+
+		g_current_2d_depth = 0;
 	}
 };
 
@@ -93,13 +102,6 @@ public:
 G_VERTEX_BUFFER g_vertex_buffer_points(G_PRIMITIVE_MODE::POINT, 1 << 14);
 G_VERTEX_BUFFER g_vertex_buffer_lines(G_PRIMITIVE_MODE::LINE, 2 << 14);
 G_VERTEX_BUFFER g_vertex_buffer_triangles(G_PRIMITIVE_MODE::TRIANGLE, 3 << 14);
-
-// actual depth value is given by (1.f - (float)g_current_2d_depth / G_2D_DEPTH_DIVISOR)
-// must be greater than or equal to (3 << 14), (the number of buffers) * (the number of primitives per buffer)
-// must be less than or equal to (1 << 24), the depth buffer is 24bit
-#define G_2D_DEPTH_DIVISOR (1 << 16)
-
-G_UINT g_current_2d_depth;
 
 #endif
 
