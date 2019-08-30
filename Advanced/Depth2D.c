@@ -4,13 +4,13 @@
 int main() {
 	const int Width = 1000, Height = 1000;
 	g_enable_highdpi();
-	g_set_antialiasing(2);
+	g_set_antialiasing(4);
 //	g_init("GLSC3D", Width, Height);
 	g_init_core("GLSC3D",Width,Height,0,0,
 		0,0,0,
 		1,
 		1 << 22,
-		1 << 24);
+		1 << 26);
 
 	g_line_width(2);
 
@@ -34,7 +34,7 @@ int main() {
 		g_boundary();
 
 		srand(0);
-		int Imax = 1 << 6;
+		int Imax = 1 << 4;
 		for(int i = 0;i < Imax;i ++)
 		{
 
@@ -44,6 +44,8 @@ int main() {
 //			G_VECTOR c = {0.5 *sqrt(2) * cos(theta + PI / 4),0.5 *sqrt(2) * sin(theta+ PI / 4),0};
 
 			G_COLOR color;
+
+			srand(0);
 
 			color.r = rand() / (RAND_MAX + 1.0);
 			color.g = rand() / (RAND_MAX + 1.0);
@@ -57,8 +59,8 @@ int main() {
 			//g_triangle_3D_core_s(a,b,c,4,1,1);
 			g_sphere_3D_core(0,0,0,
 				1,
+				25,
 				2,
-				0,
 				1,1);
 
 //			color.r = rand() / (RAND_MAX + 1.0);

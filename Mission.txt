@@ -1,3 +1,34 @@
+----------------------------------------------------
+2019.0830
+
+GLSC3D 開発者用ドキュメント (GLSC3D 3.0.1 時点)
+
+OpenGL 3.1以降，Vertex Buffer と Programmable Shader の使用が必須となった．
+
+Vertex Buffer は CPU 上の配列データを GPU に転送して描画に使用するためのものである．ソースファイル g_vertex_buffer.cpp は，Vertex Buffer の機能を提供するためのものである．
+
+列挙型 G_PRIMITIVE_MODE は，点（マーカー），線，三角形，または “未定義” のどれかを表す．
+g_begin_points, g_begin_lines, g_begin_triangles 関数が glBegin 関数のように使用できるようにしている．これらは g_set_primitive_mode 関数を呼んでいる．
+glVertex 関数に対応するのは，g_vertex_buffer_append 関数 (3D三角形の時), またはg_emit_point, g_emit_line, g_emit_triangle 関数(それ以外の時)である．
+glEnd 関数に対応する g_end 関数はない．描画命令は必要に応じて g_vertex_buffer_flush 関数により発行される(後述)．
+グローバル変数 g_primitive_mode は，現在の描画モードを保存している．これは最初に “未定義” で初期化され，g_set_primitive_mode 関数で変更される．これは関数 g_prepare_[points, lines, triangles] を呼び出して，マーカーの種類やサイズの座標系，2Dか3Dかに基づいてシェーダーの設定をするが，効率化のため g_primitive_mode に変化がないときは処理をスキップするため，必要に応じて g_reset_primitive_mode 関数で g_primitive_mode を “未定義” に戻す．
+
+GLSC3D 3.0.1 では，マーカーと線と三角形の描画が混ざった場合の高速化のため，別々の配列に保存するようにしている．
+
+描画命令は次の関数が呼ばれた場合に g_vertex_buffer_flush 関数により発行される．
+・g_sel_scale
+・g_boundary
+・g_finish
+・g_text_standard
+・g_text_2D_virtual
+・g_text_3D_virtual
+・g_marker_type
+・g_line_type
+また，次の場合にも発行される．
+・マーカーの大きさの座標系が変更されたとき (g_marker_size/g_marker_radius)
+・点，線，三角形用の配列のどれかが一杯になったとき
+----------------------------------------------------
+
 g_cylinder関数の挙動を確認する．(解決)
 g_box_2Dとg_box_3Dを旧仕様も提供する．(解決)
 2Dにおいて，点・線・面などの描画命令は逐次実行するようにする．(解決)
@@ -41,4 +72,3 @@ GLSC3Dに関する覚書：重要な案件は
 3. g_ellipse, g_cuboid（新関数）における向きの指定法（SO(3) の元の表現）
 4. 2次元オブジェクトを3次元空間に置く時の向きの指定法
 
-．
