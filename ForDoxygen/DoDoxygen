@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rm -rf glsc3d_doxygen && doxygen ./Doxyfile && open glsc3d_doxygen/html/index.html
