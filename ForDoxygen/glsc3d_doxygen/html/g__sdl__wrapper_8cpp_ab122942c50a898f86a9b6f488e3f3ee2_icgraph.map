@@ -1,7 +1,6 @@
 <map id="g_update_drawable_size" name="g_update_drawable_size">
-<area shape="rect" id="node1" title=" " alt="" coords="435,31,605,57"/>
-<area shape="rect" id="node2" href="$g__sdl__wrapper_8cpp.html#aa673f4b64a24d4a0a0d755154856a290" title=" " alt="" coords="275,31,387,57"/>
-<area shape="rect" id="node3" href="$g__sdl__wrapper_8cpp.html#ae75d2f4a11bb1fa92b4b16f75a233f7d" title=" " alt="" coords="123,5,227,32"/>
-<area shape="rect" id="node5" href="$g__sdl__wrapper_8cpp.html#ac6b054c51006e3bddcc9ed8aa0510a3b" title=" " alt="" coords="5,56,75,83"/>
-<area shape="rect" id="node4" href="$g__cls__finish_8c.html#a41a99943725c0e6792484d4905039087" title=" " alt="" coords="6,5,74,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="317,31,488,57"/>
+<area shape="rect" id="node2" href="$g__sdl__wrapper_8cpp.html#aa673f4b64a24d4a0a0d755154856a290" title=" " alt="" coords="157,31,269,57"/>
+<area shape="rect" id="node3" href="$glsc3d__3__private_8h.html#a18458ad82b46df704da3d37e0b0f8693" title=" " alt="" coords="5,5,109,32"/>
+<area shape="rect" id="node4" href="$glsc3d__3_8h.html#ac6b054c51006e3bddcc9ed8aa0510a3b" title=" " alt="" coords="23,56,92,83"/>
 </map>

@@ -1,6 +1,5 @@
 <map id="g_triangle_merge" name="g_triangle_merge">
-<area shape="rect" id="node1" title=" " alt="" coords="543,5,668,32"/>
-<area shape="rect" id="node2" href="$g__triangle__buffer_8cpp.html#ab209f97c27ac25277ac028a07dee2966" title=" " alt="" coords="328,5,495,32"/>
-<area shape="rect" id="node3" href="$g__triangle__buffer_8cpp.html#af936f51a857745fe74dacd512da9ddfb" title=" " alt="" coords="121,5,280,32"/>
-<area shape="rect" id="node4" href="$g__cls__finish_8c.html#a41a99943725c0e6792484d4905039087" title=" " alt="" coords="5,5,73,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="427,5,552,32"/>
+<area shape="rect" id="node2" href="$g__triangle__buffer_8cpp.html#ab209f97c27ac25277ac028a07dee2966" title=" " alt="" coords="212,5,379,32"/>
+<area shape="rect" id="node3" href="$glsc3d__3__private_8h.html#af936f51a857745fe74dacd512da9ddfb" title=" " alt="" coords="5,5,164,32"/>
 </map>

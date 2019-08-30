@@ -1,8 +1,4 @@
 <map id="g_make_screen" name="g_make_screen">
-<area shape="rect" id="node1" title=" " alt="" coords="525,31,643,57"/>
-<area shape="rect" id="node2" href="$g__scale_8cpp.html#af53809d9fa8c0350594eea6f8e105f00" title=" " alt="" coords="359,5,477,32"/>
-<area shape="rect" id="node3" href="$g__scale_8cpp.html#a8f1a46886962923a0012022a5efe9c45" title=" " alt="" coords="366,56,470,83"/>
-<area shape="rect" id="node4" href="$g__scale_8cpp.html#ae3006446c961fcddfcda66382d38214b" title=" " alt="" coords="192,31,311,57"/>
-<area shape="rect" id="node6" href="$g__scale_8cpp.html#a55fa01e6a7cd1f24b088ed338dc9c65a" title=" " alt="" coords="216,81,287,108"/>
-<area shape="rect" id="node5" href="$g__scale_8cpp.html#a88a9a085ac54a6725c7633c0bd24d66e" title=" " alt="" coords="5,31,144,57"/>
+<area shape="rect" id="node1" title=" " alt="" coords="172,5,289,32"/>
+<area shape="rect" id="node2" href="$glsc3d__3_8h.html#af53809d9fa8c0350594eea6f8e105f00" title=" " alt="" coords="5,5,124,32"/>
 </map>

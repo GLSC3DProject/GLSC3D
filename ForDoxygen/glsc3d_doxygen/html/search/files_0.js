@@ -33,5 +33,8 @@ var searchData=
   ['g_5ftext_2ecpp',['g_text.cpp',['../g__text_8cpp.html',1,'']]],
   ['g_5ftriangle_2ecpp',['g_triangle.cpp',['../g__triangle_8cpp.html',1,'']]],
   ['g_5ftriangle_5fbuffer_2ecpp',['g_triangle_buffer.cpp',['../g__triangle__buffer_8cpp.html',1,'']]],
-  ['g_5fvertex_5fbuffer_2ecpp',['g_vertex_buffer.cpp',['../g__vertex__buffer_8cpp.html',1,'']]]
+  ['g_5fvertex_5fbuffer_2ecpp',['g_vertex_buffer.cpp',['../g__vertex__buffer_8cpp.html',1,'']]],
+  ['glsc3d_5f3_2eh',['glsc3d_3.h',['../glsc3d__3_8h.html',1,'']]],
+  ['glsc3d_5f3_5fmath_2eh',['glsc3d_3_math.h',['../glsc3d__3__math_8h.html',1,'']]],
+  ['glsc3d_5f3_5fprivate_2eh',['glsc3d_3_private.h',['../glsc3d__3__private_8h.html',1,'']]]
 ];

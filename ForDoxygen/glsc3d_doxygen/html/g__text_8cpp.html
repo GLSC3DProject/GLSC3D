@@ -74,18 +74,26 @@ $(function() {
 <div class="title">g_text.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;glsc3d_3_private.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="glsc3d__3__private_8h_source.html">glsc3d_3_private.h</a>&quot;</code><br />
 <code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;ft2build.h&gt;</code><br />
+<code>#include &lt;FT_FREETYPE_H&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for g_text.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="g__text_8cpp__incl.png" border="0" usemap="#_2_users_2masakazu_2_desktop_2_g_l_s_c3_d__20180829_2_g_l_s_c3_d_2_src_2g__text_8cpp" alt=""/></div>
 <map name="_2_users_2masakazu_2_desktop_2_g_l_s_c3_d__20180829_2_g_l_s_c3_d_2_src_2g__text_8cpp" id="_2_users_2masakazu_2_desktop_2_g_l_s_c3_d__20180829_2_g_l_s_c3_d_2_src_2g__text_8cpp">
-<area shape="rect"  title=" " alt="" coords="97,5,300,61"/>
-<area shape="rect"  title=" " alt="" coords="5,109,139,136"/>
-<area shape="rect"  title=" " alt="" coords="163,109,234,136"/>
-<area shape="rect"  title=" " alt="" coords="258,109,334,136"/>
+<area shape="rect"  title=" " alt="" coords="287,5,490,61"/>
+<area shape="rect"  href="glsc3d__3__private_8h.html" title=" " alt="" coords="147,109,281,136"/>
+<area shape="rect"  title=" " alt="" coords="305,109,376,136"/>
+<area shape="rect"  title=" " alt="" coords="400,109,476,136"/>
+<area shape="rect"  title=" " alt="" coords="501,109,634,136"/>
+<area shape="rect"  href="glsc3d__3_8h.html" title=" " alt="" coords="24,184,111,211"/>
+<area shape="rect"  title=" " alt="" coords="135,184,205,211"/>
+<area shape="rect"  title=" " alt="" coords="229,184,290,211"/>
+<area shape="rect"  title=" " alt="" coords="314,184,378,211"/>
+<area shape="rect"  href="glsc3d__3__math_8h.html" title=" " alt="" coords="5,259,129,285"/>
+<area shape="rect"  title=" " alt="" coords="36,333,99,360"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -113,7 +121,7 @@ Functions</h2></td></tr>
 <tr class="separator:ac8996eaadf6251284f9f7379c7c1226b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89cefdeaad281d5d4db16d3ad79ecbb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a89cefdeaad281d5d4db16d3ad79ecbb1">g_text_2D_virtual</a> (double <a class="el" href="g__input_8c.html#a6150e0515f7202e2fb518f7206ed97dc">x</a>, double <a class="el" href="g__input_8c.html#a0a2f84ed7838f07779ae24c5a9086d33">y</a>, const char *format,...)</td></tr>
 <tr class="separator:a89cefdeaad281d5d4db16d3ad79ecbb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0df4222890b697bcb090074411f72681"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a0df4222890b697bcb090074411f72681">g_text_color_s</a> (G_COLOR color)</td></tr>
+<tr class="memitem:a0df4222890b697bcb090074411f72681"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a0df4222890b697bcb090074411f72681">g_text_color_s</a> (<a class="el" href="struct_g___c_o_l_o_r.html">G_COLOR</a> color)</td></tr>
 <tr class="separator:a0df4222890b697bcb090074411f72681"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f2950c3449eb5489daa092234041b08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a8f2950c3449eb5489daa092234041b08">g_text_color</a> (float r, float g, float b, float a)</td></tr>
 <tr class="separator:a8f2950c3449eb5489daa092234041b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,11 +142,11 @@ Variables</h2></td></tr>
 <tr class="separator:a35acdf607faa1c1ab29180a3f0b97f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11b70ed04cf65ef496570f2bb0a14033"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a11b70ed04cf65ef496570f2bb0a14033">g_quad_vbo</a></td></tr>
 <tr class="separator:a11b70ed04cf65ef496570f2bb0a14033"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a266be931e1ff4885430eaa952c66a519"><td class="memItemLeft" align="right" valign="top">G_COLOR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a266be931e1ff4885430eaa952c66a519">g_current_text_color</a></td></tr>
+<tr class="memitem:a266be931e1ff4885430eaa952c66a519"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_g___c_o_l_o_r.html">G_COLOR</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a266be931e1ff4885430eaa952c66a519">g_current_text_color</a></td></tr>
 <tr class="separator:a266be931e1ff4885430eaa952c66a519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8835896e387c54ae97720c7f7d2f4be4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a8835896e387c54ae97720c7f7d2f4be4">g_current_text_size</a> = 0</td></tr>
 <tr class="separator:a8835896e387c54ae97720c7f7d2f4be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06023a40f8f169b7c58ca97448666a88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_g___t_e_x_t___a_p_p_e_a_r_a_n_c_e.html">G_TEXT_APPEARANCE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a06023a40f8f169b7c58ca97448666a88">glsc3D_g_def_text</a> [TotalDisplayNumber]</td></tr>
+<tr class="memitem:a06023a40f8f169b7c58ca97448666a88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_g___t_e_x_t___a_p_p_e_a_r_a_n_c_e.html">G_TEXT_APPEARANCE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__text_8cpp.html#a06023a40f8f169b7c58ca97448666a88">glsc3D_g_def_text</a> [<a class="el" href="glsc3d__3__private_8h.html#ad4ff72f9c9079f0fc1cd6405c0875f97">TotalDisplayNumber</a>]</td></tr>
 <tr class="separator:a06023a40f8f169b7c58ca97448666a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -273,15 +281,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="g__text_8cpp_a571a2e93b0927604b7e4ead655fa6c33_icgraph.png" border="0" usemap="#g__text_8cpp_a571a2e93b0927604b7e4ead655fa6c33_icgraph" alt=""/></div>
-<map name="g__text_8cpp_a571a2e93b0927604b7e4ead655fa6c33_icgraph" id="g__text_8cpp_a571a2e93b0927604b7e4ead655fa6c33_icgraph">
-<area shape="rect"  title=" " alt="" coords="137,5,255,32"/>
-<area shape="rect"  href="g__text_8cpp.html#a98cdf7c950999c276340c74b15306db3" title=" " alt="" coords="5,5,89,32"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -482,8 +481,8 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="g__text_8cpp_af21010cab72754c4365c9e207a839f59_icgraph.png" border="0" usemap="#g__text_8cpp_af21010cab72754c4365c9e207a839f59_icgraph" alt=""/></div>
 <map name="g__text_8cpp_af21010cab72754c4365c9e207a839f59_icgraph" id="g__text_8cpp_af21010cab72754c4365c9e207a839f59_icgraph">
 <area shape="rect"  title=" " alt="" coords="179,31,319,57"/>
-<area shape="rect"  href="g__text_8cpp.html#ac8996eaadf6251284f9f7379c7c1226b" title=" " alt="" coords="5,5,131,32"/>
-<area shape="rect"  href="g__text_8cpp.html#a89cefdeaad281d5d4db16d3ad79ecbb1" title=" " alt="" coords="5,56,131,83"/>
+<area shape="rect"  href="glsc3d__3_8h.html#ac8996eaadf6251284f9f7379c7c1226b" title=" " alt="" coords="5,5,131,32"/>
+<area shape="rect"  href="glsc3d__3_8h.html#a89cefdeaad281d5d4db16d3ad79ecbb1" title=" " alt="" coords="5,56,131,83"/>
 </map>
 </div>
 
@@ -538,22 +537,12 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void g_text_color_s </td>
           <td>(</td>
-          <td class="paramtype">G_COLOR&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_g___c_o_l_o_r.html">G_COLOR</a>&#160;</td>
           <td class="paramname"><em>color</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="g__text_8cpp_a0df4222890b697bcb090074411f72681_icgraph.png" border="0" usemap="#g__text_8cpp_a0df4222890b697bcb090074411f72681_icgraph" alt=""/></div>
-<map name="g__text_8cpp_a0df4222890b697bcb090074411f72681_icgraph" id="g__text_8cpp_a0df4222890b697bcb090074411f72681_icgraph">
-<area shape="rect"  title=" " alt="" coords="364,13,473,39"/>
-<area shape="rect"  href="struct_g___t_e_x_t___a_p_p_e_a_r_a_n_c_e.html#a3816cc7bdb0d3cfd5083e0cce7e4d548" title=" " alt="" coords="136,5,316,47"/>
-<area shape="rect"  href="g__text_8cpp.html#a50adddd27e2e874b9319808b727cc4a9" title=" " alt="" coords="5,13,88,39"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -572,16 +561,6 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="g__text_8cpp_a13f3018f73073985168a7a85ab169155_icgraph.png" border="0" usemap="#g__text_8cpp_a13f3018f73073985168a7a85ab169155_icgraph" alt=""/></div>
-<map name="g__text_8cpp_a13f3018f73073985168a7a85ab169155_icgraph" id="g__text_8cpp_a13f3018f73073985168a7a85ab169155_icgraph">
-<area shape="rect"  title=" " alt="" coords="364,13,485,39"/>
-<area shape="rect"  href="struct_g___t_e_x_t___a_p_p_e_a_r_a_n_c_e.html#a3816cc7bdb0d3cfd5083e0cce7e4d548" title=" " alt="" coords="136,5,316,47"/>
-<area shape="rect"  href="g__text_8cpp.html#a50adddd27e2e874b9319808b727cc4a9" title=" " alt="" coords="5,13,88,39"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -617,16 +596,6 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="g__text_8cpp_a577feb865d4c8b675da1acc4bfd2007e_icgraph.png" border="0" usemap="#g__text_8cpp_a577feb865d4c8b675da1acc4bfd2007e_icgraph" alt=""/></div>
-<map name="g__text_8cpp_a577feb865d4c8b675da1acc4bfd2007e_icgraph" id="g__text_8cpp_a577feb865d4c8b675da1acc4bfd2007e_icgraph">
-<area shape="rect"  title=" " alt="" coords="364,13,453,39"/>
-<area shape="rect"  href="struct_g___t_e_x_t___a_p_p_e_a_r_a_n_c_e.html#a3816cc7bdb0d3cfd5083e0cce7e4d548" title=" " alt="" coords="136,5,316,47"/>
-<area shape="rect"  href="g__text_8cpp.html#a50adddd27e2e874b9319808b727cc4a9" title=" " alt="" coords="5,13,88,39"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -723,9 +692,9 @@ Here is the caller graph for this function:</div>
 <map name="g__text_8cpp_a19d47dca7a8295fb7508cfb415ffd8cc_icgraph" id="g__text_8cpp_a19d47dca7a8295fb7508cfb415ffd8cc_icgraph">
 <area shape="rect"  title=" " alt="" coords="367,56,499,83"/>
 <area shape="rect"  href="g__text_8cpp.html#af21010cab72754c4365c9e207a839f59" title=" " alt="" coords="179,31,319,57"/>
-<area shape="rect"  href="g__text_8cpp.html#a83d5021c6161d3b8bfbe1327d8cb523d" title=" " alt="" coords="190,81,307,108"/>
-<area shape="rect"  href="g__text_8cpp.html#ac8996eaadf6251284f9f7379c7c1226b" title=" " alt="" coords="5,5,131,32"/>
-<area shape="rect"  href="g__text_8cpp.html#a89cefdeaad281d5d4db16d3ad79ecbb1" title=" " alt="" coords="5,56,131,83"/>
+<area shape="rect"  href="glsc3d__3_8h.html#a83d5021c6161d3b8bfbe1327d8cb523d" title=" " alt="" coords="190,81,307,108"/>
+<area shape="rect"  href="glsc3d__3_8h.html#ac8996eaadf6251284f9f7379c7c1226b" title=" " alt="" coords="5,5,131,32"/>
+<area shape="rect"  href="glsc3d__3_8h.html#a89cefdeaad281d5d4db16d3ad79ecbb1" title=" " alt="" coords="5,56,131,83"/>
 </map>
 </div>
 
@@ -739,7 +708,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">G_COLOR g_current_text_color</td>
+          <td class="memname"><a class="el" href="struct_g___c_o_l_o_r.html">G_COLOR</a> g_current_text_color</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -795,7 +764,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_g___t_e_x_t___a_p_p_e_a_r_a_n_c_e.html">G_TEXT_APPEARANCE</a> glsc3D_g_def_text[TotalDisplayNumber]</td>
+          <td class="memname"><a class="el" href="struct_g___t_e_x_t___a_p_p_e_a_r_a_n_c_e.html">G_TEXT_APPEARANCE</a> glsc3D_g_def_text[<a class="el" href="glsc3d__3__private_8h.html#ad4ff72f9c9079f0fc1cd6405c0875f97">TotalDisplayNumber</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
