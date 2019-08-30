@@ -92,8 +92,10 @@ Include dependency graph for g_shader_program.cpp:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a1749f0fd7618c290c9a325e8a349a968"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a>&#160;&#160;&#160;&quot;#version 120&quot;</td></tr>
+<tr class="memitem:a1749f0fd7618c290c9a325e8a349a968"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a>&#160;&#160;&#160;&quot;#version 330 core\n&quot;</td></tr>
 <tr class="separator:a1749f0fd7618c290c9a325e8a349a968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57fb867978922fd239c0c7199dc0b3d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a>&#160;&#160;&#160;&quot;uniform Matrices { mat4 proj, view, view_normal; vec2 pixel_scale; float screen_scale; };&quot;</td></tr>
+<tr class="separator:a57fb867978922fd239c0c7199dc0b3d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -111,6 +113,10 @@ Functions</h2></td></tr>
 <tr class="separator:a3474b4c671bb15a60a8de8265d2a46ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa13f686241cbe4110b8b8463dc2bb602"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#aa13f686241cbe4110b8b8463dc2bb602">g_create_program</a> (GLuint vert_shader, GLuint frag_shader)</td></tr>
 <tr class="separator:aa13f686241cbe4110b8b8463dc2bb602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4b384df8a62743e39819ea938c1f9e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ae4b384df8a62743e39819ea938c1f9e9">g_bind_uniform_block</a> (GLuint program, const GLchar *name, GLuint binding)</td></tr>
+<tr class="separator:ae4b384df8a62743e39819ea938c1f9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac013940e5c9a140325c8ed7025977e10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ac013940e5c9a140325c8ed7025977e10">g_update_uniform</a> (GLuint index, GLsizei size, const void *<a class="el" href="g__data__plot_8c.html#aa8c47a7797c1e1d84eeb1dc86cb81e4e">data</a>)</td></tr>
+<tr class="separator:ac013940e5c9a140325c8ed7025977e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8ee8aa7d89bbd6f4bf8ecf76c3e849a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ad8ee8aa7d89bbd6f4bf8ecf76c3e849a">g_shader_program_init</a> ()</td></tr>
 <tr class="separator:ad8ee8aa7d89bbd6f4bf8ecf76c3e849a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5dc4506fce07d03a617cffca76d9859"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#aa5dc4506fce07d03a617cffca76d9859">g_use_program</a> (GLuint program)</td></tr>
@@ -118,6 +124,14 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a594b44f8886635cede7e89eca264824c"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a594b44f8886635cede7e89eca264824c">CONSTANT_VERT_SHADER_SOURCE</a></td></tr>
+<tr class="separator:a594b44f8886635cede7e89eca264824c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c2f9fa920ad2a39e0d203f17918414"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ab5c2f9fa920ad2a39e0d203f17918414">CONSTANT_FRAG_SHADER_SOURCE</a></td></tr>
+<tr class="separator:ab5c2f9fa920ad2a39e0d203f17918414"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3808bde3aa883a5dc2df9a725b58b3f1"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a3808bde3aa883a5dc2df9a725b58b3f1">LIGHTING_VERT_SHADER_SOURCE</a></td></tr>
+<tr class="separator:a3808bde3aa883a5dc2df9a725b58b3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af737f70b46b72e3d908b13d777dbfe24"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#af737f70b46b72e3d908b13d777dbfe24">LIGHTING_FRAG_SHADER_SOURCE</a></td></tr>
+<tr class="separator:af737f70b46b72e3d908b13d777dbfe24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae54121a34c31403c160bcb8ee82d7e02"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ae54121a34c31403c160bcb8ee82d7e02">MARKER_STANDARD_VERT_SHADER_SOURCE</a></td></tr>
 <tr class="separator:ae54121a34c31403c160bcb8ee82d7e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91be0f28f9ad9cfcc4ddaaf015c15bdf"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a91be0f28f9ad9cfcc4ddaaf015c15bdf">MARKER_VIRTUAL_VERT_SHADER_SOURCE</a></td></tr>
@@ -128,6 +142,12 @@ Variables</h2></td></tr>
 <tr class="separator:aa88ee3129ad71d0f2c7b38e0a1831521"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafaba273074b62c08edb846fb19b8d68"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#aafaba273074b62c08edb846fb19b8d68">MARKER_SPHERE_FRAG_SHADER_SOURCE</a></td></tr>
 <tr class="separator:aafaba273074b62c08edb846fb19b8d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9886e21ab826f3010f5f5de821dd06"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a9e9886e21ab826f3010f5f5de821dd06">LINE_VERTEX_SHADER_SOURCE</a></td></tr>
+<tr class="separator:a9e9886e21ab826f3010f5f5de821dd06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae144a01c7abf95953784ef83d1817f8e"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ae144a01c7abf95953784ef83d1817f8e">LINE_GEOMETRY_SHADER_SOURCE</a></td></tr>
+<tr class="separator:ae144a01c7abf95953784ef83d1817f8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad891512f70b2d097fb644e19876abf52"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ad891512f70b2d097fb644e19876abf52">LINE_FRAGMENT_SHADER_SOURCE</a></td></tr>
+<tr class="separator:ad891512f70b2d097fb644e19876abf52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb5541cba01ad26f1b08648fe6f708f3"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#afb5541cba01ad26f1b08648fe6f708f3">TEXTURE_VERT_SHADER_SOURCE</a></td></tr>
 <tr class="separator:afb5541cba01ad26f1b08648fe6f708f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9f22dd660219bfbb4a68cadce366873"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ad9f22dd660219bfbb4a68cadce366873">TEXTURE_FRAG_SHADER_SOURCE</a></td></tr>
@@ -142,10 +162,18 @@ Variables</h2></td></tr>
 <tr class="separator:a16619c4446bc5d89adb36d38672a98fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bbef076e1613ebea132f16340cd2ff7"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a2bbef076e1613ebea132f16340cd2ff7">g_texture_color_location</a></td></tr>
 <tr class="separator:a2bbef076e1613ebea132f16340cd2ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2456285eac60f1e59d789108a1ec163c"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a2456285eac60f1e59d789108a1ec163c">g_marker_pixel_scale_location</a> [<a class="el" href="glsc3d__3__private_8h.html#a9fb13c8c5cdf591c3d4f38e560674a29ac7d18b03066b673a1d75120c43f3955d">G_NUM_MARKER_SIZE_TYPES</a>][<a class="el" href="glsc3d__3_8h.html#aed819f6db13e9a44bd7a40b004b60936a39376354de9c5ca69c957175b7065710">G_NUM_MARKER_TYPES</a>]</td></tr>
-<tr class="separator:a2456285eac60f1e59d789108a1ec163c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6483f9537abec52491db4dcbc1bd6ce1"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a6483f9537abec52491db4dcbc1bd6ce1">g_marker_screen_scale_location</a> [<a class="el" href="glsc3d__3__private_8h.html#a9fb13c8c5cdf591c3d4f38e560674a29ac7d18b03066b673a1d75120c43f3955d">G_NUM_MARKER_SIZE_TYPES</a>][<a class="el" href="glsc3d__3_8h.html#aed819f6db13e9a44bd7a40b004b60936a39376354de9c5ca69c957175b7065710">G_NUM_MARKER_TYPES</a>]</td></tr>
-<tr class="separator:a6483f9537abec52491db4dcbc1bd6ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae24354fe73a9f1b33336de30164fa3e0"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ae24354fe73a9f1b33336de30164fa3e0">g_line_program</a></td></tr>
+<tr class="separator:ae24354fe73a9f1b33336de30164fa3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfeac08896c018c7ec961243d97912ac"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#adfeac08896c018c7ec961243d97912ac">g_constant_program</a></td></tr>
+<tr class="separator:adfeac08896c018c7ec961243d97912ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e4325e6a31ef098bdeeb32db76ca801"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a9e4325e6a31ef098bdeeb32db76ca801">g_lighting_program</a></td></tr>
+<tr class="separator:a9e4325e6a31ef098bdeeb32db76ca801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7ddafcd4826ff466f034c031b89d1fd"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#ac7ddafcd4826ff466f034c031b89d1fd">g_line_stipple_location</a></td></tr>
+<tr class="separator:ac7ddafcd4826ff466f034c031b89d1fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26c7d807872a619a1b3261111e004d7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="glsc3d__3_8h.html#af42409b5d73465985d059b1e7f03a41a">G_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#a26c7d807872a619a1b3261111e004d7a">g_need_line_stipple_updated</a></td></tr>
+<tr class="separator:a26c7d807872a619a1b3261111e004d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afba4e408f7db4816aa5b83008dc0888b"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g__shader__program_8cpp.html#afba4e408f7db4816aa5b83008dc0888b">g_uniforms</a> [<a class="el" href="glsc3d__3__private_8h.html#a42f7899e826db5a3dbabf3ff1b38f175a776bd19b02d9e2458a6b81acee8e96a8">G_NUM_UNIFORMS</a>]</td></tr>
+<tr class="separator:afba4e408f7db4816aa5b83008dc0888b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a1749f0fd7618c290c9a325e8a349a968"></a>
@@ -155,7 +183,21 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define GLSL_VERSION_DECL&#160;&#160;&#160;&quot;#version 120&quot;</td>
+          <td class="memname">#define GLSL_VERSION_DECL&#160;&#160;&#160;&quot;#version 330 core\n&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a57fb867978922fd239c0c7199dc0b3d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57fb867978922fd239c0c7199dc0b3d6">&#9670;&nbsp;</a></span>MATRICES_UNIFORM_DECL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MATRICES_UNIFORM_DECL&#160;&#160;&#160;&quot;uniform Matrices { mat4 proj, view, view_normal; vec2 pixel_scale; float screen_scale; };&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -163,6 +205,49 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ae4b384df8a62743e39819ea938c1f9e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4b384df8a62743e39819ea938c1f9e9">&#9670;&nbsp;</a></span>g_bind_uniform_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void g_bind_uniform_block </td>
+          <td>(</td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>program</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const GLchar *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>binding</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="g__shader__program_8cpp_ae4b384df8a62743e39819ea938c1f9e9_icgraph.png" border="0" usemap="#g__shader__program_8cpp_ae4b384df8a62743e39819ea938c1f9e9_icgraph" alt=""/></div>
+<map name="g__shader__program_8cpp_ae4b384df8a62743e39819ea938c1f9e9_icgraph" id="g__shader__program_8cpp_ae4b384df8a62743e39819ea938c1f9e9_icgraph">
+<area shape="rect"  title=" " alt="" coords="212,5,364,32"/>
+<area shape="rect"  href="glsc3d__3__private_8h.html#ad8ee8aa7d89bbd6f4bf8ecf76c3e849a" title=" " alt="" coords="5,5,164,32"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ab6a7f3cf4686fb1642403a4b2bcdd2d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab6a7f3cf4686fb1642403a4b2bcdd2d3">&#9670;&nbsp;</a></span>g_check_shader_compile_status()</h2>
 
@@ -472,15 +557,50 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="g__shader__program_8cpp_ad8ee8aa7d89bbd6f4bf8ecf76c3e849a_cgraph.png" border="0" usemap="#g__shader__program_8cpp_ad8ee8aa7d89bbd6f4bf8ecf76c3e849a_cgraph" alt=""/></div>
 <map name="g__shader__program_8cpp_ad8ee8aa7d89bbd6f4bf8ecf76c3e849a_cgraph" id="g__shader__program_8cpp_ad8ee8aa7d89bbd6f4bf8ecf76c3e849a_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,53,164,79"/>
-<area shape="rect"  href="g__shader__program_8cpp.html#a3474b4c671bb15a60a8de8265d2a46ab" title=" " alt="" coords="212,53,343,79"/>
-<area shape="rect"  href="g__shader__program_8cpp.html#a218b10c8a71285c35c6a8c8f2fe45b55" title=" " alt="" coords="391,13,513,39"/>
-<area shape="rect"  href="g__shader__program_8cpp.html#ae9fe039cd66f195156e33826f8c8fdf2" title=" " alt="" coords="395,82,509,109"/>
-<area shape="rect"  href="g__shader__program_8cpp.html#ab6a7f3cf4686fb1642403a4b2bcdd2d3" title=" " alt="" coords="561,5,735,47"/>
-<area shape="rect"  href="g__shader__program_8cpp.html#a2c0ac0b2fb06596e46a308a8b93be980" title=" " alt="" coords="783,13,908,39"/>
-<area shape="rect"  href="g__shader__program_8cpp.html#adcf247c7f319b5b3ff64f87931d84f2e" title=" " alt="" coords="577,82,719,109"/>
+<area shape="rect"  title=" " alt="" coords="5,78,164,105"/>
+<area shape="rect"  href="g__shader__program_8cpp.html#a3474b4c671bb15a60a8de8265d2a46ab" title=" " alt="" coords="223,53,353,79"/>
+<area shape="rect"  href="g__shader__program_8cpp.html#a218b10c8a71285c35c6a8c8f2fe45b55" title=" " alt="" coords="412,13,535,39"/>
+<area shape="rect"  href="g__shader__program_8cpp.html#ae9fe039cd66f195156e33826f8c8fdf2" title=" " alt="" coords="417,82,530,109"/>
+<area shape="rect"  href="g__shader__program_8cpp.html#ae4b384df8a62743e39819ea938c1f9e9" title=" " alt="" coords="212,154,364,181"/>
+<area shape="rect"  href="g__shader__program_8cpp.html#ab6a7f3cf4686fb1642403a4b2bcdd2d3" title=" " alt="" coords="583,5,756,47"/>
+<area shape="rect"  href="g__shader__program_8cpp.html#a2c0ac0b2fb06596e46a308a8b93be980" title=" " alt="" coords="804,13,929,39"/>
+<area shape="rect"  href="g__shader__program_8cpp.html#adcf247c7f319b5b3ff64f87931d84f2e" title=" " alt="" coords="599,82,740,109"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="ac013940e5c9a140325c8ed7025977e10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac013940e5c9a140325c8ed7025977e10">&#9670;&nbsp;</a></span>g_update_uniform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void g_update_uniform </td>
+          <td>(</td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLsizei&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -503,6 +623,51 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="ab5c2f9fa920ad2a39e0d203f17918414"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c2f9fa920ad2a39e0d203f17918414">&#9670;&nbsp;</a></span>CONSTANT_FRAG_SHADER_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const CONSTANT_FRAG_SHADER_SOURCE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">in VS_TO_FS {</span></div><div class="line"><span class="stringliteral">    vec4 color;</span></div><div class="line"><span class="stringliteral">} Input;</span></div><div class="line"><span class="stringliteral">out vec4 out_color;</span></div><div class="line"><span class="stringliteral">void main() { out_color = Input.color; })&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a594b44f8886635cede7e89eca264824c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a594b44f8886635cede7e89eca264824c">&#9670;&nbsp;</a></span>CONSTANT_VERT_SHADER_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const CONSTANT_VERT_SHADER_SOURCE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> <a class="code" href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">layout(location = 0) in vec3 in_position;</span></div><div class="line"><span class="stringliteral">layout(location = 1) in vec4 in_color;</span></div><div class="line"><span class="stringliteral">out VS_TO_FS {</span></div><div class="line"><span class="stringliteral">    vec4 color;</span></div><div class="line"><span class="stringliteral">} Output;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    gl_Position = proj * (view * vec4(in_position, 1.0));</span></div><div class="line"><span class="stringliteral">    Output.color = in_color;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
+<div class="ttc" id="g__shader__program_8cpp_html_a57fb867978922fd239c0c7199dc0b3d6"><div class="ttname"><a href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a></div><div class="ttdeci">#define MATRICES_UNIFORM_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:7</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="adfeac08896c018c7ec961243d97912ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfeac08896c018c7ec961243d97912ac">&#9670;&nbsp;</a></span>g_constant_program</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint g_constant_program</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a465b9921b3cacf584941773ed433086d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a465b9921b3cacf584941773ed433086d">&#9670;&nbsp;</a></span>g_current_program</h2>
 
@@ -517,14 +682,42 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a2456285eac60f1e59d789108a1ec163c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2456285eac60f1e59d789108a1ec163c">&#9670;&nbsp;</a></span>g_marker_pixel_scale_location</h2>
+<a id="a9e4325e6a31ef098bdeeb32db76ca801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e4325e6a31ef098bdeeb32db76ca801">&#9670;&nbsp;</a></span>g_lighting_program</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">GLint g_marker_pixel_scale_location[<a class="el" href="glsc3d__3__private_8h.html#a9fb13c8c5cdf591c3d4f38e560674a29ac7d18b03066b673a1d75120c43f3955d">G_NUM_MARKER_SIZE_TYPES</a>][<a class="el" href="glsc3d__3_8h.html#aed819f6db13e9a44bd7a40b004b60936a39376354de9c5ca69c957175b7065710">G_NUM_MARKER_TYPES</a>]</td>
+          <td class="memname">GLuint g_lighting_program</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae24354fe73a9f1b33336de30164fa3e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae24354fe73a9f1b33336de30164fa3e0">&#9670;&nbsp;</a></span>g_line_program</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint g_line_program</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7ddafcd4826ff466f034c031b89d1fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7ddafcd4826ff466f034c031b89d1fd">&#9670;&nbsp;</a></span>g_line_stipple_location</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLint g_line_stipple_location</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -545,14 +738,14 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a6483f9537abec52491db4dcbc1bd6ce1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6483f9537abec52491db4dcbc1bd6ce1">&#9670;&nbsp;</a></span>g_marker_screen_scale_location</h2>
+<a id="a26c7d807872a619a1b3261111e004d7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26c7d807872a619a1b3261111e004d7a">&#9670;&nbsp;</a></span>g_need_line_stipple_updated</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">GLint g_marker_screen_scale_location[<a class="el" href="glsc3d__3__private_8h.html#a9fb13c8c5cdf591c3d4f38e560674a29ac7d18b03066b673a1d75120c43f3955d">G_NUM_MARKER_SIZE_TYPES</a>][<a class="el" href="glsc3d__3_8h.html#aed819f6db13e9a44bd7a40b004b60936a39376354de9c5ca69c957175b7065710">G_NUM_MARKER_TYPES</a>]</td>
+          <td class="memname"><a class="el" href="glsc3d__3_8h.html#af42409b5d73465985d059b1e7f03a41a">G_BOOL</a> g_need_line_stipple_updated</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -601,6 +794,95 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="afba4e408f7db4816aa5b83008dc0888b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afba4e408f7db4816aa5b83008dc0888b">&#9670;&nbsp;</a></span>g_uniforms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint g_uniforms[<a class="el" href="glsc3d__3__private_8h.html#a42f7899e826db5a3dbabf3ff1b38f175a776bd19b02d9e2458a6b81acee8e96a8">G_NUM_UNIFORMS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af737f70b46b72e3d908b13d777dbfe24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af737f70b46b72e3d908b13d777dbfe24">&#9670;&nbsp;</a></span>LIGHTING_FRAG_SHADER_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const LIGHTING_FRAG_SHADER_SOURCE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3808bde3aa883a5dc2df9a725b58b3f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3808bde3aa883a5dc2df9a725b58b3f1">&#9670;&nbsp;</a></span>LIGHTING_VERT_SHADER_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const LIGHTING_VERT_SHADER_SOURCE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> <a class="code" href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">layout(location = 0) in vec3 in_position;</span></div><div class="line"><span class="stringliteral">layout(location = 1) in vec4 in_color;</span></div><div class="line"><span class="stringliteral">layout(location = 2) in vec4 in_normal;</span></div><div class="line"><span class="stringliteral">out VS_TO_FS {</span></div><div class="line"><span class="stringliteral">    vec4 color, normal, position;</span></div><div class="line"><span class="stringliteral">} Output;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    vec4 view_pos = view * vec4(in_position, 1.0);</span></div><div class="line"><span class="stringliteral">    gl_Position = proj * view_pos;</span></div><div class="line"><span class="stringliteral">    Output.color = in_color;</span></div><div class="line"><span class="stringliteral">    Output.normal = normalize(view_normal * vec4(in_normal.xyz, 0.0));</span></div><div class="line"><span class="stringliteral">    Output.position = view_pos;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
+<div class="ttc" id="g__shader__program_8cpp_html_a57fb867978922fd239c0c7199dc0b3d6"><div class="ttname"><a href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a></div><div class="ttdeci">#define MATRICES_UNIFORM_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:7</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad891512f70b2d097fb644e19876abf52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad891512f70b2d097fb644e19876abf52">&#9670;&nbsp;</a></span>LINE_FRAGMENT_SHADER_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const LINE_FRAGMENT_SHADER_SOURCE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">uniform int stipple;</span></div><div class="line"><span class="stringliteral">in GS_TO_FS {</span></div><div class="line"><span class="stringliteral">    vec4 color;</span></div><div class="line"><span class="stringliteral">    noperspective float coord;</span></div><div class="line"><span class="stringliteral">} Input;</span></div><div class="line"><span class="stringliteral">out vec4 out_color;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    int i = int(fract(Input.coord) * 8.0); // stipple is 8-bit</span></div><div class="line"><span class="stringliteral">    int a = (stipple &gt;&gt; i) &amp; 1;</span></div><div class="line"><span class="stringliteral">    if (a == 0) discard;</span></div><div class="line"><span class="stringliteral">    out_color = vec4(Input.color.rgb, Input.color.a);</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae144a01c7abf95953784ef83d1817f8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae144a01c7abf95953784ef83d1817f8e">&#9670;&nbsp;</a></span>LINE_GEOMETRY_SHADER_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const LINE_GEOMETRY_SHADER_SOURCE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9e9886e21ab826f3010f5f5de821dd06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e9886e21ab826f3010f5f5de821dd06">&#9670;&nbsp;</a></span>LINE_VERTEX_SHADER_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* const LINE_VERTEX_SHADER_SOURCE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> <a class="code" href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">layout(location = 0) in vec4 in_position;</span></div><div class="line"><span class="stringliteral">layout(location = 1) in vec4 in_color;</span></div><div class="line"><span class="stringliteral">out VS_TO_GS {</span></div><div class="line"><span class="stringliteral">    vec4 color;</span></div><div class="line"><span class="stringliteral">    vec3 position;</span></div><div class="line"><span class="stringliteral">    vec2 half_width;</span></div><div class="line"><span class="stringliteral">} Output;</span></div><div class="line"><span class="stringliteral">void main () {</span></div><div class="line"><span class="stringliteral">    vec4 view_pos = view * vec4(in_position.xyz, 1.0);</span></div><div class="line"><span class="stringliteral">    float size = in_position.w;</span></div><div class="line"><span class="stringliteral">    gl_Position = proj * view_pos;</span></div><div class="line"><span class="stringliteral">    Output.color = in_color;</span></div><div class="line"><span class="stringliteral">    Output.position = view_pos.xyz;</span></div><div class="line"><span class="stringliteral">    Output.half_width = size * pixel_scale;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
+<div class="ttc" id="g__shader__program_8cpp_html_a57fb867978922fd239c0c7199dc0b3d6"><div class="ttname"><a href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a></div><div class="ttdeci">#define MATRICES_UNIFORM_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:7</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="aa88ee3129ad71d0f2c7b38e0a1831521"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa88ee3129ad71d0f2c7b38e0a1831521">&#9670;&nbsp;</a></span>MARKER_CIRCLE_FRAG_SHADER_SOURCE</h2>
 
@@ -612,7 +894,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">varying vec4 color;</span></div><div class="line"><span class="stringliteral">varying vec3 position;</span></div><div class="line"><span class="stringliteral">varying float radius;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    vec2 coord = gl_PointCoord * 2.0 - 1.0;</span></div><div class="line"><span class="stringliteral">    float discriminant = 1.0 - dot(coord, coord);</span></div><div class="line"><span class="stringliteral">    if (discriminant &lt;= 0.0) discard;</span></div><div class="line"><span class="stringliteral">    gl_FragColor = color;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:272</div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">in VS_TO_FS {</span></div><div class="line"><span class="stringliteral">    vec4 color;</span></div><div class="line"><span class="stringliteral">    vec3 position;</span></div><div class="line"><span class="stringliteral">    float radius;</span></div><div class="line"><span class="stringliteral">} Input;</span></div><div class="line"><span class="stringliteral">out vec4 out_color;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    vec2 coord = gl_PointCoord * 2.0 - 1.0;</span></div><div class="line"><span class="stringliteral">    float discriminant = 1.0 - dot(coord, coord);</span></div><div class="line"><span class="stringliteral">    if (discriminant &lt;= 0.0) discard;</span></div><div class="line"><span class="stringliteral">    out_color = Input.color;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -627,7 +909,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">varying vec4 color;</span></div><div class="line"><span class="stringliteral">varying vec3 position;</span></div><div class="line"><span class="stringliteral">varying float radius;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    vec2 coord = gl_PointCoord * 2.0 - 1.0;</span></div><div class="line"><span class="stringliteral">    float discriminant = 1.0 - dot(coord, coord);</span></div><div class="line"><span class="stringliteral">    if (discriminant &lt;= 0.0) discard;</span></div><div class="line"><span class="stringliteral">    vec3 normal = vec3(coord, sqrt(discriminant));</span></div><div class="line"><span class="stringliteral">    vec4 pos = gl_ProjectionMatrix * vec4(position + normal * radius, 1.0);</span></div><div class="line"><span class="stringliteral">    gl_FragColor = vec4(color.rgb * normal.z, color.a);</span></div><div class="line"><span class="stringliteral">    gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:272</div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> <a class="code" href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">in VS_TO_FS {</span></div><div class="line"><span class="stringliteral">    vec4 color;</span></div><div class="line"><span class="stringliteral">    vec3 position;</span></div><div class="line"><span class="stringliteral">    float radius;</span></div><div class="line"><span class="stringliteral">} Input;</span></div><div class="line"><span class="stringliteral">out vec4 out_color;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    vec2 coord = gl_PointCoord * 2 - 1;</span></div><div class="line"><span class="stringliteral">    float discriminant = 1 - dot(coord, coord);</span></div><div class="line"><span class="stringliteral">    if (discriminant &lt;= 0.0) discard;</span></div><div class="line"><span class="stringliteral">    vec3 normal = vec3(coord, sqrt(discriminant));</span></div><div class="line"><span class="stringliteral">    vec4 pos = proj * vec4(Input.position + normal * Input.radius, 1);</span></div><div class="line"><span class="stringliteral">    out_color = vec4(Input.color.rgb * normal.z, Input.color.a);</span></div><div class="line"><span class="stringliteral">    gl_FragDepth = pos.z / pos.w * 0.5 + 0.5;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
+<div class="ttc" id="g__shader__program_8cpp_html_a57fb867978922fd239c0c7199dc0b3d6"><div class="ttname"><a href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a></div><div class="ttdeci">#define MATRICES_UNIFORM_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:7</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -642,7 +925,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">varying vec4 color;</span></div><div class="line"><span class="stringliteral">varying vec3 position;</span></div><div class="line"><span class="stringliteral">varying float radius;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    gl_FragColor = color;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:272</div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">in VS_TO_FS {</span></div><div class="line"><span class="stringliteral">    vec4 color;</span></div><div class="line"><span class="stringliteral">    vec3 position;</span></div><div class="line"><span class="stringliteral">    float radius;</span></div><div class="line"><span class="stringliteral">} Input;</span></div><div class="line"><span class="stringliteral">out vec4 out_color;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    out_color = Input.color;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -657,7 +940,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">uniform float pixel_scale, screen_scale;</span></div><div class="line"><span class="stringliteral">varying vec4 color;</span></div><div class="line"><span class="stringliteral">varying vec3 position;</span></div><div class="line"><span class="stringliteral">varying float radius;</span></div><div class="line"><span class="stringliteral">void main () {</span></div><div class="line"><span class="stringliteral">    vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);</span></div><div class="line"><span class="stringliteral">    float size = gl_Vertex.w;</span></div><div class="line"><span class="stringliteral">    gl_Position = gl_ProjectionMatrix * view_pos;</span></div><div class="line"><span class="stringliteral">    gl_PointSize = size * screen_scale;</span></div><div class="line"><span class="stringliteral">    color = gl_Color;</span></div><div class="line"><span class="stringliteral">    position = gl_Vertex.xyz;</span></div><div class="line"><span class="stringliteral">    radius = size * gl_Position.w * pixel_scale;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:272</div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> <a class="code" href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">layout(location = 0) in vec4 in_position;</span></div><div class="line"><span class="stringliteral">layout(location = 1) in vec4 in_color;</span></div><div class="line"><span class="stringliteral">out VS_TO_FS {</span></div><div class="line"><span class="stringliteral">    vec4 color;</span></div><div class="line"><span class="stringliteral">    vec3 position;</span></div><div class="line"><span class="stringliteral">    float radius;</span></div><div class="line"><span class="stringliteral">} Output;</span></div><div class="line"><span class="stringliteral">void main () {</span></div><div class="line"><span class="stringliteral">    vec4 view_pos = view * vec4(in_position.xyz, 1.0);</span></div><div class="line"><span class="stringliteral">    float size = in_position.w;</span></div><div class="line"><span class="stringliteral">    gl_Position = proj * view_pos;</span></div><div class="line"><span class="stringliteral">    gl_PointSize = size * screen_scale;</span></div><div class="line"><span class="stringliteral">    Output.color = in_color;</span></div><div class="line"><span class="stringliteral">    Output.position = view_pos.xyz;</span></div><div class="line"><span class="stringliteral">    Output.radius = size * gl_Position.w * pixel_scale.y;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
+<div class="ttc" id="g__shader__program_8cpp_html_a57fb867978922fd239c0c7199dc0b3d6"><div class="ttname"><a href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a></div><div class="ttdeci">#define MATRICES_UNIFORM_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:7</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -672,7 +956,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">uniform float pixel_scale, screen_scale;</span></div><div class="line"><span class="stringliteral">varying vec4 color;</span></div><div class="line"><span class="stringliteral">varying vec3 position;</span></div><div class="line"><span class="stringliteral">varying float radius;</span></div><div class="line"><span class="stringliteral">void main () {</span></div><div class="line"><span class="stringliteral">    vec4 view_pos = gl_ModelViewMatrix * vec4(gl_Vertex.xyz, 1.0);</span></div><div class="line"><span class="stringliteral">    float size = gl_Vertex.w;</span></div><div class="line"><span class="stringliteral">    gl_Position = gl_ProjectionMatrix * view_pos;</span></div><div class="line"><span class="stringliteral">    gl_PointSize = size * screen_scale / (pixel_scale * gl_Position.w);</span></div><div class="line"><span class="stringliteral">    color = gl_Color;</span></div><div class="line"><span class="stringliteral">    position = view_pos.xyz;</span></div><div class="line"><span class="stringliteral">    radius = size;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:272</div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> <a class="code" href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">layout(location = 0) in vec4 in_position;</span></div><div class="line"><span class="stringliteral">layout(location = 1) in vec4 in_color;</span></div><div class="line"><span class="stringliteral">out VS_TO_FS {</span></div><div class="line"><span class="stringliteral">    vec4 color;</span></div><div class="line"><span class="stringliteral">    vec3 position;</span></div><div class="line"><span class="stringliteral">    float radius;</span></div><div class="line"><span class="stringliteral">} Output;</span></div><div class="line"><span class="stringliteral">void main () {</span></div><div class="line"><span class="stringliteral">    vec4 view_pos = view * vec4(in_position.xyz, 1.0);</span></div><div class="line"><span class="stringliteral">    float size = in_position.w;</span></div><div class="line"><span class="stringliteral">    gl_Position = proj * view_pos;</span></div><div class="line"><span class="stringliteral">    gl_PointSize = size * screen_scale / (pixel_scale.y * gl_Position.w);</span></div><div class="line"><span class="stringliteral">    Output.color = in_color;</span></div><div class="line"><span class="stringliteral">    Output.position = view_pos.xyz;</span></div><div class="line"><span class="stringliteral">    Output.radius = size;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
+<div class="ttc" id="g__shader__program_8cpp_html_a57fb867978922fd239c0c7199dc0b3d6"><div class="ttname"><a href="g__shader__program_8cpp.html#a57fb867978922fd239c0c7199dc0b3d6">MATRICES_UNIFORM_DECL</a></div><div class="ttdeci">#define MATRICES_UNIFORM_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:7</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -687,7 +972,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">uniform sampler2D tex;</span></div><div class="line"><span class="stringliteral">uniform vec4 color;</span></div><div class="line"><span class="stringliteral">varying vec2 vary_texcoord;</span></div><div class="line"><span class="stringliteral">//out vec4 out_color;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    gl_FragColor = vec4(color.rgb, color.a * texture2D(tex, vary_texcoord).r);</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:272</div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">uniform sampler2D tex;</span></div><div class="line"><span class="stringliteral">uniform vec4 color;</span></div><div class="line"><span class="stringliteral">in vec2 vary_texcoord;</span></div><div class="line"><span class="stringliteral">out vec4 out_color;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    out_color = vec4(color.rgb, color.a * texture(tex, vary_texcoord).r);</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -702,7 +987,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">//layout(location = 0) in vec2 in_position;</span></div><div class="line"><span class="stringliteral">varying vec2 vary_texcoord;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    gl_Position = vec4(gl_Vertex.xy, 0.0, 1.0);</span></div><div class="line"><span class="stringliteral">    vary_texcoord = gl_Vertex.xy * vec2(0.5, -0.5) + 0.5;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:272</div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line"><a class="code" href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a> R<span class="stringliteral">&quot;(</span></div><div class="line"><span class="stringliteral">layout(location = 0) in vec2 in_position;</span></div><div class="line"><span class="stringliteral">out vec2 vary_texcoord;</span></div><div class="line"><span class="stringliteral">void main() {</span></div><div class="line"><span class="stringliteral">    gl_Position = vec4(in_position.xy, 0.0, 1.0);</span></div><div class="line"><span class="stringliteral">    vary_texcoord = in_position * vec2(0.5, -0.5) + 0.5;</span></div><div class="line"><span class="stringliteral">})&quot;</span></div><div class="ttc" id="g__shader__program_8cpp_html_a1749f0fd7618c290c9a325e8a349a968"><div class="ttname"><a href="g__shader__program_8cpp.html#a1749f0fd7618c290c9a325e8a349a968">GLSL_VERSION_DECL</a></div><div class="ttdeci">#define GLSL_VERSION_DECL</div><div class="ttdef"><b>Definition:</b> g_shader_program.cpp:5</div></div>
 </div><!-- fragment -->
 </div>
 </div>

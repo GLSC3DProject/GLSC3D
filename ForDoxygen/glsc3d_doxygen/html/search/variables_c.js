@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['r',['r',['../struct_edge__2_d__struct.html#a46310fd1776d2fb44a40e2c090cd37ab',1,'Edge_2D_struct::r()'],['../struct_marching_cube.html#a322c0c1aca047db1a74173ed33ae39bd',1,'MarchingCube::r()'],['../struct_marching_tetrahedron.html#a6570d09cb766e3388bce021da0b3c465',1,'MarchingTetrahedron::r()'],['../struct_marching_edge.html#acae6441a856ecb7d9eaae8c8c994e560',1,'MarchingEdge::r()'],['../struct_g___c_o_l_o_r.html#a38877694dd8d0974fb7ad1260e20f518',1,'G_COLOR::r()']]],
-  ['r_5f0',['r_0',['../struct_g___d_e_f___s_c_a_l_e.html#a1557b169bd14c4b985837e63ae9e5c2c',1,'G_DEF_SCALE']]],
-  ['r_5f0_5ff',['r_0_f',['../struct_g___d_e_f___s_c_a_l_e.html#a1cbdc1af27ddb4f3856b8b4d63084ba8',1,'G_DEF_SCALE']]],
-  ['r_5f1',['r_1',['../struct_g___d_e_f___s_c_a_l_e.html#aaf028b4a7e6c7839f9be039af2c0059a',1,'G_DEF_SCALE']]],
-  ['r_5f1_5ff',['r_1_f',['../struct_g___d_e_f___s_c_a_l_e.html#a9d4ca1ef98c55db2bf8571d1817ae911',1,'G_DEF_SCALE']]]
+  ['pad',['pad',['../struct_g___v_e_r_t_e_x.html#a2a1e29d90e3fb4a17ce1e038f3be71b5',1,'G_VERTEX']]],
+  ['pixel_5fscale_5fx',['pixel_scale_x',['../struct_g___t_r_a_n_s_f_o_r_m.html#adec776247eba10d6b3c8be7b74b57c28',1,'G_TRANSFORM']]],
+  ['pixel_5fscale_5fy',['pixel_scale_y',['../struct_g___t_r_a_n_s_f_o_r_m.html#a617ed568330744a4a3e98c2adeb7e74e',1,'G_TRANSFORM']]],
+  ['position',['position',['../struct_g___v_e_r_t_e_x.html#a19ea1111313e452dbc929eac6f22215d',1,'G_VERTEX']]],
+  ['power',['power',['../struct_g___l_i_g_h_t.html#a3cd64d2134b2e47d7ca884153643d2e0',1,'G_LIGHT']]],
+  ['primitive_5fmode',['primitive_mode',['../class_g___v_e_r_t_e_x___b_u_f_f_e_r.html#a32fb73489f966f07a932658ce1f157b9',1,'G_VERTEX_BUFFER']]]
 ];

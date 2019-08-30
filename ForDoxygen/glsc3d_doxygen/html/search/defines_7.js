@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['pi',['PI',['../glsc3d__3__private_8h.html#a598a3330b3c21701223ee0ca14316eca',1,'glsc3d_3_private.h']]]
+  ['normal',['normal',['../g__bird__view__3_d_8cpp.html#ac6183bb07729372d044f2671d705e165',1,'g_bird_view_3D.cpp']]],
+  ['num_5flights',['NUM_LIGHTS',['../g__light_8cpp.html#a59ce09f1ecc86341f668475f4aaeffca',1,'g_light.cpp']]]
 ];

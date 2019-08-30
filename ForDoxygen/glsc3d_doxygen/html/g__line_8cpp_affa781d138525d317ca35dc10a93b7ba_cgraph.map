@@ -1,4 +1,7 @@
 <map id="g_line_width" name="g_line_width">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,101,32"/>
-<area shape="rect" id="node2" href="$g__vertex__buffer_8cpp.html#ad9cc9a2360145cd67cd0a47a7c059291" title=" " alt="" coords="149,5,300,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,42,101,69"/>
+<area shape="rect" id="node2" href="$g__vertex__buffer_8cpp.html#ad9cc9a2360145cd67cd0a47a7c059291" title=" " alt="" coords="149,42,300,69"/>
+<area shape="rect" id="node3" href="$class_g___v_e_r_t_e_x___b_u_f_f_e_r.html#a1f5f7e34dd8eb8e03034b20c0ac392c5" title=" " alt="" coords="357,5,528,47"/>
+<area shape="rect" id="node4" href="$class_g___v_e_r_t_e_x___b_u_f_f_e_r.html#a048b5cfba8bfc55041c90937b851cd4d" title=" " alt="" coords="348,71,537,98"/>
+<area shape="rect" id="node5" href="$g__shader__program_8cpp.html#aa5dc4506fce07d03a617cffca76d9859" title=" " alt="" coords="585,71,701,98"/>
 </map>
