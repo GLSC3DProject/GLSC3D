@@ -13,7 +13,7 @@ G_PRIMITIVE_MODE g_primitive_mode = G_PRIMITIVE_MODE::UNDEFINED; // initialize b
 class G_VERTEX_BUFFER
 {
 	G_PRIMITIVE_MODE primitive_mode;
-	G_UINT size;
+	G_UINT capacity;
 	G_VERTEX *data = nullptr;
 	G_UINT count = 0;
 	GLuint vertex_array_id = 0;
@@ -21,11 +21,12 @@ class G_VERTEX_BUFFER
 	GLuint shader_program = 0;
 
 public:
-	G_VERTEX_BUFFER(G_PRIMITIVE_MODE primitive_mode, G_UINT size) : primitive_mode(primitive_mode), size(size) {}
+	G_VERTEX_BUFFER(G_PRIMITIVE_MODE primitive_mode, G_UINT capacity)
+	: primitive_mode(primitive_mode), capacity(capacity) {}
 
 	void init()
 	{
-		data = (G_VERTEX *)malloc(size * sizeof(G_VERTEX));
+		data = (G_VERTEX *)malloc(capacity * sizeof(G_VERTEX));
 
 		if (data == nullptr) {
 			fprintf(stderr, "failed to allocate memory\a\n");
@@ -38,7 +39,7 @@ public:
 
 		glGenBuffers(1, &vertex_buffer_id);
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
-		glBufferData(GL_ARRAY_BUFFER, size * sizeof(G_VERTEX), NULL, GL_STREAM_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, capacity * sizeof(G_VERTEX), NULL, GL_STREAM_DRAW);
 
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
@@ -56,7 +57,7 @@ public:
 		data[count] = vertex;
 		count++;
 
-		if (count == size)
+		if (count == capacity)
 			g_vertex_buffer_flush();
 	}
 
