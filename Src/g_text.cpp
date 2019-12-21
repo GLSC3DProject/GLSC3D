@@ -157,8 +157,13 @@ static void g_text_render(double x, double y, const char *str)
 		}
 		else if (c < 0xF0) {
 			// 3-byte, 16-bit character
-			char_code = (c & 0x1F) << 12 | (str[1] & 0x3F) << 6 | (str[2] & 0x3F);
+			char_code = (c & 0x0F) << 12 | (str[1] & 0x3F) << 6 | (str[2] & 0x3F);
 			str += 3;
+		}
+		else if (c < 0xF8) {
+			// 4-byte, 21-bit character
+			char_code = (c & 0x07) << 18 | (str[1] & 0x3F) << 12 | (str[2] & 0x3F) << 6 | (str[3] & 0x3F);
+			str += 4;
 		}
 		else {
 			// Invalid
