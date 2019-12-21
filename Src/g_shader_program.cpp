@@ -246,14 +246,14 @@ void main() {
 
 // ----------------------------------------------------------------
 
-// Vertex shader for rendering text
+// Vertex shader for rendering text (caution: the texture is column-major)
 const char * const TEXTURE_VERT_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
 layout(location = 0) in vec2 in_position;
 out vec2 vary_texcoord;
 void main() {
 	gl_Position = vec4(in_position.xy, 0.0, 1.0);
-	vary_texcoord = in_position * vec2(0.5, -0.5) + 0.5;
+	vary_texcoord = in_position.yx * vec2(-0.5, 0.5) + 0.5;
 })";
 
 // Fragment shader for rendering text
@@ -347,7 +347,7 @@ const char * const TEXTURE_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 varying vec2 vary_texcoord;
 void main() {
 	gl_Position = vec4(gl_Vertex.xy, 0.0, 1.0);
-	vary_texcoord = gl_Vertex.xy * vec2(0.5, -0.5) + 0.5;
+	vary_texcoord = gl_Vertex.yx * vec2(-0.5, 0.5) + 0.5;
 })";
 
 // Fragment shader for rendering text

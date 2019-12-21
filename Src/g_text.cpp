@@ -33,6 +33,64 @@ struct G_TEXT_APPEARANCE
 
 G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
+class G_TEXT_RENDERING_BUFFER
+{
+	size_t width = 0, height = 0, capacity = 0;
+	unsigned char *buffer = 0;
+
+	void ensure_capacity(size_t value)
+	{
+		if (value <= capacity) return;
+
+		size_t new_capacity = 1024;
+		while (new_capacity < value)
+			new_capacity *= 2;
+
+		auto new_buffer = (unsigned char *)malloc(new_capacity);
+
+		memcpy(new_buffer, buffer, capacity);
+		memset(new_buffer + capacity, 0, new_capacity - capacity);
+
+		free(buffer);
+
+		capacity = new_capacity;
+		buffer = new_buffer;
+	}
+
+public:
+	void begin(size_t new_height)
+	{
+		width = 0;
+		height = new_height;
+		memset(buffer, 0, capacity);
+	}
+	void write(G_UINT x, G_UINT y, G_UINT w, G_UINT h, unsigned char *data)
+	{
+		assert(y + h <= height);
+
+		G_UINT right = x + w;
+		width = max(width, right);
+		ensure_capacity(width * height);
+
+		for (G_UINT j = 0; j < h; j++) {
+			for (G_UINT i = 0; i < w; i++) {
+				buffer[height * (x + i) + (y + j)] = data[w * j + i];
+			}
+		}
+	}
+	void render(GLint left, GLint bottom)
+	{
+		buffer[0] = 255;
+		buffer[width * height - 1] = 255;
+
+		glViewport(left, bottom, width, height);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, height, width, 0, GL_RED, GL_UNSIGNED_BYTE, buffer);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	}
+};
+
+G_TEXT_RENDERING_BUFFER g_text_buffer;
+
 #define DEFAULT_FONT_NAME "NotoSansCJKjp-Regular.otf"
 
 #ifdef __linux__
@@ -130,12 +188,21 @@ static void g_text_render(double x, double y, const char *str)
 
 	int font_size = (int)(g_current_text_size * g_screen_scale_factor);
 
+	if (face == nullptr) {
+		printf("Error: font face is null.\n");
+		return;
+	}
+
 	if (FT_Error error = FT_Set_Char_Size(face, 0, font_size * 64, 0, 0)) {
 		printf("Unable to set font size.\nError: %d\n", error);
 	}
 
-	int physical_x = (int)(x * g_screen_scale_factor);
-	int physical_y = (int)(y * g_screen_scale_factor);
+	int height = face->size->metrics.height >> 6;
+
+	g_text_buffer.begin(height);
+
+	int position_x = 0;
+	int position_y = face->size->metrics.ascender >> 6;
 
 	while (FT_UInt c = (FT_Byte)*str) {
 		// Decode UTF-8
@@ -175,18 +242,19 @@ static void g_text_render(double x, double y, const char *str)
 		if (error) continue;
 
 		FT_GlyphSlot glyph = face->glyph;
-		FT_Bitmap& bitmap = glyph->bitmap;
 
-		int left = physical_x + glyph->bitmap_left;
-		int bottom = glsc3D_height + glyph->bitmap_top - bitmap.rows - physical_y;
+		g_text_buffer.write(
+			position_x + glyph->bitmap_left, position_y - glyph->bitmap_top,
+			glyph->bitmap.width, glyph->bitmap.rows,
+			glyph->bitmap.buffer);
 
-		glViewport(left, bottom, bitmap.width, bitmap.rows);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, bitmap.width, bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, bitmap.buffer);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-		physical_x += glyph->advance.x / 64;
-		physical_y += glyph->advance.y / 64;
+		position_x += glyph->advance.x >> 6;
 	}
+
+	GLint left = (int)(x * g_screen_scale_factor);
+	GLint bottom = glsc3D_height - (int)(y * g_screen_scale_factor) + position_y - height;
+
+	g_text_buffer.render(left, bottom);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
