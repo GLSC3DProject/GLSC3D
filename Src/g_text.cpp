@@ -69,7 +69,8 @@ public:
 		assert(y + h <= height);
 
 		G_UINT right = x + w;
-		width = max(width, right);
+		if (width < right) width = right;
+
 		ensure_capacity(width * height);
 
 		for (G_UINT j = 0; j < h; j++) {
