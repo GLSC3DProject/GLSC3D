@@ -81,9 +81,6 @@ public:
 	}
 	void render(GLint left, GLint bottom)
 	{
-		buffer[0] = 255;
-		buffer[width * height - 1] = 255;
-
 		glViewport(left, bottom, width, height);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, height, width, 0, GL_RED, GL_UNSIGNED_BYTE, buffer);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
