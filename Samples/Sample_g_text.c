@@ -31,9 +31,13 @@ int main()
 		g_text_standard(x, y += dy, "Hello, World!");
 
 		// 3-byte characters
-		g_text_standard(x, y += dy, "こんにちは，世界!");
+		g_text_standard(x, y += dy, "こんにちは，世界！");
 
-		g_text_standard(x, y += dy, "∀∃∧∂∩∈∬∮≈");
+		// "1", "6", "/", "=", spaces: 1-byte
+		// "²", "π": 2-byte
+		// "∑", "…": 3-byte
+		// "🅐": 4-byte
+		g_text_standard(x, y += dy, "∑1/n² = 6/π² …🅐");
 
 		g_text_standard(x, y += dy, TEXT2);
 
