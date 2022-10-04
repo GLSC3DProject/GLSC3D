@@ -57,6 +57,7 @@ int g_capture()
 	FILE *fp = fopen(FilePath, "wb");
 
 	glReadBuffer(GL_FRONT);
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
 	glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buf);
 
 	p_ps = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
