@@ -7,9 +7,23 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
+#include <string>
 
 // If Enabled: Displays debug messages in the title bar
 #define G_DISPLAY_DEBUG_MESSAGES
+
+// If Enabled:  Font and shader files are specified by relative paths
+// If Disabled: Font and shader files are in "~/glsc3d_runtime"
+//#define G_USE_RELATIVE_RUNTIME_PATH
+
+#ifdef G_USE_RELATIVE_RUNTIME_PATH
+#define G_DEFAULT_FONT_PATH "../Install_file_and_script_and_fonts/NotoSansCJKjp-Regular.otf"
+#define G_METALLIB_PATH "../Shaders/shaders.metallib"
+#else
+extern std::string g_runtime_dir;
+#define G_DEFAULT_FONT_PATH (g_runtime_dir + "/NotoSansCJKjp-Regular.otf").c_str()
+#define G_METALLIB_PATH (g_runtime_dir + "/shaders.metallib").c_str()
+#endif
 
 #ifdef __APPLE__
 // If Enabled:  Use Metal  on Mac OS X

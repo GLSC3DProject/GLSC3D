@@ -40,26 +40,6 @@ G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
 static unsigned char *g_text_buffer = nullptr;
 
-#define USE_RELATIVE_FONT_PATH
-
-#define DEFAULT_FONT_NAME "NotoSansCJKjp-Regular.otf"
-
-#ifdef USE_RELATIVE_FONT_PATH
-
-#define DEFAULT_FONT_FILE "../Install_file_and_script_and_fonts/" DEFAULT_FONT_NAME
-
-#else
-
-#ifdef __linux__
-#define DEFAULT_FONT_FILE "/usr/share/fonts/opentype/noto/" DEFAULT_FONT_NAME
-#endif
-
-#ifdef _WIN32
-#define DEFAULT_FONT_FILE "C:/Windows/Fonts/" DEFAULT_FONT_NAME
-#endif
-
-#endif
-
 void g_text_init()
 {
 #ifndef G_USE_METAL
@@ -118,15 +98,7 @@ void g_text_init()
 		g_quit();
 	}
 
-#ifdef DEFAULT_FONT_FILE
-	g_text_font_core(DEFAULT_FONT_FILE);
-#else
-	char default_font[256];
-	strcpy(default_font, getenv("HOME"));
-	strcat(default_font, "/Library/Fonts/" DEFAULT_FONT_NAME);
-
-	g_text_font_core(default_font);
-#endif
+	g_text_font_core(G_DEFAULT_FONT_PATH);
 }
 
 void g_text_buffer_size_update()

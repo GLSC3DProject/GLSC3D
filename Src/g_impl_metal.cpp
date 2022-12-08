@@ -33,17 +33,35 @@ void g_update_depth_buffer_size()
 	g_depth_texture = g_device->newTexture(depth_tex_desc);
 }
 
+void g_check_error(NS::Error *err, const char *message)
+{
+	if (err != nullptr) {
+		std::cerr << message << std::endl;
+		std::cerr << err->localizedDescription()->utf8String() << std::endl;
+		g_quit();
+	}
+}
+
+MTL::Library *g_load_library()
+{
+	NS::Error *err;
+	auto library = g_device->newLibrary(
+		NS::String::string(G_METALLIB_PATH, NS::UTF8StringEncoding), &err);
+	g_check_error(err, "Failed to load shaders.metallib");
+
+	return library;
+}
+
 G_PROGRAM_TYPE g_make_pipeline(MTL::RenderPipelineDescriptor *desc, MTL::Function *vs, MTL::Function *fs)
 {
 	desc->setVertexFunction(vs);
 	desc->setFragmentFunction(fs);
 
 	NS::Error *err;
-	if (auto state = g_device->newRenderPipelineState(desc, &err)) return state;
+	auto state = g_device->newRenderPipelineState(desc, &err);
+	g_check_error(err, "Failed to create pipeline:");
 
-	std::cerr << "Failed to create pipeline:" << std::endl;
-	std::cerr << err->localizedDescription()->utf8String() << std::endl;
-	g_quit();
+	return state;
 }
 
 void g_shader_program_init()
@@ -65,8 +83,7 @@ void g_shader_program_init()
 
 	desc->setDepthAttachmentPixelFormat(MTL::PixelFormatDepth32Float);
 
-	G_AUTO_RELEASE library = g_device->newLibrary(
-		NS::MakeConstantString("../Shaders/shaders.metallib"), nullptr);
+	G_AUTO_RELEASE library = g_load_library();
 
 	G_AUTO_RELEASE constant_vs = library->newFunction(NS::MakeConstantString("constant_vs"));
 	G_AUTO_RELEASE constant_fs = library->newFunction(NS::MakeConstantString("constant_fs"));
