@@ -204,8 +204,7 @@ void g_check_event(const SDL_Event &event)
 		g_line_width(g_current_line_size);
 #endif
 	}
-
-	if (event.type == SDL_KEYDOWN) {
+	else if (event.type == SDL_KEYDOWN) {
 		g_keyboard_event(event.key.keysym, G_DOWN);
 	}
 	else if (event.type == SDL_KEYUP) {
