@@ -219,16 +219,6 @@ void g_check_event(const SDL_Event &event)
 	}
 }
 
-void g_poll_events()
-{
-	update_input_key_state();
-
-	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
-		g_check_event(event);
-	}
-}
-
 void g_frame_finished()
 {
 #ifdef G_DISPLAY_DEBUG_MESSAGES
@@ -252,35 +242,31 @@ void g_frame_finished()
 	i++;
 #endif
 
-	g_poll_events();
+	update_input_key_state();
+
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		g_check_event(event);
+	}
 }
 
 void g_sleep(double wait_time)
 {
-//	SDL_Delay((Uint32)(wait_time * 1000));
-
 	SDL_Event event;
 
-	if (wait_time == 0) {
-		g_poll_events();
-		return;
-	}
-	else if (wait_time > 0) {
+	if (wait_time > 0) {
 		Uint32 timeout = SDL_GetTicks() + (Uint32)(wait_time * 1000);
 
 		while (true) {
 			int remaining_ms = (int)(timeout - SDL_GetTicks());
-			if (remaining_ms <= 0) {
-				g_poll_events();
-				return;
-			}
+			if (remaining_ms <= 0) return;
 
 			SDL_WaitEventTimeout(&event, remaining_ms);
 
 			g_check_event(event);
 		}
 	}
-	else {
+	else if (wait_time < 0) {
 		while (SDL_WaitEvent(&event)) {
 			g_check_event(event);
 
