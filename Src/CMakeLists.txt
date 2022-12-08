@@ -1,6 +1,24 @@
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Out)
 
-find_package(OpenGL)
+#if (APPLE)
+#	set(G_USE_METAL TRUE)
+#endif ()
+
+#if (G_USE_METAL)
+#	set(G_GRAPHICS_LIBRARY "-framework Foundation -framework Metal")
+#	add_compile_definitions(G_USE_METAL)
+#else ()
+#	find_package(OpenGL)
+#	set(G_GRAPHICS_LIBRARY ${OPENGL_gl_LIBRARY})
+#endif()
+
+if (APPLE)
+	set(G_GRAPHICS_LIBRARY "-framework Foundation -framework Metal -framework OpenGL")
+	include_directories(../metal-cpp)
+else ()
+	find_package(OpenGL)
+	set(G_GRAPHICS_LIBRARY ${OPENGL_gl_LIBRARY})
+endif ()
 
 if (MSVC)
 	set(SDL_LIBRARY SDL2.lib)
@@ -19,39 +37,41 @@ elseif (UNIX)
 	set(FREETYPE_LIBRARIES freetype)
 endif ()
 
-message(CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME})
-message(OPENGL_gl_LIBRARY: ${OPENGL_gl_LIBRARY})
+#message(CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME})
+#message(OPENGL_gl_LIBRARY: ${OPENGL_gl_LIBRARY})
 
 add_library(glsc3d_3
 	g_area.cpp
 	g_arrow.cpp
 	g_bird_view_3D.cpp
 	g_box.cpp
-	g_capture.c
+	g_capture.cpp
 	g_circle.cpp
+	g_cls_finish.cpp
 	g_cone.cpp
 	g_contln_2D.cpp
 	g_cylinder_3D.cpp
-	g_data_plot.c
+	g_data_plot.cpp
 	g_ellipse_3D.cpp
 	g_fan.cpp
-	g_cls_finish.c
+	g_impl_metal.cpp
+	g_impl_opengl.cpp
 	g_init.cpp
-	g_input.c
+	g_input.cpp
 	g_isosurface.cpp
 	g_light.cpp
 	g_line.cpp
 	g_marker.cpp
-	g_move_plot.c
-	g_off_screen.c
-	g_polygon_polyline.c
+	g_move_plot.cpp
+	g_off_screen.cpp
+	g_polygon_polyline.cpp
 	g_prism_3D.cpp
 	g_private.cpp
 	g_pyramid_3D.cpp
 	g_rectangle.cpp
 	g_scale.cpp
 	g_sdl_wrapper.cpp
-	g_shader_program.cpp
+	g_shader_opengl.cpp
 	g_sphere_3D.cpp
 	g_text.cpp
 	g_triangle.cpp
@@ -60,7 +80,7 @@ add_library(glsc3d_3
 )
 
 target_link_libraries(glsc3d_3
-	${OPENGL_gl_LIBRARY}
+	${G_GRAPHICS_LIBRARY}
 	${SDL_LIBRARY}
 	${PNG_LIBRARY}
 	${FREETYPE_LIBRARIES}

@@ -1,6 +1,8 @@
 #include "glsc3d_3_private.h"
 
-#ifdef G_USE_CORE_PROFILE
+#ifndef G_USE_METAL
+
+#ifdef G_USE_OPENGL_CORE_PROFILE
 
 #define GLSL_VERSION_DECL "#version 330 core\n"
 
@@ -44,7 +46,7 @@ void main() {
 	vec4 view_pos = view * vec4(in_position, 1.0);
 	gl_Position = proj * view_pos;
 	Output.color = in_color;
-	Output.normal = normalize(view_normal * vec4(in_normal.xyz, 0.0));
+	Output.normal = normalize(view_normal * in_normal);
 	Output.position = view_pos;
 })";
 
@@ -231,17 +233,17 @@ void main () {
 
 const char * const LINE_FRAGMENT_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
-uniform int stipple;
+uniform uint stipple;
 in GS_TO_FS {
 	vec4 color;
 	noperspective float coord;
 } Input;
 out vec4 out_color;
 void main() {
-	int i = int(fract(Input.coord) * 8.0); // stipple is 8-bit
-	int a = (stipple >> i) & 1;
-	if (a == 0) discard;
-	out_color = vec4(Input.color.rgb, Input.color.a);
+	uint i = uint(fract(Input.coord) * 8.0); // stipple is 8-bit
+	uint a = (stipple >> i) & 1u;
+	if (a == 0u) discard;
+	out_color = Input.color;
 })";
 
 // ----------------------------------------------------------------
@@ -253,7 +255,7 @@ layout(location = 0) in vec2 in_position;
 out vec2 vary_texcoord;
 void main() {
 	gl_Position = vec4(in_position.xy, 0.0, 1.0);
-	vary_texcoord = in_position.yx * vec2(-0.5, 0.5) + 0.5;
+	vary_texcoord = in_position.xy * vec2(0.5, -0.5) + 0.5;
 })";
 
 // Fragment shader for rendering text
@@ -347,7 +349,7 @@ const char * const TEXTURE_VERT_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 varying vec2 vary_texcoord;
 void main() {
 	gl_Position = vec4(gl_Vertex.xy, 0.0, 1.0);
-	vary_texcoord = gl_Vertex.yx * vec2(-0.5, 0.5) + 0.5;
+	vary_texcoord = gl_Vertex.xy * vec2(0.5, -0.5) + 0.5;
 })";
 
 // Fragment shader for rendering text
@@ -360,23 +362,22 @@ void main() {
 	gl_FragColor = vec4(color.rgb, color.a * texture2D(tex, vary_texcoord).r);
 })";
 
-#endif // G_USE_CORE_PROFILE
+#endif // G_USE_OPENGL_CORE_PROFILE
 
 GLuint g_marker_programs[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TYPES];
-GLuint g_texture_program;
-GLuint g_current_program;
+GLuint g_text_program;
 
 GLint g_texture_sampler_location;
 GLint g_texture_color_location;
 
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 GLuint g_line_program;
 GLuint g_constant_program;
 GLuint g_lighting_program;
 
 GLint g_line_stipple_location;
 
-G_BOOL g_need_line_stipple_updated;
+//G_BOOL g_need_line_stipple_updated;
 
 GLuint g_uniforms[G_NUM_UNIFORMS];
 #else
@@ -401,10 +402,10 @@ GLint g_get_program_info(GLuint program, GLenum pname)
 void g_check_shader_compile_status(GLuint shader)
 {
 	GLint info_log_length = g_get_shader_int(shader, GL_INFO_LOG_LENGTH);
-	
+
 	if (info_log_length > 0) {
-		char * info_log = (char *)malloc(info_log_length * sizeof(char));
-		
+		char *info_log = g_malloc<char>(info_log_length);
+
 		glGetShaderInfoLog(shader, info_log_length, NULL, info_log);
 		printf("%s\n", info_log);
 
@@ -430,12 +431,12 @@ GLuint g_create_shader(GLenum type, const char *source)
 void g_link_program(GLuint program)
 {
 	glLinkProgram(program);
-	
+
 	GLint info_log_length = g_get_program_info(program, GL_INFO_LOG_LENGTH);
-	
+
 	if (info_log_length > 0) {
-		char * info_log = (char *)malloc(info_log_length * sizeof(char));
-		
+		char *info_log = g_malloc<char>(info_log_length);
+
 		glGetProgramInfoLog(program, GL_INFO_LOG_LENGTH, NULL, info_log);
 		printf("%s\n", info_log);
 
@@ -468,7 +469,7 @@ GLuint g_create_program(GLuint vert_shader, GLuint frag_shader)
 	return program;
 }
 
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 
 void g_bind_uniform_block(GLuint program, const GLchar *name, GLuint binding)
 {
@@ -486,7 +487,7 @@ void g_update_uniform(GLuint index, GLsizei size, const void *data)
 
 void g_shader_program_init()
 {
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 	glGenBuffers(G_NUM_UNIFORMS, g_uniforms);
 	glBindBuffer(GL_UNIFORM_BUFFER, g_uniforms[G_UNIFORM_MATRICES]);
 
@@ -519,7 +520,7 @@ void g_shader_program_init()
 		for (GLuint j = 0; j < G_NUM_MARKER_TYPES; j++) {
 			g_marker_programs[i][j] = g_create_program(marker_vert_shaders[i], marker_frag_shaders[j]);
 
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 			g_bind_uniform_block(g_marker_programs[i][j], "Matrices", G_UNIFORM_MATRICES);
 #else
 			g_marker_pixel_scale_location[i][j] = glGetUniformLocation(g_marker_programs[i][j], "pixel_scale");
@@ -528,7 +529,7 @@ void g_shader_program_init()
 		}
 	}
 
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 	g_line_program = glCreateProgram();
 	glAttachShader(g_line_program, g_create_shader(GL_VERTEX_SHADER, LINE_VERTEX_SHADER_SOURCE));
 	glAttachShader(g_line_program, g_create_shader(GL_GEOMETRY_SHADER, LINE_GEOMETRY_SHADER_SOURCE));
@@ -541,16 +542,10 @@ void g_shader_program_init()
 	g_bind_uniform_block(g_lighting_program, "Lights", G_UNIFORM_LIGHTS);
 #endif
 
-	g_texture_program = g_create_program(TEXTURE_VERT_SHADER_SOURCE, TEXTURE_FRAG_SHADER_SOURCE);
+	g_text_program = g_create_program(TEXTURE_VERT_SHADER_SOURCE, TEXTURE_FRAG_SHADER_SOURCE);
 
-	g_texture_sampler_location = glGetUniformLocation(g_texture_program, "tex");
-	g_texture_color_location = glGetUniformLocation(g_texture_program, "color");
+	g_texture_sampler_location = glGetUniformLocation(g_text_program, "tex");
+	g_texture_color_location = glGetUniformLocation(g_text_program, "color");
 }
 
-void g_use_program(GLuint program)
-{
-	if (g_current_program != program) {
-		glUseProgram(program);
-		g_current_program = program;
-	}
-}
+#endif

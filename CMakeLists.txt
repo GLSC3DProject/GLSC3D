@@ -3,7 +3,7 @@ project(GLSC3D)
 
 if (UNIX)
 	set(CMAKE_C_FLAGS	" -O3 -std=c99 -W -Wall")
-	set(CMAKE_CXX_FLAGS	" -O3 -std=c++11 -W -Wall -Wno-return-type-c-linkage")
+	set(CMAKE_CXX_FLAGS	" -O3 -std=c++17 -W -Wall -Wno-return-type-c-linkage")
 elseif (MSVC)
 	set(CMAKE_C_FLAGS	" /MP /utf-8")
 	set(CMAKE_CXX_FLAGS	" /MP /utf-8")

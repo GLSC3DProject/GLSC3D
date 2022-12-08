@@ -27,68 +27,77 @@ struct G_TRANSFORM
 
 	// g_screen_scale_factor
 	float screen_scale;
+
+	float pad = 0;
 };
 
-void G_CAMERA::select(float screen_width, float screen_height)
+void g_select_camera(const G_CAMERA &camera, float screen_width, float screen_height)
 {
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_VERTEX_BUFFERS
 	G_TRANSFORM transform;
-	transform.camera = *this;
-	transform.pixel_scale_x = 1 / (screen_width * proj.x.x);
-	transform.pixel_scale_y = 1 / (screen_height * proj.y.y);
+	transform.camera = camera;
+	transform.pixel_scale_x = 1 / (screen_width * camera.proj.x.x);
+	transform.pixel_scale_y = 1 / (screen_height * camera.proj.y.y);
 	transform.screen_scale = g_screen_scale_factor;
 
+#ifdef G_USE_METAL
+	g_command_encoder->setVertexBytes(&transform, sizeof(G_TRANSFORM), G_BUFFER_MATRICES);
+	g_command_encoder->setFragmentBytes(&transform, sizeof(G_TRANSFORM), G_BUFFER_MATRICES);
+#else
 	g_update_uniform(G_UNIFORM_MATRICES, sizeof(G_TRANSFORM), &transform);
+#endif
 #else
 	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf((float *)&proj);
+	glLoadMatrixf((float *)&camera.proj);
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf((float *)&view);
+	glLoadMatrixf((float *)&camera.view);
 #endif
 }
 
-#ifndef G_USE_CORE_PROFILE
+#ifndef G_USE_VERTEX_BUFFERS
 float g_current_pixel_scale;
 #endif
 
-G_SCREEN G_SCALE::viewport()
-{
-	G_SCREEN v;
-	v.x = (int)(g_screen_scale_factor * screen.x);
-	v.y = glsc3D_height - (int)(g_screen_scale_factor * (screen.height + screen.y));
-	v.width = (int)(g_screen_scale_factor * screen.width);
-	v.height = (int)(g_screen_scale_factor * screen.height);
-	return v;
-}
-
 void G_SCALE::select()
 {
-	G_SCREEN v = viewport();
+	int width = (int)(g_screen_scale_factor * screen.width);
+	int height = (int)(g_screen_scale_factor * screen.height);
 
 	if (g_clipping_enabled) {
-		glViewport(v.x, v.y, v.width, v.height);
-		camera.select(screen.width, screen.height);
+		int x = (int)(g_screen_scale_factor * screen.x);
+#ifdef G_USE_METAL
+		int y = (int)(g_screen_scale_factor * screen.y);
+#else
+		int y = glsc3D_height - (int)(g_screen_scale_factor * (screen.height + screen.y));
+#endif
+		g_set_viewport(x, y, width, height);
+		g_select_camera(camera, screen.width, screen.height);
 	}
 	else {
-		glViewport(0, 0, glsc3D_width, glsc3D_height);
+		g_set_viewport(0, 0, glsc3D_width, glsc3D_height);
 
 		float x0 = -2.f * screen.x / screen.width - 1.f;
-		float x1 = 2.f * glsc3D_width / v.width + x0;
+		float x1 = 2.f * glsc3D_width / width + x0;
 		float y1 = 2.f * screen.y / screen.height + 1.f;
-		float y0 = -2.f * glsc3D_height / v.height + y1;
+		float y0 = -2.f * glsc3D_height / height + y1;
 
 		G_CAMERA c = camera;
 
 		c.proj *= G_MATRIX::Ortho2D(x0, x1, y0, y1);
-		c.select(screen.width, screen.height);
+		g_select_camera(c, screen.width, screen.height);
 	}
 
-#ifndef G_USE_CORE_PROFILE
+#ifndef G_USE_VERTEX_BUFFERS
 	g_current_pixel_scale = 1 / (screen.height * camera.proj.y.y);
 #endif
 
+#ifdef G_USE_METAL
+	g_command_encoder->setFrontFacingWinding(
+		is_left_handed ? MTL::WindingClockwise : MTL::WindingCounterClockwise);
+#else
 	glFrontFace(is_left_handed ? GL_CW : GL_CCW);
+#endif
 }
 
 G_SCREEN g_make_screen(int x, int y, int width, int height)
@@ -126,39 +135,37 @@ void g_def_scale_3D_fix(int id,
 	);
 }
 
-void g_calc_matrix(
-	int id, G_DEF_SCALE *tmp_def_scale
-)
+void g_calc_matrix(int id)
 {
 	if (id >= TotalDisplayNumber) {
 		fprintf(stderr,"too large id number\n");
 		exit(0);
 	}
 
-	G_VECTOR lower = tmp_def_scale[id].r_0_f;
-	G_VECTOR upper = tmp_def_scale[id].r_1_f;
-	G_VECTOR eye = tmp_def_scale[id].eye;
-	G_VECTOR up = tmp_def_scale[id].up;
+	G_VECTOR lower = def_scale[id].r_0_f;
+	G_VECTOR upper = def_scale[id].r_1_f;
+	G_VECTOR eye = def_scale[id].eye;
+	G_VECTOR up = def_scale[id].up;
 
-	float aspect = (float)tmp_def_scale[id].width_std / (float)tmp_def_scale[id].height_std;
+	float aspect = (float)def_scale[id].width_std / (float)def_scale[id].height_std;
 
 	G_VECTOR center = 0.5f * (lower + upper);
 	float sphere_r = g_norm(upper - lower) / 2;
 
 	float R = g_norm(eye - center);
 	float r_div_sr = R / sphere_r;
-	float c = sqrtf(r_div_sr * r_div_sr - 1) * tmp_def_scale[id].zoom;
+	float c = sqrtf(r_div_sr * r_div_sr - 1) * def_scale[id].zoom;
 
-	G_VECTOR r_10 = tmp_def_scale[id].r_1 - tmp_def_scale[id].r_0;
-	G_VECTOR r_10_f = tmp_def_scale[id].r_1_f - tmp_def_scale[id].r_0_f;
+	G_VECTOR r_10 = def_scale[id].r_1 - def_scale[id].r_0;
+	G_VECTOR r_10_f = def_scale[id].r_1_f - def_scale[id].r_0_f;
 
 	float scale_x = r_10_f.x / r_10.x;
 	float scale_y = r_10_f.y / r_10.y;
 	float scale_z = r_10_f.z / r_10.z;
 
-	float trans_x = (tmp_def_scale[id].r_1.x*tmp_def_scale[id].r_0_f.x - tmp_def_scale[id].r_0.x*tmp_def_scale[id].r_1_f.x) / r_10.x;
-	float trans_y = (tmp_def_scale[id].r_1.y*tmp_def_scale[id].r_0_f.y - tmp_def_scale[id].r_0.y*tmp_def_scale[id].r_1_f.y) / r_10.y;
-	float trans_z = (tmp_def_scale[id].r_1.z*tmp_def_scale[id].r_0_f.z - tmp_def_scale[id].r_0.z*tmp_def_scale[id].r_1_f.z) / r_10.z;
+	float trans_x = (def_scale[id].r_1.x*def_scale[id].r_0_f.x - def_scale[id].r_0.x*def_scale[id].r_1_f.x) / r_10.x;
+	float trans_y = (def_scale[id].r_1.y*def_scale[id].r_0_f.y - def_scale[id].r_0.y*def_scale[id].r_1_f.y) / r_10.y;
+	float trans_z = (def_scale[id].r_1.z*def_scale[id].r_0_f.z - def_scale[id].r_0.z*def_scale[id].r_1_f.z) / r_10.z;
 
 	G_MATRIX trans = G_MATRIX::Translation(G_VECTOR(trans_x, trans_y, trans_z));
 	G_MATRIX look_at = G_MATRIX::LookAt(eye, center, up);
@@ -166,7 +173,7 @@ void g_calc_matrix(
 	glsc3D_inner_scale[id].camera.proj = G_MATRIX::Perspective(c, aspect, R*0.25f, R + sphere_r);
 	glsc3D_inner_scale[id].camera.view = G_MATRIX::Scaling(scale_x, scale_y, scale_z) * trans * look_at;
 	glsc3D_inner_scale[id].camera.view_normal = G_MATRIX::Scaling(1/scale_x, 1/scale_y, 1/scale_z) * trans * look_at;
-	glsc3D_inner_scale[id].screen = g_make_screen(tmp_def_scale[id].x_left_std, tmp_def_scale[id].y_top_std, tmp_def_scale[id].width_std, tmp_def_scale[id].height_std);
+	glsc3D_inner_scale[id].screen = g_make_screen(def_scale[id].x_left_std, def_scale[id].y_top_std, def_scale[id].width_std, def_scale[id].height_std);
 	glsc3D_inner_scale[id].is_3D = true;
 	glsc3D_inner_scale[id].is_left_handed = (scale_x * scale_y * scale_z < 0);
 }
@@ -198,9 +205,12 @@ void g_def_scale_3D(
 	def_scale[id].eye = eye;
 	def_scale[id].up = up;
 	def_scale[id].zoom = zoom,
-	def_scale[id].x_left_std = x_left_std, def_scale[id].y_top_std = y_top_std, def_scale[id].width_std = width_std, def_scale[id].height_std = height_std;
+	def_scale[id].x_left_std = x_left_std;
+	def_scale[id].y_top_std = y_top_std;
+	def_scale[id].width_std = width_std;
+	def_scale[id].height_std = height_std;
 
-	g_calc_matrix(id, def_scale);
+	g_calc_matrix(id);
 }
 
 void g_vision(
@@ -216,7 +226,7 @@ void g_vision(
 	def_scale[id].up = G_VECTOR(up_x, up_y, up_z);
 	def_scale[id].zoom = zoom;
 
-	g_calc_matrix(id, def_scale);
+	g_calc_matrix(id);
 }
 
 void g_sel_scale(int id)
@@ -241,7 +251,7 @@ void g_boundary(void)
 
 	g_vertex_buffer_flush();
 
-	glViewport(0, 0, glsc3D_width, glsc3D_height);
+	g_set_viewport(0, 0, glsc3D_width, glsc3D_height);
 
 	float screen_width = glsc3D_width / g_screen_scale_factor;
 	float screen_height = glsc3D_height / g_screen_scale_factor;
@@ -251,7 +261,7 @@ void g_boundary(void)
 	camera.view = G_MATRIX::Identity();
 	camera.view_normal = G_MATRIX::Identity();
 
-	camera.select(screen_width, screen_height);
+	g_select_camera(camera, screen_width, screen_height);
 
 	G_SCREEN &s = g_current_scale_ptr->screen;
 	g_move_3D(s.x, s.y, 0);

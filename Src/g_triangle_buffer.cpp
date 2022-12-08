@@ -47,56 +47,17 @@ void g_triangle_buffer_init()
 	if (g_enable_transparent)
 	{
 		/* 可視化処理のための三角形バッファ */
-		if (!(triangle_buffer = (G_TRIANGLE*)malloc(TRIANGLE_BUFFER_SIZE * sizeof(G_TRIANGLE))))
-		{
-			fprintf(stderr, "failed to allocate memory\a\n");
-			fprintf(stderr, "GLSC3D will abort\n");
-			abort();
-		}
-
-		if (!(triangle_r = (float *)malloc(TRIANGLE_BUFFER_SIZE * sizeof(float))))
-		{
-			fprintf(stderr, "failed to allocate memory\a\n");
-			fprintf(stderr, "GLSC3D will abort\n");
-			abort();
-		}
-
-		if (!(camera_id = (int*)malloc(TRIANGLE_BUFFER_SIZE * sizeof(int))))
-		{
-			fprintf(stderr, "failed to allocate memory\a\n");
-			fprintf(stderr, "GLSC3D will abort\n");
-			abort();
-		}
-
-		if (!(aligned_index = (int*)malloc(2 * TRIANGLE_BUFFER_SIZE * sizeof(int))))
-		{
-			fprintf(stderr, "failed to allocate memory\a\n");
-			fprintf(stderr, "GLSC3D will abort\n");
-			abort();
-		}
+		triangle_buffer = g_malloc<G_TRIANGLE>(TRIANGLE_BUFFER_SIZE);
+		triangle_r = g_malloc<float>(TRIANGLE_BUFFER_SIZE);
+		camera_id = g_malloc<int>(TRIANGLE_BUFFER_SIZE);
+		aligned_index = g_malloc<int>(2 * TRIANGLE_BUFFER_SIZE);
 
 		DBG_WRITE("initial aligned input : %p", aligned_index);
 
-		if (!(final_index = (int*)malloc(TRIANGLE_BUFFER_SIZE * sizeof(int))))
-		{
-			fprintf(stderr, "failed to allocate memory\a\n");
-			fprintf(stderr, "GLSC3D will abort\n");
-			abort();
-		}
+		final_index = g_malloc<int>(TRIANGLE_BUFFER_SIZE);
+		merge_buffer = g_malloc<int>(TRIANGLE_BUFFER_SIZE);
+		triangle_index = g_malloc<int>(TEMPORARY_TRIANGLE_BUFFER_SIZE);
 
-		if (!(merge_buffer = (int*)malloc(TRIANGLE_BUFFER_SIZE * sizeof(int))))
-		{
-			fprintf(stderr, "failed to allocate memory\a\n");
-			fprintf(stderr, "GLSC3D will abort\n");
-			abort();
-		}
-
-		if (!(triangle_index = (int*)malloc(TEMPORARY_TRIANGLE_BUFFER_SIZE * sizeof(int))))
-		{
-			fprintf(stderr, "failed to allocate memory\a\n");
-			fprintf(stderr, "GLSC3D will abort\n");
-			abort();
-		}
 		/*
 		char *mem = (char*)triangle_buffer;
 		for(unsigned int i = 0; i < TRIANGLE_BUFFER_SIZE*sizeof(G_TRIANGLE); ++i)
@@ -130,7 +91,7 @@ void g_triangle_buffer_append(const G_TRIANGLE *t)
 		g_triangle_buffer_flush();
 
 	G_MATRIX c = glsc3D_inner_scale[g_current_scale_id].camera.view;
-	G_VECTOR g = (t->vertex[0].position + t->vertex[1].position + t->vertex[2].position) / 3;
+	G_VECTOR g = (1.f / 3) * (t->vertex[0].position + t->vertex[1].position + t->vertex[2].position);
 
 	float z = g.x * c.x.z + g.y * c.y.z + g.z * c.z.z;
 

@@ -5,7 +5,7 @@
 // Special keys and mouse buttons are stored in place of control characters.
 #define INPUT_KEY_MAX (128)
 
-G_INPUT_STATE input_key[INPUT_KEY_MAX];
+G_UINT input_key[INPUT_KEY_MAX];
 
 struct { int x, y; } click_pos;
 
@@ -43,7 +43,7 @@ void update_input_key_state()
 
 G_INPUT_STATE g_key_state(G_KEY_CODE key)
 {
-	return input_key[key];
+	return (G_INPUT_STATE)input_key[key];
 }
 
 G_INPUT_STATE g_input_state(G_KEY_CODE key, int *x, int *y)
@@ -56,7 +56,7 @@ G_INPUT_STATE g_input_state(G_KEY_CODE key, int *x, int *y)
 	return g_key_state(key);
 }
 
-char *g_key_code_string[] = 
+const char *g_key_code_string[] =
 	{
 		"Invalid", //0x00
 		"Left Click",

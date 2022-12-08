@@ -60,7 +60,7 @@ static MarchingEdge Judgeheight(G_VECTOR r0, G_VECTOR r1, double v0, double v1, 
 static void do_isosurface(const MarchingCube *Cube, MarchingTetrahedron *Tetrahedron, MarchingEdge *Edge,
 						  double height, int Table1[6][5], int Table2[7][3])
 {
-	int UraOmoteFlag;
+//	int UraOmoteFlag;
 	int SankakuShikaku;
 	int EdgeMember[4];
 //	G_VECTOR    n,n1;
@@ -82,14 +82,14 @@ static void do_isosurface(const MarchingCube *Cube, MarchingTetrahedron *Tetrahe
 								  height);
 		}
 
-		UraOmoteFlag = 0;
+//		UraOmoteFlag = 0;
 		SankakuShikaku = 0;
 		for(m = 1;m <= 6;m ++)//Edge
 		{
 			if(Edge[m].flag != 0)
 			{
 				EdgeMember[SankakuShikaku] = m;
-				UraOmoteFlag += Edge[m].flag;
+//				UraOmoteFlag += Edge[m].flag;
 				SankakuShikaku ++;
 			}
 		}

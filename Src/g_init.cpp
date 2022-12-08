@@ -19,33 +19,17 @@ void g_init_core(
 {
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
-//	printf("OpenGL Version : %s\n", glGetString(GL_VERSION));
-
-	glDepthFunc(GL_LEQUAL);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-
-	glEnable(GL_DEPTH_TEST);
-
-//	glEnable(GL_CULL_FACE);
-//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
+	g_general_init();
+#ifdef G_USE_VERTEX_BUFFERS
+	g_vertex_buffer_init();
+#endif
 	g_shader_program_init();
 	g_text_init();
-
-#ifdef G_USE_CORE_PROFILE
-	glEnable(GL_PROGRAM_POINT_SIZE);
-#else
-	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
-	glEnable(GL_POINT_SPRITE);
-
-	glEnable(GL_NORMALIZE);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-#endif
 
 	g_marker_size(1);
 	g_line_width(2);
 	g_line_type(0);
+	g_text_size(24);
 
 	g_init_light(0, 0, 0, 1);
 
@@ -58,24 +42,16 @@ void g_init_core(
 
 	g_enable_transparent = enable_transparent;
 
-	if(g_enable_transparent)
-	{
-		if(temporary_triangle_buffer_size == 0)
-		{
+	if (g_enable_transparent) {
+		if (temporary_triangle_buffer_size == 0)
 			TEMPORARY_TRIANGLE_BUFFER_SIZE = 1 << 20;
-		}
 		else
-		{
 			TEMPORARY_TRIANGLE_BUFFER_SIZE = temporary_triangle_buffer_size;
-		}
-		if(triangle_buffer_size == 0)
-		{
+
+		if (triangle_buffer_size == 0)
 			TRIANGLE_BUFFER_SIZE = 1 << 20;
-		}
 		else
-		{
 			TRIANGLE_BUFFER_SIZE = triangle_buffer_size;
-		}
 
 		g_triangle_buffer_init();
 	}

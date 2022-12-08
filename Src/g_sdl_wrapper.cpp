@@ -1,6 +1,13 @@
+#define NS_PRIVATE_IMPLEMENTATION
+#define CA_PRIVATE_IMPLEMENTATION
+#define MTL_PRIVATE_IMPLEMENTATION
 #include "glsc3d_3_private.h"
 
 #include <SDL2/SDL.h>
+
+#ifdef G_DISPLAY_DEBUG_MESSAGES
+#include <sstream>
+#endif
 
 #ifndef __APPLE__
 
@@ -21,22 +28,36 @@ void g_mouse_event(const SDL_MouseButtonEvent &event, G_INPUT_STATE state);
 void APIENTRY g_debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, const void *user);
 #endif
 
-SDL_Window*		g_window;
-SDL_GLContext	g_context;
+SDL_Window     *g_window;
+
+#ifdef G_USE_METAL
+SDL_Renderer   *g_renderer;
+CA::MetalLayer *g_swapchain;
+MTL::Device    *g_device;
+#else
+SDL_GLContext   g_context;
+#endif
 
 int g_window_width, g_window_height;
 
-bool	g_highdpi_enabled;
-G_UINT	g_antialiasing_level;
+bool   g_highdpi_enabled;
+G_UINT g_antialiasing_level;
 
 void g_update_drawable_size()
 {
+#ifdef G_USE_METAL
+	SDL_Metal_GetDrawableSize(g_window, &glsc3D_width, &glsc3D_height);
+	g_update_depth_buffer_size();
+#else
 	SDL_GL_GetDrawableSize(g_window, &glsc3D_width, &glsc3D_height);
+#endif
 
 	float sx = (float)glsc3D_width / g_window_width;
 	float sy = (float)glsc3D_height / g_window_height;
 
 	g_screen_scale_factor = sx < sy ? sx : sy;
+
+	g_text_buffer_size_update();
 }
 
 void g_enable_highdpi()
@@ -68,17 +89,26 @@ void g_set_antialiasing(G_UINT level)
 void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int height)
 {
 #ifdef _WIN32
-	SetProcessDPIAware();
+	if (g_highdpi_enabled) SetProcessDPIAware();
+#endif
+
+#ifdef G_USE_METAL
+	SDL_SetHint(SDL_HINT_RENDER_DRIVER, "metal");
 #endif
 
 	SDL_Init(SDL_INIT_VIDEO);
+
+	Uint32 flags = 0;
+
+#ifndef G_USE_METAL
+	flags = SDL_WINDOW_OPENGL;
 
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, SDL_TRUE);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
 	int context_flags = 0;
 
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
@@ -99,12 +129,12 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 1 << g_antialiasing_level);
 	}
+#endif
 
 	g_window_width = width, g_window_height = height;
 
-	Uint32 flags;
 	if (WindowName != G_OFF_SCREEN) {
-		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
+		flags |= SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
 
 		if (g_highdpi_enabled) {
 			flags |= SDL_WINDOW_ALLOW_HIGHDPI;
@@ -123,11 +153,17 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 		}
 	}
 	else {
-		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN;
+		flags |= SDL_WINDOW_HIDDEN;
 	}
 	g_window = SDL_CreateWindow(WindowName, pos_x, pos_y, width, height, flags);
 
+#ifdef G_USE_METAL
+	g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_PRESENTVSYNC);
+	g_swapchain = (CA::MetalLayer*)SDL_RenderGetMetalLayer(g_renderer);
+	g_device = g_swapchain->device();
+#else
 	g_context = SDL_GL_CreateContext(g_window);
+#endif
 
 #ifndef __APPLE__
 	G_EMIT_GLEXT(G_INIT_GLEXT);
@@ -138,7 +174,9 @@ void g_sdl_init(const char *WindowName, int pos_x, int pos_y, int width, int hei
 	glDebugMessageCallback(g_debug_callback, NULL);
 #endif
 
+#ifndef G_USE_METAL
 	SDL_GL_SetSwapInterval(1);
+#endif
 
 	g_update_drawable_size();
 	g_retina_scale_factor = g_screen_scale_factor;
@@ -162,9 +200,22 @@ void g_check_event(const SDL_Event &event)
 	if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) {
 		g_update_drawable_size();
 
-#ifndef G_USE_CORE_PROFILE
+#ifndef G_USE_VERTEX_BUFFERS
 		g_line_width(g_current_line_size);
 #endif
+	}
+
+	if (event.type == SDL_KEYDOWN) {
+		g_keyboard_event(event.key.keysym, G_DOWN);
+	}
+	else if (event.type == SDL_KEYUP) {
+		g_keyboard_event(event.key.keysym, G_UP);
+	}
+	else if (event.type == SDL_MOUSEBUTTONDOWN) {
+		g_mouse_event(event.button, G_DOWN);
+	}
+	else if (event.type == SDL_MOUSEBUTTONUP) {
+		g_mouse_event(event.button, G_UP);
 	}
 }
 
@@ -175,20 +226,33 @@ void g_poll_events()
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		g_check_event(event);
-
-		if (event.type == SDL_KEYDOWN) {
-			g_keyboard_event(event.key.keysym, G_DOWN);
-		}
-		else if (event.type == SDL_KEYUP) {
-			g_keyboard_event(event.key.keysym, G_UP);
-		}
-		else if (event.type == SDL_MOUSEBUTTONDOWN) {
-			g_mouse_event(event.button, G_DOWN);
-		}
-		else if (event.type == SDL_MOUSEBUTTONUP) {
-			g_mouse_event(event.button, G_UP);
-		}
 	}
+}
+
+void g_frame_finished()
+{
+#ifdef G_DISPLAY_DEBUG_MESSAGES
+	static Uint32 i = 0;
+	static Uint32 p = SDL_GetTicks();
+	Uint32 t = SDL_GetTicks();
+
+	if (t - p >= 1000) {
+		std::ostringstream s;
+#ifdef G_USE_METAL
+		s << "Using Metal | hasUnifiedMemory: " << std::boolalpha << g_device->hasUnifiedMemory();
+#else
+		s << "Using OpenGL";
+#endif
+		s << " | Framerate: " << i << std::endl;
+		SDL_SetWindowTitle(g_window, s.str().c_str());
+
+		i = 0;
+		p = t;
+	}
+	i++;
+#endif
+
+	g_poll_events();
 }
 
 void g_sleep(double wait_time)
@@ -202,11 +266,11 @@ void g_sleep(double wait_time)
 		return;
 	}
 	else if (wait_time > 0) {
-		Uint32 timeout = SDL_GetTicks() + (int)(wait_time * 1000);
+		Uint32 timeout = SDL_GetTicks() + (Uint32)(wait_time * 1000);
 
 		while (true) {
 			int remaining_ms = (int)(timeout - SDL_GetTicks());
-			if (remaining_ms < 0) {
+			if (remaining_ms <= 0) {
 				g_poll_events();
 				return;
 			}
@@ -229,7 +293,11 @@ void g_sleep(double wait_time)
 
 void g_quit()
 {
+#ifdef G_USE_METAL
+	SDL_DestroyRenderer(g_renderer);
+#else
 	SDL_GL_DeleteContext(g_context);
+#endif
 	SDL_DestroyWindow(g_window);
 	SDL_Quit();
 	exit(0);

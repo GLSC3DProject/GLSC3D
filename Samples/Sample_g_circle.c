@@ -8,7 +8,7 @@
 int main()
 {
 	g_init("Sample_g_circle.c", WINDOW_SIZE_X, WINDOW_SIZE_Y);
-	g_def_scale_2D(0, -2, 2, -2, 2,0, 0, WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
+	g_def_scale_2D(0, -2, 2, -2, 2, 0, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
 	g_def_scale_3D(1, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, -2, 2, WINDOW_SIZE_X / 2, 0, WINDOW_SIZE_X / 2, WINDOW_SIZE_Y);
 
 	int i_time;
@@ -17,7 +17,6 @@ int main()
 		g_cls();
 		g_sel_scale(0);
 		g_circle_2D(1, 1, 1, G_YES, G_NO);
-
 		g_circle_2D(-1, -1, 1, G_NO, G_YES);
 
 		g_sel_scale(1);

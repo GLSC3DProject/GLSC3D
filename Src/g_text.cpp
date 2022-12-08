@@ -1,14 +1,19 @@
 #include "glsc3d_3_private.h"
-#include <stdarg.h>
+#include <cstdarg>
+#include <algorithm>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+#ifdef G_USE_METAL
+MTL::Texture *g_texture;
+#else
 GLuint g_texture;
 
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 GLuint g_sampler, g_quad_vao;
 #else
 GLuint g_quad_vbo;
+#endif
 #endif
 
 G_COLOR g_current_text_color;
@@ -33,63 +38,17 @@ struct G_TEXT_APPEARANCE
 
 G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
-class G_TEXT_RENDERING_BUFFER
-{
-	size_t width = 0, height = 0, capacity = 0;
-	unsigned char *buffer = 0;
+static unsigned char *g_text_buffer = nullptr;
 
-	void ensure_capacity(size_t value)
-	{
-		if (value <= capacity) return;
-
-		size_t new_capacity = 1024;
-		while (new_capacity < value)
-			new_capacity *= 2;
-
-		auto new_buffer = (unsigned char *)malloc(new_capacity);
-
-		memcpy(new_buffer, buffer, capacity);
-		memset(new_buffer + capacity, 0, new_capacity - capacity);
-
-		free(buffer);
-
-		capacity = new_capacity;
-		buffer = new_buffer;
-	}
-
-public:
-	void begin(size_t new_height)
-	{
-		width = 0;
-		height = new_height;
-		memset(buffer, 0, capacity);
-	}
-	void write(G_UINT x, G_UINT y, G_UINT w, G_UINT h, unsigned char *data)
-	{
-		assert(y + h <= height);
-
-		G_UINT right = x + w;
-		if (width < right) width = right;
-
-		ensure_capacity(width * height);
-
-		for (G_UINT j = 0; j < h; j++) {
-			for (G_UINT i = 0; i < w; i++) {
-				buffer[height * (x + i) + (y + j)] = data[w * j + i];
-			}
-		}
-	}
-	void render(GLint left, GLint bottom)
-	{
-		glViewport(left, bottom, width, height);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, height, width, 0, GL_RED, GL_UNSIGNED_BYTE, buffer);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	}
-};
-
-G_TEXT_RENDERING_BUFFER g_text_buffer;
+#define USE_RELATIVE_FONT_PATH
 
 #define DEFAULT_FONT_NAME "NotoSansCJKjp-Regular.otf"
+
+#ifdef USE_RELATIVE_FONT_PATH
+
+#define DEFAULT_FONT_FILE "../Install_file_and_script_and_fonts/" DEFAULT_FONT_NAME
+
+#else
 
 #ifdef __linux__
 #define DEFAULT_FONT_FILE "/usr/share/fonts/opentype/noto/" DEFAULT_FONT_NAME
@@ -99,12 +58,15 @@ G_TEXT_RENDERING_BUFFER g_text_buffer;
 #define DEFAULT_FONT_FILE "C:/Windows/Fonts/" DEFAULT_FONT_NAME
 #endif
 
+#endif
+
 void g_text_init()
 {
+#ifndef G_USE_METAL
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	glGenTextures(1, &g_texture);
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 	glGenSamplers(1, &g_sampler);
 
 	glSamplerParameteri(g_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -124,7 +86,7 @@ void g_text_init()
 
 	float vertices[] = {-1, -1,  +1, -1,  -1, +1,  +1, +1};
 
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 	glGenVertexArrays(1, &g_quad_vao);
 	glBindVertexArray(g_quad_vao);
 
@@ -149,41 +111,62 @@ void g_text_init()
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 #endif
+#endif
 
 	if (FT_Error error = FT_Init_FreeType(&library)){
 		fprintf(stderr, "Unable to init Freetype. Abort.\nError : %d\n", error);
 		g_quit();
 	}
 
-#ifdef __APPLE__
+#ifdef DEFAULT_FONT_FILE
+	g_text_font_core(DEFAULT_FONT_FILE);
+#else
 	char default_font[256];
 	strcpy(default_font, getenv("HOME"));
 	strcat(default_font, "/Library/Fonts/" DEFAULT_FONT_NAME);
 
 	g_text_font_core(default_font);
-#else
-	g_text_font_core(DEFAULT_FONT_FILE);
 #endif
-
-	g_text_size(24);
 }
 
-static void g_text_render(double x, double y, const char *str)
+void g_text_buffer_size_update()
 {
-	g_vertex_buffer_flush();
-	g_use_program(g_texture_program);
-	glBindTexture(GL_TEXTURE_2D, g_texture);
+	free(g_text_buffer);
+	g_text_buffer = g_malloc<unsigned char>(glsc3D_width * glsc3D_height);
 
-#ifdef G_USE_CORE_PROFILE
-	glBindSampler(0, g_sampler);
-	glBindVertexArray(g_quad_vao);
-#else
-	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
+#ifdef G_USE_METAL
+	if (g_texture) g_texture->release();
+
+	G_AUTO_RELEASE<MTL::TextureDescriptor> desc;
+	desc->setWidth(glsc3D_width);
+	desc->setHeight(glsc3D_height);
+	desc->setPixelFormat(MTL::PixelFormatR8Unorm);
+	desc->setTextureType(MTL::TextureType2D);
+	desc->setStorageMode(MTL::StorageModeManaged);
+	desc->setUsage(MTL::ResourceUsageRead);
+	g_texture = g_device->newTexture(desc);
 #endif
+}
 
-	glUniform1i(g_texture_sampler_location, 0);
-	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
+void g_text_buffer_clear()
+{
+	memset(g_text_buffer, 0, glsc3D_width * glsc3D_height);
+}
 
+static void g_text_buffer_write(int x, int y, int w, int h, const unsigned char *data)
+{
+	int X = std::min(x + w, glsc3D_width);
+	int Y = std::min(y + h, glsc3D_height);
+
+	for (int j = std::max(y, 0); j < Y; j++) {
+		for (int i = std::max(x, 0); i < X; i++) {
+			g_text_buffer[glsc3D_width * j + i] = data[w * (j - y) + (i - x)];
+		}
+	}
+}
+
+static void g_text_buffer_render(double x, double y, const char *str)
+{
 	int font_size = (int)(g_current_text_size * g_screen_scale_factor);
 
 	if (face == nullptr) {
@@ -195,12 +178,10 @@ static void g_text_render(double x, double y, const char *str)
 		printf("Unable to set font size.\nError: %d\n", error);
 	}
 
-	int height = face->size->metrics.height >> 6;
+//	int height = face->size->metrics.height >> 6;
 
-	g_text_buffer.begin(height);
-
-	int position_x = 0;
-	int position_y = face->size->metrics.ascender >> 6;
+	int position_x = (int)(x * g_screen_scale_factor);
+	int position_y = (int)(y * g_screen_scale_factor);// + (face->size->metrics.ascender >> 6);
 
 	while (FT_UInt c = (FT_Byte)*str) {
 		// Decode UTF-8
@@ -241,29 +222,60 @@ static void g_text_render(double x, double y, const char *str)
 
 		FT_GlyphSlot glyph = face->glyph;
 
-		g_text_buffer.write(
+		g_text_buffer_write(
 			position_x + glyph->bitmap_left, position_y - glyph->bitmap_top,
 			glyph->bitmap.width, glyph->bitmap.rows,
 			glyph->bitmap.buffer);
 
 		position_x += glyph->advance.x >> 6;
 	}
+}
 
-	GLint left = (int)(x * g_screen_scale_factor);
-	GLint bottom = glsc3D_height - (int)(y * g_screen_scale_factor) + position_y - height;
+void g_text_buffer_present()
+{
+	int width = glsc3D_width, height = glsc3D_height;
 
-	g_text_buffer.render(left, bottom);
+#ifdef G_USE_METAL
+	g_command_encoder->setRenderPipelineState(g_text_program);
+	G_VECTOR4 vertices[] = {
+		{-1, -1, 0, (float)height},
+		{-1,  1, 0, 0},
+		{ 1, -1, (float)width, (float)height},
+		{ 1,  1, (float)width, 0}
+	};
+
+	g_texture->replaceRegion(MTL::Region(0, 0, width, height), 0, g_text_buffer, width);
+	g_command_encoder->setVertexBytes(vertices, sizeof(vertices), 0);
+	g_command_encoder->setFragmentBytes(&g_current_text_color, sizeof(G_COLOR), 0);
+	g_command_encoder->setFragmentTexture(g_texture, 0);
+	g_set_viewport(0, 0, width, height);
+	g_command_encoder->drawPrimitives(MTL::PrimitiveTypeTriangleStrip, 0UL, 4UL);
+#else
+	g_use_program(g_text_program);
+	glBindTexture(GL_TEXTURE_2D, g_texture);
+
+#ifdef G_USE_OPENGL_CORE_PROFILE
+	glBindSampler(0, g_sampler);
+	glBindVertexArray(g_quad_vao);
+#else
+	glBindBuffer(GL_ARRAY_BUFFER, g_quad_vbo);
+#endif
+
+	glUniform1i(g_texture_sampler_location, 0);
+	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
+
+	glViewport(0, 0, width, height);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, g_text_buffer);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-#ifdef G_USE_CORE_PROFILE
+#ifdef G_USE_OPENGL_CORE_PROFILE
 	glBindVertexArray(0);
 #else
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 #endif
-
-	if (g_current_scale_ptr != nullptr)
-		g_current_scale_ptr->select();
+#endif
 }
 
 void g_text_standard_v(double x, double y, const char *format, va_list args)
@@ -271,7 +283,7 @@ void g_text_standard_v(double x, double y, const char *format, va_list args)
 	char buf[256];
 	vsnprintf(buf, sizeof(buf), format, args);
 
-	g_text_render(x, y, buf);
+	g_text_buffer_render(x, y, buf);
 }
 
 void g_text_3D_virtual_v(double x, double y, double z, const char *format, va_list args)

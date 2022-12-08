@@ -14,11 +14,17 @@ static char DirectoryPath[DirectoryPathLength];
 static char FilePath[FilePathLength];
 static char Command[CommandLength];
 
-static int isInitialized = 0;
+#ifdef G_USE_METAL
+MTL::Buffer *g_capture_buffer;
+#else
+static unsigned char *buf = 0;
+#endif
+
+bool g_capture_is_initialized = false;
+
 static int width, height;
 static int count = 0;
 
-static unsigned char *buf = 0;
 static unsigned char **pbuf = 0;
 
 static png_structp p_ps = 0;
@@ -45,7 +51,7 @@ static png_infop p_pi = 0;
 //           else return 0
 int g_capture()
 {
-	if(!isInitialized)
+	if(!g_capture_is_initialized)
 	{
 		fprintf(stderr, "void g_capture(void) should be called after void g_capture_set(directory)\n");
 		return 1;
@@ -56,17 +62,24 @@ int g_capture()
 
 	FILE *fp = fopen(FilePath, "wb");
 
+#ifndef G_USE_METAL
 	glReadBuffer(GL_FRONT);
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
-	glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buf);
+	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buf);
+#endif
 
 	p_ps = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	p_pi = png_create_info_struct(p_ps);
 	png_init_io(p_ps, fp);
-	png_set_IHDR(p_ps, p_pi, width, height, 8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+	png_set_IHDR(p_ps, p_pi, width, height, 8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+#ifdef G_USE_METAL
+	png_set_rows(p_ps, p_pi, pbuf);
+	png_write_png(p_ps, p_pi, PNG_TRANSFORM_BGR, nullptr);
+#else
 	png_write_info(p_ps, p_pi);
 	png_write_image(p_ps, pbuf);
 	png_write_end(p_ps, p_pi);
+#endif
 	png_destroy_write_struct(&p_ps, &p_pi);
 
 	count++;
@@ -82,9 +95,6 @@ int g_capture_set(const char *name)
 {
 	size_t len = name ? strlen(name) : 0;
 	int empty_flag = len ? 0 : 1;
-
-	free(buf);
-	free(pbuf);
 
 	//for finalize
 	if(name == (void*)-1)
@@ -127,25 +137,24 @@ int g_capture_set(const char *name)
 	width = glsc3D_width;
 	height = glsc3D_height;
 
-	buf = malloc(sizeof(char)*width*height*3);
-	if(buf == 0)
-	{
-		STRERROR;
-		return 4;
-	}
+	free(pbuf);
+	pbuf = g_malloc<unsigned char *>(height);
 
-	pbuf = malloc(sizeof(char*)*height);
-	if(pbuf == 0)
-	{
-		STRERROR;
-		return 5;
-	}
+#ifdef G_USE_METAL
+	g_capture_buffer = g_device->newBuffer(4 * width * height, MTL::ResourceStorageModeShared);
+
+	for(int i = 0; i < height; ++i)
+		pbuf[i] = (unsigned char *)g_capture_buffer->contents() + i*width*4;
+#else
+	free(buf);
+	buf = g_malloc<unsigned char>(width*height*4);
 
 	//Is is necessary to reverse pbuf for writing true order image.
 	for(int i = 0; i < height; ++i)
-		pbuf[height - 1 - i] = buf + i*width*3;
+		pbuf[height - 1 - i] = buf + i*width*4;
+#endif
 
-	isInitialized = 1;
+	g_capture_is_initialized = true;
 	count = 0;
 
 	return 0;
