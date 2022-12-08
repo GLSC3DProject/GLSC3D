@@ -98,7 +98,13 @@ void g_text_init()
 		g_quit();
 	}
 
+#ifdef G_DEFAULT_FONT_PATH
 	g_text_font_core(G_DEFAULT_FONT_PATH);
+#else
+	char s[256];
+	g_get_runtime_file_path(s, "NotoSansCJKjp-Regular.otf");
+	g_text_font_core(s);
+#endif
 }
 
 void g_text_buffer_size_update()
@@ -314,9 +320,9 @@ void g_text_color(float r, float g, float b, float a)
 	g_current_text_color = G_COLOR(r, g, b, a);
 }
 
-void g_text_font_core(const char *font_type)
+void g_text_font_core(const char *font_file)
 {
-	if (font_type == NULL) return;
+	if (font_file == NULL) return;
 
 	if (face != NULL) {
 		if (FT_Error error = FT_Done_Face(face)) {
@@ -324,8 +330,8 @@ void g_text_font_core(const char *font_type)
 		}
 		face = NULL;
 	}
-	if (FT_Error error = FT_New_Face(library, font_type, 0, &face)) {
-		fprintf(stderr, "Unable to load font'%s'.\nError: %d\n", font_type, error);
+	if (FT_Error error = FT_New_Face(library, font_file, 0, &face)) {
+		fprintf(stderr, "Unable to load font'%s'.\nError: %d\n", font_file, error);
 	}
 }
 

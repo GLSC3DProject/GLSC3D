@@ -239,7 +239,7 @@ void g_emit_vertex(G_VECTOR position)
 		g_vertex_buffer_triangles.append(position, 1, g_current_area_color);
 		break;
 	case G_PRIMITIVE_MODE::UNDEFINED:
-		std::cerr << "Internal error: g_primitive_mode is UNDEFINED" << std::endl;
+		fprintf(stderr, "Internal error: g_primitive_mode is UNDEFINED\n");
 		g_quit();
 	}
 #else

@@ -5,10 +5,6 @@
 
 #include <SDL2/SDL.h>
 
-#ifdef G_DISPLAY_DEBUG_MESSAGES
-#include <sstream>
-#endif
-
 #ifndef __APPLE__
 
 #define G_DECL_GLEXT(Type, Name) Type Name;
@@ -42,6 +38,10 @@ int g_window_width, g_window_height;
 
 bool   g_highdpi_enabled;
 G_UINT g_antialiasing_level;
+
+#ifdef G_DISPLAY_DEBUG_MESSAGES
+Uint32 g_measure_fps_current_frame, g_measure_fps_prev_ticks = 0;
+#endif
 
 void g_update_drawable_size()
 {
@@ -221,24 +221,26 @@ void g_check_event(const SDL_Event &event)
 void g_frame_finished()
 {
 #ifdef G_DISPLAY_DEBUG_MESSAGES
-	static Uint32 i = 0;
-	static Uint32 p = SDL_GetTicks();
 	Uint32 t = SDL_GetTicks();
 
-	if (t - p >= 1000) {
-		std::ostringstream s;
-#ifdef G_USE_METAL
-		s << "Using Metal | hasUnifiedMemory: " << std::boolalpha << g_device->hasUnifiedMemory();
-#else
-		s << "Using OpenGL";
-#endif
-		s << " | Framerate: " << i << std::endl;
-		SDL_SetWindowTitle(g_window, s.str().c_str());
-
-		i = 0;
-		p = t;
+	if (g_measure_fps_prev_ticks == 0) {
+		g_measure_fps_prev_ticks = t;
 	}
-	i++;
+	else if (t - g_measure_fps_prev_ticks >= 1000) {
+		char s[32];
+		snprintf(s, sizeof(s),
+#ifdef G_USE_METAL
+			"Using Metal | Framerate : %d",
+#else
+			"Using OpenGL | Framerate : %d",
+#endif
+			g_measure_fps_current_frame);
+		SDL_SetWindowTitle(g_window, s);
+
+		g_measure_fps_current_frame = 0;
+		g_measure_fps_prev_ticks = t;
+	}
+	g_measure_fps_current_frame++;
 #endif
 
 	update_input_key_state();

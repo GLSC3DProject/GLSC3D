@@ -5,6 +5,20 @@
 size_t GLSC3D_Data_Buffer_Size;
 void * GLSC3D_Data_Buffer;
 
+#ifndef G_USE_RELATIVE_RUNTIME_PATH
+void g_get_runtime_file_path(char *output, const char *name)
+{
+#ifdef _WIN32
+	strcpy(output, getenv("HOMEDRIVE"));
+	strcat(output, getenv("HOMEPATH"));
+#else
+	strcpy(output, getenv("HOME"));
+#endif
+	strcat(output, "/glsc3d_runtime/");
+	strcat(output, name);
+}
+#endif
+
 void * GLSC3D_Array_Buffer(size_t array_size)
 {
 	if (array_size <= GLSC3D_Data_Buffer_Size)

@@ -8,10 +8,6 @@ float g_retina_scale_factor;
 
 int g_enable_transparent, TRIANGLE_BUFFER_SIZE, TEMPORARY_TRIANGLE_BUFFER_SIZE;
 
-#ifndef G_USE_RELATIVE_RUNTIME_PATH
-std::string g_runtime_dir;
-#endif
-
 void g_init_core(
 	const char *WindowName, int width, int height,
 	int pos_x, int pos_y,
@@ -21,16 +17,6 @@ void g_init_core(
 	int triangle_buffer_size
 )
 {
-#ifndef G_USE_RELATIVE_RUNTIME_PATH
-#ifdef _WIN32
-	g_runtime_dir = getenv("HOMEDRIVE");
-	g_runtime_dir += getenv("HOMEPATH");
-#else
-	g_runtime_dir = getenv("HOME");
-#endif
-	g_runtime_dir += "/glsc3d_runtime";
-#endif
-
 	g_sdl_init(WindowName, pos_x, pos_y, width, height);
 
 	g_general_init();

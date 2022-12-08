@@ -4,10 +4,8 @@
 #include "glsc3d_3.h"
 
 #include <cassert>
-#include <iostream>
 #include <cstdio>
 #include <cstdlib>
-#include <string>
 
 // If Enabled: Displays debug messages in the title bar
 #define G_DISPLAY_DEBUG_MESSAGES
@@ -19,10 +17,6 @@
 #ifdef G_USE_RELATIVE_RUNTIME_PATH
 #define G_DEFAULT_FONT_PATH "../Install_file_and_script_and_fonts/NotoSansCJKjp-Regular.otf"
 #define G_METALLIB_PATH "../Shaders/shaders.metallib"
-#else
-extern std::string g_runtime_dir;
-#define G_DEFAULT_FONT_PATH (g_runtime_dir + "/NotoSansCJKjp-Regular.otf").c_str()
-#define G_METALLIB_PATH (g_runtime_dir + "/shaders.metallib").c_str()
 #endif
 
 #ifdef __APPLE__
@@ -252,6 +246,10 @@ extern G_PROGRAM_TYPE g_marker_programs[G_NUM_MARKER_SIZE_TYPES][G_NUM_MARKER_TY
 extern G_PROGRAM_TYPE g_text_program;
 
 extern bool g_capture_is_initialized;
+
+#ifndef G_USE_RELATIVE_RUNTIME_PATH
+void g_get_runtime_file_path(char *output, const char *name);
+#endif
 
 // ---- g_area.cpp
 

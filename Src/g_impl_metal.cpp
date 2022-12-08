@@ -36,17 +36,22 @@ void g_update_depth_buffer_size()
 void g_check_error(NS::Error *err, const char *message)
 {
 	if (err != nullptr) {
-		std::cerr << message << std::endl;
-		std::cerr << err->localizedDescription()->utf8String() << std::endl;
+		fprintf(stderr, "%s\n%s\n", message, err->localizedDescription()->utf8String());
 		g_quit();
 	}
 }
 
 MTL::Library *g_load_library()
 {
+#ifdef G_METALLIB_PATH
+	auto path = NS::MakeConstantString(G_METALLIB_PATH);
+#else
+	char s[256];
+	g_get_runtime_file_path(s, "shaders.metallib");
+	G_AUTO_RELEASE path = NS::String::string(s, NS::UTF8StringEncoding);
+#endif
 	NS::Error *err;
-	auto library = g_device->newLibrary(
-		NS::String::string(G_METALLIB_PATH, NS::UTF8StringEncoding), &err);
+	auto library = g_device->newLibrary(path, &err);
 	g_check_error(err, "Failed to load shaders.metallib");
 
 	return library;
