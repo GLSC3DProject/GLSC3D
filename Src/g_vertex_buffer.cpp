@@ -306,6 +306,12 @@ void g_vertex_buffer_flush()
 		g_quit();
 	}
 
+	if (!g_current_scale_ptr->is_3D && g_current_2d_depth >= (1 << 24)) {
+		printf("Too many 2D objects\n");
+		printf("Maximum supported number of 2D primitives: (1 << 24)\n");
+		g_quit();
+	}
+
 	g_vertex_buffer_triangles.flush();
 	g_vertex_buffer_lines.flush();
 	g_vertex_buffer_points.flush();
