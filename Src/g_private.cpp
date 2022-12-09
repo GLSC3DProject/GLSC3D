@@ -1,4 +1,5 @@
 #include "glsc3d_3_private.h"
+#include <cstring>
 
 #define MINIMIM_SIZE (1 << 12)
 
