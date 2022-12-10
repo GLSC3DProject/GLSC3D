@@ -271,7 +271,8 @@ void g_sleep(double wait_time)
 		while (SDL_WaitEvent(&event)) {
 			g_check_event(event);
 
-			if (event.type == SDL_KEYUP || event.type == SDL_MOUSEBUTTONUP) {
+			if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP ||
+				event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP) {
 				return;
 			}
 		}

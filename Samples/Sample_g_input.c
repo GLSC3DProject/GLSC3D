@@ -41,7 +41,7 @@ int main()
 			break;
 
 		text_y = 40;
-		if (count++ / 32 % 2 == 0)
+		if (count++ % 2 == 0)
 			g_text_2D_virtual(text_x, text_y, "Please input any key or click");
 		else
 			g_text_2D_virtual(text_x, text_y, "Please input any key or click:");
@@ -53,7 +53,7 @@ int main()
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse state : %s", state_string[mouse_state]);
 
 		g_finish();
-//		g_sleep(0.1);
+		g_sleep(-1);
 		fflush(stdout);
 	}
 }
