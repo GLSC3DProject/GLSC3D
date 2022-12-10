@@ -54,6 +54,5 @@ int main()
 
 		g_finish();
 		g_sleep(-1);
-		fflush(stdout);
 	}
 }
