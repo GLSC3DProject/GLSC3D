@@ -130,7 +130,7 @@ void g_text_buffer_size_update()
 
 void g_text_buffer_clear()
 {
-	memset(g_text_buffer, 0, glsc3D_width * glsc3D_height);
+	memset(g_text_buffer, 0, glsc3D_width * glsc3D_height * sizeof(G_UCHAR4));
 }
 
 static void g_text_buffer_write(int x, int y, int w, int h, const unsigned char *data)
