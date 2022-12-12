@@ -12,7 +12,8 @@ Manual/GLSC3D_Manual.*
 
 cmake-build-debug/
 Out/
-OutXcode/
+
+Shaders/shaders.air
 
 Samples/*
 !Samples/CMakeLists.txt
