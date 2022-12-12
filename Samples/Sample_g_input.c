@@ -6,7 +6,7 @@ int main()
 {
 	int down_x = 65536, down_y = 65536, up_x = 65536, up_y = 65536, x, y;
 	int key = 0;
-	int text_y = 20, text_x = 20, text_height = 25;
+	int text_y = 20, text_x = 20, text_height = 5;
 	int count = 0;
 	const char* state_string[] = { "G_NONE", "G_DOWN", "G_UP", "G_REPEAT" };
 
@@ -40,16 +40,22 @@ int main()
 		if (500 <= up_x && up_x <= 620 && 20 <= up_y && up_y <= 140)
 			break;
 
+		g_text_color(0, 0, 0, 1);
 		text_y = 40;
 		if (count++ % 2 == 0)
 			g_text_2D_virtual(text_x, text_y, "Please input any key or click");
 		else
 			g_text_2D_virtual(text_x, text_y, "Please input any key or click:");
 
+		g_text_color(1, 0, 0, 1);
 		g_text_2D_virtual(text_x, text_y += text_height, "Input character  %s", g_key_code_string[key]);
+		g_text_color(1, 1, 0, 1);
 		g_text_2D_virtual(text_x, text_y += text_height, "Key state : %s", state_string[g_key_state(key)]);
+		g_text_color(0, 1, 0, 1);
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse down x:%d y:%d", down_x, down_y);
+		g_text_color(0, 1, 1, 1);
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse up   x:%d y:%d", up_x, up_y);
+		g_text_color(0, 0, 1, 1);
 		g_text_2D_virtual(text_x, text_y += text_height, "Mouse state : %s", state_string[mouse_state]);
 
 		g_finish();

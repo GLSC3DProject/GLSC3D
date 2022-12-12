@@ -247,9 +247,7 @@ vertex TextVertexOut text_vs(
 
 fragment float4 text_fs(
 	TextVertexOut fragment_in [[stage_in]],
-	constant float4 &color [[buffer(0)]],
 	texture2d<float, access::read> tex [[texture(0)]])
 {
-	uint2 coord = (uint2)fragment_in.coord;
-	return float4(color.rgb, tex.read(coord).r);
+	return tex.read((uint2)fragment_in.coord);
 }

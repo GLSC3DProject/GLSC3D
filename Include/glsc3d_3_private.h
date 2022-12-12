@@ -12,7 +12,7 @@
 
 // If Enabled:  Font and shader files are specified by relative paths
 // If Disabled: Font and shader files are in "~/glsc3d_runtime"
-//#define G_USE_RELATIVE_RUNTIME_PATH
+#define G_USE_RELATIVE_RUNTIME_PATH
 
 #ifdef G_USE_RELATIVE_RUNTIME_PATH
 #define G_DEFAULT_FONT_PATH "../Install_file_and_script_and_fonts/NotoSansCJKjp-Regular.otf"

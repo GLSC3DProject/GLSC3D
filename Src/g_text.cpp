@@ -38,7 +38,9 @@ struct G_TEXT_APPEARANCE
 
 G_TEXT_APPEARANCE glsc3D_g_def_text[TotalDisplayNumber];
 
-static unsigned char *g_text_buffer = nullptr;
+struct G_UCHAR4 { G_UCHAR r, g, b, a; };
+
+static G_UCHAR4 *g_text_buffer = nullptr;
 
 void g_text_init()
 {
@@ -110,7 +112,7 @@ void g_text_init()
 void g_text_buffer_size_update()
 {
 	free(g_text_buffer);
-	g_text_buffer = g_malloc<unsigned char>(glsc3D_width * glsc3D_height);
+	g_text_buffer = g_malloc<G_UCHAR4>(glsc3D_width * glsc3D_height);
 
 #ifdef G_USE_METAL
 	if (g_texture) g_texture->release();
@@ -118,7 +120,7 @@ void g_text_buffer_size_update()
 	G_AUTO_RELEASE<MTL::TextureDescriptor> desc;
 	desc->setWidth(glsc3D_width);
 	desc->setHeight(glsc3D_height);
-	desc->setPixelFormat(MTL::PixelFormatR8Unorm);
+	desc->setPixelFormat(MTL::PixelFormatRGBA8Unorm);
 	desc->setTextureType(MTL::TextureType2D);
 	desc->setStorageMode(MTL::StorageModeManaged);
 	desc->setUsage(MTL::ResourceUsageRead);
@@ -136,9 +138,15 @@ static void g_text_buffer_write(int x, int y, int w, int h, const unsigned char 
 	int X = std::min(x + w, glsc3D_width);
 	int Y = std::min(y + h, glsc3D_height);
 
+	auto r = (G_UCHAR)(g_current_text_color.r * 255);
+	auto g = (G_UCHAR)(g_current_text_color.g * 255);
+	auto b = (G_UCHAR)(g_current_text_color.b * 255);
+
 	for (int j = std::max(y, 0); j < Y; j++) {
 		for (int i = std::max(x, 0); i < X; i++) {
-			g_text_buffer[glsc3D_width * j + i] = data[w * (j - y) + (i - x)];
+			G_UCHAR s = data[w * (j - y) + (i - x)];
+			if (s == 0) continue;
+			g_text_buffer[glsc3D_width * j + i] = { r, g, b, (G_UCHAR)(g_current_text_color.a * (float)s) };
 		}
 	}
 }
@@ -222,9 +230,8 @@ void g_text_buffer_present()
 		{ 1,  1, (float)width, 0}
 	};
 
-	g_texture->replaceRegion(MTL::Region(0, 0, width, height), 0, g_text_buffer, width);
+	g_texture->replaceRegion(MTL::Region(0, 0, width, height), 0, g_text_buffer, width * sizeof(G_UCHAR4));
 	g_command_encoder->setVertexBytes(vertices, sizeof(vertices), 0);
-	g_command_encoder->setFragmentBytes(&g_current_text_color, sizeof(G_COLOR), 0);
 	g_command_encoder->setFragmentTexture(g_texture, 0);
 	g_set_viewport(0, 0, width, height);
 	g_command_encoder->drawPrimitives(MTL::PrimitiveTypeTriangleStrip, 0UL, 4UL);
