@@ -262,7 +262,6 @@ void main() {
 const char * const TEXTURE_FRAG_SHADER_SOURCE =
 GLSL_VERSION_DECL R"(
 uniform sampler2D tex;
-uniform vec4 color;
 in vec2 vary_texcoord;
 out vec4 out_color;
 void main() {
@@ -355,11 +354,9 @@ void main() {
 // Fragment shader for rendering text
 const char * const TEXTURE_FRAG_SHADER_SOURCE = GLSL_VERSION_DECL R"(
 uniform sampler2D tex;
-uniform vec4 color;
 varying vec2 vary_texcoord;
-//out vec4 out_color;
 void main() {
-	gl_FragColor = vec4(color.rgb, color.a * texture2D(tex, vary_texcoord).r);
+	gl_FragColor = texture2D(tex, vary_texcoord);
 })";
 
 #endif // G_USE_OPENGL_CORE_PROFILE
