@@ -266,7 +266,7 @@ uniform vec4 color;
 in vec2 vary_texcoord;
 out vec4 out_color;
 void main() {
-	out_color = vec4(color.rgb, color.a * texture(tex, vary_texcoord).r);
+	out_color = texture(tex, vary_texcoord);
 })";
 
 #else // G_USE_CORE_PROFILE

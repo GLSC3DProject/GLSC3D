@@ -230,7 +230,7 @@ void g_text_buffer_present()
 		{ 1,  1, (float)width, 0}
 	};
 
-	g_texture->replaceRegion(MTL::Region(0, 0, width, height), 0, g_text_buffer, width * sizeof(G_UCHAR4));
+	g_texture->replaceRegion(MTL::Region(0, 0, width, height), 0, g_text_buffer, sizeof(G_UCHAR4) * width);
 	g_command_encoder->setVertexBytes(vertices, sizeof(vertices), 0);
 	g_command_encoder->setFragmentTexture(g_texture, 0);
 	g_set_viewport(0, 0, width, height);
@@ -247,10 +247,9 @@ void g_text_buffer_present()
 #endif
 
 	glUniform1i(g_texture_sampler_location, 0);
-	glUniform4fv(g_texture_color_location, 1, &g_current_text_color.r);
 
 	glViewport(0, 0, width, height);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, g_text_buffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, g_text_buffer);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
