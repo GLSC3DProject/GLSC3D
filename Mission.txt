@@ -5,7 +5,7 @@ Metal 対応版 GLSC3D 開発者用ドキュメント
 glsc3d_3_private.h 内の G_USE_METAL の定義によって Metal 対応が有効化される．(Mac OS のみ，デフォルト)
 それが無効のとき，G_USE_OPENGL_CORE_PROFILE の定義によってモダン OpenGL が使用される．(デフォルト)
 Metal とモダン OpenGL で共有できるコードも多いため，
-これらのどちらかが定義されていると自動的に G_USE_VERTEX_BUFFERS が定義される．
+これらのどちらかが定義されていると自動的に G_USE_VERTEX_BUFFERS が定義されてこれも条件分岐に使用される．
 
 G_DISPLAY_DEBUG_MESSAGES を有効化するとウインドウタイトルにデバッグ用メッセージが表示される．
 
