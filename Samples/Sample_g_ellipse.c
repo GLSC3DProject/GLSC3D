@@ -3,6 +3,10 @@
 #include "glsc3d_3.h"
 //#include "glsc3d_3_private.h"
 
+G_VECTOR Rx(G_VECTOR u,G_REAL theta);
+G_VECTOR Ry(G_VECTOR u,G_REAL theta);
+G_VECTOR Rz(G_VECTOR u,G_REAL theta);
+
 #define WINDOW_SIZE_X     (1000)
 #define WINDOW_SIZE_Y     (500)
 

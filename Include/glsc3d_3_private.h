@@ -35,8 +35,6 @@
 #define G_USE_VERTEX_BUFFERS
 #endif
 
-#include "glsc3d_3_private_math.h"
-
 #ifdef __APPLE__
 #ifdef G_USE_METAL
 #include <Foundation/Foundation.hpp>
@@ -159,6 +157,11 @@ G_EMIT_GLEXT(G_EXTERN_DECL_GLEXT);
 
 G_REAL g_direction_phi(G_VECTOR v);
 G_REAL g_direction_theta(G_VECTOR v);
+
+G_VECTOR Rn(G_VECTOR u,G_VECTOR n,G_REAL theta);
+G_VECTOR Rx(G_VECTOR u,G_REAL theta);
+G_VECTOR Ry(G_VECTOR u,G_REAL theta);
+G_VECTOR Rz(G_VECTOR u,G_REAL theta);
 
 G_VECTOR Scaling3Ds(G_VECTOR u,G_VECTOR s);
 

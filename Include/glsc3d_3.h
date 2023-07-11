@@ -39,11 +39,6 @@ typedef int G_BOOL;
 #define DBG_WRITE(...)
 //#define DBG_WRITE(...) fprintf(stderr, "%s:%d In function '%s'", __FILE__, __LINE__, __func__), fprintf(stderr, "  "  __VA_ARGS__), fprintf(stderr, "\n")
 
-G_VECTOR Rn(G_VECTOR u,G_VECTOR n,G_REAL theta);
-G_VECTOR Rx(G_VECTOR u,G_REAL theta);
-G_VECTOR Ry(G_VECTOR u,G_REAL theta);
-G_VECTOR Rz(G_VECTOR u,G_REAL theta);
-
 // ---- g_init.cpp
 
 void g_init_core (
@@ -449,7 +444,7 @@ void g_rectangle_3D(
 
 extern const char *g_key_code_string[];
 
-typedef enum G_INPUT_STATE
+typedef enum
 {
 	G_NONE   = 0,
 	G_DOWN   = 1,
