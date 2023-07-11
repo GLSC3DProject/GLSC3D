@@ -15,7 +15,7 @@ struct G_FLOAT4 {
 //#define G_USE_METAL_BUFFER
 
 #if defined(G_USE_METAL) && !defined(G_USE_METAL_BUFFER)
-#define G_MAX_VERTEX_COUNT (1 << 10)
+#define G_MAX_VERTEX_COUNT (1 << 8)
 #else
 #define G_MAX_VERTEX_COUNT (1 << 16)
 #endif
